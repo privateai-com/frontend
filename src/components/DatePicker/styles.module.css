@@ -1,0 +1,25 @@
+.datePicker {
+  .container {
+    display: flex;
+    align-items: center;
+    
+    .containerInput {
+      width: 144px;
+    }
+
+    .input {
+      width: 144px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .icon {
+      padding: 4px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .calendar {
+  }
+}

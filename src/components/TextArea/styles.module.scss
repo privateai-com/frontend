@@ -1,0 +1,59 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.textarea__container {
+  height: auto;
+  background: none;
+  border: none;
+  
+  width: 100%;
+  height: 100%;
+
+  outline: none;
+  box-sizing: border-box;
+
+  resize: none;
+
+  border-radius: 6px;
+  background: $color-grey5;
+
+  color: $color-green3;
+  font-size: 14px;
+  line-height: 110%;
+
+  padding: 12px;
+
+  &::placeholder {
+    color: $color-grey2;
+    font-weight: 400;
+    font-size: 18px;
+
+    @include tablet {
+      font-size: 14px;
+    }
+  }
+}
+
+.error {
+  border: 1px solid $color-red !important;
+
+  &:hover,
+  &:focus {
+    border: 1px solid $color-red !important;
+  }
+}
+
+.tooltip_error {
+	background-color: $color-grey3 !important;
+	padding: 10px !important;
+	border-radius: 4px !important;
+	z-index: 10000;
+
+	.input_error {
+		max-width: 252px;
+
+		li {
+			margin-left: 16px;
+		}
+	}
+}

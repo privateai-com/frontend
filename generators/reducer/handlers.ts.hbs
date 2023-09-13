@@ -1,0 +1,31 @@
+import { ActionFn } from 'types/redux';
+import { {{ properCase name }}State } from 'types/store/{{ properCase name }}State';
+import { {{ camelCase name }}SetState, {{ camelCase name }}SetStatus } from './actionCreators';
+import { {{ properCase name }}ActionTypes } from './actionsTypes';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type {{ properCase name }}HandlerFn<F extends (...args: any) => any> = ActionFn<{{ properCase name }}State, ReturnType<F>>;
+
+const setState: {{ properCase name }}HandlerFn<typeof {{ camelCase name }}SetState> = (
+  state,
+  { payload },
+) => ({
+  ...state,
+  ...payload,
+});
+
+const setStatus: {{ properCase name }}HandlerFn<typeof {{ camelCase name }}SetStatus> = (
+  state,
+  { payload },
+) => ({
+  ...state,
+  ui: {
+    ...state.ui,
+    [payload.type]: payload.status,
+  },
+});
+
+export const {{ camelCase name }}Handlers = {
+  [{{ properCase name }}ActionTypes.SetState]: setState,
+  [{{ properCase name }}ActionTypes.SetStatus]: setStatus,
+};

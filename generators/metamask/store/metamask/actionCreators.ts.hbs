@@ -1,0 +1,23 @@
+import { MetamaskState, RequestStatus } from 'types';
+import { MetamaskActionTypes } from './actionTypes';
+
+export const metamaskSetState = (payload: Partial<MetamaskState>) => ({
+  type: MetamaskActionTypes.SetState,
+  payload,
+});
+
+export const metamaskConnect = () => ({
+  type: MetamaskActionTypes.Connect,
+});
+
+export const metamaskDisconnect = (payload?: Pick<MetamaskState, 'status'>) => ({
+  type: MetamaskActionTypes.Disconnect,
+  payload,
+});
+
+export const metamaskSetStatus = (
+  payload: { type: MetamaskActionTypes, statusRequest: RequestStatus },
+) => ({
+  type: MetamaskActionTypes.SetStatus,
+  payload,
+});

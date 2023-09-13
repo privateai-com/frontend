@@ -1,0 +1,8 @@
+.eslintrc.js
+next.config.js
+node_modules
+build
+craco.config.js
+.eslintcache
+generators
+src/serviceWorker.ts

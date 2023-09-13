@@ -1,0 +1,63 @@
+import { ApiEndpoint } from 'appConstants';
+import { throwApiError } from 'utils';
+import { api } from 'api';
+
+export const apiAuthLogin = async (
+  username: string,
+  password: string,
+): Promise<{
+  accessToken: string,
+  refreshToken: string,
+}> => {
+  const { data } = await api.post(
+    `${ApiEndpoint.AuthLogin}`,
+    {
+      username,
+      password,
+    },
+  );
+
+  if (data.error) {
+    throwApiError(data);
+  }
+
+  return {
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token, 
+  };
+};
+
+export const apiAuthLogout = async (): Promise<boolean> => {
+  const { data } = await api.post(
+    `${ApiEndpoint.AuthLogout}`,
+  );
+
+  if (data.error) {
+    throwApiError(data);
+  }
+
+  return data;
+};
+
+export const apiAuthRefresh = async (
+  refreshToken: string,
+): Promise<{
+  accessToken: string,
+  refreshToken: string,
+}> => {
+  const { data } = await api.post(
+    `${ApiEndpoint.AuthRefresh}`,
+    {
+      refreshToken,
+    },
+  );
+
+  if (data.error) {
+    throwApiError(data);
+  }
+
+  return {
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token, 
+  };
+};

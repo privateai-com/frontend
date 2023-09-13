@@ -1,0 +1,8 @@
+import { {{ properCase name }}ActionTypes } from 'store/{{ camelCase name }}/actionsTypes';
+import {
+  PartialRecord, RequestStatus, 
+} from 'types';
+
+export interface {{ properCase name }}State {
+  ui: PartialRecord<{{ properCase name }}ActionTypes, RequestStatus>,
+}

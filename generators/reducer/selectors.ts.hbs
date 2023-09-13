@@ -1,0 +1,8 @@
+import { State } from 'types/store';
+
+export const {{ camelCase name }}Selectors = {
+  getProp: <PropKey extends keyof State['{{ camelCase name }}']>(propKey: PropKey) => (
+    state: State,
+  ) => state.{{ camelCase name }}[propKey],
+  getStatus: <T extends keyof State['{{ camelCase name }}']['ui']>(propKey: T) => (state: State) => state.{{ camelCase name }}.ui[propKey],
+};

@@ -1,0 +1,37 @@
+import { LAMPORTS_PER_SOL, TransactionSignature } from '@solana/web3.js';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useCallback } from 'react';
+import { notification } from 'antd';
+import { NotifyTx } from 'components';
+
+export const useRequestAirdrop = () => {
+  const { connection } = useConnection();
+  const { publicKey } = useWallet();
+
+  return useCallback(async () => {
+    if (!publicKey) {
+      notification.error({
+        message: 'Wallet not connected!',
+      });
+      return;
+    }
+
+    let signature: TransactionSignature = '';
+    try {
+      signature = await connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL);
+      notification.info({
+        message: NotifyTx('Airdrop requested:', signature),
+      });
+
+      await connection.confirmTransaction(signature, 'processed');
+      notification.success({
+        message: NotifyTx('Airdrop successful!', signature),
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      notification.error({
+        message: NotifyTx(`Airdrop failed! ${error?.message}`, signature),
+      });
+    }
+  }, [publicKey, connection]);
+};

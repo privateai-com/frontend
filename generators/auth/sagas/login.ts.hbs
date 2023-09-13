@@ -1,0 +1,32 @@
+import { call, put } from 'redux-saga/effects';
+import { RequestStatus, Unwrap } from 'types';
+import { sagaExceptionHandler } from 'utils';
+import { apiAuthLogin } from 'api';
+import { authLogin, authSetState, authSetStatus } from 'store/auth/actionCreators';
+
+export function* authLoginSaga({
+  type,
+  payload: {
+    login,
+    password,
+  },
+}: ReturnType<typeof authLogin>) {
+  try {
+    yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
+
+    const {
+      accessToken,
+      refreshToken,
+    }: Unwrap<typeof apiAuthLogin> = yield call(apiAuthLogin, login, password);
+
+    yield put(authSetState({
+      accessToken,
+      refreshToken,
+    }));
+
+    yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
+  } catch (e) {
+    sagaExceptionHandler(e);
+    yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
+  }
+}

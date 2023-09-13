@@ -1,0 +1,47 @@
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import {
+  Keypair, SystemProgram, Transaction, TransactionSignature,
+} from '@solana/web3.js';
+import { useCallback } from 'react';
+import { notification } from 'antd';
+import { NotifyTx } from 'components';
+
+export const useSendTransaction = () => {
+  const { connection } = useConnection();
+  const { publicKey, sendTransaction } = useWallet();
+
+  return useCallback(async (lamports: number) => {
+    if (!publicKey) {
+      notification.error({
+        message: 'Wallet not connected!',
+      });
+      return;
+    }
+
+    let signature: TransactionSignature = '';
+    try {
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: Keypair.generate().publicKey,
+          lamports,
+        }),
+      );
+
+      signature = await sendTransaction(transaction, connection);
+      notification.info({
+        message: NotifyTx('Transaction sent:', signature),
+      });
+
+      await connection.confirmTransaction(signature, 'processed');
+      notification.success({
+        message: NotifyTx('Transaction successful!', signature),
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      notification.error({
+        message: NotifyTx(`Transaction failed! ${error?.message}`, signature),
+      });
+    }
+  }, [publicKey, connection, sendTransaction]);
+};

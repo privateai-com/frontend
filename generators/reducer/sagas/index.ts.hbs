@@ -1,0 +1,7 @@
+import { takeLeading } from 'redux-saga/effects';
+import { {{ properCase name }}ActionTypes } from '../actionsTypes';
+import { {{ camelCase name }}GetDataSaga } from './getData';
+
+export default function* {{ camelCase name }}Saga() {
+  yield takeLeading({{ properCase name }}ActionTypes.GetData, {{ camelCase name }}GetDataSaga);
+}

@@ -1,0 +1,9 @@
+import { takeLeading } from 'redux-saga/effects';
+import { AuthActionTypes } from '../actionsTypes';
+import { authLoginSaga } from './login';
+import { authLogoutSaga } from './logout';
+
+export default function* authSaga() {
+  yield takeLeading(AuthActionTypes.Login, authLoginSaga);
+  yield takeLeading(AuthActionTypes.Logout, authLogoutSaga);
+}

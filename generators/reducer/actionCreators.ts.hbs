@@ -1,0 +1,19 @@
+import { RequestStatus } from 'types';
+import { {{ properCase name }}State } from 'types/store/{{ properCase name }}State';
+import { {{ properCase name }}ActionTypes } from './actionsTypes';
+
+export const {{ camelCase name }}SetState = (payload: Partial<{{ properCase name }}State>) => ({
+  type: {{ properCase name }}ActionTypes.SetState,
+  payload,
+});
+
+export const {{ camelCase name }}SetStatus = (
+  payload: { type: {{ properCase name }}ActionTypes, status: RequestStatus },
+) => ({
+  type: {{ properCase name }}ActionTypes.SetStatus,
+  payload,
+});
+
+export const {{ camelCase name }}GetData = () => ({
+  type: {{ properCase name }}ActionTypes.GetData,
+});

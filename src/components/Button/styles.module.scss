@@ -1,0 +1,106 @@
+@import '~@project/libs/assets/styles/mixins';
+@import '~@project/libs/assets/styles/variables';
+
+.button {
+  border-radius: 10px;
+  padding: 3px 24px;
+  box-sizing: border-box;
+  position: relative;  
+  font-family: $montserrat;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  color: $white;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+
+  @include tablet_min {
+    padding: 10px 32px;
+    font-size: 16px;
+  }
+
+  .children_while_loading {
+    opacity: 0;
+  }
+
+  .loader {
+    position: absolute;
+  }
+
+  &.primary {
+    background-color: $blue1;
+    transition: background-color 0.3s;
+
+    &:hover:enabled {
+      background-color: $blue2;
+      box-shadow: 0px 0px 10px $shadow;
+    }
+
+    &:active:enabled {
+      background-color: $blue4;
+      box-shadow: 0px 0px 10px $shadow;
+    }
+
+    &:focus:enabled {
+      background-color: $blue4;
+      box-shadow: 0px 0px 10px $shadow;
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    transition: color .3s;
+
+    &:hover:enabled {
+      color: $blue2;
+    }
+
+    &:active:enabled {
+      color: $blue4;
+    }
+
+    &:focus:enabled {
+      color: $blue1;
+      border: 1px solid $blue1;
+    }
+  }
+
+  &.white {
+    color: $blue2;
+    background-color: $white3;
+    transition: color .3s;
+
+    &:hover:enabled {
+      color: $white;
+      background-color: $blue2;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    &:active:enabled {
+      color: $white;
+      background-color: $blue4;
+    }
+
+    &:focus:enabled {
+      color: $white;
+      background-color: $blue1;
+      border: 1px solid $blue1;
+    }
+  }
+
+  &.full_width {
+    width: 100%;
+  }
+
+}
+
+.disabled {
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $grey8;
+    color: $grey9;
+  }
+}

@@ -1,0 +1,60 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.tabs_container {
+  width: 100%;
+}
+
+.tabs__panel_container {
+  display: grid;
+  grid-auto-flow: column;
+  width: max-content;
+  background-color: $color-black;
+  border-radius: 6px;
+
+  @include tablet {
+    width: 100%;
+  }
+}
+
+.panel__tab_item {
+  cursor: pointer;
+  padding: 12px 28px;
+
+  @include mobile {
+    padding: 10px;
+  }
+
+  & > h6 {
+    color: $color-grey5;
+    font-weight: 400;
+    line-height: 14px;
+
+    @include tablet {
+      font-size: 12px;
+    }
+  }
+}
+
+.tab_active {
+  background-color: $color-grey3;
+  border-radius: 6px;
+  box-shadow: 0px -2px 2px rgba($color-grey7, .25);
+
+  & > h6 {
+    color: $color-green;
+    font-weight: 600;
+
+    @include tablet {
+      color: $color-white;
+    }
+  }
+}
+
+.tabs__tab_container {
+  display: block;
+}
+
+.tab_hidden {
+  display: none;
+}

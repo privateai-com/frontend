@@ -1,0 +1,122 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.pagination_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.page {
+  border-radius: 4px;
+  cursor: pointer;
+  padding-top: 2px;
+  transition: 0.2s;
+  color: $color-white;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  transition: background-color .3s;
+
+  &:hover {
+    background-color: rgba($color-green, .16);
+    color: $color-green;
+  }
+}
+
+.arrow_button {
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: $color-white;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.break {
+  width: 24px;
+  height: 24px;
+
+  &_line {
+    border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: 0.2s;
+    color: $color-white;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 6px 6px;
+      border-color: transparent transparent $color-white transparent;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.page_active {
+  background-color: rgba($color-green, .16);
+  color: $color-green;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.prev_arrow {
+  transform: rotate(-180deg);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: .25;
+}
+
+.move_to {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba($color-white, .85);
+  font-size: 12px;
+}
+
+.move_to_input {
+  background-color: rgba($color-white, .08);
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 7px 8px;
+  color: $color-white;
+  width: 48px;
+
+  &:focus{
+    outline: none;
+  }
+}

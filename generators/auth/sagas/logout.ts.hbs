@@ -1,0 +1,24 @@
+import { call, put } from 'redux-saga/effects';
+import { RequestStatus } from 'types';
+import { sagaExceptionHandler } from 'utils';
+import { apiAuthLogout } from 'api';
+import { authLogout, authSetState, authSetStatus } from 'store/auth/actionCreators';
+
+export function* authLogoutSaga({
+  type,
+}: ReturnType<typeof authLogout>) {
+  try {
+    yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
+    yield call(apiAuthLogout);
+
+    yield put(authSetState({
+      accessToken: undefined,
+      refreshToken: undefined,
+    }));
+
+    yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
+  } catch (e) {
+    sagaExceptionHandler(e);
+    yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
+  }
+}

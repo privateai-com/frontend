@@ -1,0 +1,165 @@
+@import 'assets/styles/_mixins.scss';
+@import 'assets/styles/variables.scss';
+@import 'react-datepicker/dist/react-datepicker.css';
+@import 'rc-time-picker/assets/index.css';
+
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+section,
+article {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0; 
+  font-family: $montserrat;
+}
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 0;
+  color: $color-white;
+  letter-spacing: -0.02em;
+
+  strong {
+    color: $color-white;
+  }
+}
+
+a {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: $color-white;
+}
+
+button {
+  box-shadow: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  color: inherit;
+}
+
+.react-datepicker {
+  background-color: $color-grey6;
+  color: $color-white2;
+}
+
+.react-datepicker__header {
+  background-color: $color-grey6;
+  color: $color-white2;
+}
+
+.react-datepicker__today-button {
+  background-color: $color-grey3;
+  color: $color-green;
+}
+.react-datepicker__day {
+  color: $color-white2; 
+}
+.react-datepicker__current-month {
+  color: $color-white2; 
+}
+.react-datepicker__day-name {
+  color: $color-white2; 
+}
+.react-datepicker__day--selected {
+  background-color: $color-grey3;
+}
+
+.rc-time-picker-input {
+  background-color: $color-grey6 !important;
+  border-radius: 6px;
+  border: 1px solid $color-grey5;
+  background: #2C2C2C; 
+  height: 42px;
+  width: 107px;
+  color: $color-white;
+  font-family: $montserrat;
+  font-size: 14px;
+  text-align: center;
+}
+
+.rc-time-picker-clear {
+  display: none;
+}
+
+.rc-time-picker-panel-input {
+  background-color: $color-grey6 !important;
+  height: 30px;
+  color: $color-white;
+  text-align: center;
+  font-size: 14px;
+}
+
+.rc-time-picker-panel-select {
+  background-color: $color-grey6 !important;
+}
+.rc-time-picker-panel-inner {
+  background-color: $color-grey6;
+}
+.rc-time-picker-panel-select-option-selected {
+  background-color: $color-grey3 !important;
+}
+
+.rc-time-picker-panel-select::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+.rc-time-picker-panel-select::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+}
+ 
+.rc-time-picker-panel-select::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}

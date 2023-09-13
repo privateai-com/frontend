@@ -1,0 +1,52 @@
+import { AxiosError, AxiosRequestConfig } from 'axios';
+import { Dispatch, MiddlewareAPI } from 'redux';
+import { authLogout, authSetState } from 'store/auth/actionCreators';
+import { State } from 'types';
+import { ApiEndpoint } from 'appConstants';
+import { api, apiAuthRefresh } from './index';
+
+export const apiInterceptors = (store: MiddlewareAPI<Dispatch, State>) => {
+  // Pass token to axios
+  api.interceptors.request.use((options: AxiosRequestConfig): AxiosRequestConfig => {
+    const { accessToken } = store.getState().auth;
+    const newOptions = options;
+
+    if (
+      !accessToken ||
+      newOptions.url === ApiEndpoint.AuthRefresh
+    ) {
+      return newOptions;
+    }
+
+    if (newOptions.headers) {
+      newOptions.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return newOptions;
+  });
+
+  // Refresh on 401
+  api.interceptors.response.use((res) => res, async (error: AxiosError) => {
+    const { refreshToken } = store.getState().auth;
+
+    if (
+      error.response?.status === 401 &&
+      refreshToken &&
+      error.config.url !== ApiEndpoint.AuthRefresh
+    ) {
+      if (!error.config.headers) throw error;
+
+      try {
+        // try to refresh token
+        const { accessToken, refreshToken: newRefresh } = await apiAuthRefresh(refreshToken);
+        store.dispatch(authSetState({ accessToken, refreshToken: newRefresh }));
+        return await api(error.config);
+      } catch (e) {
+        store.dispatch(authLogout());
+        // throw original error
+        throw error;
+      }
+    }
+    throw error;
+  });
+};

@@ -1,0 +1,54 @@
+---
+- name: Down old compose
+  docker_compose:
+    project_src: '/opt/{{ CI_PROJECT_NAME }}'
+    state: absent
+  ignore_errors: true
+
+- name: Clean up docker_prune
+  docker_prune:
+    containers: yes
+    images: yes
+    images_filters: 
+      dangling: false
+    networks: yes
+    volumes: no
+    builder_cache: yes
+
+- name: Login to private docker registry
+  docker_login:
+    registry: '{{ CI_REGISTRY }}'
+    username: gitlab-ci-token
+    password: '{{ CI_JOB_TOKEN }}'
+    reauthorize: yes
+
+- name: Pull new images
+  docker_image:
+    repository: '{{ CI_REGISTRY }}'
+    name: '{{ item }}'
+    tag: '{{ CI_COMMIT_REF_NAME }}'
+    source: pull
+    force_source: yes
+  loop:
+    - '{{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_REF_NAME }}'
+
+- name: Create project directory if it does not exist
+  file:
+    path: '/opt/{{ CI_PROJECT_NAME }}'
+    state: directory    
+
+- name: Copy nginx config to instance
+  copy:
+    src: '../nginx.storybook'
+    dest: '/opt/{{ CI_PROJECT_NAME }}/nginx.config'
+
+- name: Copy new compose to instance
+  template:
+    src: 'docker-compose.yml.j2'
+    dest: '/opt/{{ CI_PROJECT_NAME }}/docker-compose.yml'
+
+- name: Up new compose
+  docker_compose:
+    project_src: '/opt/{{ CI_PROJECT_NAME }}'
+    build: no
+    restarted: yes

@@ -1,0 +1,13 @@
+import createReducer from 'utils/createReducer';
+import { RequestStatus } from 'types';
+import { {{ properCase name }}State } from 'types/store/{{ properCase name }}State';
+import { {{ properCase name }}ActionTypes } from './actionsTypes';
+import { {{ camelCase name }}Handlers } from './handlers';
+
+export const {{ camelCase name }}InitialState: Readonly<{{ properCase name }}State> = {
+  ui: {
+    [{{ properCase name }}ActionTypes.GetData]: RequestStatus.INIT,
+  },
+};
+
+export default createReducer({{ camelCase name }}InitialState, {{ camelCase name }}Handlers);

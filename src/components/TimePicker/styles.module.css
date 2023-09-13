@@ -1,0 +1,14 @@
+.timePicker {
+  display: flex;
+  align-items: center;
+  .icon {
+    padding: 4px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.error input {
+  border: 1px solid #DC3545;
+  border-radius: 6px;
+}

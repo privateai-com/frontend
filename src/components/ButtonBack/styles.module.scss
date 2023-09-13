@@ -1,0 +1,20 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.button_back__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: $color-green;
+
+  img {
+    transition: transform .3s;
+  }
+
+  &:hover {
+    img {
+      transform: translateX(-6px);
+    }
+  }
+}

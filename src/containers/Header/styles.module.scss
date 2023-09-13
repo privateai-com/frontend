@@ -1,0 +1,22 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+@media screen and (min-width: $header-modal-breakpoint) {
+	.desktopHeader {
+		display: flex;
+	}
+
+	.mobileHeader {
+		display: none;
+	}
+}
+
+@media screen and (max-width: $header-modal-breakpoint) {
+	.desktopHeader {
+		display: none;
+	}
+
+	.mobileHeader {
+		display: flex;
+	}
+}

@@ -1,0 +1,207 @@
+---
+stages:
+  - build
+  - deploy
+  - logs
+  - post_actions
+
+variables:
+  FF_USE_FASTZIP: "true"
+  ARTIFACT_COMPRESSION_LEVEL: fastest
+  CACHE_COMPRESSION_LEVEL: fast
+  TRANSFER_METER_FREQUENCY: 1s
+  GIT_DEPTH: 1
+  image_ansible: cytopia/ansible:latest-tools
+  services_for_build: "$CI_PROJECT_NAME $CI_PROJECT_NAME-storybook"
+  containers_for_logs: "$CI_PROJECT_NAME $CI_PROJECT_NAME-storybook"
+
+.deploy_prepare:
+  variables:
+    ANSIBLE_HOST_KEY_CHECKING: "False"
+    ANSIBLE_CALLBACKS_ENABLED: "timer, profile_tasks, profile_roles"
+    ANSIBLE_PIPELINING: "True"
+  before_script: 
+    - eval `ssh-agent -s`
+    - echo -n "$SSH_PRIVATE_KEY" | ssh-add -
+
+.build:
+  stage: build
+  script:
+    - echo "Build frontend"
+    - time docker build -f ci_cd/Dockerfile . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - echo "Build storybook"
+    - time docker build -f ci_cd/Dockerfile.storybook . -t $CI_REGISTRY_IMAGE:storybook --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" --cache-from $CI_REGISTRY_IMAGE:storybook
+    - echo "Pushing..."
+    - time docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - time docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - time docker push $CI_REGISTRY_IMAGE:storybook
+
+.deploy:
+  stage: deploy
+  image: $image_ansible
+  script:
+    - ansible-playbook -i ci_cd/ansible/inventory/hosts.yml ci_cd/ansible/main.yml -l $CI_COMMIT_REF_NAME
+      -e "CI_REGISTRY_IMAGE='$CI_REGISTRY_IMAGE'"
+      -e "CI_JOB_TOKEN='$CI_JOB_TOKEN'"
+      -e "CI_REGISTRY='$CI_REGISTRY'"
+      -e "services_for_build='$services_for_build'"
+      -e "CI_PROJECT_NAME='$CI_PROJECT_NAME'"
+      -e "CI_COMMIT_REF_NAME='$CI_COMMIT_REF_NAME'"
+      -e "SERVER_VARIABLE='$SERVER_VARIABLE'"
+
+.get_logs:
+  stage: logs
+  image: $image_ansible
+  script:
+    - mkdir -p ci_cd/logs
+    - ansible-playbook -i ci_cd/ansible/inventory/hosts.yml ci_cd/ansible/fetch_log.yml -l $CI_COMMIT_REF_NAME
+      -e "containers_for_logs='$containers_for_logs'"
+      -e "CI_PROJECT_NAME='$CI_PROJECT_NAME'"
+      -e "SERVER_VARIABLE='$SERVER_VARIABLE'"
+  artifacts:
+    paths: ["ci_cd/logs/*"]
+    expire_in: 3 week
+
+# internal merge
+.merge_devops_to_dev:
+  stage: post_actions
+  image: ubuntu:18.04
+  before_script:
+    - apt-get update -y && apt-get upgrade -y
+    - apt-get install openssh-server git -y 
+    - mkdir ~/.ssh/ && touch ~/.ssh/id_rsa
+    - echo "$SSH_PRIVATE_KEY_GIT" > ~/.ssh/id_rsa
+    - chmod -R 600 ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa $CI_SERVER_HOST >> ~/.ssh/known_hosts
+    - git config --global user.email "repo@sfxdx.com"
+    - git config --global user.name "IntegralTeam"
+    - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
+    - git remote set-url origin $PUSH_REPO
+  script:
+    - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config    
+    - git clone $PUSH_REPO
+    - cd $CI_PROJECT_NAME
+    - git checkout devops
+    - git pull
+    - git checkout develop
+    - git pull
+    - git reset --hard origin/develop
+    - git merge --squash devops
+    - git commit -am "modified CI"
+    - git push origin develop
+    - git push origin --delete devops
+
+# Merge to another branches if needed
+.before_merge:
+  before_script: 
+    - apt-get update -y && apt-get upgrade -y
+    - apt-get install openssh-server git -y 
+    - mkdir ~/.ssh/ && touch ~/.ssh/id_rsa
+    - echo "$SSH_PRIVATE_KEY_GIT" > ~/.ssh/id_rsa
+    - chmod -R 600 ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa $CI_SERVER_HOST >> ~/.ssh/known_hosts
+    - git config --global user.email "repo@sfxdx.com"
+    - git config --global user.name "IntegralTeam"
+    - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
+    - git remote set-url origin $PUSH_REPO
+
+.merge_to_stage:
+  stage: post_actions
+  image: ubuntu:18.04
+  script:
+    - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - git clone $PUSH_REPO
+    - cd $CI_PROJECT_NAME
+    - git checkout $CI_COMMIT_REF_NAME
+    - git pull
+    - git checkout stage
+    - git fetch --all
+    - git pull
+    - git reset --hard origin/stage
+    - git merge $CI_COMMIT_REF_NAME
+    - git push origin stage
+
+# build
+Build and publish:
+  extends:
+    - .build
+  needs: []
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "devops"'
+      variables:
+        SERVER_VARIABLE: $DEV_SERVER_IP
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
+      variables:
+        SERVER_VARIABLE: $DEV_SERVER_IP
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "stage"'
+      variables:
+        SERVER_VARIABLE: $STAGE_SERVER_IP
+      when: on_success
+
+# deploy
+Deploy:
+  extends:
+    - .deploy_prepare
+    - .deploy
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "devops"'
+      variables:
+        SERVER_VARIABLE: $DEV_SERVER_IP
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
+      variables:
+        SERVER_VARIABLE: $DEV_SERVER_IP
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "stage"'
+      variables:
+        SERVER_VARIABLE: $STAGE_SERVER_IP
+      when: manual
+  needs:
+    - job: Build and publish
+
+# post actions
+Get logs:
+  extends:
+    - .deploy_prepare
+    - .get_logs
+  dependencies:
+    - Deploy
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "devops"'
+      variables:
+        SERVER_VARIABLE: $DEV_SERVER_IP
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
+      variables:
+        SERVER_VARIABLE: $DEV_SERVER_IP
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "stage"'
+      variables:
+        SERVER_VARIABLE: $STAGE_SERVER_IP
+      when: on_success
+  allow_failure: true
+  needs:
+    - job: Deploy
+
+Deploy to develop:
+  extends:
+    - .deploy_prepare
+    - .merge_devops_to_dev
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "devops"'
+      when: manual
+  needs: []
+
+Deploy to stage:
+  extends:
+    - .deploy_prepare
+    - .before_merge
+    - .merge_to_stage
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
+      when: manual
+  needs: []

@@ -1,0 +1,27 @@
+version: '3.5'                                                              
+
+networks:
+  default:
+    driver: bridge
+    name: {{ CI_PROJECT_NAME }}
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+
+services:
+  {{ CI_PROJECT_NAME }}:
+    image: {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_REF_NAME }}
+    container_name: {{ CI_PROJECT_NAME }}
+    ports:
+      - "3000:3000"
+    restart: always
+
+  {{ CI_PROJECT_NAME }}-storybook:
+    image: {{ CI_REGISTRY_IMAGE }}:storybook
+    container_name: '{{ CI_PROJECT_NAME }}-storybook'
+    volumes:
+      - './nginx.config:/etc/nginx/conf.d/default.conf:rw,z'
+    ports:
+      - "80:80"
+    command: [nginx-debug,'-g','daemon off;']
+    restart: always

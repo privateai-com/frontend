@@ -1,0 +1,125 @@
+@import 'assets/styles/fonts.css';
+@import 'assets/styles/variables.scss';
+
+.h1 {
+  font: {
+    family: $montserrat;
+    size: 32px;
+    weight: bold;
+  }
+  margin: 0;
+  padding: 0;
+  line-height: 38px;
+}
+
+.h2 {
+  font: {
+    family: $montserrat;
+    size: 28px;
+    weight: bold;
+  }
+  margin: 0;
+  padding: 0;
+  line-height: 100%;
+}
+
+.h3 {
+  font: {
+    family: $montserrat;
+    size: 24px;
+    weight: 600;
+  }
+  line-height: 29px;
+  margin: 0;
+  padding: 0;
+}
+
+.h4 {
+  font: {
+    family: $montserrat;
+    size: 24px;
+    weight: 600;
+  }
+  line-height: 29px;
+  margin: 0;
+  padding: 0;
+}
+
+.h5 {
+  font: {
+    family: $montserrat;
+    size: 20px;
+    weight: 600;
+  }
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.h6 {
+  font: {
+    family: $montserrat;
+    size: 16px;
+    weight: 600;
+  }
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.p {
+  font: {
+    family: $montserrat;
+    size: 14px;
+    weight: 500;
+  }
+  margin: 0;
+  padding: 0;
+  line-height: 100%;
+  color: $color-text;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.bold {
+  font: {
+    family: $montserrat;
+    weight: bold;
+  }
+}
+
+.label {
+  font: {
+    family: $montserrat;
+    size: 12px;
+    weight: bold;
+  }
+  line-height: 16px;
+  color: $color-text;
+}
+
+.span {
+  font: {
+    size: 1em;
+    family: inherit;
+  }
+  color: inherit;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.full {
+  text-align: justify;
+}

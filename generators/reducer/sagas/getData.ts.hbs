@@ -1,0 +1,19 @@
+import { put } from 'redux-saga/effects';
+import { sagaExceptionHandler } from 'utils';
+import {
+  RequestStatus,
+} from 'types';
+import { 
+  {{ camelCase name }}SetStatus, {{ camelCase name }}GetData,
+} from 'store/{{ camelCase name }}/actionCreators';
+
+export function* {{ camelCase name }}GetDataSaga({ type }: ReturnType<typeof {{ camelCase name }}GetData>) {
+  try{
+    yield put({{ camelCase name }}SetStatus({ type, status: RequestStatus.REQUEST }));
+
+    yield put({{ camelCase name }}SetStatus({ type, status: RequestStatus.SUCCESS }));
+  } catch (e) {
+    sagaExceptionHandler(e);
+    yield put({{ camelCase name }}SetStatus({ type, status: RequestStatus.ERROR }));
+  }
+}

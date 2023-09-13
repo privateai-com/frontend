@@ -1,0 +1,13 @@
+import React from 'react';
+import { Space } from 'antd';
+import { SelectOutlined } from '@ant-design/icons';
+
+export const NotifyTx = (message: string, signature: string) => (
+  <Space>
+    {message}
+    <a href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`} target="_blank" rel="noreferrer">
+      Transaction
+      <SelectOutlined />
+    </a>
+  </Space>
+);

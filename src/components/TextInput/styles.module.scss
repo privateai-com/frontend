@@ -1,0 +1,109 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.input__container {
+	.input__label {
+		margin-bottom: 8px;
+
+		font-size: 20px;
+		line-height: 24px;
+		color: $color-white;
+
+		width: 100%;
+		justify-content: flex-start;
+		text-align: left;
+	}
+
+	.input__box {
+		position: relative;
+
+		.input {
+			font-family: $montserrat;
+			font-weight: 400;
+
+			grid-area: input;
+			border: 1px solid $color-grey5;
+			background: $color-grey6;
+			height: 42px;
+			outline: 0;
+			font-size: 16px;
+			line-height: 18px;
+			color: $color-white2;
+			border-radius: 6px;
+			padding: 0 14px;
+
+			&:hover,
+			&:focus {
+				border: 1px solid $color-green;
+			}
+
+			&:disabled {
+				border: 1px solid $color-grey;
+				background-color: $color-grey;
+			}
+
+			&_search {
+				padding-left: 52px;
+				border: 1px solid $color-grey4;
+				background: $color-grey3;
+			}
+		}
+
+		&_error {
+			.input {
+				border: 1px solid $color-red;
+
+				&:hover,
+				&:focus {
+					border: 1px solid $color-red;
+				}
+			}
+		}
+	}
+
+	.glass {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 17px;
+		padding: 0;
+		border: none;
+		font: inherit;
+		color: inherit;
+		background-color: transparent;
+
+		@include mobile {
+			left: 14px;
+		}
+	}
+
+	::placeholder {
+		color: $color-white2;
+		font-size: 16px;
+		line-height: 18px;
+		font-weight: 400;
+	}
+
+	.description {
+		font-size: 12px;
+		color: $color-white2;
+		margin-top: 4px;
+		font-weight: 400;
+		line-height: 14px;
+	}
+}
+
+.tooltip_error {
+	background-color: $color-grey3 !important;
+	padding: 10px !important;
+	border-radius: 4px !important;
+	z-index: 10000;
+
+	.input_error {
+		max-width: 252px;
+
+		li {
+			margin-left: 16px;
+		}
+	}
+}

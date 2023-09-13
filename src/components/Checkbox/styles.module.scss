@@ -1,0 +1,120 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+
+.checkbox_container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+
+    background-color: $color-white;
+    border: solid 1px $color-grey9;
+    position: relative;
+
+    transition: all .3s;
+
+    &:hover:enabled {
+      border: solid 1px $color-green;
+    }
+
+    &:active:enabled {
+      border: solid 1px $color-green;
+    }
+
+    &:focus:enabled {
+      border: solid 1px $color-green;
+    }
+
+    .checkbox_icon {
+      opacity: 0;
+      transition: all .3s;
+      @include mobile {
+        padding: 7px;
+      }
+    }
+
+    .checkbox_icon_checked {
+      opacity: 1;
+    }
+
+    &_error {
+      border: 1px solid $color-red;
+      background-color: $color-red;
+    }
+
+    &_disabled {
+      border: 1px solid $color-grey9;
+      background-color: $color-grey10;
+      cursor: not-allowed;
+    }
+  }
+
+  .checkbox_checked {
+    border: 0;
+    background-color: $color-green;
+
+    &:hover:enabled {
+      background-color: $color-green;
+      border: 0;
+    }
+
+    &:active:enabled {
+      background-color: $color-green;
+      border: 0;
+    }
+
+    &:focus:enabled {
+      background-color: $color-green;
+      border: solid 1px $color-green;
+
+      &:before {
+        border: 0;
+      }
+    }
+  }
+
+  .label {
+    display: flex;
+    flex-direction: row;
+    margin-left: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+
+    &_disabled {
+      color: $color-grey9;
+    }
+  }
+
+  .checkbox_notify {
+    margin-top: -8px;
+    cursor: pointer;
+  }
+
+  .tooltip_notify {
+    background-color: $color-grey3 !important;
+    padding: 10px !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba($color-white, .12) !important;
+    z-index: 2;
+   
+    @include tablet {
+      max-width: 330px;
+    }
+  }
+}
+
+
+
+

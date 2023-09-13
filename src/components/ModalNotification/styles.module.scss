@@ -1,0 +1,78 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.modalNot_container {
+	width: 280px;
+	height: auto;
+	padding: 8px;
+	background-color: $color-white;
+	box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
+	position: fixed;
+	top: 78px;
+	right: 0px;
+	z-index: 10000;
+	border-radius: 14px;
+	box-sizing: border-box;
+
+}
+
+.hidden {
+	animation-name: hidden;
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
+	display: none;
+	@include mobile {
+		animation-name: hiddenMobile;
+	}
+}
+
+@keyframes hidden {
+	0% {
+		margin-right: 30px;
+	}
+	100% {
+		margin-right: -310px;
+		display: none;
+	}
+}
+@keyframes hiddenMobile {
+	0% {
+		margin-right: 30px;
+	}
+	100% {
+		margin-right: -610px;
+		display: none;
+	}
+}
+
+.visible {
+	animation-name: sliding;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	display: block;
+	@include mobile {
+		animation-name: slidingMobile;
+	}
+}
+
+@keyframes sliding {
+	0% {
+		display: block;
+		margin-right: -310px;
+	}
+	100% {
+		display: block;
+		margin-right: 30px;
+	}
+}
+@keyframes slidingMobile {
+	0% {
+		display: block;
+		margin-right: -610px;
+	}
+	100% {
+		display: block;
+		margin-right: 12px;
+		margin-left: 12px;
+	}
+}

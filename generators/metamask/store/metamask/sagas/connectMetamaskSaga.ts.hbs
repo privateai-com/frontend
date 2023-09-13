@@ -1,0 +1,190 @@
+import { EventChannel, eventChannel } from 'redux-saga';
+import {
+  call,
+  put,
+  takeLatest,
+  select,
+} from 'redux-saga/effects';
+import detectEthereumProvider from '@metamask/detect-provider';
+import {
+  MetamaskProvider,
+  MetamaskStatus,
+  MetamaskRequestMethod,
+  Web3Event, RequestStatus,
+} from 'types';
+import {
+  notificationText,
+  Network,
+} from 'appConstants';
+import {
+  getNetworkName, getMetamaskChainId, sagaExceptionHandler,
+} from 'utils';
+import { notification } from 'antd';
+import {
+  metamaskSetState, metamaskDisconnect, metamaskSetStatus, metamaskConnect,
+} from '../actionCreators';
+import { metamaskSelectors } from '../selectors';
+import { MetamaskActionTypes } from '../actionTypes';
+
+let metamaskProvider: MetamaskProvider;
+
+function createEthereumProviderChannel() {
+  return eventChannel((emit) => {
+    const accountChangeHandler = (addressesOtherAccount: string[]) => {
+      emit({
+        event: Web3Event.accountsChanged,
+        addressesOtherAccount,
+      });
+    };
+
+    const disconnectHandler = () => {
+      emit({
+        event: Web3Event.disconnect,
+      });
+    };
+
+    const changeNetwork = (id?: string) => {
+      emit({
+        event: Web3Event.chainChanged,
+        id,
+      });
+    };
+
+    metamaskProvider.on(Web3Event.accountsChanged, accountChangeHandler);
+    metamaskProvider.on(Web3Event.disconnect, disconnectHandler);
+    metamaskProvider.on(Web3Event.chainChanged, changeNetwork);
+
+    return () => {};
+  });
+}
+
+function* handlePayload({
+  event,
+  id,
+  addressesOtherAccount,
+}: { event: Web3Event, addressesOtherAccount: string[], id?: string }) {
+  try {
+    if (event === Web3Event.chainChanged) {
+      yield put(metamaskSetStatus({
+        type: MetamaskActionTypes.Connect,
+        statusRequest: RequestStatus.REQUEST,
+      }));
+      yield put(metamaskSetState({
+        status: MetamaskStatus.LOADING,
+      }));
+
+      const network = getNetworkName(id);
+      if (network) {
+        yield put(metamaskSetStatus({
+          type: MetamaskActionTypes.Connect,
+          statusRequest: RequestStatus.SUCCESS,
+        }));
+        yield put(metamaskSetState({
+          status: MetamaskStatus.CONNECTED,
+          network,
+        }));
+        notification.destroy();
+      } else {
+        yield put(metamaskSetStatus({
+          type: MetamaskActionTypes.Connect,
+          statusRequest: RequestStatus.ERROR,
+        }));
+        yield put(metamaskSetState({ status: MetamaskStatus.NOT_SUPPORT }));
+        notification.error({
+          message: notificationText.notSupportNetwork,
+          duration: 0,
+        });
+      }
+    }
+
+    if (event === Web3Event.accountsChanged) {
+      if (addressesOtherAccount && addressesOtherAccount.length !== 0) {
+        const address = addressesOtherAccount[0];
+
+        yield put(metamaskSetStatus({
+          type: MetamaskActionTypes.Connect,
+          statusRequest: RequestStatus.SUCCESS,
+        }));
+        yield put(metamaskSetState({
+          status: MetamaskStatus.CONNECTED,
+          address,
+        }));
+        notification.success({
+          message: notificationText.accountChanged,
+        });
+      } else {
+        yield put(metamaskDisconnect({
+          status: MetamaskStatus.LOST,
+        }));
+      }
+    }
+  } catch (err) {
+    yield put(metamaskSetStatus({
+      type: MetamaskActionTypes.Connect,
+      statusRequest: RequestStatus.ERROR,
+    }));
+    sagaExceptionHandler(err);
+  }
+}
+
+export function* connectMetamaskSaga({ type }: ReturnType<typeof metamaskConnect>) {
+  try {
+    yield put(metamaskSetStatus({ type, statusRequest: RequestStatus.REQUEST }));
+    yield put(metamaskSetState({
+      status: MetamaskStatus.LOADING,
+    }));
+    metamaskProvider = yield detectEthereumProvider();
+    if (!metamaskProvider || !metamaskProvider.isMetaMask) {
+      yield put(metamaskDisconnect({ status: MetamaskStatus.LOST }));
+      notification.error({
+        message: notificationText.installMetamask,
+        duration: 0,
+      });
+    }
+    if (metamaskProvider) {
+      const addresses: string[] = yield metamaskProvider.request({
+        method: MetamaskRequestMethod.eth_requestAccounts,
+      });
+
+      const metamaskProviderChannel: EventChannel<unknown> =
+        yield call(createEthereumProviderChannel);
+
+      yield takeLatest(metamaskProviderChannel, handlePayload);
+
+      if (!addresses.length) {
+        yield put(metamaskDisconnect({
+          status: MetamaskStatus.NOT_AVAILABLE,
+        }));
+        return;
+      }
+      const networkId: string = yield call(getMetamaskChainId);
+      const network: Network | null = getNetworkName(networkId);
+
+      if (network) {
+        const status: MetamaskStatus = yield select(metamaskSelectors.getProp('status'));
+        if (status === MetamaskStatus.LOST) {
+          return;
+        }
+        yield put(metamaskSetStatus({ type, statusRequest: RequestStatus.SUCCESS }));
+        yield put(metamaskSetState({
+          status: MetamaskStatus.CONNECTED,
+          address: addresses[0],
+        }));
+        notification.destroy();
+      } else {
+        yield put(metamaskDisconnect({
+          status: MetamaskStatus.NOT_SUPPORT,
+        }));
+        notification.info({
+          message: notificationText.wrongNetwork('Binance'),
+        });
+      }
+    }
+  } catch (err) {
+    yield put(metamaskSetStatus({ type, statusRequest: RequestStatus.ERROR }));
+    yield put(metamaskSetState({
+      status: MetamaskStatus.NOT_AVAILABLE,
+    }));
+    sagaExceptionHandler(err);
+  }
+}

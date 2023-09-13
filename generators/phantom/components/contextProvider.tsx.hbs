@@ -1,0 +1,58 @@
+import { WalletModalProvider as AntDesignWalletModalProvider } from '@solana/wallet-adapter-ant-design';
+import { WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import {
+  LedgerWalletAdapter,
+  PhantomWalletAdapter,
+  SlopeWalletAdapter,
+  SolflareWalletAdapter,
+  SolletExtensionWalletAdapter,
+  SolletWalletAdapter,
+  TorusWalletAdapter,
+} from '@solana/wallet-adapter-wallets';
+import { clusterApiUrl } from '@solana/web3.js';
+import React, {
+  FC, ReactNode, useCallback, useMemo,
+} from 'react';
+import { notification } from 'antd';
+
+export const ContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const network = WalletAdapterNetwork.Devnet;
+
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+
+  const wallets = useMemo(
+    () => [
+      new PhantomWalletAdapter(),
+      new SlopeWalletAdapter(),
+      new SolflareWalletAdapter({ network }),
+      new TorusWalletAdapter(),
+      new LedgerWalletAdapter(),
+      new SolletWalletAdapter({ network }),
+      new SolletExtensionWalletAdapter({ network }),
+    ],
+    [network],
+  );
+
+  const onError = useCallback(
+    (error: WalletError) => {
+      notification.error({
+        message: 'Error',
+        description: error.message ? `${error.name}: ${error.message}` : error.name,
+      });
+      // eslint-disable-next-line no-console
+      console.error(error);
+    },
+    [],
+  );
+
+  return (
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} onError={onError}>
+        <AntDesignWalletModalProvider>
+          {children}
+        </AntDesignWalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
+};

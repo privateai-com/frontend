@@ -1,0 +1,66 @@
+@import "assets/styles/variables.scss";
+@import 'assets/styles/_mixins.scss';
+
+.outside_container {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 1000;
+
+  background: $color-modal-background-outside;
+}
+
+.modal_container {
+  position: relative;
+  height: auto;
+  min-height: 200px;
+  width: 600px;
+  background: $color-modal-background;
+  box-shadow: -4px 4px 10px 0px rgba(32, 205, 126, 0.15);
+  border: 1px solid;
+  border-color: transparent;
+  border-image: linear-gradient(to bottom, rgb(32, 205, 126), rgba(209, 231, 221, 0.21)) 1;
+
+  @include mobile {
+    width: calc(100vw - 34px);
+    height: auto;
+    margin: 0px 17px;
+  }
+}
+
+.warning {
+  border-image: linear-gradient(to bottom, rgb(191, 103, 70), rgba(191, 103, 70, 0.2)) 1;
+}
+
+.header_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  padding-top: 32px;
+  width: 100%;
+  text-align: center;
+  color: $color-green;
+  font-size: 30px;
+  font-family: $montserrat;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.buttonClose {
+  position: absolute;
+
+  top: 0px;
+  right: 0px;
+}

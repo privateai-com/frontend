@@ -1,0 +1,8 @@
+import { AuthActionTypes } from 'store/auth/actionsTypes';
+import { PartialRecord, RequestStatus } from 'types';
+
+export interface AuthState {
+  ui: PartialRecord<AuthActionTypes, RequestStatus>,
+  accessToken?: string
+  refreshToken?: string
+}

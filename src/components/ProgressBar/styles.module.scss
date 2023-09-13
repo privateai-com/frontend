@@ -1,0 +1,33 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.progress_bar_container {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  border-radius: 2px;
+  background-color: $color-grey5;
+  text-align: center;
+
+  p {
+    position: relative;
+    z-index: 1;
+    line-height: 1.3;
+    font-size: 12px;
+    font-family: $montserrat;
+    font-weight: 400;
+  }
+
+  .progress_bar {
+    height: 100%;
+    border-radius: inherit;
+    background-color: $color-brown;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &.complete {
+      background-color: $color-green;
+    }
+  }
+}
