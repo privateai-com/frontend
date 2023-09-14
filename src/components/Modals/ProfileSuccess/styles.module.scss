@@ -1,0 +1,103 @@
+@import "assets/styles/variables.scss";
+@import 'assets/styles/_mixins.scss';
+
+.modal {
+  width: 840px;
+
+  padding: 50px;
+
+  @include desktop1440 {
+		padding: 30px;
+    width: 700px;
+	}
+
+  @include mobile {
+    width: 100%;
+    padding: 15px;
+  }
+
+  & > h3 {
+    padding: 0 42px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+
+    @include desktop1440 {
+      padding: 0;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 32px;
+    }
+
+    @include mobile {
+      font-size: 14px;
+      line-height: 17px;
+      padding: 0 20px;
+    }
+  }
+
+  & > h2 {
+    padding: 0 42px;
+    text-align: center;
+    margin-bottom: 37px;
+    color: $color-grey;
+    font-weight: 400;
+
+    @include mobile {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+}
+
+.buttons_wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 9px;
+    border: 1px solid $color-green;
+    border-radius: 16px;
+    padding: 30px 22px;
+    width: 47%;
+    font-size: 24px;
+    font-weight: 700;
+    color: $color-grey;
+    transition: background-color .3s;
+
+    &:hover {
+      background-color: rgba($color-green, .3);
+    }
+
+    @include desktop1440 {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 32px;
+    }
+
+    @include mobile {
+      font-size: 14px;
+      line-height: 17px;
+      padding: 7px 16px;
+    }
+
+    img {
+      width: 105px;
+      height: 105px;
+
+      @include desktop1440 {
+        width: 74px;
+        height: 74px;
+      }
+  
+      @include mobile {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+}

@@ -15,7 +15,6 @@ export const Notification: FC<NotificationProps> = ({
 }) => (
   <ModalBase
     isWithCloseButton
-    title="Notification!"
     classNameModal={styles.modal}
     closeModal={onCloseModal}
   >

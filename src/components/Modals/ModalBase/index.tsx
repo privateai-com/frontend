@@ -9,16 +9,14 @@ import styles from './styles.module.scss';
   
 type ModalBaseProps = {
   children: ReactNode,
-  title?: string,
   classNameModal?: string,
-  classNameTitle?: string,
   isWarning?: boolean,
   isWithCloseButton?: boolean,
   closeModal: () => void,
 };
   
 export const ModalBase: FC<ModalBaseProps> = ({
-  children, classNameModal = '', title, classNameTitle = '',
+  children, classNameModal = '',
   isWarning, isWithCloseButton, closeModal,
 }) => (
   <div
@@ -33,21 +31,12 @@ export const ModalBase: FC<ModalBaseProps> = ({
         classNameModal,
       )}
     >
-      {title && (
-      <div
-        className={cx(styles.header_container)}
-      >
-        <span className={cx(styles.title, classNameTitle)}>{title}</span>
-      </div> 
-      )}
       {isWithCloseButton && (
-      <ButtonIcon 
-        className={cx(styles.buttonClose)} 
-        onClick={closeModal} 
-        image={closeModalIcon} 
-        width={24} 
-        height={24}
-      />
+        <ButtonIcon 
+          className={cx(styles.buttonClose)} 
+          onClick={closeModal} 
+          image={closeModalIcon}
+        />
       )}
       {children} 
     </div>

@@ -1,5 +1,4 @@
 export { useAuth } from './useAuth';
-export * from './useModal';
 export { useFocusEvent, useHoverEvent, useSetFocus } from './eventHooks';
 export { useScreenWidth } from './useScreenWidth';
 export { useDebounce } from './useDebounce';

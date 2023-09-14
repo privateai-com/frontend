@@ -1,4 +1,3 @@
-export { default as maticIcon } from './maticIcon.svg';
 export { default as glassIcon } from './glassIcon.svg';
 export { default as copyIcon } from './copyIcon.svg';
 export { default as disconnectIcon } from './disconnectIcon.svg';
@@ -19,7 +18,6 @@ export { default as PeopleIcon } from './peopleIcon';
 export { default as closeModalIcon } from './closeModal.svg';
 export { default as fileIcon } from './file.svg';
 export { default as trashIcon } from './trash.svg';
-export { default as youtubeIcon } from './youtube.svg';
 export { default as lockIcon } from './lockIcon.svg';
 export { default as unlockIcon } from './unlockIcon.svg';
 export { default as checkboxIcon } from './checkboxIcon.svg';
@@ -28,3 +26,5 @@ export { default as calendarIcon } from './calendar.svg';
 export { default as clockIcon } from './clock.svg';
 export { default as infoIcon } from './infoIcon.svg';
 export { default as editIcon } from './editIcon.svg';
+export { default as documentTextIcon } from './documentText.svg';
+export { default as searchDocumentIcon } from './searchDocument.svg';

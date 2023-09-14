@@ -10,13 +10,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { SagaStore, wrapper } from 'store/configureStore';
 
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 
 import 'assets/styles/styles.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-slidedown/lib/slidedown.css';
 
-const inter = Inter({
+const inter = Montserrat({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
 });

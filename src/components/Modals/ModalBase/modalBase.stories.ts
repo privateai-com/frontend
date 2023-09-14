@@ -14,20 +14,5 @@ type Story = StoryObj<typeof ModalBase>;
 
 export const Standard: Story = {
   args: {
-    title: 'Notification!',
-  },
-};
-
-export const WithClose: Story = {
-  args: {
-    title: 'Notification!',
-    isWithCloseButton: true,
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    title: 'Warning!',
-    isWarning: true,
   },
 };

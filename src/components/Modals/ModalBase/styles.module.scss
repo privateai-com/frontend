@@ -23,17 +23,17 @@
   position: relative;
   height: auto;
   min-height: 200px;
-  width: 600px;
-  background: $color-modal-background;
-  box-shadow: -4px 4px 10px 0px rgba(32, 205, 126, 0.15);
+  background-color: $color-white;;
+  box-shadow: -4px 4px 10px 0px rgba(143, 155, 186, 0.2);
   border: 1px solid;
   border-color: transparent;
-  border-image: linear-gradient(to bottom, rgb(32, 205, 126), rgba(209, 231, 221, 0.21)) 1;
+  border-radius: 16px;
 
   @include mobile {
-    width: calc(100vw - 34px);
+    width: calc(100vw - 30px) !important;
     height: auto;
-    margin: 0px 17px;
+    margin: 0px 15px;
+    border-radius: 8px;
   }
 }
 
@@ -47,20 +47,29 @@
   justify-content: space-between;
 }
 
-.title {
-  padding-top: 32px;
-  width: 100%;
-  text-align: center;
-  color: $color-green;
-  font-size: 30px;
-  font-family: $montserrat;
-  font-weight: 600;
-  line-height: 18px;
-}
-
 .buttonClose {
   position: absolute;
 
-  top: 0px;
-  right: 0px;
+  top: 30px;
+  right: 30px;
+
+  @include desktop1440 {
+    top: 20px;
+    right: 20px;
+  }
+
+  @include mobile {
+    top: 15px;
+    right: 15px;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  
+    @include mobile {
+      width: 15px;
+      height: 15px;
+    }
+  }
 }

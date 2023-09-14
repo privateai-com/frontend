@@ -1,6 +1,3 @@
-import {
-  maticIcon,
-} from 'assets/img';
 import { StaticImageData } from 'next/image';
 
 export enum Network {
@@ -45,7 +42,11 @@ export const chains: Chains = {
     },
     rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
     blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
-    image: maticIcon,
+    image: {
+      src: '',
+      height: 0,
+      width: 0,
+    },
   },
 };
 
