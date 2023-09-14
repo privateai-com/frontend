@@ -90,17 +90,17 @@ button {
 }
 
 .react-datepicker {
-  background-color: $color-grey6;
+  background-color: $color-grey;
   color: $color-white2;
 }
 
 .react-datepicker__header {
-  background-color: $color-grey6;
+  background-color: $color-grey;
   color: $color-white2;
 }
 
 .react-datepicker__today-button {
-  background-color: $color-grey3;
+  background-color: $color-grey;
   color: $color-green;
 }
 .react-datepicker__day {
@@ -113,13 +113,13 @@ button {
   color: $color-white2; 
 }
 .react-datepicker__day--selected {
-  background-color: $color-grey3;
+  background-color: $color-grey;
 }
 
 .rc-time-picker-input {
-  background-color: $color-grey6 !important;
+  background-color: $color-grey !important;
   border-radius: 6px;
-  border: 1px solid $color-grey5;
+  border: 1px solid $color-grey;
   background: #2C2C2C; 
   height: 42px;
   width: 107px;
@@ -134,7 +134,7 @@ button {
 }
 
 .rc-time-picker-panel-input {
-  background-color: $color-grey6 !important;
+  background-color: $color-grey !important;
   height: 30px;
   color: $color-white;
   text-align: center;
@@ -142,13 +142,13 @@ button {
 }
 
 .rc-time-picker-panel-select {
-  background-color: $color-grey6 !important;
+  background-color: $color-grey !important;
 }
 .rc-time-picker-panel-inner {
-  background-color: $color-grey6;
+  background-color: $color-grey;
 }
 .rc-time-picker-panel-select-option-selected {
-  background-color: $color-grey3 !important;
+  background-color: $color-grey !important;
 }
 
 .rc-time-picker-panel-select::-webkit-scrollbar {

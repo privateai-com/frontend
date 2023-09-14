@@ -6,7 +6,7 @@
   width: 100%;
   height: 16px;
   border-radius: 2px;
-  background-color: $color-grey5;
+  background-color: $color-grey;
   text-align: center;
 
   p {
@@ -21,7 +21,6 @@
   .progress_bar {
     height: 100%;
     border-radius: inherit;
-    background-color: $color-brown;
     position: absolute;
     top: 0;
     left: 0;

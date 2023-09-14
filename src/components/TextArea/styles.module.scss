@@ -15,16 +15,16 @@
   resize: none;
 
   border-radius: 6px;
-  background: $color-grey5;
+  background: $color-grey;
 
-  color: $color-green3;
+  color: $color-green;
   font-size: 14px;
   line-height: 110%;
 
   padding: 12px;
 
   &::placeholder {
-    color: $color-grey2;
+    color: $color-grey;
     font-weight: 400;
     font-size: 18px;
 
@@ -44,7 +44,7 @@
 }
 
 .tooltip_error {
-	background-color: $color-grey3 !important;
+	background-color: $color-grey !important;
 	padding: 10px !important;
 	border-radius: 4px !important;
 	z-index: 10000;

@@ -4,34 +4,68 @@
 .h1 {
   font: {
     family: $montserrat;
-    size: 32px;
+    size: 38px;
     weight: bold;
   }
+  color: $color-black;
   margin: 0;
   padding: 0;
-  line-height: 38px;
+  line-height: 46px;
+
+  @include desktop1440 {
+		font-size: 32px;
+    line-height: 39px;
+	}
+
+  @include mobile {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
 
 .h2 {
   font: {
     family: $montserrat;
-    size: 28px;
+    size: 32px;
     weight: bold;
   }
+  color: $color-black;
   margin: 0;
   padding: 0;
-  line-height: 100%;
+  line-height: 39px;
+
+  @include desktop1440 {
+		font-size: 24px;
+    line-height: 29px;
+	}
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
 
 .h3 {
   font: {
     family: $montserrat;
     size: 24px;
-    weight: 600;
+    weight: 700;
   }
-  line-height: 29px;
+  color: $color-black;
+  line-height: 36px;
   margin: 0;
   padding: 0;
+
+  @include desktop1440 {
+		font-size: 24px;
+    line-height: 36px;
+    font-weight: 500;
+	}
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
 
 .h4 {
@@ -70,13 +104,23 @@
 .p {
   font: {
     family: $montserrat;
-    size: 14px;
+    size: 20px;
     weight: 500;
   }
   margin: 0;
   padding: 0;
-  line-height: 100%;
-  color: $color-text;
+  line-height: 24px;
+  color: $color-grey;
+
+  @include desktop1440 {
+		font-size: 16px;
+    line-height: 19px;
+	}
+
+  @include mobile {
+    font-size: 12px;
+    line-height: 14px;
+  }
 }
 
 .small {
@@ -93,11 +137,21 @@
 .label {
   font: {
     family: $montserrat;
-    size: 12px;
-    weight: bold;
+    size: 20px;
+    weight: 500;
   }
-  line-height: 16px;
-  color: $color-text;
+  line-height: 24px;
+  color: $color-grey;
+
+  @include desktop1440 {
+		font-size: 16px;
+    line-height: 19px;
+	}
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
 
 .span {

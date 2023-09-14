@@ -1,9 +1,6 @@
 import type { Preview } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle';
-
 import '../src/assets/styles/styles.scss';
 
 const preview: Preview = {

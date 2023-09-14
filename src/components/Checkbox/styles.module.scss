@@ -19,7 +19,7 @@
     border-radius: 2px;
 
     background-color: $color-white;
-    border: solid 1px $color-grey9;
+    border: solid 1px $color-grey;
     position: relative;
 
     transition: all .3s;
@@ -54,8 +54,7 @@
     }
 
     &_disabled {
-      border: 1px solid $color-grey9;
-      background-color: $color-grey10;
+      background-color: $color-grey;
       cursor: not-allowed;
     }
   }
@@ -93,7 +92,7 @@
     line-height: 14px;
 
     &_disabled {
-      color: $color-grey9;
+      color: $color-grey;
     }
   }
 
@@ -103,7 +102,7 @@
   }
 
   .tooltip_notify {
-    background-color: $color-grey3 !important;
+    background-color: $color-grey !important;
     padding: 10px !important;
     border-radius: 4px !important;
     border: 1px solid rgba($color-white, .12) !important;

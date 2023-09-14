@@ -111,8 +111,8 @@
 		.textarea {
 			max-width: 400px;
 			min-height: 100px;
-			background-color: $color-grey6;
-			border: 1px solid $color-grey5;
+			background-color: $color-grey;
+			border: 1px solid $color-grey;
 		}
 
 		& > p {
@@ -163,7 +163,7 @@
 
 				.list {
 					border-radius: 6px;
-					border: 1px solid $color-grey5;
+					border: 1px solid $color-grey;
 					background: #2C2C2C;
 
 					@include tablet {
@@ -198,8 +198,7 @@
 	}
 
 	&_disabled {
-		background-color: $color-grey5 !important;
-		border: 1px solid $color-grey5 !important;
+		background-color: $color-grey !important;
 	}
 }
 

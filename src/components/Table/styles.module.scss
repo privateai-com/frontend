@@ -5,18 +5,17 @@
   width: 100%;
   border-spacing: 0 4px;
   border-collapse: separate;
-  background-color: $color-grey3;
+  background-color: $color-grey;
   padding: 2px 18px 20px;
   border-radius: 6px;
   font-weight: 400;
 
   thead {
-    color: $color-grey3;
+    color: $color-grey;
 
     th {
       padding: 0 4px 4px;
       font-size: 12px;
-      color: $color-grey5;
     }
   }
 
@@ -27,19 +26,19 @@
       }
 
       &:not(.td_clear) {
-        background: $color-black2;
-        border-bottom: 1px solid $color-grey4;
-        border-top: 1px solid $color-grey4;
+        background: $color-black;
+        border-bottom: 1px solid $color-grey;
+        border-top: 1px solid $color-grey;
   
         &:first-child {
           border-top-left-radius: 8px;
           border-bottom-left-radius: 8px;
-          border-left: 1px solid $color-grey4;
+          border-left: 1px solid $color-grey;
         }
         &:last-child {
           border-top-right-radius: 8px;
           border-bottom-right-radius: 8px;
-          border-right: 1px solid $color-grey4;
+          border-right: 1px solid $color-grey;
         }
       }
 

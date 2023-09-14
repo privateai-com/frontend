@@ -1,57 +1,39 @@
+@import 'assets/styles/_mixins.scss';
+
 $montserrat: Montserrat;
 
-$color-input-hover-blue: #83a1f4;
-$color-input-focus-blue: #8589f3;
-$color-blue-button: #6888e1;
-$color-click-button: #3e5db5;
-$color-light-gray: #eff4fb;
-$color-heads: #001b48;
-$color-text: #393b6a;
-$color-placeholder: #6b7194;
-$color-tab-line: #6888e1;
-$color-button-border: #cdd2dd;
-$color-text-disabled: #758295;
-$color-background-disabled: #e7ebf1;
-$color-button-disabled: #d6ddee;
-$color-button-completed: #3ac922;
-$color-button-warning: #ffc0c0;
-$color-text-error: #ff3030;
-$color-notice-warning: #ff3030;
-$color-modal-background-outside: rgba(24, 26, 37, 0.5);
+$color-modal-background-outside: rgba(#00140E, 0.5);
 $color-modal-background: rgba(24, 26, 37, 1);
 
 
 $color-white: #ffffff;
 $color-white2: #D1E7DD;
 $color-white3: #F5F5F5;
-$color-black: #000000;
-$color-black2: #0A0F0A;
-$color-orange: #F78011;
-$color-green: #20CD7E;
-$color-green2: #0A854D;
-$color-green3: #D1E7DD;
-$color-grey: #181A25;
-$color-grey2: #8B93A0;
-$color-grey3: #151515;
-$color-grey4: #303241;
-$color-grey5: #656565;
-$color-grey6: #2C2C2C;
-$color-grey7: #858585;
-$color-grey8: #444947;
-$color-grey9: #ABB5BE;
-$color-grey10: #DEE2E6;
-$color-brown: #BF6746;
-$color-red: #DC3545;
 
-$colors: (
-  "green": $color-green,
-);
+$color-black: #00140E;
+
+$color-pink: #F23985;
+
+$color-green: #00DEA3;
+$color-green2: #00D8A0;
+
+$color-grey: #747474;
+// $color-grey2: #8B93A0;
+// $color-grey3: #151515;
+// $color-grey4: #303241;
+// $color-grey5: #656565;
+// $color-grey6: #2C2C2C;
+// $color-grey7: #858585;
+// $color-grey8: #444947;
+// $color-grey9: #ABB5BE;
+// $color-grey10: #DEE2E6;
+// $color-brown: #BF6746;
+$color-red: #DC3545;
 
 $body-bg: $color-grey;
 $body-color: $color-white;
 
 $primary: $color-green;
-$yellow: $color-brown;
 
 $spinner-border-width: 0.063rem;
 

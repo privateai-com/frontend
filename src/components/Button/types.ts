@@ -20,6 +20,7 @@ HTMLButtonElement
   edgingClassName?: string,
   isLoading?: boolean,
   withoutOuterBorder?: boolean;
+  href?: string;
 }>;
 
-export type ButtonTheme = 'primary' | 'secondary' | 'white';
+export type ButtonTheme = 'primary' | 'secondary';

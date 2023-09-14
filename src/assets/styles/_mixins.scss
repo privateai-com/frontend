@@ -22,6 +22,12 @@
 	}
 }
 
+@mixin tablet1024 {
+	@media screen and (max-width: 1024px) {
+		@content;
+	}
+}
+
 @mixin small_desktop {
 	@media screen and (max-width: 912px) {
 		@content;
@@ -46,8 +52,8 @@
 	}
 }
 
-@mixin desktop_xl {
-	@media screen and (max-width: 1400px) {
+@mixin desktop1440 {
+	@media screen and (max-width: 1440px) {
 		@content;
 	}
 }

@@ -2,20 +2,33 @@
 @import 'assets/styles/_mixins.scss';
 
 .button {
-  border-radius: 10px;
-  padding: 3px 24px;
+  border-radius: 8px;
+  padding: 15px 24px;
   box-sizing: border-box;
   position: relative;  
   font-family: $montserrat;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 24px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
   color: $color-white;
   white-space: nowrap;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid transparent;
+  width: fit-content;
+
+  @include desktop1440 {
+		font-size: 16px;
+    line-height: 16px;
+    padding: 12px 24px;
+	}
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 14px;
+    padding: 9px 10px;
+  }
 
   .children_while_loading {
     opacity: 0;
@@ -29,34 +42,38 @@
     background-color: $color-green;
     transition: background-color 0.3s;
 
-    &:hover:enabled {
-      background-color: $color-green;
+    &:hover {
+      background-color: rgba($color-green, .7);
     }
 
     &:active:enabled {
-      background-color: $color-green;
+      background-color: rgba($color-green, .7);
     }
 
     &:focus:enabled {
-      background-color: $color-green;
+      background-color: rgba($color-green, .7);
     }
   }
 
   &.secondary {
-    background-color: transparent;
-    transition: color .3s;
+    background-color: $color-white;
+    color: $color-green;
+    transition: color .3s, background-color .3s;
+    border: 1px solid $color-green;
 
-    &:hover:enabled {
-      color: $color-green;
+    &:hover{
+      background-color: rgba($color-green, .7);
+      color: $color-white;
     }
 
     &:active:enabled {
-      color: $color-green;
+      background-color: rgba($color-green, .7);
+      color: $color-white;
     }
 
     &:focus:enabled {
-      color: $color-green;
-      border: 1px solid $color-green;
+      background-color: rgba($color-green, .7);
+      color: $color-white;
     }
   }
 
@@ -92,7 +109,6 @@
 .disabled {
   &:disabled {
     cursor: not-allowed;
-    background-color: $color-grey8;
-    color: $color-grey9;
+    background-color: $color-grey;
   }
 }

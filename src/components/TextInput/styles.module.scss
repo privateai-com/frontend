@@ -22,8 +22,8 @@
 			font-weight: 400;
 
 			grid-area: input;
-			border: 1px solid $color-grey5;
-			background: $color-grey6;
+			border: 1px solid $color-grey;
+			background: $color-grey;
 			height: 42px;
 			outline: 0;
 			font-size: 16px;
@@ -44,8 +44,8 @@
 
 			&_search {
 				padding-left: 52px;
-				border: 1px solid $color-grey4;
-				background: $color-grey3;
+				border: 1px solid $color-grey;
+				background: $color-grey;
 			}
 		}
 
@@ -94,7 +94,7 @@
 }
 
 .tooltip_error {
-	background-color: $color-grey3 !important;
+	background-color: $color-grey !important;
 	padding: 10px !important;
 	border-radius: 4px !important;
 	z-index: 10000;
