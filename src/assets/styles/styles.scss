@@ -64,11 +64,11 @@ ol {
   font-weight: 500;
   line-height: 150%;
   padding: 0;
-  color: $color-white;
+  color: $color-black;
   letter-spacing: -0.02em;
 
   strong {
-    color: $color-white;
+    color: $color-black;
   }
 }
 
@@ -76,7 +76,7 @@ a {
   position: relative;
   display: inline-block;
   text-decoration: none;
-  color: $color-white;
+  color: $color-black;
 }
 
 button {

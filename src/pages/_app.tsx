@@ -18,7 +18,7 @@ import 'react-slidedown/lib/slidedown.css';
 
 const inter = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 export default wrapper.withRedux(

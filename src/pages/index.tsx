@@ -1,8 +1,8 @@
 import { Layout } from 'components';
-import { Registration, Header } from 'containers';
+import { Header, Profile } from 'containers';
 import { NextPage } from 'next';
 
-const Landing: NextPage = () => (
+const MainPage: NextPage = () => (
   <Layout
     meta={{
       name: 'description',
@@ -14,8 +14,8 @@ const Landing: NextPage = () => (
     }}
     header={(<Header />)}
   >
-    <Registration />
+    <Profile />
   </Layout>
 );
 
-export default Landing;
+export default MainPage;

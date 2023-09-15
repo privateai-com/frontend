@@ -14,6 +14,7 @@ export * from './Carousel';
 export * from './CarouselNavigation';
 export * from './Checkbox';
 export { default as Layout } from './Layout';
+export { default as LayoutAuth } from './LayoutAuth';
 export { Radio } from './Radio';
 export { TextArea } from './TextArea';
 export { Select } from './Select';
