@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import Link from 'next/link';
 
 import { routes } from 'appConstants';
@@ -12,7 +12,11 @@ import { emailValidator, passwordValidator } from 'utils';
 
 import styles from './styles.module.scss';
 
-export const CreateAccount = () => {
+interface CreateAccountProps {
+  onConfirmEmail: (email: string) => void;
+}
+
+export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +36,15 @@ export const CreateAccount = () => {
     setPasswordError(currentPasswordError);
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
-  }, [email, password]);
+
+    const isError = !isNotError 
+     && !currentPasswordError
+     && !currentEmailError;
+
+    if (!isError) {
+      onConfirmEmail(email);
+    }
+  }, [email, isNotError, onConfirmEmail, password]);
 
   const onEmailChange = useCallback((value: string) => {
     setEmailError('');

@@ -1,0 +1,82 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.input_otp__container {
+  width: 100%;
+
+  .input_otp {
+    justify-content: space-between;
+  }
+
+  .input_otp__input {
+    background-color: $color-white;
+    border-radius: 8px;
+    border: 1px solid $color-grey2;
+    justify-content: center;
+
+    width: 50px !important;
+    height: 50px;
+
+    color: $color-grey;
+
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+
+    @include desktop1440 {
+      font-size: 16px;
+      line-height: 20px;
+      width: 40px !important;
+      height: 40px;
+    }
+  
+    @include desktop1024 {
+      font-size: 18px;
+      line-height: 22px;
+      width: 40px !important;
+      height: 40px;
+    }
+  
+    @include mobile {
+      font-size: 14px;
+      line-height: 17px;
+      width: 30px !important;
+      height: 30px;
+    }
+
+    &_error {
+      border: 1px solid $color-red;
+    }
+  }
+
+  &_error {
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+    color: $color-red;
+  }
+}
+
+.input_otp__label {
+  margin-bottom: 8px;
+  color: $color-grey;
+
+  font-size: 20px;
+  line-height: 24px;
+
+  @include desktop1440 {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @include desktop1024 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  @include mobile {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

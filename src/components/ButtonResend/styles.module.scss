@@ -1,0 +1,12 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.buttonResend_container {
+  color: $color-green;
+  text-decoration: underline;
+  transition: opacity .3s;
+
+  &:hover {
+    opacity: .7;
+  }
+}
