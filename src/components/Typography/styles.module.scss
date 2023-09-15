@@ -72,12 +72,28 @@
 .h4 {
   font: {
     family: $montserrat;
-    size: 24px;
-    weight: 600;
+    size: 20px;
+    weight: 700;
   }
-  line-height: 29px;
+  line-height: 32px;
   margin: 0;
   padding: 0;
+  color: $color-black;
+
+  @include desktop1440 {
+		font-size: 16px;
+    line-height: 20px;
+	}
+
+  @include desktop1024 {
+		font-size: 18px;
+    line-height: 22px;
+	}
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
 
 .h5 {

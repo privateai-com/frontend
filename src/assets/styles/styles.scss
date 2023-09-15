@@ -75,8 +75,12 @@ ol {
 a {
   position: relative;
   display: inline-block;
-  text-decoration: none;
-  color: $color-black;
+  color: $color-green;
+  transition: color .3s;
+
+  &:hover {
+    color: rgba($color-green, .7);
+  }
 }
 
 button {

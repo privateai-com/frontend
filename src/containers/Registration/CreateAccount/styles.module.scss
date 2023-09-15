@@ -1,6 +1,129 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
 
-.registration__container {
+.createAccount__container {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 48px 0 10px;
+
+	@include desktop1440 {
+		margin: 25px 0 10px;
+	}
+
+  @include desktop1024 {
+		margin: 50px 0 10px;
+	}
+
+  @include mobile {
+    margin: 32px 0 10px;
+  }
+
+	h4 {
+		color: $color-grey;
+		margin-bottom: 45px;
+
+		@include desktop1440 {
+			margin-bottom: 20px;
+		}
+	
+		@include desktop1024 {
+			margin-bottom: 50px;
+		}
+	
+		@include mobile {
+			margin-bottom: 30px;
+		}
+	}
+
+	p {
+		text-align: center;
+	}
+}
+
+.input__container {
+	margin-bottom: 22px;
+
+	@include desktop1440 {
+		margin-bottom: 8px;
+	}
+
+	@include desktop1024 {
+		margin-bottom: 30px;
+	}
+
+	@include mobile {
+		margin-bottom: 8px;
+	}
+
+	&:last-of-type {
+		margin-bottom: 50px;
+
+		@include desktop1440 {
+			margin-bottom: 20px;
+		}
+	
+		@include desktop1024 {
+			margin-bottom: 75px;
+		}
+
+		@include mobile {
+			margin-bottom: 35px;
+		}
+	}
+}
+
+.description {
+	margin-bottom: 48px;
+
+	@include desktop1440 {
+		margin-bottom: 18px;
+	}
+
+	@include desktop1024 {
+		margin-bottom: 60px;
+	}
+
+	@include mobile {
+		margin-bottom: 34px;
+	}
+}
+
+.button {
+	margin-bottom: 20px;
+	padding: 15px 60px;
+
+	@include desktop1440 {
+		margin-bottom: 15px;
+		padding: 14px 30px;
+	}
+
+	@include desktop1024 {
+		margin-bottom: 60px;
+		padding: 12px 40px;
+	}
+
+	@include mobile {
+		margin-bottom: 34px;
+		padding: 8px 27px;
+	}
+}
+
+.footer_text {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 36px;
+
+	@include desktop1440 {
+		margin-bottom: 16px;
+	}
+
+	@include desktop1024 {
+		margin-bottom: 36px;
+	}
+
+	@include mobile {
+		margin-bottom: 6px;
+	}
 }

@@ -27,8 +27,7 @@ const ExampleCustomInput = forwardRef(
         ref={ref as RefObject<HTMLInputElement>} 
         classNameContainer={styles.containerInput} 
         classNameInput={styles.input}
-        errorId="date-error"
-        errors={errors}
+        error={errors}
       />
       <ButtonIcon image={calendarIcon} onClick={onClick} className={styles.icon} />
     </div>

@@ -2,108 +2,179 @@
 @import 'assets/styles/_mixins.scss';
 
 .input__container {
-	.input__label {
-		margin-bottom: 8px;
+  position: relative;
+  width: 100%;
 
-		font-size: 20px;
-		line-height: 24px;
-		color: $color-white;
+  .label_container {
+    margin-bottom: 8px;
+    display: flex;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
 
-		width: 100%;
-		justify-content: flex-start;
-		text-align: left;
-	}
+    .input__label {
+      display: flex;
+      flex-direction: row;
+      letter-spacing: 0;
+      color: $color-grey;
 
-	.input__box {
-		position: relative;
+      font-size: 20px;
+      line-height: 24px;
 
-		.input {
-			font-family: $montserrat;
-			font-weight: 400;
+      @include desktop1440 {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    
+      @include desktop1024 {
+        font-size: 18px;
+        line-height: 22px;
+      }
+    
+      @include mobile {
+        font-size: 14px;
+        line-height: 17px;
+      }
 
-			grid-area: input;
-			border: 1px solid $color-grey;
-			background: $color-grey;
-			height: 42px;
-			outline: 0;
-			font-size: 16px;
-			line-height: 18px;
-			color: $color-white2;
-			border-radius: 6px;
-			padding: 0 14px;
+      .required {
+        color: $color-green;
+      }
+    }
 
-			&:hover,
-			&:focus {
-				border: 1px solid $color-green;
-			}
+    .input__label_right {
+      margin-left: auto;
+      color: $color-green;
+    }
+  }
 
-			&:disabled {
-				border: 1px solid $color-grey;
-				background-color: $color-grey;
-			}
+  .input__box {
+    overflow: hidden;
+    background-color: $color-white;
+    border: 1px solid $color-grey2;
+    box-shadow: 0px 6px 16px 0px rgba($color-green, .06);
 
-			&_search {
-				padding-left: 52px;
-				border: 1px solid $color-grey;
-				background: $color-grey;
-			}
-		}
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      transition: background-color 50000s ease-in-out 0s, color 5000s ease-in-out 0s;
+    }
 
-		&_error {
-			.input {
-				border: 1px solid $color-red;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
 
-				&:hover,
-				&:focus {
-					border: 1px solid $color-red;
-				}
-			}
-		}
-	}
+    height: 50px;
 
-	.glass {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		left: 17px;
-		padding: 0;
-		border: none;
-		font: inherit;
-		color: inherit;
-		background-color: transparent;
+    @include desktop1440 {
+      height: 40px;
+    }
+  
+    @include desktop1024 {
+      height: 40px;
+    }
+  
+    @include mobile {
+      height: 30px;
+    }
 
-		@include mobile {
-			left: 14px;
-		}
-	}
+    input {
+      grid-area: input;
 
-	::placeholder {
-		color: $color-white2;
-		font-size: 16px;
-		line-height: 18px;
-		font-weight: 400;
-	}
+      color: $color-grey;
+      align-items: center;
+      width: 100%;
+      height: 100%;
 
-	.description {
-		font-size: 12px;
-		color: $color-white2;
-		margin-top: 4px;
-		font-weight: 400;
-		line-height: 14px;
-	}
-}
+      border: 0;
+      outline: 0;
+      padding: 0px 16px 0px 16px;
 
-.tooltip_error {
-	background-color: $color-grey !important;
-	padding: 10px !important;
-	border-radius: 4px !important;
-	z-index: 10000;
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 500;
 
-	.input_error {
-		max-width: 252px;
+      @include desktop1440 {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    
+      @include desktop1024 {
+        font-size: 18px;
+        line-height: 22px;
+      }
+    
+      @include mobile {
+        font-size: 12px;
+        line-height: 17px;
+      }
+    }
 
-		li {
-			margin-left: 16px;
-		}
-	}
+    ::placeholder {
+      font-size: 14px;
+      line-height: 18px;
+      color: $color-grey;
+    }
+
+    .input_icon {
+      height: 100%;
+      width: 48px;
+      margin: 0;
+
+      img {
+        width: 24px;
+        height: 24px;
+
+        @include desktop1440 {
+          width: 20px;
+          height: 20px;
+        }
+      
+        @include desktop1024 {
+          width: 24px;
+          height: 24px;
+        }
+      
+        @include mobile {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .input__suffix {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 18px;
+      color: $color-grey;
+      padding: 0 15px 0 10px;
+    }
+
+    &_error {
+      border: 1px solid $color-red;
+    }
+
+    & .search_icon {
+      padding-left: 20px;
+    }
+  }
+
+  & .input__error {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    color: $color-red;
+  }
+
+  & .input__notification {
+    display: flex;
+    position: absolute;
+    left: calc(100% + 10px);
+    cursor: pointer;
+
+    @include tablet {
+      display: none;
+    }
+  }
 }

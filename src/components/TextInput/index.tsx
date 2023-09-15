@@ -1,158 +1,210 @@
 import React, {
   ChangeEvent,
+  ChangeEventHandler,
+  RefObject,
   memo,
   useCallback,
-  FC,
-  RefObject,
+  useState,
 } from 'react';
 import cx from 'classnames';
-import { Tooltip } from 'react-tooltip';
 import Image from 'next/image';
 
 import { useSetFocus } from 'hooks';
-import { glassIcon } from 'assets/img';
+import {
+  eyeCrossedIcon,
+  eyeIcon,
+  notificationIcon,
+  searchIcon,
+} from 'assets';
 
+import { ButtonIcon } from 'components';
 import styles from './styles.module.scss';
 
 type TextInputProps = {
-  value: string
-  defaultValue?: string
-  name?: string
-  isPassword?: boolean
-  label?: string
-  classNameInput?: string
-  classNameLabel?: string
-  classNameContainer?: string
-  classNameInputError?: string
-  disabled?: boolean
-  autoFocus?: boolean
-  isWithClear?: boolean
-  onChangeValue?: (text: string, name?: string) => void
-  placeholder?: string
-  isTextOnly?: boolean
-  isNumberOnly?: boolean
-  isSearch?: boolean
-  onSearchClick?: ()=> void
-  onClick?: ()=> void
-  description?: string,
-  ref?: RefObject<HTMLInputElement>,
-  errorId?: string;
-  errors?: string[];
+  value: string;
+  defaultValue?: string;
+  name?: string;
+  isPassword?: boolean;
+  label?: string;
+  labelRight?: string;
+  suffix?: string;
+  tokenSymbol?: string;
+  classNameInput?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  classNameInputBox?: string;
+  classNameSuffix?: string;
+  classNameInputError?: string;
+  classNameNotification?: string;
+  disabled?: boolean;
+  isWithClear?: boolean;
+  onChangeValue?: (text: string, name?: string) => void;
+  placeholder?: string;
+  isTextOnly?: boolean;
+  isNumberOnly?: boolean;
+  isRequired?: boolean;
+  tooltipId?: string;
+  error?: string | undefined;
+  onBlur?: ChangeEventHandler<HTMLInputElement>;
+  onFocus?: ChangeEventHandler<HTMLInputElement>;
+  isSearch?: boolean;
+  onClick?: () => void;
+  ref?: RefObject<HTMLInputElement>;
 };
 
-export const TextInput: FC<TextInputProps> = memo<TextInputProps>(
-  ({
-    value,
-    defaultValue,
-    name,
-    label,
-    classNameInput,
-    classNameLabel,
-    classNameContainer,
-    disabled = false,
-    autoFocus = false,
-    onChangeValue,
-    placeholder = '',
-    isNumberOnly,
-    isSearch,
-    onSearchClick,
-    onClick,
-    description,
-    ref,
-    errorId,
-    errors,
-  }) => {
-    const { ref: refRaw, setFocus } = useSetFocus();
+export const TextInput = memo<TextInputProps>(({
+  value,
+  defaultValue,
+  name,
+  label,
+  labelRight,
+  suffix,
+  classNameInput,
+  classNameLabel,
+  classNameContainer,
+  classNameInputBox,
+  classNameSuffix,
+  classNameInputError,
+  classNameNotification,
+  disabled = false,
+  onChangeValue,
+  placeholder = '',
+  isNumberOnly,
+  isPassword,
+  isRequired,
+  tooltipId,
+  error,
+  onBlur,
+  onFocus,
+  onClick,
+  isSearch,
+  ref,
+}) => {
+  const { ref: refRaw, setFocus } = useSetFocus();
 
-    const formatInputToNumber = (input: string) => {
-      let index = 0;
-      // eslint-disable-next-line no-plusplus
-      const inputReplaced = input.replace(/[^\d.,]+/g, '').replace(',', '.').replace(/\./g, (item) => (!index++ ? item : ''));
-  
-      let inputNext = inputReplaced;
-  
-      if (inputNext.startsWith('.')) {
-        inputNext = `0${inputNext}`;
-      }
-      if (inputNext.startsWith('00')) {
-        inputNext = inputNext.replace('00', '0');
-      }
-  
-      return inputNext;
-    };
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-      if (onChangeValue !== undefined) {
-        const nextValue = isNumberOnly ? formatInputToNumber(e.target.value) : e.target.value;
-        onChangeValue(nextValue, name);
-      }
-    }, [onChangeValue, isNumberOnly, name]);
+  const inputType = isPassword && !isPasswordVisible ? 'password' : 'text';
 
-    const pattern = isNumberOnly ? '^[0-9]*' : undefined;
+  const formatInputToNumber = (input: string) => {
+    let index = 0;
+    // eslint-disable-next-line no-plusplus
+    const inputReplaced = input.replace(/[^\d.,]+/g, '').replace(',', '.').replace(/\./g, (item) => (!index++ ? item : ''));
 
-    return (
-      <div className={cx(styles.input__container, classNameContainer)}>
-        {label && (
-          <div
-            className={cx(styles.input__label, classNameLabel)}
-            onClick={setFocus}
-            onKeyPress={undefined}
-            role="button"
-            tabIndex={0}
-          >
-            {label}
-          </div>
-        )}
-        <div className={cx(styles.input__box, {
-          [styles.input__box_error]: errors && errors?.length > 0,
-        })}
+    let inputNext = inputReplaced;
+
+    if (inputNext.startsWith('.')) {
+      inputNext = `0${inputNext}`;
+    }
+    if (inputNext.startsWith('00')) {
+      inputNext = inputNext.replace('00', '0');
+    }
+
+    return inputNext;
+  };
+
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    if (onChangeValue !== undefined) {
+      const nextValue = isNumberOnly ? formatInputToNumber(e.target.value) : e.target.value;
+      onChangeValue(nextValue, name);
+    }
+  }, [onChangeValue, isNumberOnly, name]);
+
+  const onPasswordToggleClick = useCallback(() => {
+    setIsPasswordVisible(!isPasswordVisible);
+  }, [isPasswordVisible]);
+
+  const pattern = isNumberOnly ? '[0-9]*' : undefined;
+
+  const isLabel = label !== undefined || labelRight !== undefined;
+
+  return (
+    <div
+      className={cx(styles.input__container, classNameContainer)}
+    >
+      {isLabel && (
+        <div
+          className={styles.label_container}
+          onClick={setFocus}
+          onKeyPress={undefined}
+          role="button"
+          tabIndex={-1}
         >
-          <input
-            onClick={onClick}
-            ref={refRaw || ref}
-            pattern={pattern}
-            name={name}
-            value={value}
-            type={isNumberOnly ? 'number' : 'text'}
-            className={cx(
-              styles.input,
-              { [styles.input_search]: isSearch },
-              classNameInput,
-            )}
-            disabled={disabled}
-            defaultValue={defaultValue}
-            onChange={handleChange}
-            placeholder={placeholder}
-            min={isNumberOnly ? 0 : undefined}
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus={autoFocus}
-            data-tooltip-id={errorId}
-          />
-          {isSearch && (
-            <button className={styles.glass} onClick={onSearchClick}>
-              <Image src={glassIcon} width={20} height={20} alt="search" />
-            </button>
+          {label !== undefined && (
+            <div className={cx(styles.input__label, classNameLabel)}>
+              {label}
+              {isRequired && <span className={styles.required}>*</span>}
+            </div>
+          )}
+          {labelRight !== undefined && (
+            <div className={cx(styles.input__label_right)}>
+              {labelRight}
+            </div>
           )}
         </div>
-        {description && (
-          <p className={styles.description}>{description}</p> 
+      )}
+      <div
+        className={cx(styles.input__box, classNameInputBox, {
+          [styles.input__box_error]: error,
+        })}
+      >
+        {isSearch && (
+          <Image
+            src={searchIcon}
+            alt="search icon"
+            className={styles.search_icon}
+            width={24}
+            height={24}
+          />
         )}
-        {(errors && errorId) && (
-          <Tooltip
-            id={errorId}
-            place="bottom-end"
-            className={styles.tooltip_error}
+        <input
+          ref={refRaw || ref}
+          pattern={pattern}
+          name={name}
+          value={value}
+          type={inputType}
+          className={classNameInput}
+          disabled={disabled}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+          placeholder={placeholder}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          onClick={onClick}
+        />
+        {isPassword && (
+          <ButtonIcon
+            image={isPasswordVisible ? eyeCrossedIcon : eyeIcon}
+            className={cx(styles.input_icon)}
+            onClick={onPasswordToggleClick}
+          />
+        )}
+        {suffix !== undefined && (
+          <div className={cx(styles.input__suffix, classNameSuffix)}>
+            {suffix}
+          </div>
+        )}
+        {tooltipId && (
+          <button
+            className={cx(styles.input__notification, classNameNotification)}
+            data-for={tooltipId}
+            data-tip
+            data-event="click"
+            type="button"
+            tabIndex={-1}
           >
-            <ul className={styles.input_error}>
-              Please check if you project name complies with the following requirements:
-              {errors.map((err: string, index: number) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <li key={index}>{err}</li>
-              ))}
-            </ul>
-          </Tooltip>
+            <Image
+              src={notificationIcon}
+              alt="notification"
+            />
+          </button>
         )}
       </div>
-    );
-  },
-);
+      {error && (
+        <span className={cx(styles.input__error, classNameInputError)}>
+          {error}
+        </span>
+      )}
+    </div>
+  );
+});

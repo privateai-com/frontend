@@ -4,7 +4,7 @@ export * from './routes';
 export * from './network';
 export * from './notifications';
 export * from './wallets';
-export * from './regexp';
+export * from './regex';
 
 export const decimalPlaces = 6;
 export const decimalPlacesForFee = 8;

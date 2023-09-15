@@ -1,0 +1,29 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.authWrapper_container {
+  position: relative;
+  box-shadow: -10px 56px 140px 0px rgba(143, 155, 186, 0.2);
+  border-radius: 16px;
+  background-color: $color-white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 40px;
+  max-width: 650px;
+
+  @include desktop1440 {
+		padding: 25px 30px;
+    max-width: 470px;
+	}
+
+  @include desktop1024 {
+		padding: 25px 40px;
+    max-width: 650px;
+	}
+
+  @include mobile {
+    padding: 25px 15px;
+    margin: 0 15px;
+  }
+}
