@@ -44,12 +44,12 @@ const Layout: React.FC<Props> = ({
       )}
     >
       <Navigation />
+      {header}
       <main className={cx(
         styles.page__main, 
         mainClassName, 
       )}
       >
-        {header}
         {children}
       </main>
     </div>

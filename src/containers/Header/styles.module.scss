@@ -1,22 +1,120 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
 
-@media screen and (min-width: $header-modal-breakpoint) {
-	.desktopHeader {
-		display: flex;
+.header {
+	grid-area: header;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 0 40px;
+	margin-top: auto;
+
+	@include desktop1024 {
+		font-size: 30px;
+		padding: 0 30px 0 110px;
 	}
 
-	.mobileHeader {
-		display: none;
+	@include mobile {
+		padding: 0 15px 0 60px;
+	}
+
+	& > span {
+		font-size: 16px;
+		line-height: 20px;
+		font-weight: 500;
+
+		@include desktop1440 {
+			font-size: 14px;
+		}
+
+		@include desktop1024 {
+			font-size: 14px;
+		}
+
+		@include mobile {
+			display: none;
+		}
 	}
 }
 
-@media screen and (max-width: $header-modal-breakpoint) {
-	.desktopHeader {
-		display: none;
+.input_wrapper {
+	position: relative;
+	width: 100%;
+	max-width: 1090px;
+	margin-right: auto;
+
+	@include desktop1440 {
+		max-width: 600px;
 	}
 
-	.mobileHeader {
-		display: flex;
+	@include desktop1024 {
+		max-width: 510px;
+	}
+
+  @include mobile {
+    max-width: 170px;
+  }
+}
+
+.search_result {
+	position: absolute;
+	bottom: -100%;
+	top: 100%;
+	min-height: 200px;
+	background-color: $color-white;
+	border: 1px solid $color-grey2;
+	border-radius: 8px;
+	width: 100%;
+	z-index: 1;
+	list-style-type: none;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+
+	& > li {
+		color: $color-grey;
+	}
+}
+
+.button {
+	position: relative;
+	background-color: $color-white;
+	width: 50px;
+	height: 50px;
+	border-radius: 8px;
+	margin-left: 20px;
+	
+	&:first-of-type {
+		margin-left: 10px;
+	}
+
+	@include desktop1024 {
+		width: 40px;
+		height: 40px;
+	}
+
+  @include mobile {
+    width: 30px;
+		height: 30px;
+		margin-left: 10px;
+
+		img {
+			width: 16px;
+			height: 16px;
+		}
+  }
+
+	&.active {
+		&:before {
+			content: '';
+			position: absolute;
+			top: 34%;
+    	right: 30%;
+			background-color: $color-pink;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+		}
 	}
 }

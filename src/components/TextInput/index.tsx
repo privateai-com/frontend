@@ -153,8 +153,6 @@ export const TextInput = memo<TextInputProps>(({
             src={searchIcon}
             alt="search icon"
             className={styles.search_icon}
-            width={24}
-            height={24}
           />
         )}
         <input

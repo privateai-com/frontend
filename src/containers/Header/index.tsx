@@ -1,14 +1,49 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
+import cx from 'classnames';
+
+import { ButtonIcon, TextInput } from 'components';
+import { logoutIcon, ringIcon, userIcon } from 'assets';
 
 import styles from './styles.module.scss';
 
-export const Header = () => (
-  <header
-    className={styles.header}
-  >
-    <Link href="/">
-      Logo
-    </Link>
-  </header>
-);
+export const Header = () => {
+  const [search, setSearch] = useState('');
+  const name = 'PRIVATE#916';
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.input_wrapper}>
+        <TextInput
+          value={search}
+          onChangeValue={setSearch}
+          placeholder="Search"
+          isSearch
+        />
+        {!!search.length && (
+          <ul className={styles.search_result}>
+            <li>Result 1</li>
+            <li>Result 2</li>
+            <li>Result 3</li>
+          </ul>
+        )}
+      </div>
+      
+      <span>{name}</span>
+      <ButtonIcon
+        className={styles.button}
+        image={userIcon}
+        onClick={() => {}}
+      />
+      <ButtonIcon
+        className={cx(styles.button, { [styles.active]: true })}
+        image={ringIcon}
+        onClick={() => {}}
+      />
+      <ButtonIcon
+        className={styles.button}
+        image={logoutIcon}
+        onClick={() => {}}
+      />
+    </header>
+  );
+};

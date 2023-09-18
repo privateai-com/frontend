@@ -23,6 +23,10 @@ export { default as documentTextIcon } from './documentText.svg';
 export { default as searchDocumentIcon } from './searchDocument.svg';
 export { default as searchIcon } from './searchIcon.svg';
 export { default as notificationIcon } from './notificationIcon.svg';
+export { default as logoutIcon } from './logoutIcon.svg';
+export { default as ringIcon } from './ringIcon.svg';
+export { default as userIcon } from './userIcon.svg';
+
 export { default as KnowledgeIcon } from './KnowledgeIcon';
 export { default as MyProfileIcon } from './MyProfileIcon';
 export { default as RequestsIcon } from './RequestsIcon';

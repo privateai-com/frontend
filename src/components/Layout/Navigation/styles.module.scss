@@ -12,6 +12,19 @@
   width: 40px;
   background-color: $color-green;
   border-radius: 8px;
+
+  @include desktop1024 {
+    margin-left: 30px;
+    grid-area: header;
+    margin-top: auto;
+  }
+
+  @include mobile {
+    height: 30px;
+    width: 30px;
+    padding: 9px 7px;
+    margin-left: 15px;
+  }
 }
 
 .bar {
@@ -19,6 +32,10 @@
   height: 2px;
   background-color: $color-grey4;
   transition: transform 0.3s ease-in-out;
+
+  @include mobile {
+    width: 15px;
+  }
 }
 
 .showSidebar {
