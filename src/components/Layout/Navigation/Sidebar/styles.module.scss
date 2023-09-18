@@ -1,0 +1,102 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.sidebar_container {
+  grid-area: sidebar;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: $color-white;
+  border-right: 1px solid $color-grey3;
+  padding: 30px;
+
+  @include desktop1024 {
+		grid-area: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transition: transform .3s;
+    transform: translateX(-100%);
+    z-index: 1000;
+    width: 268px;
+	}
+}
+
+.sidebar_logo {
+  margin: 6px auto 32px;
+}
+
+.sidebar_list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  border-top: 1px solid $color-grey3;
+  padding-top: 34px;
+  padding-left: 10px;
+
+  @include mobile {
+    padding-top: 40px;
+    padding-left: 0;
+    gap: 34px;
+  }
+}
+
+.sidebar_link {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  text-decoration: none;
+  color: $color-black;
+  width: fit-content;
+
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+
+  @include mobile {
+    gap: 10px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .svg {
+    path {
+      transition: stroke .3s;
+    }
+  }
+
+  &:hover {
+    .svg {
+      path {
+        stroke: $color-green;
+      }
+    }
+  }
+
+  &.active {
+    color: $color-green;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background-color: $color-green;
+      position: absolute;
+      top: 0;
+      right: -44px;
+      transform: translate(-50%, 75%);
+      border-radius: 100%;
+    }
+
+    .active_svg {
+      path {
+        stroke: $color-green;
+      }
+    }
+  }
+}

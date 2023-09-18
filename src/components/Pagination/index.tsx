@@ -34,7 +34,7 @@ export const Pagination: FC< PaginationProps > = memo(({
   isHideMoveTo = false,
 }) => {
   const [inputValue, setInputValue] = useState('');
-  const isSmallDesktop = useScreenWidth(ScreenWidth.smallDesktop);
+  const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const handleChange = useCallback<Required<ReactPaginateProps>['onClick']>(({ nextSelectedPage, selected, isBreak }) => {
     let next = nextSelectedPage;
 

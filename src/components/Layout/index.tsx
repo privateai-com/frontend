@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import cx from 'classnames';
 import styles from './styles.module.scss';
+import { Navigation } from './Navigation';
 
 type Props = {
   children: React.ReactNode,
@@ -42,6 +43,7 @@ const Layout: React.FC<Props> = ({
         className, 
       )}
     >
+      <Navigation />
       <main className={cx(
         styles.page__main, 
         mainClassName, 

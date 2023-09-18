@@ -1,0 +1,45 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.burger {
+  grid-area: sidebar;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 10px;
+  justify-content: space-between;
+  height: 40px;
+  width: 40px;
+  background-color: $color-green;
+  border-radius: 8px;
+}
+
+.bar {
+  width: 20px;
+  height: 2px;
+  background-color: $color-grey4;
+  transition: transform 0.3s ease-in-out;
+}
+
+.showSidebar {
+  transform: translateX(0) !important;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba($color-black, .4);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .3s;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
