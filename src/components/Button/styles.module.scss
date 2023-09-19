@@ -42,7 +42,7 @@
     background-color: $color-green;
     transition: background-color 0.3s;
 
-    &:hover {
+    &:hover:enabled  {
       background-color: rgba($color-green, .7);
     }
 
@@ -61,7 +61,7 @@
     transition: color .3s, background-color .3s;
     border: 1px solid $color-green;
 
-    &:hover{
+    &:hover:enabled  {
       background-color: rgba($color-green, .7);
       color: $color-white;
     }
@@ -74,36 +74,20 @@
     &:focus:enabled {
       background-color: rgba($color-green, .7);
       color: $color-white;
-    }
-  }
-
-  &.white {
-    color: $color-green;
-    background-color: $color-white3;
-    transition: color .3s;
-
-    &:hover:enabled {
-      color: $color-white;
-      background-color:$color-green;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
-    }
-
-    &:active:enabled {
-      color: $color-white;
-      background-color: $color-green;
-    }
-
-    &:focus:enabled {
-      color: $color-white;
-      background-color: $color-green;
-      border: 1px solid $color-green;
     }
   }
 
   &.full_width {
     width: 100%;
   }
+}
 
+a.button {
+  text-decoration: none;
+  &.primary:hover {
+    background-color: rgba($color-green, .7);
+    color: $color-white;
+  }
 }
 
 .disabled {
