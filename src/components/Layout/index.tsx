@@ -1,7 +1,11 @@
 import Head from 'next/head';
 import cx from 'classnames';
-import styles from './styles.module.scss';
+import Image from 'next/image';
+
+import { bg1, bg2, bg3 } from 'assets';
 import { Navigation } from './Navigation';
+
+import styles from './styles.module.scss';
 
 type Props = {
   children: React.ReactNode,
@@ -43,6 +47,22 @@ const Layout: React.FC<Props> = ({
         className, 
       )}
     >
+      <Image
+        src={bg1}
+        alt="bg"
+        className={styles.background}
+      />
+      <Image
+        src={bg2}
+        alt="bg"
+        className={styles.background}
+      />
+      <Image
+        src={bg3}
+        alt="bg"
+        className={styles.background}
+      />
+
       <Navigation />
       {header}
       <main className={cx(

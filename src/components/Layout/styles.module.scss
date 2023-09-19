@@ -2,6 +2,7 @@
 @import 'assets/styles/_mixins.scss';
 
 .page_container {
+  position: relative;
 	width: 100%;
 	min-height: 100vh;
   height: 100%;
@@ -54,5 +55,29 @@
 
   @include mobile {
     padding: 10px 15px;
+  }
+}
+
+.background {
+  position: absolute;
+
+  @include desktop1024 {
+		display: none;
+	}
+
+  &:nth-child(1) {
+    top: 0;
+    right: 0;
+  }
+
+  &:nth-child(2) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:nth-child(3) {
+    left: 300px;
+    bottom: 0;
   }
 }

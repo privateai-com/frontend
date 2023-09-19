@@ -27,6 +27,10 @@ export { default as logoutIcon } from './logoutIcon.svg';
 export { default as ringIcon } from './ringIcon.svg';
 export { default as userIcon } from './userIcon.svg';
 
+export { default as bg1 } from './bg1.svg';
+export { default as bg2 } from './bg2.svg';
+export { default as bg3 } from './bg3.svg';
+
 export { default as KnowledgeIcon } from './KnowledgeIcon';
 export { default as MyProfileIcon } from './MyProfileIcon';
 export { default as RequestsIcon } from './RequestsIcon';
