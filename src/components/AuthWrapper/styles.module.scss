@@ -13,7 +13,7 @@
   max-width: 650px;
   width: 100%;
 
-  img {
+  & > img {
     width: 210px;
     height: 50px;
   }
@@ -22,7 +22,7 @@
 		padding: 25px 30px;
     max-width: 470px;
 
-    img {
+    & > img {
       width: 188px;
       height: 48px;
     }
@@ -32,7 +32,7 @@
 		padding: 25px 40px;
     max-width: 650px;
 
-    img {
+    & > img {
       width: 188px;
       height: 48px;
     }
@@ -42,9 +42,25 @@
     padding: 25px 15px;
     margin: 0 15px;
 
-    img {
+    & > img {
       width: 116px;
       height: 28px;
     }
+  }
+}
+
+.button {
+  position: absolute;
+  top: 24px;
+  left: 38px;
+  transform: rotate(180deg);
+  
+  & > img {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include mobile {
+    left: 12px;
   }
 }

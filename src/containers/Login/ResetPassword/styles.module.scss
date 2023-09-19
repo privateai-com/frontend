@@ -1,0 +1,63 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.reset__container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 60px 0 24px;
+	width: 100%;
+
+	@include desktop1440 {
+		margin: 25px 0 10px;
+	}
+
+  @include desktop1024 {
+		margin: 50px 0 10px;
+	}
+
+  @include mobile {
+    margin: 32px 0 10px;
+  }
+
+	p {
+		color: $color-grey;
+	}
+}
+
+.description {
+	width: 100%;
+	margin-bottom: 50px;
+	text-align: center;
+
+	@include mobile {
+		margin-bottom: 32px;
+		font-size: 14px;
+	}
+}
+
+.input__container {
+	margin-bottom: 50px;
+
+	@include mobile {
+		margin-bottom: 22px;
+	}
+}
+
+.button {
+	width: 100%;
+	max-width: 280px;
+
+	@include desktop1440 {
+		max-width: 190px;
+	}
+
+	@include desktop1024 {
+		max-width: 220px;
+	}
+
+	@include mobile {
+		max-width: 165px;
+	}
+}

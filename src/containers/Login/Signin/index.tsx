@@ -17,9 +17,13 @@ import styles from './styles.module.scss';
 
 interface SigninProps {
   onConfirm: () => void;
+  onResotre: () => void;
 }
 
-export const Signin: FC<SigninProps> = ({ onConfirm }) => {
+export const Signin: FC<SigninProps> = ({
+  onConfirm,
+  onResotre,
+}) => {
   const { onConnectWallet } = useWallet();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -100,7 +104,7 @@ export const Signin: FC<SigninProps> = ({ onConfirm }) => {
           className={styles.forgot_password}
         >
           Forgot your password?
-          <button>Restore</button>
+          <button onClick={onResotre}>Restore</button>
         </Typography>
         <Button
           onClick={onSigninClick}
