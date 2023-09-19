@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
+import { ConfirmEmail } from 'components';
 import { CreateAccount } from './CreateAccount';
 
 import styles from './styles.module.scss';
-import { ConfirmEmail } from './ConfirmEmail';
 
 export const Registration = () => {
   const [email, setEmail] = useState('');

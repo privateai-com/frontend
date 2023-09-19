@@ -13,16 +13,20 @@ import styles from './styles.module.scss';
 
 interface ConfirmEmailProps {
   email: string;
+  onBack?: () => void;
 }
 
-export const ConfirmEmail: FC<ConfirmEmailProps> = ({ email }) => {
+export const ConfirmEmail: FC<ConfirmEmailProps> = ({
+  email,
+  onBack,
+}) => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
   const [isShowResend, setIsShowResend] = useState(false);
 
   const isNotError = !otpError && otp;
 
-  const onCreateAccountClick = useCallback(() => {
+  const onConfirmClick = useCallback(() => {
     const currentOtpError = otpValidator(otp);
     setOtpError(currentOtpError);
 
@@ -39,7 +43,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({ email }) => {
   }, []);
   
   return (
-    <AuthWrapper>
+    <AuthWrapper onClickBack={onBack}>
       <div className={styles.confirmEmail__container}>
         <Typography
           type="p"
@@ -63,7 +67,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({ email }) => {
         )}
 
         <Button
-          onClick={onCreateAccountClick}
+          onClick={onConfirmClick}
           className={styles.button}
           disabled={!isNotError}
         >

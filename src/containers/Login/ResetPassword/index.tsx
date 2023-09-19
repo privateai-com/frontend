@@ -11,7 +11,7 @@ import { emailValidator } from 'utils';
 import styles from './styles.module.scss';
 
 interface ResetPasswordProps {
-  onConfirm: () => void;
+  onConfirm: (email: string) => void;
   onBack: () => void;
 }
 
@@ -30,7 +30,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
     const isError = !isNotError && !currentEmailError;
 
     if (!isError) {
-      onConfirm();
+      onConfirm(email);
     }
   }, [email, isNotError, onConfirm]);
 

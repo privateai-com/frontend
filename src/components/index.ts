@@ -16,6 +16,7 @@ export * from './Checkbox';
 export * from './AuthWrapper';
 export * from './InputOtp';
 export * from './ButtonResend';
+export * from './ConfirmEmail';
 export { default as Layout } from './Layout';
 export { default as LayoutAuth } from './LayoutAuth';
 export { TextArea } from './TextArea';
