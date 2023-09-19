@@ -60,7 +60,7 @@
       transition: background-color 50000s ease-in-out 0s, color 5000s ease-in-out 0s;
     }
 
-    border-radius: 10px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
 
@@ -76,6 +76,7 @@
   
     @include mobile {
       height: 30px;
+      border-radius: 4px;
     }
 
     input {

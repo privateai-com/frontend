@@ -11,19 +11,40 @@
   align-items: center;
   padding: 25px 40px;
   max-width: 650px;
+  width: 100%;
+
+  img {
+    width: 210px;
+    height: 50px;
+  }
 
   @include desktop1440 {
 		padding: 25px 30px;
     max-width: 470px;
+
+    img {
+      width: 188px;
+      height: 48px;
+    }
 	}
 
   @include desktop1024 {
 		padding: 25px 40px;
     max-width: 650px;
+
+    img {
+      width: 188px;
+      height: 48px;
+    }
 	}
 
   @include mobile {
     padding: 25px 15px;
     margin: 0 15px;
+
+    img {
+      width: 116px;
+      height: 28px;
+    }
   }
 }

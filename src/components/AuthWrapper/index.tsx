@@ -18,8 +18,6 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
     <Image
       src={privateAILogo}
       alt="logo"
-      width={210}
-      height={50}
     />
     {children}
   </div>

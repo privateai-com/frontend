@@ -1,7 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
-import { Notification } from 'components';
 import { metamaskSelectors } from 'store/metamask/selectors';
 import { metamaskConnect, metamaskDisconnect } from 'store/metamask/actionCreators';
 import { Network } from 'appConstants';
@@ -14,17 +12,11 @@ export const useWallet = () => {
   const status = useSelector(metamaskSelectors.getProp('status'));
   const isLostWallet = useSelector(metamaskSelectors.getProp('isLostWallet'));
 
-  const [showNetworkNotFound, hideNetworkNotFound] = useModal(
-    () => <Notification onCloseModal={hideNetworkNotFound} />,
-    [],
-  );
-
   const onConnectWallet = useCallback(() => {
     dispatch(metamaskConnect({
       network: Network.MaticTest,
-      callbackNotFoundNetwork: showNetworkNotFound,
     }));
-  }, [dispatch, showNetworkNotFound]);
+  }, [dispatch]);
 
   const onDisconnectWallet = useCallback(() => {
     dispatch(metamaskDisconnect({
@@ -38,10 +30,9 @@ export const useWallet = () => {
     if (status === MetamaskStatus.INIT && !isLostWallet) {
       dispatch(metamaskConnect({
         network: Network.MaticTest,
-        callbackNotFoundNetwork: showNetworkNotFound,
       }));
     }
-  }, [dispatch, isLostWallet, showNetworkNotFound, status]);
+  }, [dispatch, isLostWallet, status]);
 
   return {
     isConnected,
