@@ -37,11 +37,6 @@
     path: '/opt/{{ CI_PROJECT_NAME }}'
     state: directory    
 
-- name: Copy nginx config to instance
-  copy:
-    src: '../nginx.storybook'
-    dest: '/opt/{{ CI_PROJECT_NAME }}/nginx.config'
-
 - name: Copy new compose to instance
   template:
     src: 'docker-compose.yml.j2'
