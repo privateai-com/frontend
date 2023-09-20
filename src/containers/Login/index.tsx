@@ -3,12 +3,14 @@ import { useCallback, useState } from 'react';
 import { ConfirmEmail } from 'components';
 import { Signin } from './Signin';
 import { ResetPassword } from './ResetPassword';
+import { NewPassword } from './NewPassword';
 
 import styles from './styles.module.scss';
 
 export const Login = () => {
   const [isShowResetPassword, setIsShowResetPassword] = useState(false);
   const [isShowConfirmEmail, setIsShowConfirmEmail] = useState(false);
+  const [isShowNewPassword, setIsShowNewPassword] = useState(true);
   const [email, setEmail] = useState('');
 
   const resetPasswordHandler = useCallback((value: string) => {
@@ -27,6 +29,11 @@ export const Login = () => {
     setIsShowConfirmEmail(false);
   }, []);
 
+  const confirmEmailHandler = useCallback(() => {
+    setIsShowNewPassword(true);
+    setIsShowConfirmEmail(false);
+  }, []);
+
   return (
     <div className={styles.login__container}>
       {isShowResetPassword && (
@@ -40,10 +47,17 @@ export const Login = () => {
         <ConfirmEmail
           email={email}
           onBack={confirmEmailBackHandler}
+          onConfirm={confirmEmailHandler}
         />
       )}
 
-      {!isShowResetPassword && !isShowConfirmEmail && (
+      {isShowNewPassword && (
+        <NewPassword
+          onConfirm={() => {}}
+        />
+      )}
+
+      {!isShowResetPassword && !isShowConfirmEmail && !isShowNewPassword && (
         <Signin
           onConfirm={() => {}}
           onResotre={() => setIsShowResetPassword(true)}

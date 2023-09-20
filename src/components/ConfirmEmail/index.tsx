@@ -14,11 +14,13 @@ import styles from './styles.module.scss';
 interface ConfirmEmailProps {
   email: string;
   onBack?: () => void;
+  onConfirm?: () => void;
 }
 
 export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   email,
   onBack,
+  onConfirm,
 }) => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
@@ -29,9 +31,14 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   const onConfirmClick = useCallback(() => {
     const currentOtpError = otpValidator(otp);
     setOtpError(currentOtpError);
-
     setIsShowResend(true);
-  }, [otp]);
+
+    const isError = !isNotError && !currentOtpError;
+
+    if (!isError && onConfirm) {
+      onConfirm();
+    }
+  }, [isNotError, onConfirm, otp]);
 
   const onOtpChange = useCallback((value: string) => {
     setOtpError('');
