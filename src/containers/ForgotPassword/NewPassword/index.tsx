@@ -50,7 +50,7 @@ export const NewPassword: FC<NewPasswordProps> = ({
 
   return (
     <AuthWrapper>
-      <div className={styles.reset__container}>
+      <div className={styles.new_password__container}>
         <Typography
           type="p"
           className={styles.description}
