@@ -59,10 +59,8 @@ variables:
     paths: ["ci_cd/logs/*"]
     expire_in: 3 week
 
-# internal merge
-.merge_devops_to_dev:
-  stage: post_actions
-  image: alpine:3.18.3
+# Merge to another branches if needed
+.before_merge:
   before_script:
     - apk add --update --no-cache openssh git
     - mkdir ~/.ssh/ && touch ~/.ssh/id_rsa
@@ -72,6 +70,11 @@ variables:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - git config --global user.email "repo@sfxdx.com"
     - git config --global user.name "IntegralTeam"
+
+# internal merge
+.merge_devops_to_dev:
+  stage: post_actions
+  image: alpine:3.18.3
   script:
     - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
     - git remote set-url origin $PUSH_REPO
@@ -87,26 +90,12 @@ variables:
     - git push origin develop
     - git push origin --delete devops
 
-# Merge to another branches if needed
-.before_merge:
-  before_script: 
-    - apt-get update -y && apt-get upgrade -y
-    - apt-get install openssh-server git -y 
-    - mkdir ~/.ssh/ && touch ~/.ssh/id_rsa
-    - echo "$SSH_PRIVATE_KEY_GIT" > ~/.ssh/id_rsa
-    - chmod -R 600 ~/.ssh/id_rsa
-    - ssh-keyscan -t rsa $CI_SERVER_HOST >> ~/.ssh/known_hosts
-    - git config --global user.email "repo@sfxdx.com"
-    - git config --global user.name "IntegralTeam"
-    - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
-    - git remote set-url origin $PUSH_REPO
-
 .merge_to_stage:
   stage: post_actions
-  image: ubuntu:18.04
+  image: alpine:3.18.3
   script:
     - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - git remote set-url origin $PUSH_REPO
     - git clone $PUSH_REPO
     - cd $CI_PROJECT_NAME
     - git checkout $CI_COMMIT_REF_NAME
@@ -185,6 +174,7 @@ Get logs:
 Deploy to develop:
   extends:
     - .deploy_prepare
+    - .before_merge
     - .merge_devops_to_dev
   rules:
     - if: '$CI_COMMIT_REF_NAME == "devops"'
