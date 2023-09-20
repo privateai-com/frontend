@@ -12,8 +12,8 @@ variables:
   TRANSFER_METER_FREQUENCY: 1s
   GIT_DEPTH: 1
   image_ansible: cytopia/ansible:latest-tools
-  services_for_build: "$CI_PROJECT_NAME $CI_PROJECT_NAME-storybook"
-  containers_for_logs: "$CI_PROJECT_NAME $CI_PROJECT_NAME-storybook"
+  services_for_build: "$CI_PROJECT_NAME"
+  containers_for_logs: "$CI_PROJECT_NAME"
 
 .deploy_prepare:
   variables:
@@ -29,12 +29,9 @@ variables:
   script:
     - echo "Build frontend"
     - time docker build -f ci_cd/Dockerfile . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-    - echo "Build storybook"
-    - time docker build -f ci_cd/Dockerfile.storybook . -t $CI_REGISTRY_IMAGE:storybook --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" --cache-from $CI_REGISTRY_IMAGE:storybook
     - echo "Pushing..."
     - time docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - time docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-    - time docker push $CI_REGISTRY_IMAGE:storybook
 
 .deploy:
   stage: deploy
@@ -65,21 +62,19 @@ variables:
 # internal merge
 .merge_devops_to_dev:
   stage: post_actions
-  image: ubuntu:18.04
+  image: alpine:3.18.3
   before_script:
-    - apt-get update -y && apt-get upgrade -y
-    - apt-get install openssh-server git -y 
+    - apk add --update --no-cache openssh git
     - mkdir ~/.ssh/ && touch ~/.ssh/id_rsa
     - echo "$SSH_PRIVATE_KEY_GIT" > ~/.ssh/id_rsa
     - chmod -R 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa $CI_SERVER_HOST >> ~/.ssh/known_hosts
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - git config --global user.email "repo@sfxdx.com"
     - git config --global user.name "IntegralTeam"
-    - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
-    - git remote set-url origin $PUSH_REPO
   script:
     - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config    
+    - git remote set-url origin $PUSH_REPO
     - git clone $PUSH_REPO
     - cd $CI_PROJECT_NAME
     - git checkout devops
@@ -202,6 +197,6 @@ Deploy to stage:
     - .before_merge
     - .merge_to_stage
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "develop"'
+    - if: '$CI_COMMIT_REF_NAME == "develop1"'
       when: manual
   needs: []
