@@ -1,7 +1,5 @@
-import styles from './styles.module.scss';
+import { UpdateProfile } from './UpdateProfile';
 
 export const Profile = () => (
-  <div className={styles.profile__container}>
-    Profile
-  </div>
+  <UpdateProfile />
 );
