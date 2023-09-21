@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { metamaskSelectors } from 'store/metamask/selectors';
 import { metamaskConnect, metamaskDisconnect } from 'store/metamask/actionCreators';
@@ -10,7 +10,6 @@ export const useWallet = () => {
 
   const address = useSelector(metamaskSelectors.getProp('address'));
   const status = useSelector(metamaskSelectors.getProp('status'));
-  const isLostWallet = useSelector(metamaskSelectors.getProp('isLostWallet'));
 
   const onConnectWallet = useCallback(() => {
     dispatch(metamaskConnect({
@@ -25,14 +24,6 @@ export const useWallet = () => {
   }, [dispatch]);
   
   const isConnected = status === MetamaskStatus.CONNECTED;
-  
-  useEffect(() => {
-    if (status === MetamaskStatus.INIT && !isLostWallet) {
-      dispatch(metamaskConnect({
-        network: Network.MaticTest,
-      }));
-    }
-  }, [dispatch, isLostWallet, status]);
 
   return {
     isConnected,
