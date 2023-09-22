@@ -9,10 +9,10 @@ import cx from 'classnames';
 import Image from 'next/image';
 
 import { ScreenWidth, imageRegexp } from 'appConstants';
-import { Button, TextInput, Typography } from 'components';
-
+import { TextInput, Typography } from 'components';
 import { uploadIcon } from 'assets';
 import { useScreenWidth } from 'hooks';
+
 import styles from './styles.module.scss';
 
 export const UpdateProfile = () => {
@@ -49,16 +49,8 @@ export const UpdateProfile = () => {
     checkFile(file);
   }, []);
 
-  const onSaveClick = useCallback(() => {
-    
-  }, []);
-
   return (
-    <div className={styles.create_profile__container}>
-      <div className={styles.profile__head}>
-        <Typography type="h1">My profile</Typography>
-        <Button className={styles.profile__head_button}>Link your wallet</Button>
-      </div>
+    <>
       <div className={cx(styles.wrapper, styles.info)}>
         <label
           htmlFor="upload"
@@ -110,19 +102,6 @@ export const UpdateProfile = () => {
           onChangeValue={setLocation}
           classNameContainer={styles.input__container}
         />
-  
-        {/* {logoFile && (
-                  <div className={styles.upload_file}>
-                    <Image
-                      src={URL.createObjectURL(logoFile)}
-                      alt=""
-                      width={40}
-                      height={40}
-                      className={styles.upload_file_image}
-                    />
-                    <span>{logoFile?.name}</span>
-                  </div>
-                )} */}
       </div>
       <div className={cx(styles.wrapper, styles.info2)}>
         <Typography type="h2">Contact information</Typography>
@@ -164,32 +143,6 @@ export const UpdateProfile = () => {
           isRequired
         />
       </div>
-      <div className={styles.footer}>
-        <ul className={styles.footer_list}>
-          <li>
-            <span>*</span>
-            Data owners like to see who they share their data with.
-            Fill in as much information as you can to maximize your chances
-            of being granted data access upon request.
-          </li>
-          <li>
-            <span>*</span>
-            Publishing to Archon requires full user information.
-          </li>
-        </ul>
-        <Button
-          theme="secondary"
-          className={styles.footer_button}
-        >
-          Fill in later
-        </Button>
-        <Button
-          className={styles.footer_button}
-          onClick={onSaveClick}
-        >
-          Save
-        </Button>
-      </div>
-    </div>
+    </>
   );
 };

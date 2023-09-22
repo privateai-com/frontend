@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 export const Header = () => {
   const [search, setSearch] = useState('');
-  const name = 'PRIVATE#916';
+  const name = 'John Doe';
 
   return (
     <header className={styles.header}>
@@ -18,6 +18,7 @@ export const Header = () => {
           onChangeValue={setSearch}
           placeholder="Search"
           isSearch
+          classNameInputBox={styles.input_wrapper_input}
         />
         {!!search.length && (
           <ul className={styles.search_result}>

@@ -17,6 +17,10 @@
 
   overflow: hidden;
 
+  @include desktop1440 {
+    grid-template-rows: 70px auto;
+  }
+
   @include desktop1024 {
     grid-template-areas: 'header header'
       'main main';
@@ -46,7 +50,7 @@
 	padding: 30px 40px 62px;
 
 	@include desktop1440 {
-		padding: 20px 40px;
+		padding: 15px 40px 20px;
 	}
 
 	@include desktop1024 {

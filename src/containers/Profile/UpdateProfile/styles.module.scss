@@ -97,6 +97,10 @@
 	height: 100%;
 	max-width: 648px;
 
+	@include desktop1440 {
+		max-width: 470px;
+	}
+
 	@include desktop1024 {
 		max-width: 100%;
 		padding: 34px;

@@ -56,6 +56,22 @@
   }
 }
 
+.input_wrapper_input {
+	height: 50px;
+
+	@include desktop1440 {
+		height: 50px !important;
+	}
+
+	@include desktop1024 {
+		height: 40px !important;
+	}
+
+	@include mobile {
+		height: 30px !important;
+	}
+}
+
 .search_result {
 	position: absolute;
 	bottom: -100%;
