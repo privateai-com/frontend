@@ -129,10 +129,14 @@
 		bottom: 15px;
 		right: 15px;
 		text-align: center;
-		font-size: 20px;
-		text-decoration: underline;
+		font-size: 20px;		
 		@include font_size();
 		cursor: pointer;
+		
+
+		// После добавления ссылки элементу надо удалить стили
+		text-decoration: underline;
+		color: $color-green;
 	}
 }
 

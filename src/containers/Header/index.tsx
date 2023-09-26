@@ -43,7 +43,11 @@ export const Header = () => {
               <li>Result 2</li>
               <li>Result 3</li>
             </ul>
-            <span className={styles.search_link}>{'See all search results >'}</span>
+            <button
+              className={styles.search_link}
+            >
+              {'See all search results >'}
+            </button>
           </div>
         )}
       </div>
