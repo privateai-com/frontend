@@ -1,6 +1,11 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
+$margin-right-visible: 75px;
+$margin-right-hidden: -310px;
+$margin-right-hidden-mobile: -610px;
+$margin-horizontal-mobile: 15px;
+
 .modalNot_container {
 	width: 280px;
 	height: auto;
@@ -9,11 +14,15 @@
 	box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
 	position: fixed;
 	top: 78px;
-	right: 45px;
+	right: 0;
 	z-index: 10000;
 	border-radius: 8px;
 	border: 1px solid $color-green;
 	box-sizing: border-box;
+	@include mobile {
+		width: auto;
+		top: 48px;
+	}
 }
 
 .hidden {
@@ -28,10 +37,10 @@
 
 @keyframes hidden {
 	0% {
-		margin-right: 30px;
+		margin-right: $margin-right-visible;
 	}
 	100% {
-		margin-right: -310px;
+		margin-right: $margin-right-hidden;
 		display: none;
 	}
 }
@@ -40,7 +49,7 @@
 		margin-right: 30px;
 	}
 	100% {
-		margin-right: -610px;
+		margin-right: $margin-right-hidden-mobile;
 		display: none;
 	}
 }
@@ -58,21 +67,21 @@
 @keyframes sliding {
 	0% {
 		display: block;
-		margin-right: -310px;
+		margin-right: $margin-right-hidden;
 	}
 	100% {
 		display: block;
-		margin-right: 30px;
+		margin-right: $margin-right-visible;
 	}
 }
 @keyframes slidingMobile {
 	0% {
 		display: block;
-		margin-right: -610px;
+		margin-right: $margin-right-hidden-mobile;
 	}
 	100% {
 		display: block;
-		margin-right: 12px;
-		margin-left: 12px;
+		margin-right: $margin-horizontal-mobile;
+		margin-left: $margin-horizontal-mobile;
 	}
 }
