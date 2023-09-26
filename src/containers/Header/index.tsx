@@ -19,6 +19,10 @@ export const Header = () => {
     setIsNotificationOpen(!isNotificationOpen);
   };
 
+  const inputClassNames = search.length
+    ? `${styles.input_wrapper_input}, ${styles.input_wrapper_input_filled}`
+    : styles.input_wrapper_input;
+
   const name = 'John Doe';
 
   return (
@@ -29,14 +33,18 @@ export const Header = () => {
           onChangeValue={setSearch}
           placeholder="Search"
           isSearch
-          classNameInputBox={styles.input_wrapper_input}
+          isClearable
+          classNameInputBox={inputClassNames}
         />
         {!!search.length && (
-          <ul className={styles.search_result}>
-            <li>Result 1</li>
-            <li>Result 2</li>
-            <li>Result 3</li>
-          </ul>
+          <div className={styles.search_result}>
+            <ul className={styles.search_list}>
+              <li>Result 1</li>
+              <li>Result 2</li>
+              <li>Result 3</li>
+            </ul>
+            <span className={styles.search_link}>{'See all search results >'}</span>
+          </div>
         )}
       </div>
 

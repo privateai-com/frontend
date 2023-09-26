@@ -40,6 +40,7 @@ type TextInputProps = {
   isWithClear?: boolean;
   onChangeValue?: (text: string, name?: string) => void;
   placeholder?: string;
+  isClearable?: boolean;
   isTextOnly?: boolean;
   isNumberOnly?: boolean;
   isRequired?: boolean;
@@ -69,6 +70,7 @@ export const TextInput = memo<TextInputProps>(({
   disabled = false,
   onChangeValue,
   placeholder = '',
+  isClearable,
   isNumberOnly,
   isPassword,
   isRequired,
@@ -114,14 +116,18 @@ export const TextInput = memo<TextInputProps>(({
     setIsPasswordVisible(!isPasswordVisible);
   }, [isPasswordVisible]);
 
+  const onClearClick = () => {
+    if (onChangeValue !== undefined) {
+      onChangeValue('');
+    }
+  };
+
   const pattern = isNumberOnly ? '[0-9]*' : undefined;
 
   const isLabel = label !== undefined || labelRight !== undefined;
 
   return (
-    <div
-      className={cx(styles.input__container, classNameContainer)}
-    >
+    <div className={cx(styles.input__container, classNameContainer)}>
       {isLabel && (
         <div
           className={styles.label_container}
@@ -137,9 +143,7 @@ export const TextInput = memo<TextInputProps>(({
             </div>
           )}
           {labelRight !== undefined && (
-            <div className={cx(styles.input__label_right)}>
-              {labelRight}
-            </div>
+            <div className={cx(styles.input__label_right)}>{labelRight}</div>
           )}
         </div>
       )}
@@ -176,6 +180,15 @@ export const TextInput = memo<TextInputProps>(({
             className={cx(styles.input_icon)}
             onClick={onPasswordToggleClick}
           />
+        )}
+        {isClearable && !!value && (
+          <button
+            className={styles.input_btn_clear}
+            onClick={onClearClick}
+          >
+            <div className={styles.input_cross} />
+            <div className={styles.input_cross} />
+          </button>
         )}
         {suffix !== undefined && (
           <div className={cx(styles.input__suffix, classNameSuffix)}>

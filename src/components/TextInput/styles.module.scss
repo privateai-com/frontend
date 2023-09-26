@@ -186,4 +186,27 @@
       display: none;
     }
   }
+
+  & .input_btn_clear {
+    position: absolute;
+    right: 17px;
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+  }
+
+  & .input_cross {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    height: 15px;
+    width: 1px;
+    border-radius: 0.5px;
+    background-color: $color-grey;
+    transform: rotate(-45deg);
+    &:first-of-type {
+      transform: rotate(45deg);
+    }
+  } 
+  
 }

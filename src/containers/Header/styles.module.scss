@@ -1,5 +1,15 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+@mixin font_size {
+	@include tablet1024 {
+		font-size: 16px;
+	}
+
+	@include mobile {
+		font-size: 13px;
+	}
+}
 
 .header {
 	grid-area: header;
@@ -51,13 +61,14 @@
 		max-width: 510px;
 	}
 
-  @include mobile {
-    max-width: 170px;
-  }
+	@include mobile {
+		max-width: 170px;
+	}
 }
 
 .input_wrapper_input {
 	height: 50px;
+	transition: all 0.2s;
 
 	@include desktop1440 {
 		height: 50px !important;
@@ -72,24 +83,56 @@
 	}
 }
 
-.search_result {
-	position: absolute;
-	bottom: -100%;
-	top: 100%;
-	min-height: 200px;
-	background-color: $color-white;
-	border: 1px solid $color-grey2;
-	border-radius: 8px;
-	width: 100%;
-	z-index: 1;
-	list-style-type: none;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
+.input_wrapper_input_filled {
+	border: 1px solid transparent !important;
+	border-bottom: 1px solid $color-grey !important;
+	border-radius: 8px 8px 0 0 !important;
+	transition: all 0.2s;
+}
 
-	& > li {
-		color: $color-grey;
+.search {
+	&_result {
+		position: absolute;
+		bottom: -100%;
+		top: 100%;
+		min-height: 200px;
+		width: 100%;
+		background-color: $color-white;
+		border-radius: 0 0 8px 8px;
+		box-shadow: 0px 5px 5px 0px #00000026;
+		padding: 20px;
+		gap: 15px;
+		z-index: 1;
+	}
+
+	&_list {
+		display: flex;
+		flex-direction: column;
+		list-style-type: none;
+
+		& > li {
+			color: $color-grey;
+			font-size: 20px;
+			margin-bottom: 4px;
+			@include mobile {
+				margin-bottom: 2.5px;
+			}
+			@include tablet1024 {
+				margin-bottom: 3.5px;
+			}
+			@include font_size();
+		}
+	}
+
+	&_link {
+		position: absolute;
+		bottom: 15px;
+		right: 15px;
+		text-align: center;
+		font-size: 20px;
+		text-decoration: underline;
+		@include font_size();
+		cursor: pointer;
 	}
 }
 
@@ -100,7 +143,7 @@
 	height: 50px;
 	border-radius: 8px;
 	margin-left: 20px;
-	
+
 	&:first-of-type {
 		margin-left: 10px;
 	}
@@ -110,8 +153,8 @@
 		height: 40px;
 	}
 
-  @include mobile {
-    width: 30px;
+	@include mobile {
+		width: 30px;
 		height: 30px;
 		margin-left: 10px;
 
@@ -119,14 +162,14 @@
 			width: 16px;
 			height: 16px;
 		}
-  }
+	}
 
 	&.active {
 		&:before {
-			content: '';
+			content: "";
 			position: absolute;
 			top: 34%;
-    	right: 30%;
+			right: 30%;
 			background-color: $color-pink;
 			width: 6px;
 			height: 6px;
