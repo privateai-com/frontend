@@ -1,0 +1,66 @@
+@import "assets/styles/variables.scss";
+
+@mixin h-text-style {
+  font-weight: 700;
+  color: $color-grey;
+}
+
+.requester {
+  &_title {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 32px;
+    @include h-text-style();
+  }
+
+  &_wrapper {
+    display: flex;
+  }
+
+  &_image {
+    width: 280px;
+    height: 280px;
+    padding-top: 50px;
+    border-radius: 50%;
+    align-self: flex-start;
+  }
+  
+  &_content {
+    
+    color: $color-grey;
+  }
+
+  &_name,
+  &_country {
+    font-size: 24px;
+  }
+
+  &_name {
+    margin-bottom: 15px;
+    @include h-text-style();
+  }
+
+  &_country {
+    display: block;
+    margin-bottom: 30px;
+  }
+}
+
+.block {
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  &_title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  &_text {
+    font-size: 20px;
+  }
+}

@@ -6,6 +6,7 @@ import {
   ModalNotification,
   TextInput,
   NotificationContent,
+  Requester,
 } from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 
@@ -43,15 +44,21 @@ export const Header = () => {
               <li>Result 2</li>
               <li>Result 3</li>
             </ul>
-            <button
-              className={styles.search_link}
-            >
+            <button className={styles.search_link}>
               {'See all search results >'}
             </button>
           </div>
         )}
       </div>
-
+      <Requester
+        name="John Doe"
+        contry="London, UK (GMT +0)"
+        organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
+        position="Head of neurosurgery laboratory"
+        fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
+        socialMedia="https:/facebook.com/profile"
+        avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
+      />
       <span>{name}</span>
       <ButtonIcon
         className={styles.button}
