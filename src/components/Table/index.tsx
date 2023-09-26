@@ -106,8 +106,7 @@ export const Table: FC<TableProps> = memo(({
       <tbody {...getTableBodyProps()}>
         {rows.map((row: Row<object> & { isExpanded?: boolean }) => {
           const rowData = row.original as { 
-            data: object[]; 
-            sales: object[];
+            data: object[];
           };
           prepareRow(row);
           return (
@@ -122,7 +121,7 @@ export const Table: FC<TableProps> = memo(({
                   </td>
                 ))}
               </tr>
-              {row.isExpanded && columnsExpanded && (rowData?.sales || rowData?.data) && (
+              {row.isExpanded && columnsExpanded && rowData?.data && (
                 <tr>
                   <td
                     colSpan={row.cells.length}
@@ -132,7 +131,7 @@ export const Table: FC<TableProps> = memo(({
                     <Table
                       className={expandedTableClassName}
                       columns={columnsExpanded}
-                      data={rowData?.sales || rowData.data}
+                      data={rowData.data}
                       getSelectedExpandedRows={getSelectedExpandedRows}
                     />
                     {expandedChildren && expandedChildren(rowData)}

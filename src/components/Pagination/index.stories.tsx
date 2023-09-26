@@ -15,14 +15,12 @@ type Story = StoryObj<typeof Pagination>;
 
 export const Standard: Story = {
   args: {
-    page: 0,
     pageCount: 5,
   },
 };
 
 export const MorePage: Story = {
   args: {
-    page: 25,
     pageCount: 50,
   },
 };
