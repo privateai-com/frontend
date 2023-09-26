@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 
-import { ButtonIcon, TextInput } from 'components';
+import {
+  ButtonIcon,
+  ModalNotification,
+  TextInput,
+  NotificationContent,
+} from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 
 import styles from './styles.module.scss';
 
 export const Header = () => {
   const [search, setSearch] = useState('');
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
+  const onNotificationClick = () => {
+    setIsNotificationOpen(!isNotificationOpen);
+  };
+
   const name = 'John Doe';
 
   return (
@@ -28,7 +39,7 @@ export const Header = () => {
           </ul>
         )}
       </div>
-      
+
       <span>{name}</span>
       <ButtonIcon
         className={styles.button}
@@ -38,13 +49,16 @@ export const Header = () => {
       <ButtonIcon
         className={cx(styles.button, { [styles.active]: true })}
         image={ringIcon}
-        onClick={() => {}}
+        onClick={onNotificationClick}
       />
       <ButtonIcon
         className={styles.button}
         image={logoutIcon}
         onClick={() => {}}
       />
+      <ModalNotification isOpen={isNotificationOpen}>
+        <NotificationContent />
+      </ModalNotification>
     </header>
   );
 };

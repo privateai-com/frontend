@@ -17,6 +17,7 @@ export * from './AuthWrapper';
 export * from './InputOtp';
 export * from './ButtonResend';
 export * from './ConfirmEmail';
+export * from './NotificationContent';
 export { default as Layout } from './Layout';
 export { default as LayoutAuth } from './LayoutAuth';
 export { TextArea } from './TextArea';
