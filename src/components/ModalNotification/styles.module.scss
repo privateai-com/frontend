@@ -29,7 +29,11 @@ $margin-horizontal-mobile: 15px;
 	animation-name: hidden;
 	animation-duration: 0.2s;
 	animation-fill-mode: forwards;
-	display: none;
+	/*  
+	Убрал, т.к. пропадала анимация скрытия (display: none 
+	уже есть в анимациях hidden)
+	*/
+	// display: none;
 	@include mobile {
 		animation-name: hiddenMobile;
 	}
