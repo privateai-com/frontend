@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .modalNot_container {
 	width: 280px;
@@ -9,11 +9,11 @@
 	box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
 	position: fixed;
 	top: 78px;
-	right: 0px;
+	right: 45px;
 	z-index: 10000;
-	border-radius: 14px;
+	border-radius: 8px;
+	border: 1px solid $color-green;
 	box-sizing: border-box;
-
 }
 
 .hidden {
