@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 
-import {
-  ButtonIcon,
-  ModalNotification,
-  TextInput,
-  NotificationContent,
-  Requester,
-} from 'components';
+import { ButtonIcon, TextInput, Requester } from 'components';
+import Link from 'next/link';
+import { Notification } from './Notification';
+import { NotificationContent } from './NotificationContent';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 
 import styles from './styles.module.scss';
+import { routes } from 'appConstants';
 
 export const Header = () => {
   const [search, setSearch] = useState('');
@@ -44,9 +42,12 @@ export const Header = () => {
               <li>Result 2</li>
               <li>Result 3</li>
             </ul>
-            <button className={styles.search_link}>
+            <Link
+              href={`${routes.knowledge.root}/?search=${search}`}
+              className={styles.search_link}
+            >
               {'See all search results >'}
-            </button>
+            </Link>
           </div>
         )}
       </div>
@@ -76,9 +77,9 @@ export const Header = () => {
         image={logoutIcon}
         onClick={() => {}}
       />
-      <ModalNotification isOpen={isNotificationOpen}>
+      <Notification isOpen={isNotificationOpen}>
         <NotificationContent />
-      </ModalNotification>
+      </Notification>
     </header>
   );
 };
