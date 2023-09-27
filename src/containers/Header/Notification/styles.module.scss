@@ -19,6 +19,11 @@ $margin-horizontal-mobile: 15px;
 	border-radius: 8px;
 	border: 1px solid $color-green;
 	box-sizing: border-box;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(100%);
+	transition: all 0.5s;
+
 
 	@include mobile {
 		width: auto;
@@ -26,35 +31,10 @@ $margin-horizontal-mobile: 15px;
 	}
 }
 
-.hidden {
-	animation-name: hidden;
-	animation-duration: 0.2s;
-	animation-fill-mode: forwards;
-
-	@include mobile {
-		animation-name: hiddenMobile;
-	}
-}
-
-@keyframes hidden {
-	0% {
-		margin-right: $margin-right-visible;
-	}
-
-	100% {
-		margin-right: $margin-right-hidden;
-		display: none;
-	}
-}
-@keyframes hiddenMobile {
-	0% {
-		margin-right: 30px;
-	}
-
-	100% {
-		margin-right: $margin-right-hidden-mobile;
-		display: none;
-	}
+.show {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(0);
 }
 
 .visible {
@@ -62,32 +42,4 @@ $margin-horizontal-mobile: 15px;
 	animation-duration: 0.5s;
 	animation-fill-mode: forwards;
 	display: block;
-
-	@include mobile {
-		animation-name: slidingMobile;
-	}
-}
-
-@keyframes sliding {
-	0% {
-		display: block;
-		margin-right: $margin-right-hidden;
-	}
-
-	100% {
-		display: block;
-		margin-right: $margin-right-visible;
-	}
-}
-@keyframes slidingMobile {
-	0% {
-		display: block;
-		margin-right: $margin-right-hidden-mobile;
-	}
-	
-	100% {
-		display: block;
-		margin-right: $margin-horizontal-mobile;
-		margin-left: $margin-horizontal-mobile;
-	}
 }
