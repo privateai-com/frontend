@@ -16,6 +16,12 @@
 	@include desktop1024 {
 		gap: 48px;
 	}
+
+	@include mobile {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 20px;
+	}
 }
 
 .storage__head_buttons {
@@ -24,11 +30,20 @@
 	border: 1px solid $color-green;
 	border-radius: 8px;
 
+	@include mobile {
+		width: 100%;
+	}
+
 	button {
 		padding: 11px 45px;
 
 		@include desktop1024 {
 			padding: 6px 45px;
+		}
+
+		@include mobile {
+			padding: 6px 10px;
+			width: 100%;
 		}
 
 		&:first-child {

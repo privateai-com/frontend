@@ -83,6 +83,11 @@
 .storage__search {
 	display: flex;
 	margin-bottom: 25px;
+
+	@include mobile {
+		flex-direction: column;
+		gap: 15px;
+	}
 }
 
 .input {
@@ -184,4 +189,11 @@
 	@include mobile {
 		display: none;
 	}
+}
+
+.table_mobile {
+	display: flex;
+	flex-direction: column;
+	background-color: $color-white;
+	border-radius: 8px;
 }
