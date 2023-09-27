@@ -13,7 +13,7 @@ const Notification = memo(({ children, isOpen }: ModalProps) => (
   <div
     className={cx(
       styles.notification_container,
-      {[styles.show]: isOpen}
+      { [styles.show]: isOpen },
     )}
   >
     {children}
