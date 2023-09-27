@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import cx from 'classnames';
+import { useModal } from 'react-modal-hook';
+import { useRouter } from 'next/router';
 
-import { Button, Typography } from 'components';
+import { Button, ProfileSuccess, Typography } from 'components';
 import { stringLongShortcut } from 'utils';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
@@ -12,6 +14,25 @@ export const Profile = () => {
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [isAuthWallet, setIsAuthWallet] = useState(true);
   const address = '0x0806E6A81DB5Fa3B54bB99f8D36C5041b678d564';
+  const router = useRouter();
+
+  const [showSuccess, hideSuccess] = useModal(() => (
+    <ProfileSuccess
+      onClickCancel={hideSuccess}
+      onClickUpload={() => {}}
+      onClickBrowse={() => {}}
+    />
+  ), []);
+
+  useEffect(() => {
+    const { showModal } = router.query;
+
+    if (showModal === 'true') {
+      showSuccess();
+
+      router.replace(router.pathname, undefined, { shallow: true });
+    }
+  }, [router, router.query, showSuccess]);
 
   return (
     <div className={styles.profile__container}>
