@@ -3,12 +3,12 @@ import cx from 'classnames';
 
 import { ButtonIcon, TextInput, Requester } from 'components';
 import Link from 'next/link';
+import { logoutIcon, ringIcon, userIcon } from 'assets';
+import { routes } from 'appConstants';
 import { Notification } from './Notification';
 import { NotificationContent } from './NotificationContent';
-import { logoutIcon, ringIcon, userIcon } from 'assets';
 
 import styles from './styles.module.scss';
-import { routes } from 'appConstants';
 
 export const Header = () => {
   const [search, setSearch] = useState('');
@@ -30,7 +30,7 @@ export const Header = () => {
         <TextInput
           value={search}
           onChangeValue={setSearch}
-          placeholder="Search"
+          placeholder="Global search"
           isSearch
           isClearable
           classNameInputBox={inputClassNames}
