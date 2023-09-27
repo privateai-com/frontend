@@ -2,7 +2,7 @@
 @import "assets/styles/_mixins.scss";
 
 @mixin font_size {
-	@include tablet1024 {
+	@include desktop1024 {
 		font-size: 16px;
 	}
 
