@@ -58,6 +58,7 @@ export const Header = () => {
         fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
         socialMedia="https:/facebook.com/profile"
         avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
+        onCloseModal={() => {}}
       />
       <span>{name}</span>
       <ButtonIcon
