@@ -21,9 +21,11 @@
   }
 
   &_content {
-    font-size: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
+    color: $color-grey4;
+    font-size: 20px;
   }
 }
