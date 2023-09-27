@@ -1,0 +1,70 @@
+@import "assets/styles/variables.scss";
+
+$border-radius: 8px;
+
+.requests {
+  &_header {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &_title {
+    font-weight: 700;
+    font-size: 38px;
+    margin-right: 20px;
+  }
+  &_btn_block {
+    display: flex;
+  }
+  &_btn_to_me {
+    background-color: $color-green;
+    color: #fff;
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+
+  &_btn_my {
+    background-color: #fff;
+    color: $color-green;
+    border-radius: 0 $border-radius $border-radius 0;
+  }
+
+  &_btn_to_me,
+  &_btn_my {
+    height: 40px;
+    width: 200px;
+    font-weight: 600;
+    border: 1px solid $color-green;
+  }
+}
+
+.table {
+  background-color: #fff;
+  border-radius: 16px;
+
+  &_header {
+    th {
+      &:nth-child(1) {
+        width: 44%;
+      }
+
+      &:nth-child(2) {
+        width: 15%;
+      }
+
+      &:nth-child(3) {
+        width: 18%;
+      }
+
+      &:nth-child(4) {
+        width: 23%;
+      }
+    }
+  }
+  
+  &_row {
+    border-bottom: 2px solid $color-grey2;
+    td {
+      text-align: center;
+    }
+  }
+}
