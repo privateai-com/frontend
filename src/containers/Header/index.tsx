@@ -10,6 +10,14 @@ import { NotificationContent } from './NotificationContent';
 
 import styles from './styles.module.scss';
 
+const results = [
+  'A brief history of the antibiotics era',
+  'Antibiotic resistance',
+  'The effectiveness of frequent antibiotic use',
+  'A brief history of the antibiotics era',
+  'Antibiotic resistance',
+];
+
 export const Header = () => {
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -21,6 +29,8 @@ export const Header = () => {
   const inputClassNames = search.length
     ? `${styles.input_wrapper_input}, ${styles.input_wrapper_input_filled}`
     : styles.input_wrapper_input;
+
+  const isWordMatchingSearch = (word: string) => word.toLowerCase() === search.toLowerCase();
 
   const name = 'John Doe';
 
@@ -38,9 +48,21 @@ export const Header = () => {
         {!!search.length && (
           <div className={styles.search_result}>
             <ul className={styles.search_list}>
-              <li>Result 1</li>
-              <li>Result 2</li>
-              <li>Result 3</li>
+              {results.map((result) => (
+                <li>
+                  {result.split(' ').map((word) => {
+                    if (isWordMatchingSearch(word)) {
+                      return (
+                        <>
+                          <span className={styles.selected}>{word}</span>
+                          {' '}
+                        </>
+                      );
+                    }
+                    return `${word} `;
+                  })}
+                </li>
+              ))}
             </ul>
             <Link
               href={`${routes.knowledge.root}/?search=${search}`}
