@@ -1,0 +1,58 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.storage__container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.storage__head {
+	display: flex;
+	align-items: center;
+	gap: 34px;
+	margin-bottom: 20px;
+
+	@include desktop1024 {
+		gap: 48px;
+	}
+
+	@include mobile {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 20px;
+	}
+}
+
+.storage__head_buttons {
+	display: flex;
+	background-color: $color-white;
+	border: 1px solid $color-green;
+	border-radius: 8px;
+
+	@include mobile {
+		width: 100%;
+	}
+
+	button {
+		padding: 11px 45px;
+
+		@include desktop1024 {
+			padding: 6px 45px;
+		}
+
+		@include mobile {
+			padding: 6px 10px;
+			width: 100%;
+		}
+
+		&:first-child {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+		&:last-of-type {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+	}
+}
