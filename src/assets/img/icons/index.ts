@@ -28,6 +28,9 @@ export { default as ringIcon } from './ringIcon.svg';
 export { default as userIcon } from './userIcon.svg';
 export { default as walletIcon } from './walletIcon.svg';
 export { default as uploadIcon } from './uploadIcon.svg';
+export { default as trashIcon } from './trashIcon.svg';
+export { default as minusCircleIcon } from './minusCircleIcon.svg';
+export { default as plusCircleIcon } from './plusCircleIcon.svg';
 
 export { default as bg1 } from './bg1.svg';
 export { default as bg2 } from './bg2.svg';

@@ -64,6 +64,12 @@
 	}
 }
 
+@mixin desktop1660 {
+	@media screen and (max-width: 1660px) {
+		@content;
+	}
+}
+
 @mixin hidden() {
   visibility: hidden;
   pointer-events: none;
