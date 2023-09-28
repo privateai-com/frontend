@@ -94,20 +94,3 @@
 	align-items: center;
 	justify-content: center;
 }
-
-.pagination {
-	justify-content: flex-end;
-	margin-top: 24px;
-
-	@include desktop1440 {
-    margin-top: 17px;
-  }
-
-  @include desktop1024 {
-    margin-top: 24px;
-  }
-
-	@include mobile {
-		display: none;
-	}
-}
