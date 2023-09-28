@@ -47,14 +47,16 @@ export const Header = () => {
         {!!search.length && (
           <div className={styles.search_result}>
             <ul className={styles.search_list}>
-              {results.map((result) => (
-                <li>
+              {results.map((result, i) => (
+                <li
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={i}
+                >
                   {result.split(' ').map((word) => {
                     if (isWordMatchingSearch(word)) {
                       return (
                         <>
-                          <span className={styles.selected}>{word}</span>
-                          {' '}
+                          <span className={styles.selected}>{word}</span>{' '}
                         </>
                       );
                     }
@@ -88,7 +90,7 @@ export const Header = () => {
         image={logoutIcon}
         onClick={() => {}}
       />
-      <Notification isOpen={isNotificationOpen}/>
+      <Notification isOpen={isNotificationOpen} />
     </header>
   );
 };

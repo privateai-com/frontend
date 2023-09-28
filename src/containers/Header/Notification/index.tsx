@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
-import styles from './styles.module.scss';
 import Image from 'next/image';
 import { arrowIcon } from 'assets';
 import { routes } from 'appConstants';
+import styles from './styles.module.scss';
 
 type ModalProps = {
   isOpen: boolean;
