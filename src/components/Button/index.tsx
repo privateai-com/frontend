@@ -20,8 +20,9 @@ const Button = memo(
         disabled,
         isLoading,
         href,
+        isMobileAdaptive,
       }: ButtonProps,
-      ref: ButtonRef,
+      ref: ButtonRef
     ) => {
       const { onMouseEnter, onMouseLeave } = useHoverEvent();
 
@@ -36,14 +37,12 @@ const Button = memo(
                 [styles.full_width]: isFullWidth,
                 [styles.disabled]: disabled,
               },
-              className,
+              className
             )}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            <div
-              className={cx({ [styles.children_while_loading]: isLoading })}
-            >
+            <div className={cx({ [styles.children_while_loading]: isLoading })}>
               {children}
             </div>
             {isLoading && <Loader className={styles.loader} />}
@@ -61,8 +60,9 @@ const Button = memo(
             {
               [styles.full_width]: isFullWidth,
               [styles.disabled]: disabled,
+              [styles.mobile]: isMobileAdaptive,
             },
-            className,
+            className
           )}
           onClick={onClick}
           disabled={disabled || isLoading}
@@ -75,8 +75,8 @@ const Button = memo(
           {isLoading && <Loader className={styles.loader} />}
         </button>
       );
-    },
-  ),
+    }
+  )
 );
 
 export { Button };

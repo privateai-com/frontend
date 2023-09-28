@@ -1,4 +1,4 @@
-import { Typography } from 'components';
+import { Button, Typography } from 'components';
 import { avatarImage } from 'assets';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -78,7 +78,12 @@ const Requester: React.FC<Props> = ({
             ))}
             <div className={styles.block_wrapper}>
               <span className={styles.block_title}>Social Media</span>
-              <Link href={socialMedia} className={styles.block_text}>{socialMedia}</Link>
+              <Link
+                href={socialMedia}
+                className={styles.block_text}
+              >
+                {socialMedia}
+              </Link>
             </div>
           </div>
         </div>
@@ -87,18 +92,14 @@ const Requester: React.FC<Props> = ({
             Do you want to open your file this user?
           </div>
           <div className={styles.access_btns_block}>
-            <button
-              className={styles.access_access_btn}
-              onClick={() => {}}
+            <Button isMobileAdaptive> Grant access</Button>
+            <Button
+              isMobileAdaptive
+              theme="grey"
             >
-              Grant access
-            </button>
-            <button
-              className={styles.access_decline_btn}
-              onClick={() => {}}
-            >
+              {' '}
               Decline access
-            </button>
+            </Button>
           </div>
         </div>
       </div>

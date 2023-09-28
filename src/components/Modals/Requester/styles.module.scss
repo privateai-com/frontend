@@ -185,6 +185,12 @@ $desktor-indent: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    & > button {
+      margin: 0 15px;
+      @include mobile {
+        margin: 0 7.5px;
+      }
+    }
   }
 
   &_access_btn,
