@@ -4,11 +4,6 @@
 $border-radius: 8px;
 $tbody-border: 40px solid transparent;
 
-@mixin green-btn {
-  background-color: $color-green;
-  color: #fff;
-}
-
 .requests {
   &_container {
     position: relative;
@@ -32,7 +27,8 @@ $tbody-border: 40px solid transparent;
 
   &_btn_to_me {
     border-radius: $border-radius 0 0 $border-radius;
-    @include green-btn();
+    background-color: $color-green;
+    color: #fff;
   }
 
   &_btn_my {
@@ -50,145 +46,3 @@ $tbody-border: 40px solid transparent;
   }
 }
 
-.table {
-  margin-bottom: 24px;
-  background-color: #fff;
-  border-radius: 16px;
-  border-collapse: collapse;
-
-  &_header {
-    box-shadow: 0px 3px 3px 0px #00000040;
-    border-radius: 16px 16px 0 0;
-
-    & th {
-      font-size: 20px;
-      padding: 12px 0;
-
-      &:first-of-type {
-        padding-left: 40px;
-      }
-      &:last-of-type {
-        padding-right: 40px;
-      }
-
-      & div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 34px;
-        border-right: 1px solid $color-grey2;
-
-        @include desktop1440 {
-          height: 20px;
-        }
-
-        & span {
-          margin-right: 4px;
-        }
-      }
-
-      &:nth-child(1) {
-        width: 36%;
-      }
-
-      &:nth-child(2) {
-        width: 22%;
-      }
-
-      &:nth-child(3) {
-        width: 18%;
-      }
-
-      &:nth-child(4) {
-        width: 28%;
-      }
-
-      @include desktop1440 {
-        font-size: 16px;
-        padding: 7px 0;
-      }
-    }
-  }
-
-  &_row {
-    border-bottom: 2px solid $color-grey2;
-
-    &:last-of-type {
-      border-bottom: none;
-    }
-
-    td {
-      padding: 25px 0;
-      text-align: center;
-
-      &:first-of-type {
-        padding-left: 40px;
-      }
-
-      &:last-of-type {
-        padding-right: 40px;
-      }
-
-      @include desktop1440 {
-        padding: 20px 0;
-      }
-    }
-  }
-
-  &_requester {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &_block_btn {
-    display: flex;
-    justify-content: center;
-  }
-
-  &_provide {
-    margin-right: 15px;
-    @include green-btn();
-
-    @include desktop1440 {
-      margin-right: 10px;
-    }
-  }
-
-  &_decline {
-    background-color: $color-grey2;
-    color: #fff;
-  }
-
-  &_provide,
-  &_decline {
-    height: 40px;
-    width: 130px;
-    border-radius: $border-radius;
-
-    @include desktop1440 {
-      height: 30px;
-      width: 90px;
-    }
-  }
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  color: $color-grey;
-  
-  button {
-    display: flex;
-    align-items: center;
-  }
-
-  &_prev_btn {
-    transform: rotate(180deg);
-    margin-right: 24px;
-  }
-
-  &_next_btn {
-    margin-left: 24px;
-  }
-}

@@ -1,5 +1,5 @@
 import { Layout } from 'components';
-import { Header, Requests } from 'containers';
+import { Header, Profile } from 'containers';
 import { NextPage } from 'next';
 
 const MainPage: NextPage = () => (
@@ -14,8 +14,7 @@ const MainPage: NextPage = () => (
     }}
     header={(<Header />)}
   >
-    {/* <Profile/> */}
-    <Requests />
+    <Profile />
   </Layout>
 );
 

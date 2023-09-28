@@ -1,37 +1,56 @@
-import { useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { Column } from 'react-table';
 
 import {
-  Button, Pagination, Table, TextInput, 
+  Pagination, Table, 
 } from 'components';
 
-import { ScreenWidth, routes } from 'appConstants';
+import { ScreenWidth } from 'appConstants';
 import { usePageCount, useScreenWidth } from 'hooks';
 import styles from './styles.module.scss';
+import { MobileTableItem } from './MobileTableItem';
 
-import { content, initialObj } from './data';
-import { useColumns } from './columns';
-import { Article } from './Article';
+type Props = {
+  columns: object[];
+  content: object[];
+  name: string;
+  mobileTitle1: string;
+  mobileState1: string | ReactNode;
+  mobileTitle2: string;
+  mobileState2: string | ReactNode;
+  children?: string | ReactNode;
+  itemsOnPageQuantity?: number;
+};
 
-const itemsOnPageQuantity = 6;
-
-export const ArticlesTab = () => {
-  const [search, setSearch] = useState('');
-  const columns = useColumns();
+export const MyTable: React.FC<Props> = ({
+  content,
+  columns,
+  name,
+  mobileTitle1,
+  mobileState1,
+  mobileTitle2,
+  mobileState2,
+  itemsOnPageQuantity = 6,
+}) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
+
+  const initialObj = Object.fromEntries(
+    Object.entries(content[0]).map(([key]) => [key, '']),
+  );
 
   const data = useMemo(() => {
     if (content.length >= 6) {
       return content;
     }
-    const emptyObjectsCount = 6 - content.length;
+    const emptyObjectsCount = itemsOnPageQuantity - content.length;
     const emptyObjects = Array.from(
       { length: emptyObjectsCount },
       () => initialObj,
     );
     return [...content, ...emptyObjects];
   }, []);
+
   const pageCount = usePageCount(data.length, itemsOnPageQuantity);
   const tableData = useMemo(() => {
     const sliceStart = currentPageIndex * itemsOnPageQuantity;
@@ -40,33 +59,17 @@ export const ArticlesTab = () => {
   }, [currentPageIndex, data]);
 
   return (
-    <>
-      <div className={styles.storage__search}>
-        <TextInput
-          value={search}
-          onChangeValue={setSearch}
-          placeholder="Search by file name"
-          isSearch
-          classNameInputBox={styles.input}
-        />
-        <Button
-          className={styles.upload}
-          href={routes.uploadActivity.root}
-        >
-          <span className={styles.plus_icon} />
-          Upload new file
-        </Button>
-      </div>
+    <div>
       {isMobile ? (
         <div className={styles.table_mobile}>
-          {content.map(({
-            id, name, status, core, 
-          }) => (
-            <Article
-              key={id}
+          {content.map(() => (
+            <MobileTableItem
+              key={name}
               name={name}
-              status={status}
-              core={core}
+              title1={mobileTitle1}
+              state1={mobileState1}
+              title2={mobileTitle2}
+              state2={mobileState2}
             />
           ))}
         </div>
@@ -84,6 +87,6 @@ export const ArticlesTab = () => {
           />
         </>
       )}
-    </>
+    </div>
   );
 };
