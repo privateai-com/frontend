@@ -1,6 +1,7 @@
 import { Typography } from 'components';
 import { avatarImage } from 'assets';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ModalBase } from '../ModalBase';
 import styles from './styles.module.scss';
 
@@ -77,7 +78,7 @@ const Requester: React.FC<Props> = ({
             ))}
             <div className={styles.block_wrapper}>
               <span className={styles.block_title}>Social Media</span>
-              <span className={styles.block_text}>{socialMedia}</span>
+              <Link href={socialMedia} className={styles.block_text}>{socialMedia}</Link>
             </div>
           </div>
         </div>
