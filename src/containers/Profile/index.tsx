@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cx from 'classnames';
 
-import { Button, Requester, Typography } from 'components';
+import { Button, Typography } from 'components';
 import { stringLongShortcut } from 'utils';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
@@ -18,17 +18,6 @@ export const Profile = () => {
       <div className={styles.profile__head}>
         <div className={styles.profile__head_title}>
           <Typography type="h1">My profile</Typography>
-          <Requester
-            name="John Doe"
-            contry="London, UK (GMT +0)"
-            organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
-            position="Head of neurosurgery laboratory"
-            fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
-            socialMedia="https:/facebook.com/profile"
-            avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
-            onCloseModal={() => {}}
-          />
-
           {!isEditProfile && (
             <Button
               className={styles.profile__head_button}
