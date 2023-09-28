@@ -22,7 +22,7 @@ const Button = memo(
         href,
         isMobileAdaptive,
       }: ButtonProps,
-      ref: ButtonRef
+      ref: ButtonRef,
     ) => {
       const { onMouseEnter, onMouseLeave } = useHoverEvent();
 
@@ -38,7 +38,7 @@ const Button = memo(
                 [styles.disabled]: disabled,
                 [styles.mobile]: isMobileAdaptive,
               },
-              className
+              className,
             )}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -62,7 +62,7 @@ const Button = memo(
               [styles.full_width]: isFullWidth,
               [styles.disabled]: disabled,
             },
-            className
+            className,
           )}
           onClick={onClick}
           disabled={disabled || isLoading}
@@ -75,8 +75,8 @@ const Button = memo(
           {isLoading && <Loader className={styles.loader} />}
         </button>
       );
-    }
-  )
+    },
+  ),
 );
 
 export { Button };
