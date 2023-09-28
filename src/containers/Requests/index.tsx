@@ -13,7 +13,7 @@ const Requests = () => (
       </Typography>
       <div className={styles.requests_btn_block}>
         <Button className={styles.requests_btn_to_me}>Requests to me</Button>
-        <Button theme='secondary' className={styles.requests_btn_my}>My requests</Button>
+        <Button theme="secondary" className={styles.requests_btn_my}>My requests</Button>
       </div>
     </div>
     <RequestTab />
