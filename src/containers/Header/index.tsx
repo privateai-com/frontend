@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
 import { Notification } from './Notification';
-import { NotificationContent } from './NotificationContent';
 
 import styles from './styles.module.scss';
 
@@ -89,9 +88,7 @@ export const Header = () => {
         image={logoutIcon}
         onClick={() => {}}
       />
-      <Notification isOpen={isNotificationOpen}>
-        <NotificationContent />
-      </Notification>
+      <Notification isOpen={isNotificationOpen}/>
     </header>
   );
 };

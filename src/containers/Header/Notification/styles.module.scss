@@ -37,9 +37,32 @@ $margin-horizontal-mobile: 15px;
 	transform: translateX(0);
 }
 
-.visible {
-	animation-name: sliding;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-	display: block;
+.item {
+  &_container {
+    border-bottom: 1px solid $color-grey;
+    padding: 15px 7px;
+
+    &:first-of-type {
+      padding-top: 7px;
+    }
+    &:last-of-type {
+      padding-bottom: 7px;
+      border-bottom: none;
+    }
+  }
+
+  &_time {
+    color: $color-grey;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  &_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: $color-grey4;
+    font-size: 20px;
+  }
 }
