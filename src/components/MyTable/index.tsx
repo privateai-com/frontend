@@ -1,35 +1,36 @@
-import { ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Column } from 'react-table';
 
-import {
-  Pagination, Table, 
-} from 'components';
+import { Pagination, Table } from 'components';
 
 import { ScreenWidth } from 'appConstants';
 import { usePageCount, useScreenWidth } from 'hooks';
 import styles from './styles.module.scss';
 import { MobileTableItem } from './MobileTableItem';
 
+type Content = {
+  id: string;
+  name: string;
+  [key: string]: string;
+};
+
 type Props = {
   columns: object[];
-  content: object[];
-  name: string;
+  content: Content[];
   mobileTitle1: string;
-  mobileState1: string | ReactNode;
+  key1: string ;
   mobileTitle2: string;
-  mobileState2: string | ReactNode;
-  children?: string | ReactNode;
+  key2: string;
   itemsOnPageQuantity?: number;
 };
 
 export const MyTable: React.FC<Props> = ({
   content,
   columns,
-  name,
   mobileTitle1,
-  mobileState1,
+  key1,
   mobileTitle2,
-  mobileState2,
+  key2,
   itemsOnPageQuantity = 6,
 }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
@@ -52,6 +53,7 @@ export const MyTable: React.FC<Props> = ({
   }, []);
 
   const pageCount = usePageCount(data.length, itemsOnPageQuantity);
+
   const tableData = useMemo(() => {
     const sliceStart = currentPageIndex * itemsOnPageQuantity;
     const sliceEnd = sliceStart + itemsOnPageQuantity;
@@ -62,14 +64,14 @@ export const MyTable: React.FC<Props> = ({
     <div>
       {isMobile ? (
         <div className={styles.table_mobile}>
-          {content.map(() => (
+          {content.map((iter, ind) => (
             <MobileTableItem
-              key={name}
-              name={name}
+              key={iter.id}
+              name={iter.name}
               title1={mobileTitle1}
-              state1={mobileState1}
+              state1={content[ind][key1]}
               title2={mobileTitle2}
-              state2={mobileState2}
+              state2={content[ind][key2]}
             />
           ))}
         </div>

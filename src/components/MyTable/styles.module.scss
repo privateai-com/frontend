@@ -1,0 +1,8 @@
+@import 'assets/styles/variables.scss';
+
+.table_mobile {
+	display: flex;
+	flex-direction: column;
+	background-color: $color-white;
+	border-radius: 8px;
+}
