@@ -56,7 +56,8 @@ export const Header = () => {
                     if (isWordMatchingSearch(word)) {
                       return (
                         <>
-                          <span className={styles.selected}>{word}</span>{' '}
+                          <span className={styles.selected}>{word}</span>
+                          {' '}
                         </>
                       );
                     }
