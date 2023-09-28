@@ -7,14 +7,14 @@ $margin-right-hidden-mobile: -610px;
 $margin-horizontal-mobile: 15px;
 
 .notification_container {
-	width: 280px;
+	width: 600px;
 	height: auto;
 	padding: 8px;
 	background-color: $color-white;
 	box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
 	position: fixed;
 	top: 78px;
-	right: 0;
+	right: 8.5%;
 	z-index: 10000;
 	border-radius: 8px;
 	border: 1px solid $color-green;
@@ -24,9 +24,13 @@ $margin-horizontal-mobile: 15px;
 	transform: translateX(100%);
 	transition: all 0.5s;
 
+  @include desktop1440 {
+    width: 550px;
+  }
 
 	@include mobile {
-		width: auto;
+    right: 15px;
+    width: calc(100% - 30px);
 		top: 48px;
 	}
 }
