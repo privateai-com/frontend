@@ -1,4 +1,4 @@
-import { Typography } from 'components';
+import { Button, Typography } from 'components';
 import styles from './styles.module.scss';
 import { RequestTab } from './RequestTab';
 
@@ -12,8 +12,8 @@ const Requests = () => (
         Access requests
       </Typography>
       <div className={styles.requests_btn_block}>
-        <button className={styles.requests_btn_to_me}>Requests to me</button>
-        <button className={styles.requests_btn_my}>My requests</button>
+        <Button className={styles.requests_btn_to_me}>Requests to me</Button>
+        <Button theme='secondary' className={styles.requests_btn_my}>My requests</Button>
       </div>
     </div>
     <RequestTab />

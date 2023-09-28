@@ -12,28 +12,49 @@ $tbody-border: 40px solid transparent;
   &_header {
     display: flex;
     justify-content: flex-start;
-    padding-bottom: 17px;
+    align-items: center;
+    margin-bottom: 25px;
+
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
   &_title {
+    color: $color-black;
     font-weight: 700;
     font-size: 38px;
     margin-right: 20px;
+
+    @include desktop1440 {
+      font-size: 32px;
+      margin-right: 28px;
+    }
+
+    @include tablet1024 {
+      margin-right: 18px;
+    }
+
+    @include mobile {
+      align-self: start;
+      margin: 15px 0 18px;
+      font-size: 18px;
+    }
   }
 
   &_btn_block {
     display: flex;
+
+    @include mobile {
+      width: 100%;
+    }
   }
 
   &_btn_to_me {
     border-radius: $border-radius 0 0 $border-radius;
-    background-color: $color-green;
-    color: #fff;
   }
 
   &_btn_my {
-    background-color: #fff;
-    color: $color-green;
     border-radius: 0 $border-radius $border-radius 0;
   }
 
@@ -42,7 +63,14 @@ $tbody-border: 40px solid transparent;
     height: 40px;
     width: 200px;
     font-weight: 600;
-    border: 1px solid $color-green;
+
+    @include desktop1440 {
+      height: 30px;
+      width: 150px;
+    }
+
+    @include mobile {
+      width: 50%;
+    }
   }
 }
-
