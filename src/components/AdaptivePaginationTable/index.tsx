@@ -18,13 +18,15 @@ type AdaptivePaginationTableProps = {
   columns: object[];
   content: Content[];
   mobileTitle1: string;
-  key1: string ;
+  key1: string;
   mobileTitle2: string;
   key2: string;
   itemsOnPageQuantity?: number;
 };
 
-export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = ({
+export const AdaptivePaginationTable: React.FC<
+  AdaptivePaginationTableProps
+> = ({
   content,
   columns,
   mobileTitle1,
@@ -36,18 +38,18 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
-  const initialObj = Object.fromEntries(
-    Object.entries(content[0]).map(([key]) => [key, '']),
-  );
+  const initialObj = !!content.length
+    ? Object.fromEntries(Object.entries(content[0]).map(([key]) => [key, '']))
+    : {};
 
   const data = useMemo(() => {
-    if (content.length >= 6) {
+    if (content.length >= itemsOnPageQuantity) {
       return content;
     }
     const emptyObjectsCount = itemsOnPageQuantity - content.length;
     const emptyObjects = Array.from(
       { length: emptyObjectsCount },
-      () => initialObj,
+      () => initialObj
     );
     return [...content, ...emptyObjects];
   }, []);
