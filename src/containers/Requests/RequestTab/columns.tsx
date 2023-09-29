@@ -6,9 +6,9 @@ import { ItemRowProps } from 'types';
 import { routes } from 'appConstants';
 import { Loader } from 'components/Loader';
 import { useModal } from 'react-modal-hook';
+import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import styles from './styles.module.scss';
 import { RequestsType } from './types';
-import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 
 type RequestCellProps = {
   requester: string;
@@ -31,7 +31,7 @@ const RequestCell: React.FC<RequestCellProps> = ({ requester }) => {
         }}
       />
     ),
-    []
+    [],
   );
 
   const onHandlerClick = () => {
@@ -61,7 +61,6 @@ const RequestCell: React.FC<RequestCellProps> = ({ requester }) => {
   );
 };
 
-
 export const useColumns = () =>
   useMemo(
     () => [
@@ -73,11 +72,11 @@ export const useColumns = () =>
             original: { name },
           },
         }: ItemRowProps<RequestsType>) =>
-          name ? (
+          (name ? (
             <Link href={`${routes.storage.root}/${name}`}>{name}</Link>
           ) : (
             '-'
-          ),
+          )),
       },
       {
         Header: <TitleWithArrows title="Request date" />,
@@ -96,7 +95,7 @@ export const useColumns = () =>
             original: { requester },
           },
         }: ItemRowProps<RequestsType>) =>
-          requester ? <RequestCell requester={requester} /> : '-',
+          (requester ? <RequestCell requester={requester} /> : '-'),
       },
       {
         Header: 'Access action',
@@ -106,7 +105,7 @@ export const useColumns = () =>
             original: { id },
           },
         }: ItemRowProps<RequestsType>) =>
-          id ? (
+          (id ? (
             <div className={styles.table_block_btn}>
               <Button className={styles.table_provide}>Provide</Button>
               <Button
@@ -118,8 +117,8 @@ export const useColumns = () =>
             </div>
           ) : (
             '-'
-          ),
+          )),
       },
     ],
-    []
+    [],
   );
