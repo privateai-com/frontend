@@ -16,7 +16,6 @@ const RequestTab = () => {
         key1="date"
         key2="requester"
       />
-      {' '}
     </div>
   );
 };
