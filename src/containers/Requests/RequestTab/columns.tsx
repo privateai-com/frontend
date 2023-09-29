@@ -27,16 +27,18 @@ const RequestCell: React.FC<RequestCellProps> = ({ requester }) => {
   return (
     <>
       <span>{requester}</span>
-      {!isLoading ? (
-        <button
-          className={styles.table_btn_link}
-          onClick={onHandlerClick}
-        >
-          See the profile details
-        </button>
-      ) : (
-        <Loader />
-      )}
+      <div className={styles.table_block_btn}>
+        {!isLoading ? (
+          <button
+            className={styles.table_btn_link}
+            onClick={onHandlerClick}
+          >
+            See the profile details
+          </button>
+        ) : (
+          <Loader />
+        )}
+      </div>
       {isOpen && (
         <Requester
           name="John Doe"
