@@ -1,7 +1,6 @@
 import { Button, Typography } from 'components';
 import { avatarImage } from 'assets';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ModalBase } from '../ModalBase';
 import styles from './styles.module.scss';
 
@@ -84,7 +83,8 @@ const Requester: React.FC<RequesterProps> = ({
                 rel="noreferrer"
               >
                 {' '}
-                className={styles.block_text}
+                className=
+                {styles.block_text}
                 {socialMedia}
               </a>
             </div>
