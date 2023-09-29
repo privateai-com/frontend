@@ -1,7 +1,7 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
 
-.article_container {
+.item_container {
 	position: relative;
 	margin: 15px 16px 0;
 
@@ -14,8 +14,9 @@
 	}
 }
 
-.article_head {
+.item_head {
 	display: flex;
+	justify-content: space-between;
 	
 	button {
 		display: flex;
@@ -26,7 +27,7 @@
 	}
 }
 
-.article_content {
+.item_content {
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
@@ -44,7 +45,7 @@
 	}
 }
 
-.article_item {
+.item_item {
 	display: flex;
 	flex-direction: column;
 	color: $color-grey;

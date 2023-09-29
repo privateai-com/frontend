@@ -98,7 +98,6 @@ const Requester: React.FC<RequesterProps> = ({
               isMobileAdaptive
               theme="grey"
             >
-              {' '}
               Decline access
             </Button>
           </div>

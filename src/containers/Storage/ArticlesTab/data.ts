@@ -18,10 +18,3 @@ export const content = [
     core: 'Genome editing, Gene Therapy, Genetic diseases, CRISPR-Cas9',
   },
 ];
-
-export const initialObj = {
-  id: '',
-  name: '',
-  status: '',
-  core: '',
-};
