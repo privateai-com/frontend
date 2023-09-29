@@ -22,10 +22,11 @@ type AdaptivePaginationTableProps = {
   mobileTitle2: string;
   key2: string;
   itemsOnPageQuantity?: number;
+  withPagination?: boolean;
 };
 
 export const AdaptivePaginationTable: React.FC<
-AdaptivePaginationTableProps
+  AdaptivePaginationTableProps
 > = ({
   content,
   columns,
@@ -34,20 +35,25 @@ AdaptivePaginationTableProps
   mobileTitle2,
   key2,
   itemsOnPageQuantity = 6,
+  withPagination = false,
 }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
-  const initialObj = useMemo(() => (content.length
-    ? Object.fromEntries(
-      Object.entries(content[0]).map(([key]) => [
-        key,
-        isMobile
-          ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
-          : '',
-      ]),
-    )
-    : {}), [content, isMobile]);
+  const initialObj = useMemo(
+    () =>
+      content.length
+        ? Object.fromEntries(
+            Object.entries(content[0]).map(([key]) => [
+              key,
+              isMobile
+                ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
+                : '',
+            ])
+          )
+        : {},
+    [content, isMobile]
+  );
 
   const data = useMemo(() => {
     if (content.length >= itemsOnPageQuantity) {
@@ -56,7 +62,7 @@ AdaptivePaginationTableProps
     const emptyObjectsCount = itemsOnPageQuantity - content.length;
     const emptyObjects = Array.from(
       { length: emptyObjectsCount },
-      () => initialObj,
+      () => initialObj
     );
     return [...content, ...emptyObjects];
   }, [content, initialObj, itemsOnPageQuantity]);
@@ -91,11 +97,13 @@ AdaptivePaginationTableProps
             data={tableData}
             className={styles.table}
           />
-          <Pagination
-            onChange={setCurrentPageIndex}
-            pageCount={pageCount}
-            className={styles.pagination}
-          />
+          {withPagination && (
+            <Pagination
+              onChange={setCurrentPageIndex}
+              pageCount={pageCount}
+              className={styles.pagination}
+            />
+          )}
         </>
       )}
     </div>
