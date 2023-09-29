@@ -4,23 +4,40 @@ import Link from 'next/link';
 import { Button, Requester } from 'components';
 import { ItemRowProps } from 'types';
 import { routes } from 'appConstants';
+import { Loader } from 'components/Loader';
 import styles from './styles.module.scss';
 import { RequestsType } from './types';
-import { Loader } from 'components/Loader';
+import { useModal } from 'react-modal-hook';
 
 type RequestCellProps = {
   requester: string;
 };
 
 const RequestCell: React.FC<RequestCellProps> = ({ requester }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showRequester, hideRequester] = useModal(
+    () => (
+      <Requester
+        avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
+        name="John Doe"
+        contry="London, UK (GMT +0)"
+        organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
+        position="Head of neurosurgery laboratory"
+        fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
+        socialMedia="https:/facebook.com/profile"
+        onCloseModal={() => {
+          hideRequester();
+        }}
+      />
+    ),
+    []
+  );
 
   const onHandlerClick = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setIsOpen((state) => !state);
+      showRequester();
     }, 1500);
   };
 
@@ -39,20 +56,6 @@ const RequestCell: React.FC<RequestCellProps> = ({ requester }) => {
           <Loader />
         )}
       </div>
-      {isOpen && (
-        <Requester
-          name="John Doe"
-          contry="London, UK (GMT +0)"
-          organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
-          position="Head of neurosurgery laboratory"
-          fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
-          socialMedia="https:/facebook.com/profile"
-          avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
-          onCloseModal={() => {
-            setIsOpen(false);
-          }}
-        />
-      )}
     </>
   );
 };
