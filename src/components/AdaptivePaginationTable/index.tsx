@@ -14,7 +14,7 @@ type Content = {
   [key: string]: string;
 };
 
-type Props = {
+type AdaptivePaginationTableProps = {
   columns: object[];
   content: Content[];
   mobileTitle1: string;
@@ -24,7 +24,7 @@ type Props = {
   itemsOnPageQuantity?: number;
 };
 
-export const AdaptivePaginationTable: React.FC<Props> = ({
+export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = ({
   content,
   columns,
   mobileTitle1,
