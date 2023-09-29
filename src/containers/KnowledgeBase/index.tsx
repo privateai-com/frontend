@@ -48,7 +48,9 @@ export const KnowledgeBase = () => (
     </div>
     <div className={styles.items}>
       {items.map(
-        ({ name, author, field, core, status, created, modified }, ind) => (
+        ({
+          name, author, field, core, status, created, modified, 
+        }, ind) => (
           <Item
             key={ind} // eslint-disable-line react/no-array-index-key
             name={name}
@@ -59,7 +61,7 @@ export const KnowledgeBase = () => (
             created={created}
             modified={modified}
           />
-        )
+        ),
       )}
     </div>
   </div>

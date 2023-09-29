@@ -1,0 +1,46 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.item_container {
+	position: relative;
+	margin: 15px 16px 0;
+
+	font-size: 12px;
+	font-weight: 500;
+	color: $color-grey4;
+
+	&:not(:last-of-type) {
+		border-bottom: 2px solid $color-grey2;
+	}
+}
+
+.item_head {
+	display: flex;
+	justify-content: space-between;
+	
+	button {
+		display: flex;
+		gap: 10px;
+		margin-right: 10px;
+		text-align: left;
+		margin-bottom: 15px;
+	}
+}
+
+.item_content {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding: 0 20px;
+	max-height: 0;
+	transition: max-height .3s ease-out, visibility .2s, opacity .2s;
+	visibility: hidden;
+	opacity: 0;
+
+	&.show {
+		max-height: 1000px;
+		visibility: visible;
+		opacity: 1;
+		margin-bottom: 15px;
+	}
+}
