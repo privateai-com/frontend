@@ -1,0 +1,10 @@
+.title {
+  &_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &_title {
+    margin-right: 4px;
+  }
+}

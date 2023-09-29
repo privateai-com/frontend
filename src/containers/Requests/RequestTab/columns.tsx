@@ -5,9 +5,10 @@ import { Button, Requester } from 'components';
 import { ItemRowProps } from 'types';
 import { routes } from 'appConstants';
 import { Loader } from 'components/Loader';
+import { useModal } from 'react-modal-hook';
 import styles from './styles.module.scss';
 import { RequestsType } from './types';
-import { useModal } from 'react-modal-hook';
+import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 
 type RequestCellProps = {
   requester: string;
@@ -60,11 +61,12 @@ const RequestCell: React.FC<RequestCellProps> = ({ requester }) => {
   );
 };
 
+
 export const useColumns = () =>
   useMemo(
     () => [
       {
-        Header: 'File name',
+        Header: <TitleWithArrows title="File name" />,
         accessor: 'name',
         Cell: ({
           row: {
@@ -78,7 +80,7 @@ export const useColumns = () =>
           ),
       },
       {
-        Header: 'Request date',
+        Header: <TitleWithArrows title="Request date" />,
         accessor: 'date',
         Cell: ({
           row: {
@@ -87,7 +89,7 @@ export const useColumns = () =>
         }: ItemRowProps<RequestsType>) => date || '-',
       },
       {
-        Header: 'Requestor',
+        Header: <TitleWithArrows title="Requestor" />,
         accessor: 'requestor',
         Cell: ({
           row: {
