@@ -38,9 +38,16 @@ AdaptivePaginationTableProps
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
-  const initialObj = content.length
-    ? Object.fromEntries(Object.entries(content[0]).map(([key]) => [key, '']))
-    : {};
+  const initialObj = useMemo(() => (content.length
+    ? Object.fromEntries(
+      Object.entries(content[0]).map(([key]) => [
+        key,
+        isMobile
+          ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
+          : '',
+      ]),
+    )
+    : {}), [content, isMobile]);
 
   const data = useMemo(() => {
     if (content.length >= itemsOnPageQuantity) {
@@ -66,14 +73,14 @@ AdaptivePaginationTableProps
     <div>
       {isMobile ? (
         <div className={styles.table_mobile}>
-          {content.map((iter, ind) => (
+          {tableData.map((iter, ind) => (
             <MobileTableItem
               key={iter.id}
               name={iter.name}
               title1={mobileTitle1}
-              state1={content[ind][key1]}
+              state1={tableData[ind][key1]}
               title2={mobileTitle2}
-              state2={content[ind][key2]}
+              state2={tableData[ind][key2]}
             />
           ))}
         </div>

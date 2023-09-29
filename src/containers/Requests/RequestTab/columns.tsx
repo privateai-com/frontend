@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import { Button } from 'components';
 import { ItemRowProps } from 'types';
+import { routes } from 'appConstants';
 import styles from './styles.module.scss';
 import { RequestsType } from './types';
-import { routes } from 'appConstants';
 
 export const useColumns = () =>
   useMemo(
@@ -18,11 +18,11 @@ export const useColumns = () =>
             original: { name },
           },
         }: ItemRowProps<RequestsType>) =>
-          name ? (
+          (name ? (
             <Link href={`${routes.storage.root}/${name}`}>{name}</Link>
           ) : (
             '-'
-          ),
+          )),
       },
       {
         Header: 'Request date',
@@ -41,14 +41,14 @@ export const useColumns = () =>
             original: { requester },
           },
         }: ItemRowProps<RequestsType>) =>
-          requester ? (
+          (requester ? (
             <>
               <span>{requester}</span>
               <Link href="/#">See the profile details</Link>
             </>
           ) : (
             '-'
-          ),
+          )),
       },
       {
         Header: 'Access action',
@@ -58,7 +58,7 @@ export const useColumns = () =>
             original: { id },
           },
         }: ItemRowProps<RequestsType>) =>
-          id ? (
+          (id ? (
             <div className={styles.table_block_btn}>
               <Button className={styles.table_provide}>Provide</Button>
               <Button
@@ -70,8 +70,8 @@ export const useColumns = () =>
             </div>
           ) : (
             '-'
-          ),
+          )),
       },
     ],
-    []
+    [],
   );
