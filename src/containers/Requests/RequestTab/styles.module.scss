@@ -4,6 +4,8 @@
 $border-radius: 8px;
 
 .table {
+
+
   &_btn_link {
     text-decoration: underline;
     color: $color-green;
@@ -12,6 +14,7 @@ $border-radius: 8px;
   &_block_btn {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   &_provide {

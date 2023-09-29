@@ -6,6 +6,7 @@ import { ItemRowProps } from 'types';
 import { routes } from 'appConstants';
 import styles from './styles.module.scss';
 import { RequestsType } from './types';
+import { Loader } from 'components/Loader';
 
 type RequestCellProps = {
   requester: string;
@@ -13,15 +14,29 @@ type RequestCellProps = {
 
 const RequestCell: React.FC<RequestCellProps> = ({ requester }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onHandlerClick = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsOpen((state) => !state);
+    }, 1500);
+  };
+
   return (
     <>
       <span>{requester}</span>
-      <button
-        className={styles.table_btn_link}
-        onClick={() => setIsOpen((state) => !state)}
-      >
-        See the profile details
-      </button>
+      {!isLoading ? (
+        <button
+          className={styles.table_btn_link}
+          onClick={onHandlerClick}
+        >
+          See the profile details
+        </button>
+      ) : (
+        <Loader />
+      )}
       {isOpen && (
         <Requester
           name="John Doe"
