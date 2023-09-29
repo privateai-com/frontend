@@ -25,7 +25,7 @@ type AdaptivePaginationTableProps = {
 };
 
 export const AdaptivePaginationTable: React.FC<
-  AdaptivePaginationTableProps
+AdaptivePaginationTableProps
 > = ({
   content,
   columns,
@@ -38,7 +38,7 @@ export const AdaptivePaginationTable: React.FC<
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
-  const initialObj = !!content.length
+  const initialObj = content.length
     ? Object.fromEntries(Object.entries(content[0]).map(([key]) => [key, '']))
     : {};
 
@@ -52,7 +52,7 @@ export const AdaptivePaginationTable: React.FC<
       () => initialObj
     );
     return [...content, ...emptyObjects];
-  }, []);
+  }, [content, initialObj, itemsOnPageQuantity]);
 
   const pageCount = usePageCount(data.length, itemsOnPageQuantity);
 
@@ -60,7 +60,7 @@ export const AdaptivePaginationTable: React.FC<
     const sliceStart = currentPageIndex * itemsOnPageQuantity;
     const sliceEnd = sliceStart + itemsOnPageQuantity;
     return data.slice(sliceStart, sliceEnd);
-  }, [currentPageIndex, data]);
+  }, [currentPageIndex, data, itemsOnPageQuantity]);
 
   return (
     <div>
