@@ -49,7 +49,7 @@ AdaptivePaginationTableProps
     const emptyObjectsCount = itemsOnPageQuantity - content.length;
     const emptyObjects = Array.from(
       { length: emptyObjectsCount },
-      () => initialObj
+      () => initialObj,
     );
     return [...content, ...emptyObjects];
   }, [content, initialObj, itemsOnPageQuantity]);
