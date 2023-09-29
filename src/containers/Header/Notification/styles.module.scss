@@ -1,0 +1,72 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+$margin-right-visible: 75px;
+$margin-right-hidden: -310px;
+$margin-right-hidden-mobile: -610px;
+$margin-horizontal-mobile: 15px;
+
+.notification_container {
+	width: 600px;
+	height: auto;
+	padding: 8px;
+	background-color: $color-white;
+	box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
+	position: fixed;
+	top: 78px;
+	right: 8.5%;
+	z-index: 100;
+	border-radius: 8px;
+	border: 1px solid $color-green;
+	box-sizing: border-box;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(100%);
+	transition: all 0.5s;
+
+  @include desktop1440 {
+    width: 550px;
+  }
+
+	@include mobile {
+    right: 15px;
+    width: calc(100% - 30px);
+		top: 48px;
+	}
+}
+
+.show {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(0);
+}
+
+.item {
+  &_container {
+    border-bottom: 1px solid $color-grey;
+    padding: 15px 7px;
+
+    &:first-of-type {
+      padding-top: 7px;
+    }
+    &:last-of-type {
+      padding-bottom: 7px;
+      border-bottom: none;
+    }
+  }
+
+  &_time {
+    color: $color-grey;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  &_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: $color-grey4;
+    font-size: 20px;
+  }
+}

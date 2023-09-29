@@ -26,7 +26,7 @@ type AdaptivePaginationTableProps = {
 };
 
 export const AdaptivePaginationTable: React.FC<
-  AdaptivePaginationTableProps
+AdaptivePaginationTableProps
 > = ({
   content,
   columns,
@@ -42,17 +42,17 @@ export const AdaptivePaginationTable: React.FC<
 
   const initialObj = useMemo(
     () =>
-      content.length
+      (content.length
         ? Object.fromEntries(
-            Object.entries(content[0]).map(([key]) => [
-              key,
-              isMobile
-                ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
-                : '',
-            ])
-          )
-        : {},
-    [content, isMobile]
+          Object.entries(content[0]).map(([key]) => [
+            key,
+            isMobile
+              ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
+              : '',
+          ]),
+        )
+        : {}),
+    [content, isMobile],
   );
 
   const data = useMemo(() => {
@@ -62,7 +62,7 @@ export const AdaptivePaginationTable: React.FC<
     const emptyObjectsCount = itemsOnPageQuantity - content.length;
     const emptyObjects = Array.from(
       { length: emptyObjectsCount },
-      () => initialObj
+      () => initialObj,
     );
     return [...content, ...emptyObjects];
   }, [content, initialObj, itemsOnPageQuantity]);

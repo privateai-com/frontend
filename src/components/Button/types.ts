@@ -23,7 +23,6 @@ HTMLButtonElement
   isMobileAdaptive?: boolean;
   withoutOuterBorder?: boolean;
   href?: string;
-}
->;
+}>;
 
 export type ButtonTheme = 'primary' | 'secondary' | 'grey';

@@ -61,6 +61,7 @@ const Button = memo(
             {
               [styles.full_width]: isFullWidth,
               [styles.disabled]: disabled,
+              [styles.mobile]: isMobileAdaptive,
             },
             className,
           )}
