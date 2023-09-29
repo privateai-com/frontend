@@ -7,16 +7,14 @@ const RequestTab = () => {
   const columns = useColumns();
 
   return (
-    <div>
-      <AdaptivePaginationTable
-        columns={columns}
-        content={content}
-        mobileTitle1="Request date"
-        mobileTitle2="Requester"
-        key1="date"
-        key2="requester"
-      />
-    </div>
+    <AdaptivePaginationTable
+      columns={columns}
+      content={content}
+      mobileTitle1="Request date"
+      mobileTitle2="Requester"
+      key1="date"
+      key2="requester"
+    />
   );
 };
 
