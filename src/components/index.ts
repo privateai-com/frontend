@@ -1,6 +1,5 @@
 export * from './Button';
 export * from './Modals';
-export * from './ModalNotification';
 export * from './Tabs';
 export * from './TextInput';
 export * from './Typography';

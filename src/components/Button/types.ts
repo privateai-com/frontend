@@ -21,6 +21,7 @@ HTMLButtonElement
   isLoading?: boolean,
   withoutOuterBorder?: boolean;
   href?: string;
+  isMobileAdaptive?: boolean
 }>;
 
-export type ButtonTheme = 'primary' | 'secondary';
+export type ButtonTheme = 'primary' | 'secondary' | 'grey';
