@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ModalBase } from '../ModalBase';
 import styles from './styles.module.scss';
 
-type Props = {
+type RequesterProps = {
   avatar: string;
   name: string;
   contry: string;
@@ -16,7 +16,7 @@ type Props = {
   onCloseModal: () => void;
 };
 
-const Requester: React.FC<Props> = ({
+const Requester: React.FC<RequesterProps> = ({
   // avatar,
   name,
   contry,
@@ -78,12 +78,15 @@ const Requester: React.FC<Props> = ({
             ))}
             <div className={styles.block_wrapper}>
               <span className={styles.block_title}>Social Media</span>
-              <Link
-                href={socialMedia}
-                className={styles.block_text}
+              <a
+                href="https:/facebook.com/profile"
+                target="_blank"
+                rel="noreferrer"
               >
+                {' '}
+                className={styles.block_text}
                 {socialMedia}
-              </Link>
+              </a>
             </div>
           </div>
         </div>
