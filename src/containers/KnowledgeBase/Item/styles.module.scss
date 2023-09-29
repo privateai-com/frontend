@@ -1,13 +1,21 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
-.knowledge {
-  position: relative;
-  &_header {
-    margin-bottom: 25px;
-  }
-  &_title {
-    margin-bottom: 25px;
+@mixin icon($url) {
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -32px;
+    height: 24px;
+    width: 24px;
+    background: url($url) no-repeat;
+
+    @include mobile {
+      left: -18px;
+      top: 0px;
+      background-size: 14px;
+    }
   }
 }
 
@@ -23,6 +31,11 @@
   padding-bottom: 20px;
   color: $color-grey;
   border-bottom: 2px solid $color-grey2;
+  font-size: 20px;
+
+  @include desktop1440 {
+    font-size: 16px;
+  }
 
   &_content_block {
     display: flex;
@@ -32,24 +45,79 @@
   &_first_block {
     display: flex;
     flex-direction: column;
+    margin-right: 20px;
   }
 
   &_title {
     color: $color-grey;
     margin-bottom: 25px;
-    ~ div {
-      display: flex;
+    font-size: 32px;
+
+    @include desktop1440 {
+      font-size: 24px;
+    }
+
+    @include mobile {
+      color: $color-black !important;
     }
   }
-  &_core {
-    min-width: 600px;
+
+  &_row_block {
+    @include mobile {
+      color: $color-grey;
+      margin-bottom: 15px;
+
+      &:first-of-type {
+        padding-left: 18px;
+      }
+    }
   }
+
+  &_description_block {
+    display: flex;
+  }
+
+  &_core {
+    max-width: 600px;
+
+    @include desktop1440 {
+      max-width: 425px;
+    }
+  }
+
   &_field_author_block {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-right: 80px;
     text-wrap: nowrap;
+
+    @include desktop1440 {
+      margin-right: 54px;
+    }
+
+    @include tablet1024 {
+      margin-right: 44px;
+    }
+  }
+
+  &_second_block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_status {
+    align-self: end;
+  }
+
+  &_date_block {
+    display: flex;
+    text-wrap: nowrap;
+
+    @include mobile {
+      justify-content: space-between;
+      color: $color-grey;
+    }
   }
 
   &_col_block,
@@ -58,25 +126,66 @@
     flex-direction: column;
   }
 
-  &_second_block {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-&_status {
-  align-self: end;
-}
-
-  &_date_block {
-    display: flex;
+  &_col_block {
+    @include mobile {
+      color: $color-grey;
+      margin-bottom: 15px;
+    }
   }
 
   &_created_block {
     margin-right: 60px;
+
+    @include desktop1440 {
+      margin-right: 50px;
+    }
+
+    @include tablet1024 {
+      margin-right: 44px;
+    }
   }
 }
 
 .title {
   font-weight: 700;
+
+  @include mobile {
+    color: $color-black;
+  }
+}
+
+.open,
+.permission_needed,
+.permission_given,
+.pending {
+  position: relative;
+  align-self: end;
+  margin-bottom: 40px;
+
+  @include desktop1440 {
+    margin-bottom: 28px;
+  }
+}
+
+.permission_given,
+.pending {
+  color: $color-grey;
+}
+
+.open {
+  position: relative;
+  color: $color-green;
+  @include icon("../../../assets/img/icons/check1.svg");
+}
+
+.permission_given {
+  @include icon("../../../assets/img/icons/alertSquare.svg");
+}
+.pending {
+  @include icon("../../../assets/img/icons/clock.svg");
+}
+.permission_needed {
+  color: $color-pink;
+  text-decoration: underline;
+  @include icon("../../../assets/img/icons/alertSquare1.svg");
 }

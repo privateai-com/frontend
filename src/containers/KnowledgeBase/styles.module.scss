@@ -16,67 +16,8 @@
   background-color: $color-white;
   box-shadow: -10px 56px 140px 0px #8f9bba33;
   border-radius: 16px;
-}
 
-.item {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  color: $color-grey;
-  border-bottom: 2px solid $color-grey2;
-
-  &_content_block {
-    display: flex;
-    justify-content: space-between;
+  @include mobile {
+    padding: 16px;
   }
-
-  &_first_block {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &_title {
-    color: $color-grey;
-    margin-bottom: 25px;
-    ~ div {
-      display: flex;
-    }
-  }
-  &_core {
-    min-width: 600px;
-  }
-  &_field_author_block {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-right: 80px;
-    text-wrap: nowrap;
-  }
-
-  &_col_block,
-  &_created_block {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &_second_block {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-&_status {
-  align-self: end;
-}
-
-  &_date_block {
-    display: flex;
-  }
-
-  &_created_block {
-    margin-right: 60px;
-  }
-}
-
-.title {
-  font-weight: 700;
 }

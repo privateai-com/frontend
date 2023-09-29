@@ -33,7 +33,7 @@ const items: ItemProp[] = Array(6).fill({
   status: 'Open sourced',
   created: '20 may 2023',
   modified: '20 may 2023',
-});
+} as ItemProp);
 
 export const KnowledgeBase = () => (
   <div className={styles.knowledge}>
