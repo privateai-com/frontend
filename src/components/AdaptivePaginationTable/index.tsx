@@ -24,7 +24,7 @@ type Props = {
   itemsOnPageQuantity?: number;
 };
 
-export const MyTable: React.FC<Props> = ({
+export const AdaptivePaginationTable: React.FC<Props> = ({
   content,
   columns,
   mobileTitle1,

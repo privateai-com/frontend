@@ -1,4 +1,4 @@
-import { MyTable } from 'components';
+import { AdaptivePaginationTable } from 'components';
 import React from 'react';
 import { content } from './data';
 import { useColumns } from './columns';
@@ -8,7 +8,7 @@ const RequestTab = () => {
 
   return (
     <div>
-      <MyTable
+      <AdaptivePaginationTable
         columns={columns}
         content={content}
         mobileTitle1="Request date"

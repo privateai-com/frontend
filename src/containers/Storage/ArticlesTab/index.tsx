@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, MyTable, TextInput } from 'components';
+import { Button, AdaptivePaginationTable, TextInput } from 'components';
 
 import { routes } from 'appConstants';
 import styles from './styles.module.scss';
@@ -30,7 +30,7 @@ export const ArticlesTab = () => {
           Upload new file
         </Button>
       </div>
-      <MyTable
+      <AdaptivePaginationTable
         columns={columns}
         content={content}
         mobileTitle1="Status"
