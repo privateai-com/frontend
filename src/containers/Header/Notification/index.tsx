@@ -6,7 +6,7 @@ import { arrowIcon } from 'assets';
 import { routes } from 'appConstants';
 import styles from './styles.module.scss';
 
-type ModalProps = {
+type NotificationProps = {
   isOpen: boolean;
 };
 
@@ -21,7 +21,7 @@ const items = [
   },
 ];
 
-const Notification = memo(({ isOpen }: ModalProps) => (
+const Notification = memo(({ isOpen }: NotificationProps) => (
   <div className={cx(styles.notification_container, { [styles.show]: isOpen })}>
     {items.map(({ text, time }) => (
       <div
