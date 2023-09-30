@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .item_container {
 	position: relative;
@@ -8,6 +8,7 @@
 	font-size: 12px;
 	font-weight: 500;
 	color: $color-grey4;
+	border-bottom: 2px solid $color-grey2;
 
 	&:not(:last-of-type) {
 		border-bottom: 2px solid $color-grey2;
@@ -17,7 +18,7 @@
 .item_head {
 	display: flex;
 	justify-content: space-between;
-	
+
 	button {
 		display: flex;
 		gap: 10px;
@@ -33,7 +34,10 @@
 	gap: 15px;
 	padding: 0 20px;
 	max-height: 0;
-	transition: max-height .3s ease-out, visibility .2s, opacity .2s;
+	transition:
+		max-height 0.3s ease-out,
+		visibility 0.2s,
+		opacity 0.2s;
 	visibility: hidden;
 	opacity: 0;
 
