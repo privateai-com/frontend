@@ -1,14 +1,15 @@
 import { FC, useState } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
+import Link from 'next/link';
 
+import { routes } from 'appConstants';
 import {
   arrowGreenIcon,
   minusCircleIcon,
   plusCircleIcon,
 } from 'assets';
 
-import Link from 'next/link';
 import styles from './styles.module.scss';
 
 interface ArticleProps {
@@ -37,7 +38,7 @@ export const Article: FC<ArticleProps> = ({
           {name}
         </button>
 
-        <Link href="/#">
+        <Link href={`${routes.storage.root}/${name}`}>
           <Image
             src={arrowGreenIcon}
             alt="arrow"

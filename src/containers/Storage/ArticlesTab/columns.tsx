@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react';
-
 import Link from 'next/link';
+
 import { ButtonIcon, RadioButtons } from 'components';
+import { routes } from 'appConstants';
 import { trashIcon } from 'assets';
 import { ArticlesRowProps, ArticlesType } from './types';
+
 import styles from './styles.module.scss';
 
 export const useColumns = () => useMemo(() => ([
@@ -16,7 +18,7 @@ export const useColumns = () => useMemo(() => ([
       },
     }: ArticlesRowProps<ArticlesType>) => (
       name 
-        ? <Link href="/#">{name}</Link> 
+        ? <Link href={`${routes.storage.root}/${name}`}>{name}</Link> 
         : <div className={styles.empty_space}>-</div>
     ),
   },

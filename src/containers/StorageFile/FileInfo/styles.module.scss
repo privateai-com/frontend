@@ -1,0 +1,98 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.storageFile__file {
+	grid-area: info;
+	margin-top: 20px;
+
+	h1 {
+		margin-bottom: 20px;
+	}
+}
+
+.storageFile__item {
+	font-size: 20px;
+	font-weight: 700;
+	color: $color-grey;
+	display: flex;
+	gap: 10px;
+
+	&:nth-child(3) {
+		justify-content: space-between;
+	}
+
+	a, span {
+		font-weight: 500;
+		font-size: 20px;
+	}
+}
+
+.storageFile__wrapper {
+	padding: 44px 40px;
+	background-color: $color-white;
+	box-shadow: -10px 56px 140px 0px #8F9BBA33;
+	border-radius: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.storageFile__edit {
+	padding: 20px;
+	border: 1px solid $color-green;
+	border-radius: 16px;
+
+	&_item {
+		display: flex;
+		gap: 16px;
+
+		span {
+			font-size: 20px;
+			font-weight: 700;
+			color: $color-grey;
+		}
+
+		&_inputs {
+			display: flex;
+			flex-wrap: wrap;
+			row-gap: 15px;
+			column-gap: 22px;
+
+			input {
+				border: 1px solid $color-green;
+				border-radius: 8px;
+				height: 40px;
+				outline: none;
+				padding: 10px;
+			}
+		}
+
+		&_icon {
+			height: fit-content;
+			margin: auto;
+		} 
+	}
+}
+
+.radio_buttons {
+	flex-direction: column;
+	gap: 5px;
+}
+
+.storageFile__buttons {
+	grid-area: buttons;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+}
+
+.storageFile__control_buttons {
+	display: flex;
+	border-radius: 8px;
+	border: 1px solid $color-green;
+
+	.button {
+		border-radius: 0;
+		border: 1px solid transparent;
+	}
+}

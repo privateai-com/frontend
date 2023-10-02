@@ -1,0 +1,74 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.storageFile__data {
+	grid-area: data;
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+
+.storageFile__data_head {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 14px;
+}
+
+.storageFile__wrapper {
+	padding: 44px 40px;
+	background-color: $color-white;
+	box-shadow: -10px 56px 140px 0px #8F9BBA33;
+	border-radius: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.storageFile__control_buttons {
+	display: flex;
+	border-radius: 8px;
+	border: 1px solid $color-green;
+	width: fit-content;
+	overflow: hidden;
+
+	.button {
+		border-radius: 0;
+		border: 1px solid transparent;
+	}
+}
+
+.graph_info {
+	display: flex;
+	gap: 10px;
+
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border: 1px solid $color-green;
+		border-radius: 8px;
+		padding: 8px;
+		gap: 20px;
+		min-width: 150px;
+
+		p {
+			color: $color-grey;
+			font-size: 16px;
+			font-weight: 500;
+			max-width: 118px;
+		}
+
+		span {
+			font-size: 20px;
+			color: $color-black;
+		}
+
+		&:last-of-type {
+			width: 100%;
+
+			span {
+				font-size: 16px;
+			}
+		}
+	}
+}
