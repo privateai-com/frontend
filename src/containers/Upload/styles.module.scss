@@ -64,9 +64,21 @@
 }
 
 .statuses {
-  padding: 30px 40px;
+  padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
+
+  &_items {
+    padding-right: 17px;
+    height: 323px;
+    overflow-y: scroll;
+
+    @include desktop1440 {
+      padding-right: 13px;
+    }
+
+    @include greenScrollbar;
+  }
 
   &_title {
     margin-bottom: 21px;

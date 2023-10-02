@@ -32,6 +32,16 @@ const data: DataProps[] = [
     percents: 100,
     weight: 100,
   },
+  {
+    name: 'Nanotechnologies in medicine',
+    percents: 100,
+    weight: 100,
+  },
+  {
+    name: 'Nanotechnologies in medicine',
+    percents: 100,
+    weight: 100,
+  },
 ];
 
 export const Upload = () => {
@@ -78,13 +88,15 @@ export const Upload = () => {
         >
           Statuses
         </Typography>
-        {data.map(({ name, percents, weight }) => (
-          <Item
-            name={name}
-            percents={percents}
-            weight={weight}
-          />
-        ))}
+        <div className={styles.statuses_items}>
+          {data.map(({ name, percents, weight }) => (
+            <Item
+              name={name}
+              percents={percents}
+              weight={weight}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
