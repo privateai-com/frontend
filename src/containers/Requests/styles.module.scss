@@ -1,0 +1,75 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+$border-radius: 8px;
+
+.requests {
+  &_container {
+    position: relative;
+  }
+
+  &_header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 25px;
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  &_title {
+    color: $color-black;
+    font-weight: 700;
+    font-size: 38px;
+    margin-right: 20px;
+
+    @include desktop1440 {
+      font-size: 32px;
+      margin-right: 28px;
+    }
+
+    @include tablet1024 {
+      margin-right: 18px;
+    }
+
+    @include mobile {
+      align-self: start;
+      margin: 15px 0 18px;
+      font-size: 18px;
+    }
+  }
+
+  &_btn_block {
+    display: flex;
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+  &_btn_to_me {
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+
+  &_btn_my {
+    border-radius: 0 $border-radius $border-radius 0;
+  }
+
+  &_btn_to_me,
+  &_btn_my {
+    height: 40px;
+    width: 200px;
+    font-weight: 600;
+
+    @include desktop1440 {
+      height: 30px;
+      width: 150px;
+    }
+
+    @include mobile {
+      width: 50%;
+    }
+  }
+}

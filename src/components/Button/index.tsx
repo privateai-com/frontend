@@ -20,6 +20,7 @@ const Button = memo(
         disabled,
         isLoading,
         href,
+        isMobileAdaptive,
       }: ButtonProps,
       ref: ButtonRef,
     ) => {
@@ -35,15 +36,14 @@ const Button = memo(
               {
                 [styles.full_width]: isFullWidth,
                 [styles.disabled]: disabled,
+                [styles.mobile]: isMobileAdaptive,
               },
               className,
             )}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            <div
-              className={cx({ [styles.children_while_loading]: isLoading })}
-            >
+            <div className={cx({ [styles.children_while_loading]: isLoading })}>
               {children}
             </div>
             {isLoading && <Loader className={styles.loader} />}
@@ -61,6 +61,7 @@ const Button = memo(
             {
               [styles.full_width]: isFullWidth,
               [styles.disabled]: disabled,
+              [styles.mobile]: isMobileAdaptive,
             },
             className,
           )}

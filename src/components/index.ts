@@ -1,6 +1,5 @@
 export * from './Button';
 export * from './Modals';
-export * from './ModalNotification';
 export * from './Tabs';
 export * from './TextInput';
 export * from './Typography';
@@ -18,6 +17,7 @@ export * from './InputOtp';
 export * from './ButtonResend';
 export * from './ConfirmEmail';
 export * from './RadioButtons';
+export * from './AdaptivePaginationTable';
 export { default as Layout } from './Layout';
 export { default as LayoutAuth } from './LayoutAuth';
 export { TextArea } from './TextArea';

@@ -1,0 +1,242 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+$desktor-indent: 40px;
+
+@mixin content-max-width($width, $indent) {
+  max-width: calc($width / 2 - $indent);
+}
+
+@mixin h-text-style {
+  font-weight: 700 !important;
+  color: $color-grey !important;
+}
+
+.requester {
+  &_wrapper {
+    padding: $desktor-indent;
+    color: $color-grey;
+
+    @include desktop1440 {
+      padding: 22.5px 55px 30px;
+    }
+
+    @include mobile {
+      padding: 15px;
+    }
+  }
+
+  &_title {
+    margin-bottom: 30px !important;
+    font-size: 32px !important;
+    text-align: center;
+    @include h-text-style();
+
+    @include desktop1440 {
+      margin-bottom: 25px !important;
+      font-size: 24px !important;
+    }
+
+    @include mobile {
+      margin-bottom: 15px !important;
+      font-size: 16px !important;
+    }
+  }
+
+  &_content_wrapper {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid $color-grey;
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &_image {
+    margin: 50px 68px 0 0;
+    border: 1px solid $color-grey2;
+    border-radius: 50%;
+    align-self: flex-start;
+    width: 280px;
+    height: 280px;
+
+    @include desktop1440 {
+      margin: 25px 55px 0 0;
+      width: 230px;
+      height: 230px;
+    }
+
+    @include mobile {
+      margin: 0 auto 15px;
+      width: 99px;
+      height: 99px;
+    }
+  }
+
+  &_content {
+    margin-bottom: 30px;
+    @include content-max-width(834px, $desktor-indent);
+
+    @include desktop1440 {
+      margin-bottom: 20px;
+      @include content-max-width(650px, 55px);
+    }
+
+    @include mobile {
+      margin-bottom: 15px;
+      max-width: 100%;
+    }
+  }
+
+  &_name,
+  &_country {
+    font-size: 24px;
+
+    @include desktop1440 {
+      font-size: 18px;
+    }
+
+    @include mobile {
+      font-size: 14px;
+    }
+  }
+
+  &_name {
+    margin-bottom: 15p !important;
+    @include h-text-style();
+
+    @include desktop1440 {
+      margin-bottom: 17px !important;
+    }
+
+    @include mobile {
+      margin-bottom: 10px !important;
+    }
+  }
+
+  &_country {
+    display: block;
+    margin-bottom: 30px;
+
+    @include desktop1440 {
+      margin-bottom: 23.5px;
+    }
+
+    @include mobile {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.block {
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    @include desktop1440 {
+      margin-bottom: 15px;
+    }
+
+    @include mobile {
+      margin-bottom: 10px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &_title {
+    font-weight: 700;
+    margin-bottom: 12px;
+
+    @include desktop1440 {
+      margin-bottom: 10px;
+    }
+
+    @include mobile {
+      margin-bottom: 8px;
+    }
+  }
+
+  &_text {
+    max-width: 500px;
+  }
+}
+
+.access {
+  &_title {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 30px;
+
+    @include desktop1440 {
+      margin-bottom: 25px;
+    }
+
+    @include mobile {
+      margin-bottom: 15px;
+    }
+  }
+
+  &_btns_block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > button {
+      margin: 0 15px;
+      @include mobile {
+        margin: 0 7.5px;
+      }
+    }
+  }
+
+  &_access_btn,
+  &_decline_btn {
+    text-align: center;
+    border-radius: 8px;
+    color: #fff;
+    height: 40px;
+    width: 250px;
+
+    @include desktop1440 {
+      height: 30px;
+      width: 200px;
+    }
+
+    @include mobile {
+      height: 20px;
+      width: 120px;
+    }
+  }
+
+  &_access_btn {
+    background-color: $color-green;
+    margin-right: 30px;
+    @include mobile {
+      margin-right: 15px;
+    }
+  }
+
+  &_decline_btn {
+    background-color: $color-grey2;
+  }
+}
+
+.block_title,
+.block_text,
+.access_title,
+.access_access_btn,
+.access_decline_btn {
+  font-size: 20px;
+
+  @include desktop1440 {
+    font-size: 16px !important;
+  }
+
+  @include mobile {
+    font-size: 12px !important;
+  }
+}
