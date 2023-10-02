@@ -3,6 +3,7 @@
 
 .knowledge {
   position: relative;
+
   &_header {
     margin-bottom: 25px;
 
@@ -14,6 +15,7 @@
       margin: 15px 0;
     }
   }
+
   &_title {
     color: $color-black;
     margin-bottom: 25px;
@@ -32,6 +34,16 @@
     @include mobile {
       margin-bottom: 15px;
       font-size: 18px;
+    }
+  }
+
+  &_search {
+    @include desktop1440 {
+      max-width: 600px;
+    }
+
+    @include tablet1024 {
+      max-width: 587px;
     }
   }
 }

@@ -154,6 +154,10 @@
   }
 }
 
+.selected {
+  background-color: $color-yellow;
+}
+
 .open,
 .permission_needed,
 .permission_given,
@@ -181,9 +185,11 @@
 .permission_given {
   @include icon("../../../assets/img/icons/alertSquare.svg");
 }
+
 .pending {
   @include icon("../../../assets/img/icons/clock.svg");
 }
+
 .permission_needed {
   color: $color-pink;
   text-decoration: underline;

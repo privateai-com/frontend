@@ -5,6 +5,7 @@ import { ButtonIcon, TextInput } from 'components';
 import Link from 'next/link';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
+import { SelectedText } from 'components/SelectedText';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -25,12 +26,6 @@ export const Header = () => {
     setIsNotificationOpen(!isNotificationOpen);
   };
 
-  const inputClassNames = search.length
-    ? `${styles.input_wrapper_input}, ${styles.input_wrapper_input_filled}`
-    : styles.input_wrapper_input;
-
-  const isWordMatchingSearch = (word: string) => word.toLowerCase() === search.toLowerCase();
-
   const name = 'John Doe';
 
   return (
@@ -42,7 +37,9 @@ export const Header = () => {
           placeholder="Global search"
           isSearch
           isClearable
-          classNameInputBox={inputClassNames}
+          classNameInputBox={cx(styles.input_wrapper_input, {
+            [styles.input_wrapper_input_filled]: !!search.length,
+          })}
         />
         {!!search.length && (
           <div className={styles.search_result}>
@@ -52,17 +49,11 @@ export const Header = () => {
                   // eslint-disable-next-line react/no-array-index-key
                   key={i}
                 >
-                  {result.split(' ').map((word) => {
-                    if (isWordMatchingSearch(word)) {
-                      return (
-                        <>
-                          <span className={styles.selected}>{word}</span>
-                          {' '}
-                        </>
-                      );
-                    }
-                    return `${word} `;
-                  })}
+                  <SelectedText
+                    text={result}
+                    searchWord={search}
+                    className={styles.selected}
+                  />
                 </li>
               ))}
             </ul>

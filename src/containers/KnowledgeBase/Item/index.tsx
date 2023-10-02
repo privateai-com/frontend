@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
+import { SelectedText } from 'components/SelectedText';
 import styles from './styles.module.scss';
 
 type StatusProps =
@@ -12,7 +13,7 @@ type StatusProps =
   | 'Permission needed'
   | 'Access request pending';
 
-type ItemProp = {
+type ItemProps = {
   name: string;
   field: string;
   author: string;
@@ -20,9 +21,10 @@ type ItemProp = {
   status: StatusProps;
   created: string;
   modified: string;
+  search: string;
 };
 
-export const Item: React.FC<ItemProp> = ({
+export const Item: React.FC<ItemProps> = ({
   name,
   author,
   field,
@@ -30,6 +32,7 @@ export const Item: React.FC<ItemProp> = ({
   status,
   created,
   modified,
+  search,
 }) => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
@@ -92,13 +95,21 @@ export const Item: React.FC<ItemProp> = ({
                 className={styles.item_title}
                 type="h4"
               >
-                {name}
+                <SelectedText
+                  text={name}
+                  searchWord={search}
+                  className={styles.selected}
+                />
               </Typography>
               <div className={styles.item_description_block}>
                 <div className={styles.item_field_author_block}>
                   <div className={styles.item_row_block}>
                     <span className={styles.title}>Field: </span>
-                    {field}
+                    <SelectedText
+                      text={field}
+                      searchWord={search}
+                      className={styles.selected}
+                    />
                   </div>
                   <div className={styles.item_row_block}>
                     <span className={styles.title}>Author: </span>
