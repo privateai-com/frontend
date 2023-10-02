@@ -5,7 +5,7 @@ import { ButtonIcon, TextInput } from 'components';
 import Link from 'next/link';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
-import { SelectedText } from 'components/SelectedText';
+import { SelectedText } from 'components';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';

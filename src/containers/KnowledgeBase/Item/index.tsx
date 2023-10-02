@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
-import { SelectedText } from 'components/SelectedText';
+import { SelectedText } from 'components';
 import styles from './styles.module.scss';
 
 type StatusProps =
