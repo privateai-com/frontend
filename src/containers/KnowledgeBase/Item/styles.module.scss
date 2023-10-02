@@ -144,6 +144,11 @@
       margin-right: 44px;
     }
   }
+
+  &_btn_link {
+    text-decoration: underline;
+    color: $color-green;
+  }
 }
 
 .title {

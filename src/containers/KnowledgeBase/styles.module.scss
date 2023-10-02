@@ -58,6 +58,7 @@
     padding: 20px;
     height: 785px;
     overflow-y: scroll;
+    
     @include greenScrollbar;
 
     @include desktop1440 {

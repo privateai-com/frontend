@@ -1,10 +1,10 @@
-import { Typography, SelectedText } from 'components';
+import { Typography, SelectedText, Requester } from 'components';
 
-import Link from 'next/link';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 
+import { useModal } from 'react-modal-hook';
 import styles from './styles.module.scss';
 
 type StatusProps =
@@ -55,6 +55,24 @@ export const Item: React.FC<ItemProps> = ({
     }
   };
 
+  const [showRequester, hideRequester] = useModal(
+    () => (
+      <Requester
+        avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
+        name="John Doe"
+        contry="London, UK (GMT +0)"
+        organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
+        position="Head of neurosurgery laboratory"
+        fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
+        socialMedia="https:/facebook.com/profile"
+        onCloseModal={() => {
+          hideRequester();
+        }}
+      />
+    ),
+    [],
+  );
+
   return (
     <div>
       {isMobile ? (
@@ -69,7 +87,12 @@ export const Item: React.FC<ItemProps> = ({
             </div>
             <div className={styles.item_row_block}>
               <span className={styles.title}>Author: </span>
-              <Link href="/#">{author}</Link>
+              <button
+                className={styles.item_btn_link}
+                onClick={showRequester}
+              >
+                {author}
+              </button>
             </div>
             <div className={styles.item_col_block}>
               <span className={styles.title}>Core entities: </span>
@@ -113,7 +136,12 @@ export const Item: React.FC<ItemProps> = ({
                   </div>
                   <div className={styles.item_row_block}>
                     <span className={styles.title}>Author: </span>
-                    <Link href="/#">{author}</Link>
+                    <button
+                      className={styles.item_btn_link}
+                      onClick={showRequester}
+                    >
+                      {author}
+                    </button>
                   </div>
                 </div>
                 <div className={styles.item_col_block}>
