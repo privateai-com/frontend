@@ -110,3 +110,19 @@
     display: none;
   }
 }
+
+@mixin greenScrollbar {
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: 4px;
+		background-color: $color-grey2;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background-color: $color-green;
+	}
+}
