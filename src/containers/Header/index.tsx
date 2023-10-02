@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 
-import { ButtonIcon, TextInput } from 'components';
+import { ButtonIcon, TextInput, SelectedText } from 'components';
 import Link from 'next/link';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
-import { SelectedText } from 'components';
+
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
