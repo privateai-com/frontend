@@ -38,7 +38,10 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
             style={getStatusBarWidthStyle}
           />
         </div>
-        <span className={styles.item_percents}>{percents}%</span>
+        <span className={styles.item_percents}>
+          {percents}
+          %
+        </span>
         <div className={styles.item_status}>
           {isLoaded ? (
             <>
