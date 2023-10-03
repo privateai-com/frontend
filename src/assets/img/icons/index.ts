@@ -33,6 +33,7 @@ export { default as minusCircleIcon } from './minusCircleIcon.svg';
 export { default as plusCircleIcon } from './plusCircleIcon.svg';
 export { default as documentTextIcon1 } from './documentText1.svg';
 export { default as circleCheckIcon } from './circleCheck.svg';
+export { default as arrowDownSquare } from './arrowDownSquare.svg';
 
 export { default as bg1 } from './bg1.svg';
 export { default as bg2 } from './bg2.svg';
