@@ -46,13 +46,6 @@ const data: DataProps[] = [
 
 export const Upload = () => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
-  // const [file, setFile] = useState<FileList | null>(null);
-
-  // const onUploadClick = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files;
-  //   setFile(file);
-  // }, []);
-
   return (
     <div className={styles.upload}>
       <Typography
@@ -75,7 +68,6 @@ export const Upload = () => {
           <input
             type="file"
             id="upload"
-            // onChange={onUploadClick}
             className={styles.upload_input}
           />
         </label>
