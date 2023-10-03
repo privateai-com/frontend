@@ -1,0 +1,11 @@
+@import 'assets/styles/_mixins.scss';
+
+.storage__search {
+	display: flex;
+	margin-bottom: 25px;
+
+	@include mobile {
+		flex-direction: column;
+		gap: 15px;
+	}
+}
