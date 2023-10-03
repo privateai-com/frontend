@@ -1,11 +1,7 @@
-import { FC, ReactNode, useState } from 'react';
-import Image from 'next/image';
-import cx from 'classnames';
+import { FC, ReactNode } from 'react';
 
-import { arrowGreenIcon, minusCircleIcon, plusCircleIcon } from 'assets';
-
-import Link from 'next/link';
 import styles from './styles.module.scss';
+import { ExpandableMobileItem } from '../ExpandableMobileItem';
 
 interface ItemProps {
   className?: string;
@@ -23,48 +19,24 @@ export const MobileTableItem: FC<ItemProps> = ({
   state1,
   title2,
   state2,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className={cx(styles.item_container, className)}>
-      <div className={styles.item_head}>
-        <button onClick={() => setIsOpen((state) => !state)}>
-          <Image
-            src={isOpen ? minusCircleIcon : plusCircleIcon}
-            alt="icon"
-          />
-          {name}
-        </button>
-
-        <Link href="/#">
-          <Image
-            src={arrowGreenIcon}
-            alt="arrow"
-          />
-        </Link>
-      </div>
-
-      <div
-        className={cx(styles.item_content, {
-          [styles.show]: isOpen,
-        })}
-      >
-        <div className={styles.item_item}>
-          <span>
-            {title1}
-            :
-          </span>
-          {state1}
-        </div>
-        <div className={styles.item_item}>
-          <span>
-            {title2}
-            :
-          </span>
-          {state2}
-        </div>
-      </div>
+}) => (
+  <ExpandableMobileItem
+    className={className}
+    name={name}
+  >
+    <div className={styles.item_item}>
+      <span>
+        {title1}
+        :
+      </span>
+      {state1}
     </div>
-  );
-};
+    <div className={styles.item_item}>
+      <span>
+        {title2}
+        :
+      </span>
+      {state2}
+    </div>
+  </ExpandableMobileItem>
+);
