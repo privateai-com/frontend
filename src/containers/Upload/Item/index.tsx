@@ -23,17 +23,7 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
 
   return (
     <div className={styles.item}>
-      <span>
-        File name: 
-        {' '}
-        {name}
-        {' '}
-        | 
-        {' '}
-        {weight}
-        {' '}
-        MB
-      </span>
+      <span>{`File name: ${name} | ${weight} MB`}</span>
       <div className={styles.item_status_block}>
         <Image
           className={styles.item_doc_icon}
@@ -48,10 +38,7 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
             style={getStatusBarWidthStyle}
           />
         </div>
-        <span className={styles.item_percents}>
-          {percents}
-          %
-        </span>
+        <span className={styles.item_percents}>{percents}%</span>
         <div className={styles.item_status}>
           {isLoaded ? (
             <>
