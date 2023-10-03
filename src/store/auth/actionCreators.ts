@@ -38,9 +38,20 @@ export const authConfirmEmail = (
 });
 
 export const authLogin = (
-  payload: { email: string, password: string },
+  payload: {
+    email: string,
+    password: string,
+    successCallback: () => void,
+  },
 ) => ({
   type: AuthActionTypes.Login,
+  payload,
+});
+
+export const authLoginWallet = (payload: {
+  successCallback: () => void,
+}) => ({
+  type: AuthActionTypes.LoginWallet,
   payload,
 });
 

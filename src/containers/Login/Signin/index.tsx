@@ -11,20 +11,20 @@ import {
 import { walletIcon } from 'assets';
 import { emailValidator, passwordValidator } from 'utils';
 import { routes } from 'appConstants';
-import { useWallet } from 'hooks';
 
 import styles from './styles.module.scss';
 
 interface SigninProps {
-  onConfirm: () => void;
+  onConfirm: ({ email, password }: { email: string, password: string }) => void;
+  onConnectWallet: () => void;
   onResotre: () => void;
 }
 
 export const Signin: FC<SigninProps> = ({
   onConfirm,
+  onConnectWallet,
   onResotre,
 }) => {
-  const { onConnectWallet } = useWallet();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -42,14 +42,18 @@ export const Signin: FC<SigninProps> = ({
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
 
-    const isError = !isNotError 
-     && !currentPasswordError
-     && !currentEmailError;
+    const isNoErrors =
+     !emailError &&
+     !passwordError &&
+     !currentEmailError &&
+     !currentPasswordError &&
+     email &&
+     password;
 
-    if (!isError) {
-      onConfirm();
+    if (isNoErrors) {
+      onConfirm({ email, password });
     }
-  }, [email, isNotError, onConfirm, password]);
+  }, [email, emailError, onConfirm, password, passwordError]);
 
   const onEmailChange = useCallback((value: string) => {
     setEmailError('');
