@@ -1,4 +1,6 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, {
+  memo, useCallback, useEffect, useState, useRef, 
+} from 'react';
 import cx from 'classnames';
 
 import styles from './styles.module.scss';
@@ -14,24 +16,37 @@ export const ButtonResend = memo<ButtonResendProps>(({
 }) => {
   const [timer, setTimer] = useState(60);
   const [disabled, setDisabled] = useState(false);
+  const intervalRef = useRef<number | null>(null);
 
-  const startTimer = () => {
+  const startTimer = useCallback(() => {
     setDisabled(true);
     let countdown = timer;
-    const interval = setInterval(() => {
+    intervalRef.current = window.setInterval(() => {
       countdown -= 1;
       setTimer(countdown);
       if (countdown === 0) {
-        clearInterval(interval);
+        clearInterval(intervalRef.current!); // Очищаем интервал
+        intervalRef.current = null;
         setDisabled(false);
       }
     }, 1000);
-  };
+  }, [timer]);
 
-  const handleResendClick = () => {
+  useEffect(() => {
+    startTimer();
+
+    return () => {
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleResendClick = useCallback(() => {
     onClick();
     startTimer();
-  };
+  }, [onClick, startTimer]);
 
   useEffect(() => {
     if (timer === 0) {

@@ -1,4 +1,6 @@
 export * from './store/MetamaskState';
+export * from './store/AccountState';
+export * from './store/AuthState';
 export * from './redux';
 export * from './unwrap';
 export * from './store';

@@ -1,4 +1,9 @@
-import { FC, useCallback, useState } from 'react';
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useState, 
+} from 'react';
 
 import {
   AuthWrapper,
@@ -13,14 +18,18 @@ import styles from './styles.module.scss';
 
 interface ConfirmEmailProps {
   email: string;
+  error?: string;
   onBack?: () => void;
-  onConfirm?: () => void;
+  onConfirm?: (code: string) => void;
+  onResend?: () => void;
 }
 
 export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   email,
+  error,
   onBack,
   onConfirm,
+  onResend,
 }) => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
@@ -36,7 +45,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
     const isError = !isNotError && !currentOtpError;
 
     if (!isError && onConfirm) {
-      onConfirm();
+      onConfirm(otp);
     }
   }, [isNotError, onConfirm, otp]);
 
@@ -46,8 +55,12 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   }, []);
 
   const onResendCodeClick = useCallback(() => {
+    if (onResend) onResend();
+  }, [onResend]);
 
-  }, []);
+  useEffect(() => {
+    if (error) setOtpError(error);
+  }, [error]);
   
   return (
     <AuthWrapper onClickBack={onBack}>

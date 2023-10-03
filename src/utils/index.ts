@@ -1,6 +1,6 @@
 export { default as createReducer } from './createReducer';
 export { throwApiError } from './throwApiError';
-export { sagaExceptionHandler } from './sagaExceptionHandler';
+export { sagaExceptionHandler, getDataFromException } from './sagaExceptionHandler';
 export { stringShortcut, stringLongShortcut } from './stringShortcut';
 export { transformBackendErrorToString } from './transformBackendErrorToString';
 
@@ -11,3 +11,4 @@ export * from './getTxUrl';
 export * from './delay';
 export * from './format';
 export * from './formValidators';
+export * from './apiError';

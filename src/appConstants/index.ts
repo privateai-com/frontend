@@ -23,3 +23,5 @@ export enum ScreenWidth {
 export const secondsInDay = 3600;
 
 export const countRowsOnPage = 10;
+
+export const authErrorWords = ['username', 'password', 'email', 'code', 'check'] as const;
