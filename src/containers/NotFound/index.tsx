@@ -1,6 +1,5 @@
 import { routes } from 'appConstants';
-import { Typography } from 'components';
-import Link from 'next/link';
+import { Button, Typography } from 'components';
 import styles from './styles.module.scss';
 
 const NotFound = () => (
@@ -15,12 +14,12 @@ const NotFound = () => (
     <span className={styles.not_found_text}>
       Sorry, we were unable to find that page
     </span>
-    <Link
-      className={styles.not_found_link}
+    <Button
       href={routes.home.root}
+      className={styles.not_found_link}
     >
       Back to home
-    </Link>
+    </Button>
   </div>
 );
 
