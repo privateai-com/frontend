@@ -22,15 +22,23 @@
   }
 
   &_logo {
+    height: 50px;
+    width: 210px;
     margin-bottom: 50px;
 
     @include desktop1440 {
+      height: 48px;
+      width: 188px;
       margin-bottom: 30px;
     }
 
     @include tablet1024 {
       margin-bottom: 25px;
     }
-  }
 
+    @include mobile {
+      height: 28px;
+      width: 117px;
+    }
+  }
 }
