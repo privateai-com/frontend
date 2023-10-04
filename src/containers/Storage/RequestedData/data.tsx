@@ -1,6 +1,5 @@
 import { arrowDownSquare } from 'assets';
-import { RequestCell } from 'components';
-import Image from 'next/image';
+import { ButtonIcon, RequestCell } from 'components';
 import styles from './styles.module.scss';
 
 export const data = [
@@ -28,11 +27,12 @@ export const content = data.map((i) => ({
   ...i,
   owner: (
     <div className={styles.columns_owner_block}>
+      <div className={styles.mock}></div>
       <RequestCell>{i.owner}</RequestCell>
-      <Image
+      <ButtonIcon
         className={styles.columns_img}
-        src={arrowDownSquare}
-        alt="icon"
+        image={arrowDownSquare}
+        onClick={() => {}}
       />
     </div>
   ),
