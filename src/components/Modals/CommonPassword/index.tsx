@@ -21,7 +21,7 @@ const CommonPassword: React.FC<CommonPasswordProps> = ({
 }) => (
   <ModalWithLogo onClose={onClose}>
     <>
-      <span className={styles.key_title}>{title}</span>
+      {title && (<span className={styles.key_title}>{title}</span>)}
       <span className={styles.key_text}>{text}</span>
       <div className={styles.key_form}>{children}</div>
       <Button
