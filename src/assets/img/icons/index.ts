@@ -31,6 +31,8 @@ export { default as uploadIcon } from './uploadIcon.svg';
 export { default as trashIcon } from './trashIcon.svg';
 export { default as minusCircleIcon } from './minusCircleIcon.svg';
 export { default as plusCircleIcon } from './plusCircleIcon.svg';
+export { default as logoIcon } from './logo.svg';
+export { default as helpCircleIcon } from './helpCircle.svg';
 
 export { default as bg1 } from './bg1.svg';
 export { default as bg2 } from './bg2.svg';
