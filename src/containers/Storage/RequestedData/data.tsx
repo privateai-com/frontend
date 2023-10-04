@@ -27,7 +27,7 @@ export const content = data.map((i) => ({
   ...i,
   owner: (
     <div className={styles.columns_owner_block}>
-      <div className={styles.mock}></div>
+      <div className={styles.mock} />
       <RequestCell>{i.owner}</RequestCell>
       <ButtonIcon
         className={styles.columns_img}
