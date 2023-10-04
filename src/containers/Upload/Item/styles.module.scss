@@ -1,6 +1,18 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
+@mixin margin-right($mr1, $mr2, $mr3) {
+  margin-right: $mr1;
+
+  @include desktop1440 {
+    margin-right: $mr2;
+  }
+
+  @include mobile {
+    margin-right: $mr3;
+  }
+}
+
 .item {
   display: flex;
   flex-direction: column;
@@ -71,7 +83,6 @@
   }
 
   &_status {
-    display: flex;
     margin-right: 15px;
 
     @include desktop1440 {
@@ -92,6 +103,23 @@
         margin-right: 10px;
       }
     }
+  }
+
+  &_indication_block {
+    display: flex;
+    align-items: center;
+  }
+
+  &_complete {
+    @include margin-right(8px, 16px, 10px);
+  }
+
+  &_circle {
+    @include margin-right(10px, 18px, 12px);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 2px solid $color-grey2;
   }
 
   &_link_btn,
@@ -125,11 +153,4 @@
   &_disabled_btn {
     background-color: $color-grey2;
   }
-}
-
-.circle {
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  border: 2px solid $color-grey2;
 }

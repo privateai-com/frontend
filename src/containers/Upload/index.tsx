@@ -88,7 +88,9 @@ export const Upload = () => {
           Statuses
         </Typography>
         <div className={styles.statuses_items}>
-          {data.map(({ id, name, percents, weight }) => (
+          {data.map(({
+            id, name, percents, weight, 
+          }) => (
             <Item
               key={id}
               name={name}
