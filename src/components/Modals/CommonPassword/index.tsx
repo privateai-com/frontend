@@ -18,32 +18,30 @@ const CommonPassword: React.FC<CommonPasswordProps> = ({
   title,
   text,
   onSubmit,
-}) => {
-  return (
-    <ModalBase
-      closeModal={() => {}}
-      isWithCloseButton
-    >
-      <div className={styles.key}>
-        <div className={styles.key_container}>
-          <Image
-            className={styles.key_logo}
-            src={logoIcon}
-            alt="logo"
-          />
-          <span className={styles.key_title}>{title}</span>
-          <span className={styles.key_text}>{text}</span>
-          <div className={styles.key_form}>{children}</div>
-          <Button
-            className={styles.key_btn}
-            onClick={onSubmit}
-          >
-            Confirm
-          </Button>
-        </div>
+}) => (
+  <ModalBase
+    closeModal={() => {}}
+    isWithCloseButton
+  >
+    <div className={styles.key}>
+      <div className={styles.key_container}>
+        <Image
+          className={styles.key_logo}
+          src={logoIcon}
+          alt="logo"
+        />
+        <span className={styles.key_title}>{title}</span>
+        <span className={styles.key_text}>{text}</span>
+        <div className={styles.key_form}>{children}</div>
+        <Button
+          className={styles.key_btn}
+          onClick={onSubmit}
+        >
+          Confirm
+        </Button>
       </div>
-    </ModalBase>
-  );
-};
+    </div>
+  </ModalBase>
+);
 
 export { CommonPassword };
