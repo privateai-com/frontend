@@ -1,10 +1,16 @@
 import { useState } from 'react';
-
-import { Help, TextInput } from 'components';
+import { Tooltip } from 'react-tooltip';
 import Link from 'next/link';
+import Image from 'next/image';
+
+import { helpCircleIcon } from 'assets';
+import { TextInput } from 'components';
 import { routes } from 'appConstants';
-import styles from './styles.module.scss';
 import { CommonPassword } from '../CommonPassword';
+
+import styles from './styles.module.scss';
+
+const tooltipId = 'SetKeyPassword';
 
 const SetKeyPassword = () => {
   const [password, setPassword] = useState('');
@@ -24,15 +30,28 @@ const SetKeyPassword = () => {
             value={password}
             onChangeValue={setPassword}
           />
-          <Help>
-            {`This password will serve as an additional layer of security,
+          <Image
+            src={helpCircleIcon}
+            alt="help"
+            data-tooltip-id={tooltipId}
+          />
+          <Tooltip
+            id={tooltipId}
+            place="right"
+            className={styles.tooltip}
+            openOnClick
+            clickable
+          >
+            <>
+              {`This password will serve as an additional layer of security,
                   ensuring that only you can access your encrypted data. Please
                   choose a strong and memorable password that is different from
                   the one you will use for signing in. For more information,
                   visit the `}
 
-            <Link href={routes.security.root}>“Security” page.</Link>
-          </Help>
+              <Link href={routes.security.root} target="_blank">“Security” page.</Link>
+            </>
+          </Tooltip>
         </div>
       </div>
       <div className={styles.key_block}>

@@ -46,3 +46,22 @@
 .mock {
   width: 24px;
 }
+
+.tooltip {
+  background-color: $color-white !important;
+  padding: 15px !important;
+  border-radius: 8px !important;
+  border: 1px solid $color-grey2 !important;
+  max-width: 300px;
+  color: $color-grey4 !important;
+  font-size: 14px !important;
+ 
+  @include desktop1440 {
+    max-width: 260px;
+    font-size: 12px !important;
+  }
+
+  @include tablet1024 {
+    max-width: 215px;
+  }
+}
