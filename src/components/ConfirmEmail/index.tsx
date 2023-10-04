@@ -24,7 +24,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 }) => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
-  const [isShowResend, setIsShowResend] = useState(true);
+  const [isShowResend, setIsShowResend] = useState(false);
 
   const isNotError = !otpError && otp;
 
