@@ -24,7 +24,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 }) => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
-  const [isShowResend, setIsShowResend] = useState(false);
+  const [isShowResend, setIsShowResend] = useState(true);
 
   const isNotError = !otpError && otp;
 
@@ -56,7 +56,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
           type="p"
           className={styles.description}
         >
-          Please enter the verification code we sent to 
+          Please enter the verification code we sent to<br/>
           <strong>{` ${email}`}</strong>
         </Typography>
         <InputOtp
@@ -69,6 +69,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 
         {isShowResend && (
           <ButtonResend
+            className={styles.resender}
             onClick={onResendCodeClick}
           />
         )}
