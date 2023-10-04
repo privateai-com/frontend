@@ -140,3 +140,14 @@
 		margin-left: 4px;
 	}
 }
+
+.signin__container,
+.button_connect, 
+.description_wallet,
+.description,
+.input__container,
+.forgot_password,
+.button,
+.footer_text {
+	@include font-size;
+}

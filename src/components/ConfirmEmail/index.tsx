@@ -56,7 +56,8 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
           type="p"
           className={styles.description}
         >
-          Please enter the verification code we sent to<br/>
+          Please enter the verification code we sent to
+          <br />
           <strong>{` ${email}`}</strong>
         </Typography>
         <InputOtp
