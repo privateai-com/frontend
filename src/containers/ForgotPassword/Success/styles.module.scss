@@ -31,22 +31,19 @@
 	margin-bottom: 100px;
 	text-align: center;
 	padding: 0 48px;
-	font-size: 20px;
+	@include font-size;
 
 	@include desktop1440 {
 		margin-bottom: 74px;
-		font-size: 16px;
 	}
 
 	@include desktop1024 {
 		margin-bottom: 86px;
-		font-size: 18px;
 	}
 
 	@include mobile {
 		margin-bottom: 50px;
 		padding: 0;
-		font-size: 14px;
 		line-height: 17px;
 	}
 }
@@ -54,21 +51,17 @@
 .button {
 	width: 100%;
 	max-width: 280px;
-	font-size: 20px;
+	@include font-size;
 
 	@include desktop1440 {
 		max-width: 190px;
-		font-size: 16px;
 	}
 
 	@include desktop1024 {
 		max-width: 220px;
-		font-size: 18px;
-
 	}
 
 	@include mobile {
 		max-width: 165px;
-		font-size: 14px;
 	}
 }
