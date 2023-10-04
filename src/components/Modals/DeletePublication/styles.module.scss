@@ -1,0 +1,85 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+@mixin margin-bottom($mb1, $mb2, $mb3) {
+  margin-bottom: $mb1;
+
+  @include desktop1440 {
+    margin-bottom: $mb2;
+  }
+
+  @include mobile {
+    margin-bottom: $mb3;
+  }
+}
+
+.delete_pub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: $color-grey;
+  text-align: center;
+
+  @include desktop1440 {
+    font-size: 20px;
+  }
+
+  @include mobile {
+    font-size: 16px;
+  }
+
+  &_text {
+    @include margin-bottom(30px, 25px, 15px);
+
+    &:last-of-type {
+      @include margin-bottom(50px, 40px, 30px);
+    }
+  }
+
+  &_question {
+    font-weight: 700;
+    @include margin-bottom(50px, 40px, 30px);
+  }
+
+  &_btn_block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &_btn {
+    height: 50px;
+    width: 250px;
+
+    @include desktop1440 {
+      height: 40px;
+      width: 200px;
+    }
+
+    @include mobile {
+      height: 30px;
+      width: 130px;
+    }
+  }
+
+  &_black_btn {
+    border: 1px solid $color-black !important;
+    color: $color-black !important;
+    margin-right: 34px;
+
+    &:hover {
+      background-color: $color-black !important;
+      color: $color-white !important;
+    }
+
+    @include desktop1440 {
+      margin-right: 20px;
+    }
+
+    @include mobile {
+      margin-right: 25px;
+    }
+  }
+}
