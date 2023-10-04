@@ -2,7 +2,7 @@ import { Layout } from 'components';
 import { Header, Upload } from 'containers';
 import { NextPage } from 'next';
 
-const StoragePage: NextPage = () => (
+const UploadActivityPage: NextPage = () => (
   <Layout
     meta={{
       name: 'description',
@@ -18,4 +18,4 @@ const StoragePage: NextPage = () => (
   </Layout>
 );
 
-export default StoragePage;
+export default UploadActivityPage;
