@@ -38,10 +38,7 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
             style={getStatusBarWidthStyle}
           />
         </div>
-        <span className={styles.item_percents}>
-          {percents}
-          %
-        </span>
+        <span className={styles.item_percents}>{percents}%</span>
         <div className={styles.item_status}>
           {isLoaded ? (
             <div>{!isMobile && <span>Complete</span>}</div>
@@ -66,7 +63,12 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
         ) : (
           <div className={styles.item_indication_block}>
             <div className={styles.item_circle} />
-            <button className={styles.item_disabled_btn}>~ 25 min</button>
+            <button
+              className={styles.item_disabled_btn}
+              disabled
+            >
+              ~ 25 min
+            </button>
           </div>
         )}
       </div>
