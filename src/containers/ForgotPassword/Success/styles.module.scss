@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .success__container {
 	position: relative;
@@ -13,13 +13,13 @@
 		margin: 72px 0 0;
 	}
 
-  @include desktop1024 {
+	@include desktop1024 {
 		margin: 94px 0 10px;
 	}
 
-  @include mobile {
-    margin: 56px 0 0;
-  }
+	@include mobile {
+		margin: 56px 0 0;
+	}
 
 	p {
 		color: $color-grey;
@@ -31,13 +31,16 @@
 	margin-bottom: 100px;
 	text-align: center;
 	padding: 0 48px;
+	font-size: 20px;
 
 	@include desktop1440 {
 		margin-bottom: 74px;
+		font-size: 16px;
 	}
 
 	@include desktop1024 {
 		margin-bottom: 86px;
+		font-size: 18px;
 	}
 
 	@include mobile {
@@ -51,16 +54,21 @@
 .button {
 	width: 100%;
 	max-width: 280px;
+	font-size: 20px;
 
 	@include desktop1440 {
 		max-width: 190px;
+		font-size: 16px;
 	}
 
 	@include desktop1024 {
 		max-width: 220px;
+		font-size: 18px;
+
 	}
 
 	@include mobile {
 		max-width: 165px;
+		font-size: 14px;
 	}
 }
