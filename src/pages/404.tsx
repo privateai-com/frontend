@@ -1,4 +1,5 @@
 import { Layout } from 'components';
+import { NotFound } from 'containers';
 import { NextPage } from 'next';
 
 const ErrorPage: NextPage = () => (
@@ -13,7 +14,7 @@ const ErrorPage: NextPage = () => (
       href: '/favicon.ico',
     }}
   >
-    <div>404 Not Found</div>
+    <NotFound />
   </Layout>
 );
 
