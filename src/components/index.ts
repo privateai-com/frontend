@@ -19,6 +19,8 @@ export * from './ConfirmEmail';
 export * from './RadioButtons';
 export * from './AdaptivePaginationTable';
 export * from './Help';
+export * from './SelectedText';
+
 export { default as Layout } from './Layout';
 export { default as LayoutAuth } from './LayoutAuth';
 export { TextArea } from './TextArea';
