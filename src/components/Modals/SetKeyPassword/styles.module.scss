@@ -1,0 +1,48 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+@mixin margin-bottom($mb1, $mb2, $mb3, $mb4) {
+  margin-bottom: $mb1;
+
+  @include desktop1440 {
+    margin-bottom: $mb2;
+  }
+
+  @include tablet1024 {
+    margin-bottom: $mb3;
+  }
+
+  @include mobile {
+    margin-bottom: $mb4;
+  }
+}
+
+.key {
+  &_block {
+    width: 100%;
+    @include margin-bottom(21px, 30px, 8px, 10px);
+
+    &:last-of-type {
+      @include margin-bottom(40px, 50px, 30px, 25px);
+    }
+  }
+
+  &_input {
+    margin-right: 15px;
+  }
+
+  &_input_block {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_label {
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+}
+
+.mock {
+  width: 24px;
+}
