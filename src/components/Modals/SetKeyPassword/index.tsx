@@ -12,14 +12,20 @@ import styles from './styles.module.scss';
 
 const tooltipId = 'SetKeyPassword';
 
-const SetKeyPassword = () => {
+type SetKeyPasswordProps = {
+  onClose: () => void;
+};
+
+const SetKeyPassword: React.FC<SetKeyPasswordProps> = ({ onClose }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   return (
     <CommonPassword
       title="Set a key password"
       text="Set a key password in order to upload or download the files. Please fill out the fields below."
       onSubmit={() => {}}
+      onClose={onClose}
     >
       <div className={styles.key_block}>
         <div className={styles.key_label}>Password</div>
