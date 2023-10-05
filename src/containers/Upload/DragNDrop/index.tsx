@@ -1,5 +1,5 @@
 import { useScreenWidth } from 'hooks';
-import { ScreenWidth, imageRegexp } from 'appConstants';
+import { ScreenWidth, docRegex } from 'appConstants';
 import {
   ChangeEvent, DragEvent, useCallback, useState, 
 } from 'react';
@@ -16,7 +16,7 @@ const DragNDrop = () => {
   const [isDragging, setIsDragging] = useState(false);
 
   function checkFile(file: File[] | FileList | null) {
-    if (file && !imageRegexp.test(file[0]?.name.toLowerCase())) {
+    if (file && !docRegex.test(file[0]?.name.toLowerCase())) {
       toast.error('Only TXT, DOCX and PDF.');
       return setDoc(null);
     }
