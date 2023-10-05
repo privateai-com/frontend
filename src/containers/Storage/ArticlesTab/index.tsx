@@ -18,6 +18,7 @@ export const ArticlesTab = () => {
       key1="status"
       mobileTitle2="Core entites"
       key2="core"
+      inputClassName={styles.input}
     >
       <Button
         className={styles.upload}
