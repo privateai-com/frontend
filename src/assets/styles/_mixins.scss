@@ -142,3 +142,19 @@
 		background-color: $color-green;
 	}
 }
+
+@mixin font-size {
+	font-size: 20px;
+
+	@include desktop1440 {
+		font-size: 16px;
+	}
+
+	@include desktop1024 {
+		font-size: 18px;
+	}
+
+	@include mobile {
+		font-size: 14px;	
+	}
+}

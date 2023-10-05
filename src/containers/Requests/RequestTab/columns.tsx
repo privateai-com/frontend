@@ -35,8 +35,8 @@ export const useColumns = () =>
         }: ItemRowProps<RequestsType>) => date || '-',
       },
       {
-        Header: <TitleWithArrows title="Requestor" />,
-        accessor: 'requestor',
+        Header: <TitleWithArrows title="Requester" />,
+        accessor: 'requester',
         Cell: ({
           row: {
             original: { requester },

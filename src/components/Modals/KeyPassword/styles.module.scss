@@ -1,0 +1,38 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.key {
+
+  &_block {
+    width: 100%;
+    margin-bottom: 45px;
+
+    @include desktop1440 {
+      margin-bottom: 40px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 30px;
+    }
+
+    @include mobile {
+      margin-bottom: 25px;
+    }
+  }
+
+  &_input {
+    margin-right: 15px;
+  }
+
+  &_input_block {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_label {
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+}
