@@ -24,7 +24,11 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
   return (
     <div className={styles.item}>
       <div className={styles.item_filename_block}>
-        <span className={styles. item_filename}>{!isMobile && "File name: "} {name}</span>
+        <span className={styles.item_filename}>
+          {!isMobile && 'File name: '} 
+          {' '}
+          {name}
+        </span>
         <span>{`${weight} MB`}</span>
       </div>
       <div className={styles.item_status_block}>
@@ -41,7 +45,10 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
             style={getStatusBarWidthStyle}
           />
         </div>
-        <span className={styles.item_percents}>{percents}%</span>
+        <span className={styles.item_percents}>
+          {percents}
+          %
+        </span>
         <div className={styles.item_status}>
           {isLoaded ? (
             <div>{!isMobile && <span>Complete</span>}</div>
