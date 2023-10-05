@@ -8,3 +8,4 @@ export * from './signature';
 export * from './pagination';
 export * from './select';
 export * from './itemRow';
+export * from './tabContent';

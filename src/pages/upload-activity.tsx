@@ -1,9 +1,8 @@
 import { Layout } from 'components';
-import { Header, Profile } from 'containers';
-
+import { Header, Upload } from 'containers';
 import { NextPage } from 'next';
 
-const MainPage: NextPage = () => (
+const StoragePage: NextPage = () => (
   <Layout
     meta={{
       name: 'description',
@@ -13,10 +12,10 @@ const MainPage: NextPage = () => (
       rel: 'icon',
       href: '/favicon.ico',
     }}
-    header={(<Header />)}
+    header={<Header />}
   >
-    <Profile />
+    <Upload />
   </Layout>
 );
 
-export default MainPage;
+export default StoragePage;

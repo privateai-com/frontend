@@ -58,7 +58,7 @@
     padding: 20px;
     height: 785px;
     overflow-y: scroll;
-    
+
     @include greenScrollbar;
 
     @include desktop1440 {
@@ -67,6 +67,13 @@
 
     @include tablet1024 {
       height: 1116px;
+    }
+
+    @include mobile {
+      height: 100%;
+      padding: 0;
+
+      @include hideScrollbar 
     }
   }
 

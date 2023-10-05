@@ -1,0 +1,32 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.columns {
+  &_core {
+    margin: auto;
+    max-width: 500px;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    color: $color-grey;
+
+    @include desktop1440 {
+      font-size: 16px !important;
+    }
+  }
+
+  &_img {
+    margin-left: 10px;
+  }
+
+  &_owner_block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.mock {
+  @include mobile {
+    display: none;
+  }
+}

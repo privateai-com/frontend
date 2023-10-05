@@ -1,12 +1,10 @@
 import { useState } from 'react';
 
-import {
-  Button,
-  Typography,
-} from 'components';
+import { Button, Typography } from 'components';
 
 import styles from './styles.module.scss';
 import { ArticlesTab } from './ArticlesTab';
+import { RequestedTab } from './RequestedTab';
 
 enum MyStorageTab {
   articles,
@@ -15,7 +13,7 @@ enum MyStorageTab {
 
 export const Storage = () => {
   const [tab, setTab] = useState(MyStorageTab.articles);
-  
+
   return (
     <div className={styles.storage__container}>
       <div className={styles.storage__head}>
@@ -35,9 +33,7 @@ export const Storage = () => {
           </Button>
         </div>
       </div>
-      {tab === MyStorageTab.articles && (
-        <ArticlesTab />
-      )}
+      {tab === MyStorageTab.articles ? <ArticlesTab /> : <RequestedTab />}
     </div>
   );
 };

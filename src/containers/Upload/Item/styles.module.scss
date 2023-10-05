@@ -1,0 +1,135 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  font-size: 20px;
+  color: $color-grey;
+
+  @include desktop1440 {
+    margin-bottom: 13px;
+    font-size: 14px;
+  }
+
+  @include mobile {
+    margin-bottom: 24px;
+    font-size: 12px;
+  }
+
+  &_status_block {
+    display: flex;
+    align-items: center;
+  }
+
+  &_doc_icon {
+    margin-right: 10px;
+  }
+
+  &_status_bar {
+    height: 8px;
+    width: 100%;
+    background-color: $color-grey2;
+    border-radius: 4px;
+    margin-right: 5px;
+
+    &_fill {
+      height: 100%;
+      width: 50%;
+      border-radius: 4px;
+      background-color: $color-pink2;
+    }
+
+    &_full {
+      background-color: $color-green;
+    }
+
+    @include desktop1440 {
+      margin-right: 10px;
+    }
+
+    @include tablet1024 {
+      margin-right: 20px;
+    }
+
+    @include mobile {
+      margin-right: 10px;
+    }
+  }
+
+  &_percents {
+    margin-right: 15px;
+
+    @include tablet1024 {
+      margin-right: 22px;
+    }
+
+    @include mobile {
+      margin-right: 10px;
+    }
+  }
+
+  &_status {
+    display: flex;
+    margin-right: 15px;
+
+    @include desktop1440 {
+      margin-right: 18px;
+    }
+
+    @include tablet1024 {
+      margin-right: 15px;
+    }
+
+    @include mobile {
+      margin-right: 7px;
+    }
+    & span {
+      margin-right: 7px;
+
+      @include desktop1440 {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  &_link_btn,
+  &_disabled_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 8px;
+    color: $color-white;
+
+    @include desktop1440 {
+      height: 30px;
+    }
+
+    @include mobile {
+      font-size: 12px;
+      min-width: 90px;
+      height: 30px;
+    }
+  }
+
+  &_link_btn {
+    background-color: $color-green;
+    text-decoration: none;
+  }
+
+  &_disabled_btn {
+    background-color: $color-grey2;
+  }
+}
+
+.circle {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: 2px solid $color-grey2;
+}

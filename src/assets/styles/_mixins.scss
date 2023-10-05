@@ -71,44 +71,60 @@
 }
 
 @mixin hidden() {
-  visibility: hidden;
-  pointer-events: none;
-  opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	opacity: 0;
 }
 
 @mixin scrollbar {
-  &::-webkit-scrollbar {
-    width: $scrollbarWidth;
-    height: 0;
-    border-radius: 4px;
-  }
+	&::-webkit-scrollbar {
+		width: $scrollbarWidth;
+		height: 0;
+		border-radius: 4px;
+	}
 
-  &::-webkit-scrollbar-track {
-    background-color: $white;
-    border-radius: 4px;
-  }
+	&::-webkit-scrollbar-track {
+		background-color: $white;
+		border-radius: 4px;
+	}
 
-  &::-webkit-scrollbar-thumb {
-    background-color: $orange;
-    border-radius: 4px;
+	&::-webkit-scrollbar-thumb {
+		background-color: $orange;
+		border-radius: 4px;
 
-    &:hover {
-      background-color: $orange;
-    }
-  }
+		&:hover {
+			background-color: $orange;
+		}
+	}
 
-  &::-webkit-scrollbar-thumb:hover {
-    background: $orange2;
-  }
+	&::-webkit-scrollbar-thumb:hover {
+		background: $orange2;
+	}
 }
 
 @mixin hideScrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+@mixin greenScrollbar {
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: 4px;
+		background-color: $color-grey2;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background-color: $color-green;
+	}
 }
 
 @mixin greenScrollbar {
