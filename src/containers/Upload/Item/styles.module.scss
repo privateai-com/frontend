@@ -30,6 +30,24 @@
     font-size: 12px;
   }
 
+  &_filename_block {
+    @include mobile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &_filename {
+    padding-right: 6px;
+    margin-right: 6px;
+    border-right: 1px solid $color-grey;
+    @include mobile {
+      padding: 0;
+      margin: 0;
+      border-right: none;
+    }
+  }
   &_status_block {
     display: flex;
     align-items: center;
@@ -148,7 +166,7 @@
   &_link_btn {
     background-color: $color-green;
     text-decoration: none;
-    
+
     &:hover {
       color: $color-white;
     }
