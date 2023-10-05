@@ -4,7 +4,7 @@ import { Button, Typography } from 'components';
 
 import styles from './styles.module.scss';
 import { ArticlesTab } from './ArticlesTab';
-import { RequestedData } from './RequestedData';
+import { RequestedTab } from './RequestedTab';
 
 enum MyStorageTab {
   articles,
@@ -33,7 +33,7 @@ export const Storage = () => {
           </Button>
         </div>
       </div>
-      {tab === MyStorageTab.articles ? <ArticlesTab /> : <RequestedData />}
+      {tab === MyStorageTab.articles ? <ArticlesTab /> : <RequestedTab />}
     </div>
   );
 };

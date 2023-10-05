@@ -1,5 +1,5 @@
 import { ArticlesTab } from './ArticlesTab';
-import { RequestedData } from './RequestedData';
+import { RequestedTab } from './RequestedTab';
 
 export const storageTabs = [
   {
@@ -10,6 +10,6 @@ export const storageTabs = [
   {
     key: 'requested',
     label: 'Requested data',
-    component: <RequestedData />,
+    component: <RequestedTab />,
   },
 ];

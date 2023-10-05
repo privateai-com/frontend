@@ -5,7 +5,7 @@ import { AdaptivePaginationTable, TextInput } from 'components';
 import { Content } from 'types';
 import styles from './styles.module.scss';
 
-type CommonTableProps = {
+type CommonProps = {
   columns: object[];
   content: Content[];
   mobileTitle1: string;
@@ -16,7 +16,7 @@ type CommonTableProps = {
   withPagination?: boolean;
 };
 
-const CommmonTab: React.FC<CommonTableProps> = ({
+const Common: React.FC<CommonProps> = ({
   columns,
   content,
   mobileTitle1,
@@ -53,4 +53,4 @@ const CommmonTab: React.FC<CommonTableProps> = ({
   );
 };
 
-export { CommmonTab };
+export { Common };

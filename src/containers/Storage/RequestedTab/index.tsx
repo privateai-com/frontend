@@ -1,11 +1,11 @@
-import { CommmonTab } from '../CommonTab';
+import { Common } from '../Common';
 import { useColumns } from './columns';
 import { content } from './data';
 
-const RequestedData = () => {
+const RequestedTab = () => {
   const columns = useColumns();
   return (
-    <CommmonTab
+    <Common
       columns={columns}
       content={content}
       mobileTitle1="Core entities"
@@ -17,4 +17,4 @@ const RequestedData = () => {
   );
 };
 
-export { RequestedData };
+export { RequestedTab };

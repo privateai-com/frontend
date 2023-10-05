@@ -5,13 +5,13 @@ import styles from './styles.module.scss';
 
 import { content } from './data';
 import { useColumns } from './columns';
-import { CommmonTab } from '../CommonTab';
+import { Common } from '../Common';
 
 export const ArticlesTab = () => {
   const columns = useColumns();
 
   return (
-    <CommmonTab
+    <Common
       columns={columns}
       content={content}
       mobileTitle1="Status"
@@ -26,6 +26,6 @@ export const ArticlesTab = () => {
         <span className={styles.plus_icon} />
         Upload new file
       </Button>
-    </CommmonTab>
+    </Common>
   );
 };
