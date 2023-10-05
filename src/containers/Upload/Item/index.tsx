@@ -23,7 +23,10 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
 
   return (
     <div className={styles.item}>
-      <span>{`File name: ${name} | ${weight} MB`}</span>
+      <div className={styles.item_filename_block}>
+        <span className={styles. item_filename}>{!isMobile && "File name: "} {name}</span>
+        <span>{`${weight} MB`}</span>
+      </div>
       <div className={styles.item_status_block}>
         <Image
           className={styles.item_doc_icon}
@@ -38,35 +41,38 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
             style={getStatusBarWidthStyle}
           />
         </div>
-        <span className={styles.item_percents}>
-          {percents}
-          %
-        </span>
+        <span className={styles.item_percents}>{percents}%</span>
         <div className={styles.item_status}>
           {isLoaded ? (
-            <>
-              {!isMobile && <span>Complete</span>}
-              <Image
-                src={circleCheckIcon}
-                alt="icon"
-              />
-            </>
+            <div>{!isMobile && <span>Complete</span>}</div>
           ) : (
-            <>
-              {!isMobile && <span>Processing</span>}
-              <div className={styles.circle} />
-            </>
+            <div>{!isMobile && <span>Processing</span>}</div>
           )}
         </div>
         {isLoaded ? (
-          <Link
-            className={styles.item_link_btn}
-            href={routes.storage.root}
-          >
-            {isMobile ? 'My storage' : 'See in my storage'}
-          </Link>
+          <div className={styles.item_indication_block}>
+            <Image
+              className={styles.item_complete}
+              src={circleCheckIcon}
+              alt="icon"
+            />
+            <Link
+              className={styles.item_link_btn}
+              href={routes.storage.root}
+            >
+              {isMobile ? 'My storage' : 'See in my storage'}
+            </Link>
+          </div>
         ) : (
-          <button className={styles.item_disabled_btn}>~ 25 min</button>
+          <div className={styles.item_indication_block}>
+            <div className={styles.item_circle} />
+            <button
+              className={styles.item_disabled_btn}
+              disabled
+            >
+              ~ 25 min
+            </button>
+          </div>
         )}
       </div>
     </div>
