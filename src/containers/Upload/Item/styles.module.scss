@@ -148,6 +148,10 @@
   &_link_btn {
     background-color: $color-green;
     text-decoration: none;
+    
+    &:hover {
+      color: $color-white;
+    }
   }
 
   &_disabled_btn {
