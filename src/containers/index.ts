@@ -6,3 +6,4 @@ export { Registration } from './Registration';
 export { ForgotPassword } from './ForgotPassword';
 export { Storage } from './Storage';
 export { KnowledgeBase } from './KnowledgeBase';
+export { NotFound } from './NotFound';
