@@ -3,7 +3,6 @@ export * from './Modals';
 export * from './Tabs';
 export * from './TextInput';
 export * from './Typography';
-export * from './NotFound';
 export * from './ButtonIcon';
 export * from './Pagination';
 export * from './Table';
