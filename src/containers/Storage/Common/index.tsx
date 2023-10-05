@@ -26,7 +26,7 @@ const Common: React.FC<CommonProps> = ({
   key2,
   children,
   withPagination,
-  inputClassName
+  inputClassName,
 }) => {
   const [search, setSearch] = useState('');
 
