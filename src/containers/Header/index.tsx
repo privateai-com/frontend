@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import cx from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { ButtonIcon, TextInput, SelectedText } from 'components';
-import Link from 'next/link';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
+import { authLogout } from 'store/auth/actionCreators';
+import { accountSelectors } from 'store/account/selectors';
 
 import { Notification } from './Notification';
 
@@ -19,14 +23,23 @@ const results = [
 ];
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const username = useSelector(accountSelectors.getProp('username'));
 
   const onNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
   };
 
-  const name = 'John Doe';
+  const callback = useCallback(() => {
+    router.push(routes.login.root);
+  }, [router]);
+
+  const onClickLogout = useCallback(() => {
+    dispatch(authLogout({ callback }));
+  }, [callback, dispatch]);
 
   return (
     <header className={styles.header}>
@@ -66,7 +79,7 @@ export const Header = () => {
           </div>
         )}
       </div>
-      <span>{name}</span>
+      <span>{username}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}
@@ -80,7 +93,7 @@ export const Header = () => {
       <ButtonIcon
         className={styles.button}
         image={logoutIcon}
-        onClick={() => {}}
+        onClick={onClickLogout}
       />
       <Notification isOpen={isNotificationOpen} />
     </header>
