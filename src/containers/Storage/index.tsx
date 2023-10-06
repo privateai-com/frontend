@@ -20,12 +20,18 @@ export const Storage = () => {
         <Typography type="h1">My storage</Typography>
         <div className={styles.storage__head_buttons}>
           <Button
+            className={
+              tab === MyStorageTab.articles ? undefined : styles.secondary
+            }
             onClick={() => setTab(MyStorageTab.articles)}
             theme={tab === MyStorageTab.articles ? 'primary' : 'secondary'}
           >
             My articles
           </Button>
           <Button
+            className={
+              tab === MyStorageTab.requested ?undefined  : styles.secondary
+            }
             onClick={() => setTab(MyStorageTab.requested)}
             theme={tab === MyStorageTab.requested ? 'primary' : 'secondary'}
           >

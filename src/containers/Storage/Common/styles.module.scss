@@ -3,7 +3,8 @@
 .storage__search {
 	display: flex;
 	margin-bottom: 25px;
-
+	justify-content: space-between;
+	
 	@include mobile {
 		flex-direction: column;
 		gap: 15px;

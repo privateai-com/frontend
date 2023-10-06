@@ -14,6 +14,7 @@ type CommonProps = {
   key2: string;
   children?: ReactNode;
   withPagination?: boolean;
+  inputClassName?: string;
 };
 
 const Common: React.FC<CommonProps> = ({
@@ -25,6 +26,7 @@ const Common: React.FC<CommonProps> = ({
   key2,
   children,
   withPagination,
+  inputClassName,
 }) => {
   const [search, setSearch] = useState('');
 
@@ -37,6 +39,7 @@ const Common: React.FC<CommonProps> = ({
           placeholder="Search by file name"
           isSearch
           classNameInputBox={styles.input}
+          classNameContainer={inputClassName}
         />
         {children}
       </div>
