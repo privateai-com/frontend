@@ -5,14 +5,9 @@ import { Pagination, Table } from 'components';
 
 import { ScreenWidth } from 'appConstants';
 import { usePageCount, useScreenWidth } from 'hooks';
+import { Content } from 'types';
 import styles from './styles.module.scss';
 import { MobileTableItem } from './MobileTableItem';
-
-type Content = {
-  id: string;
-  name: string;
-  [key: string]: string;
-};
 
 type AdaptivePaginationTableProps = {
   columns: object[];

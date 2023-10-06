@@ -69,7 +69,8 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
           type="p"
           className={styles.description}
         >
-          Please enter the verification code we sent to 
+          Please enter the verification code we sent to
+          <br />
           <strong>{` ${email}`}</strong>
         </Typography>
         <InputOtp
@@ -82,6 +83,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 
         {isShowResend && (
           <ButtonResend
+            className={styles.resender}
             onClick={onResendCodeClick}
           />
         )}

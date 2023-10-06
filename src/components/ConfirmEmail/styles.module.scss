@@ -27,6 +27,7 @@
 
 .description {
 	margin-bottom: 65px;
+	@include font-size;
 
 	@include desktop1440 {
 		margin-bottom: 40px;
@@ -76,5 +77,18 @@
 	@include mobile {
 		max-width: 210px;
 		margin-bottom: 10px;
+	}
+}
+
+.resender {
+	align-self: flex-start;
+	margin-left: 28px;
+
+	@include desktop1024 {
+		margin-left: 50px;
+	}
+
+	@include mobile {
+		margin-left: 45px;
 	}
 }

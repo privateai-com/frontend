@@ -1,0 +1,14 @@
+@import "assets/styles/variables.scss";
+
+.cell {
+  &_btn_link {
+    text-decoration: underline;
+    color: $color-green;
+  }
+
+  &_block_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

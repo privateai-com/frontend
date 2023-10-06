@@ -1,0 +1,77 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.key {
+  &_title,
+  &_text {
+    text-align: center;
+    margin-bottom: 47px;
+
+    @include desktop1440 {
+      margin-bottom: 30px;
+    }
+  }
+
+  &_title {
+    font-weight: 600;
+
+    @include tablet1024 {
+      margin-bottom: 15px;
+    }
+  }
+
+  &_text {
+    font-weight: 500;
+    color: $color-grey;
+
+    @include desktop1440 {
+      width: 85%;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 25px;
+    }
+  }
+
+  &_block {
+    width: 100%;
+    margin-bottom: 21px;
+
+    @include desktop1440 {
+      margin-bottom: 30px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 8px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &_form {
+    width: 100%;
+  }
+
+  &_btn {
+    width: 280px;
+    height: 50px;
+    font-size: 20px;
+
+    @include desktop1440 {
+      width: 220px;
+      height: 40px;
+      font-size: 18px;
+    }
+
+    @include tablet1024 {
+      width: 190px;
+      height: 40px;
+    }
+  }
+}
+
+.mock {
+  width: 24px;
+}

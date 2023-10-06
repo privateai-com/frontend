@@ -1,0 +1,83 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.knowledge {
+  position: relative;
+
+  &_header {
+    margin-bottom: 25px;
+
+    @include tablet1024 {
+      margin-bottom: 30px;
+    }
+
+    @include mobile {
+      margin: 15px 0;
+    }
+  }
+
+  &_title {
+    color: $color-black;
+    margin-bottom: 25px;
+    font-size: 38px;
+    font-weight: 700;
+
+    @include desktop1440 {
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 25px;
+    }
+
+    @include mobile {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+  }
+
+  &_search {
+    @include desktop1440 {
+      max-width: 600px;
+    }
+
+    @include tablet1024 {
+      max-width: 587px;
+    }
+  }
+}
+
+.items {
+  padding: 20px;
+  background-color: $color-white;
+  box-shadow: -10px 56px 140px 0px #8f9bba33;
+  border-radius: 16px;
+
+  &_container {
+    padding: 20px;
+    height: 785px;
+    overflow-y: scroll;
+
+    @include greenScrollbar;
+
+    @include desktop1440 {
+      height: 518px;
+    }
+
+    @include tablet1024 {
+      height: 1116px;
+    }
+
+    @include mobile {
+      height: 100%;
+      padding: 0;
+
+      @include hideScrollbar 
+    }
+  }
+
+  @include mobile {
+    padding: 8px 0;
+  }
+}

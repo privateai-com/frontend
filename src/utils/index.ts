@@ -3,6 +3,7 @@ export { throwApiError } from './throwApiError';
 export { sagaExceptionHandler, getDataFromException } from './sagaExceptionHandler';
 export { stringShortcut, stringLongShortcut } from './stringShortcut';
 export { transformBackendErrorToString } from './transformBackendErrorToString';
+export { isWordMatchingSearch } from './isWordsMatching';
 
 export * from './getNetworkName';
 export * from './metamask';

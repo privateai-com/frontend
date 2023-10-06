@@ -77,6 +77,8 @@
 .description {
 	margin-bottom: 48px;
 
+	@include font-size();
+	
 	@include desktop1440 {
 		margin-bottom: 18px;
 	}

@@ -1,0 +1,100 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.not_found {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+
+	&_title,
+	&_subtitle {
+		font-weight: 700;
+		color: $color-grey;
+	}
+
+	&_title {
+		font-size: 96px;
+		line-height: 117px;
+
+		@include desktop1440 {
+			font-size: 64px;
+			line-height: 78px;
+		}
+
+		@include mobile {
+			font-size: 50px;
+			line-height: 60px;
+		}
+	}
+
+	&_subtitle {
+		margin-bottom: 40px;
+		font-size: 48px;
+		line-height: 58px;
+
+		@include desktop1440 {
+			font-size: 36px;
+			line-height: 43px;
+		}
+
+		@include tablet1024 {
+			margin-bottom: 30px;
+		}
+
+		@include mobile {
+			font-size: 32px;
+			line-height: 39px;
+		}
+	}
+
+	&_text {
+		margin-bottom: 50px;
+		font-size: 20px;
+		font-weight: 500;
+		color: $color-grey4;
+
+		@include desktop1440 {
+			font-size: 16px;
+			margin-bottom: 40px;
+		}
+
+		@include mobile {
+			font-size: 14px;
+		}
+	}
+
+	&_link {
+		height: 50px;
+		width: 280px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		font-size: 20px;
+		font-weight: 600;
+		color: $color-white;
+		background-color: $color-green;
+		box-shadow: 0px 6px 16px 0px #00dea30f;
+		border-radius: 8px;
+
+		@include desktop1440 {
+			height: 40px;
+			width: 190px;
+			font-size: 16px;
+		}
+
+		@include tablet1024 {
+			height: 40px;
+			width: 220px;
+		}
+
+		@include mobile {
+			height: 30px;
+			width: 165px;
+			font-size: 14px;
+		}
+	}
+}
