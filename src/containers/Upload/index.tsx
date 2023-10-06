@@ -62,8 +62,8 @@ export const Upload = () => {
         Upload activity
       </Typography>
 
-      <div className={styles.upload_dnd}>
-        <DragNDrop />
+      <div className={styles.upload_dnd_block}>
+        <DragNDrop className={styles.upload_dnd}/>
       </div>
 
       {!isMobile && (

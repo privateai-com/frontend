@@ -1,8 +1,6 @@
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, docRegex } from 'appConstants';
-import {
-  ChangeEvent, DragEvent, useCallback, useState, 
-} from 'react';
+import { ChangeEvent, DragEvent, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { uploadIcon } from 'assets';
@@ -10,7 +8,11 @@ import cx from 'classnames';
 import { Typography } from 'components';
 import styles from './styles.module.scss';
 
-const DragNDrop = () => {
+type DragNDropProps = {
+  className?: string;
+};
+
+const DragNDrop: React.FC<DragNDropProps> = ({ className }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [doc, setDoc] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -39,7 +41,7 @@ const DragNDrop = () => {
   return (
     <label
       htmlFor="upload"
-      className={cx(styles.dnd_btn, {
+      className={cx(styles.dnd_btn, className, {
         [styles.dragOver]: isDragging,
       })}
       onDragOver={() => setIsDragging(true)}

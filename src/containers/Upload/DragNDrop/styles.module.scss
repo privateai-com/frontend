@@ -7,7 +7,7 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    padding: 30px 40px 50px;
+    padding: size(30, 1080) 40px size(50, 1080);
     background-color: $color-white;
     border-radius: 16px;
     box-shadow: -10px 56px 140px 0px #8f9bba33;
@@ -51,13 +51,13 @@
   }
 
   &_text {
-    margin-bottom: 37px;
+    margin-bottom: size(37, 1080);
     text-align: center;
     font-weight: 700;
     color: $color-grey;
 
     @include desktop1440 {
-      margin-bottom: 45px;
+      margin-bottom: size(11, 1080);
     }
 
     @include tablet1024 {
