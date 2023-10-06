@@ -2,6 +2,8 @@
 @import "assets/styles/_mixins.scss";
 
 @mixin font_size {
+	font-size: 20px;
+
 	@include desktop1024 {
 		font-size: 16px;
 	}
@@ -93,16 +95,22 @@
 .search {
 	&_result {
 		position: absolute;
+		display: flex;
+		flex-direction: column;
 		bottom: -100%;
 		top: 100%;
-		min-height: 200px;
 		width: 100%;
+		height: fit-content;
 		background-color: $color-white;
 		border-radius: 0 0 8px 8px;
 		box-shadow: 0px 5px 5px 0px #00000026;
 		padding: 20px;
 		gap: 15px;
 		z-index: 1;
+
+		@include mobile {
+			padding: 14px;
+		}
 	}
 
 	&_list {
@@ -112,26 +120,31 @@
 
 		& > li {
 			color: $color-grey;
-			font-size: 20px;
 			margin-bottom: 4px;
-			@include mobile {
-				margin-bottom: 2.5px;
-			}
-			@include tablet1024 {
-				margin-bottom: 3.5px;
-			}
+
 			@include font_size();
+
+			@include tablet1024 {
+				margin-bottom: 10px;
+			}
+
+			@include mobile {
+				margin-bottom: 5px;
+			}
 		}
 	}
 
 	&_link {
-		position: absolute;
-		bottom: 15px;
-		right: 15px;
+		align-self: end;
 		text-align: center;
-		font-size: 20px;
-		@include font_size();
 		cursor: pointer;
+
+		@include font_size();
+
+		@include mobile {
+			align-self: center;
+			padding: 0 20px;
+		}
 	}
 }
 
