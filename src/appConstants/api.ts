@@ -11,5 +11,7 @@ export enum ApiEndpoint {
   AuthResendCodeRegister = '/verification/resend-code-register',
   AuthSendCodeResetPassword = '/verification/send-code-reset-password',
   AuthConfirmResetPassword = '/verification/confirm-reset-password',
+
+  ProfileAddWallet = '/profile/add-wallet',
   
 }

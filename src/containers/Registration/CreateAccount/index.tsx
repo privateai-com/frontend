@@ -13,7 +13,7 @@ import { emailValidator, passwordValidator } from 'utils';
 import { authRegistration } from 'store/auth/actionCreators';
 import { authSelectors } from 'store/auth/selectors';
 import { AuthActionTypes } from 'store/auth/actionTypes';
-import { RequestStatus } from 'types';
+import { AuthErrorTransformResult, RequestStatus } from 'types';
 
 import styles from './styles.module.scss';
 
@@ -42,8 +42,9 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     onConfirmEmail(email);
   }, [email, onConfirmEmail]);
 
-  const errorCallback = useCallback(() => {
-
+  const errorCallback = useCallback((error: AuthErrorTransformResult) => {
+    if (error.fields.email) setEmailError(error.fields.email);
+    if (error.fields.password) setPasswordError(error.fields.password);
   }, []);
 
   const onCreateAccountClick = useCallback(() => {
@@ -52,16 +53,19 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
 
-    const isError = !isNotError 
-     && !currentPasswordError
-     && !currentEmailError;
+    const isNoError = !currentPasswordError
+      && !currentEmailError
+      && !passwordError
+      && !emailError
+      && !!email
+      && !!password;
 
-    if (!isError) {
+    if (isNoError) {
       dispatch(authRegistration({
         email, password, successCallback, errorCallback,
       }));
     }
-  }, [dispatch, email, errorCallback, isNotError, password, successCallback]);
+  }, [dispatch, email, emailError, errorCallback, password, passwordError, successCallback]);
 
   const onEmailChange = useCallback((value: string) => {
     setEmailError('');

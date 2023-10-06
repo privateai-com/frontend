@@ -2,10 +2,11 @@ import { call, put } from 'redux-saga/effects';
 import { sagaExceptionHandler } from 'utils';
 import {
   RequestStatus,
+  UserResponse,
 } from 'types';
-import { ApiEndpoint } from 'appConstants';
-import { callApi } from 'appConstants/callApi';
+import { ApiEndpoint, callApi } from 'appConstants';
 import { signPersonalEvm } from 'api';
+import { accountSetState } from 'store/account/actionCreators';
 import { authLoginWallet, authSetStatus } from '../actionCreators';
 
 const message = 'Connect Archon!';
@@ -20,7 +21,11 @@ export function* authloginWalletSaga({
 
     const signature: string = yield call(signPersonalEvm, message);
 
-    yield call(callApi, {
+    const {
+      data: {
+        user,
+      },
+    }: UserResponse = yield call(callApi, {
       method: 'POST',
       endpoint: ApiEndpoint.AuthWalletLogin,
       payload: {
@@ -28,6 +33,11 @@ export function* authloginWalletSaga({
         signature,
       },
     });
+
+    yield put(accountSetState({
+      ...user,
+    }));
+
     successCallback();
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

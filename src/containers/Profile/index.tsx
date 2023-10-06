@@ -1,21 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import { useModal } from 'react-modal-hook';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, ProfileSuccess, Typography } from 'components';
 import { stringLongShortcut } from 'utils';
+import { accountSelectors } from 'store/account/selectors';
+import { profileSelectors } from 'store/profile/selectors';
+import { ProfileActionTypes } from 'store/profile/actionTypes';
+import { RequestStatus } from 'types';
+import { profileLinkWallet } from 'store/profile/actionCreators';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
 
 import styles from './styles.module.scss';
 
 export const Profile = () => {
-  const [isEditProfile, setIsEditProfile] = useState(false);
-  const [isAuthWallet, setIsAuthWallet] = useState(true);
-  const address = '0x0806E6A81DB5Fa3B54bB99f8D36C5041b678d564';
+  const dispatch = useDispatch();
   const router = useRouter();
-
+  const [isEditProfile, setIsEditProfile] = useState(false);
+  const walletAddress = useSelector(accountSelectors.getProp('walletAddress'));
+  const status = useSelector(profileSelectors.getStatus(ProfileActionTypes.LinkWallet));
+  
   const [showSuccess, hideSuccess] = useModal(() => (
     <ProfileSuccess
       onClickCancel={hideSuccess}
@@ -34,6 +41,14 @@ export const Profile = () => {
     }
   }, [router, router.query, showSuccess]);
 
+  const onLinkWalletClick = useCallback(() => {
+    dispatch(profileLinkWallet());
+  }, [dispatch]);
+
+  const onDisconnectLinkWalletClick = useCallback(() => {
+
+  }, []);
+
   return (
     <div className={styles.profile__container}>
       <div className={styles.profile__head}>
@@ -50,13 +65,13 @@ export const Profile = () => {
         </div>
 
         <div className={styles.profile__head_auth}>
-          {isAuthWallet ? (
+          {walletAddress ? (
             <>
-              {`Linked wallet: ${stringLongShortcut(address, 6, 3)}`}
+              {`Linked wallet: ${stringLongShortcut(walletAddress, 6, 3)}`}
               <Button
                 className={styles.profile__head_button}
                 theme="secondary"
-                onClick={() => setIsAuthWallet(false)}
+                onClick={onDisconnectLinkWalletClick}
               >
                 Disconnect wallet
               </Button>
@@ -64,7 +79,8 @@ export const Profile = () => {
           ) : (
             <Button
               className={styles.profile__head_button}
-              onClick={() => setIsAuthWallet(true)}
+              onClick={onLinkWalletClick}
+              isLoading={status === RequestStatus.REQUEST}
             >
               Link your wallet
             </Button>

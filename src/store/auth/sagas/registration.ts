@@ -1,10 +1,10 @@
 import { call, put } from 'redux-saga/effects';
-import { sagaExceptionHandler } from 'utils';
+
+import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
 import {
   RequestStatus,
 } from 'types';
-import { ApiEndpoint } from 'appConstants';
-import { callApi } from 'appConstants/callApi';
+import { ApiEndpoint, callApi } from 'appConstants';
 import { authRegistration, authSetStatus } from '../actionCreators';
 
 export function* authRegistrationSaga({
@@ -12,6 +12,7 @@ export function* authRegistrationSaga({
     email,
     password,
     successCallback,
+    errorCallback,
   },
 }: ReturnType<typeof authRegistration>) {
   try{
@@ -29,6 +30,7 @@ export function* authRegistrationSaga({
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
     sagaExceptionHandler(e);
+    errorCallback(responseExceptionToFormError(e));
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }
 }

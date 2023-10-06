@@ -1,4 +1,9 @@
-import { AuthState, RequestStatus, UpdatePayload } from 'types';
+import {
+  AuthErrorTransformResult,
+  AuthState,
+  RequestStatus,
+  UpdatePayload,
+} from 'types';
 import { AuthActionTypes } from './actionTypes';
 
 export const authSetState = (payload: Partial<AuthState>) => ({
@@ -18,7 +23,7 @@ export const authRegistration = (
     email: string,
     password: string,
     successCallback: () => void,
-    errorCallback: () => void,
+    errorCallback: (error: AuthErrorTransformResult) => void,
   },
 ) => ({
   type: AuthActionTypes.Registration,
@@ -30,7 +35,7 @@ export const authConfirmEmail = (
     email: string,
     code: string,
     successCallback: () => void,
-    errorCallback: (error: string) => void,
+    errorCallback: (error: AuthErrorTransformResult) => void,
   },
 ) => ({
   type: AuthActionTypes.ConfirmEmail,
@@ -42,6 +47,7 @@ export const authLogin = (
     email: string,
     password: string,
     successCallback: () => void,
+    errorCallback: (error: AuthErrorTransformResult) => void,
   },
 ) => ({
   type: AuthActionTypes.Login,
@@ -55,8 +61,11 @@ export const authLoginWallet = (payload: {
   payload,
 });
 
-export const authLogout = () => ({
+export const authLogout = (payload: {
+  callback?: () => void;
+} = {}) => ({
   type: AuthActionTypes.Logout,
+  payload,
 });
 
 export const authOnUpdateAccessTokensFinish = (payload: UpdatePayload) => ({

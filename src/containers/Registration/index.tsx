@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { ConfirmEmail } from 'components';
 import { routes } from 'appConstants';
 import { authConfirmEmail, authResendConfCode } from 'store/auth/actionCreators';
+import { AuthErrorTransformResult } from 'types';
 import { CreateAccount } from './CreateAccount';
 
 import styles from './styles.module.scss';
@@ -22,8 +23,10 @@ export const Registration = () => {
     });
   }, [router]);
 
-  const errorCallback = useCallback((error: string) => {
-    setErrorCode(error);
+  const errorCallback = useCallback((error: AuthErrorTransformResult) => {
+    if (error.fields.code || error.fields.email) {
+      setErrorCode(error.fields.code || error.fields.email || '');
+    }
   }, []);
 
   const onConfirmEmail = useCallback((code: string) => {

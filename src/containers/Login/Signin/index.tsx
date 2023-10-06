@@ -1,6 +1,12 @@
-import { FC, useCallback, useState } from 'react';
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
 import {
   AuthWrapper,
@@ -11,6 +17,9 @@ import {
 import { walletIcon } from 'assets';
 import { emailValidator, passwordValidator } from 'utils';
 import { routes } from 'appConstants';
+import { authSelectors } from 'store/auth/selectors';
+import { AuthActionTypes } from 'store/auth/actionTypes';
+import { RequestStatus } from 'types';
 
 import styles from './styles.module.scss';
 
@@ -18,17 +27,20 @@ interface SigninProps {
   onConfirm: ({ email, password }: { email: string, password: string }) => void;
   onConnectWallet: () => void;
   onResotre: () => void;
+  loginError: { emailError: string, passwordError: string },
 }
 
 export const Signin: FC<SigninProps> = ({
   onConfirm,
   onConnectWallet,
   onResotre,
+  loginError,
 }) => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const status = useSelector(authSelectors.getStatus(AuthActionTypes.Login));
 
   const isNotError =
     !passwordError
@@ -64,6 +76,11 @@ export const Signin: FC<SigninProps> = ({
     setPasswordError('');
     setPassword(value);
   }, []);
+
+  useEffect(() => {
+    if (loginError.emailError) setEmailError(loginError.emailError);
+    if (loginError.passwordError) setPasswordError(loginError.passwordError);
+  }, [loginError.emailError, loginError.passwordError]);
 
   return (
     <AuthWrapper>
@@ -114,6 +131,7 @@ export const Signin: FC<SigninProps> = ({
           onClick={onSigninClick}
           className={styles.button}
           disabled={!isNotError}
+          isLoading={status === RequestStatus.REQUEST}
         >
           Sign in
         </Button>

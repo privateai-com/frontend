@@ -5,6 +5,7 @@ import { authConfirmEmailSaga } from './confirmEmail';
 import { authResendCodeEmailSaga } from './resendCodeEmail';
 import { authLoginSaga } from './login';
 import { authloginWalletSaga } from './loginWallet';
+import { authLogoutSaga } from './logout';
 
 export default function* authSaga() {
   yield takeLatest(AuthActionTypes.Registration, authRegistrationSaga);
@@ -12,4 +13,5 @@ export default function* authSaga() {
   yield takeLatest(AuthActionTypes.Login, authLoginSaga);
   yield takeLatest(AuthActionTypes.LoginWallet, authloginWalletSaga);
   yield takeLatest(AuthActionTypes.ResendConfCode, authResendCodeEmailSaga);
+  yield takeLatest(AuthActionTypes.Logout, authLogoutSaga);
 }

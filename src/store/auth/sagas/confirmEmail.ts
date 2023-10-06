@@ -1,10 +1,10 @@
 import { call, put } from 'redux-saga/effects';
-import { getDataFromException, sagaExceptionHandler } from 'utils';
+
+import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
 import {
   RequestStatus, UserResponse,
 } from 'types';
-import { ApiEndpoint } from 'appConstants';
-import { callApi } from 'appConstants/callApi';
+import { ApiEndpoint, callApi } from 'appConstants';
 import { accountSetState } from 'store/account/actionCreators';
 import { authConfirmEmail, authSetState, authSetStatus } from '../actionCreators';
 
@@ -45,7 +45,7 @@ export function* authConfirmEmailSaga({
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
     successCallback();
   } catch (e) {
-    errorCallback(getDataFromException(e).message);
+    errorCallback(responseExceptionToFormError(e));
     sagaExceptionHandler(e);
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }
