@@ -30,7 +30,7 @@ export const Storage = () => {
           </Button>
           <Button
             className={
-              tab === MyStorageTab.requested ?undefined  : styles.secondary
+              tab === MyStorageTab.requested ? undefined : styles.secondary
             }
             onClick={() => setTab(MyStorageTab.requested)}
             theme={tab === MyStorageTab.requested ? 'primary' : 'secondary'}
