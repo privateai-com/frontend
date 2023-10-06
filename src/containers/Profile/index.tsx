@@ -16,13 +16,16 @@ export const Profile = () => {
   const address = '0x0806E6A81DB5Fa3B54bB99f8D36C5041b678d564';
   const router = useRouter();
 
-  const [showSuccess, hideSuccess] = useModal(() => (
-    <ProfileSuccess
-      onClickCancel={hideSuccess}
-      onClickUpload={() => {}}
-      onClickBrowse={() => {}}
-    />
-  ), []);
+  const [showSuccess, hideSuccess] = useModal(
+    () => (
+      <ProfileSuccess
+        onClickCancel={hideSuccess}
+        onClickUpload={() => {}}
+        onClickBrowse={() => {}}
+      />
+    ),
+    []
+  );
 
   useEffect(() => {
     const { showModal } = router.query;
@@ -52,7 +55,8 @@ export const Profile = () => {
         <div className={styles.profile__head_auth}>
           {isAuthWallet ? (
             <>
-              {`Linked wallet: ${stringLongShortcut(address, 6, 3)}`}
+              {!isEditProfile &&
+                `Linked wallet: ${stringLongShortcut(address, 6, 3)}`}
               <Button
                 className={styles.profile__head_button}
                 theme="secondary"
