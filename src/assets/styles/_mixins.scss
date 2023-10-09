@@ -160,7 +160,7 @@
 }
 
 @function size($size, $screen-height) {
-	$adaptive: calc($size / ($screen-height - 80 ) * 100);
+	$adaptive: calc($size / ($screen-height + 80) * 100);
 	@return #{$adaptive}vh;
 }
 

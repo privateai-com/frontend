@@ -1,6 +1,7 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
 
+
 .page_container {
   position: relative;
 	width: 100%;
@@ -47,7 +48,7 @@
 	row-gap: 20px;
 	justify-content: flex-start;
 
-	padding: 30px 40px 62px;
+	padding: size(30, 1080) 40px size(62, 1080);
 
 	@include desktop1440 {
 		padding: 15px 40px 20px;

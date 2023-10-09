@@ -1,6 +1,8 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
+$statuses-height: calc(60vh - 210px);
+
 .upload {
   position: relative;
 
@@ -67,10 +69,10 @@
   padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
-  height: 41vh;
+  height: $statuses-height;
   &_items {
     padding-right: 17px;
-    height: calc(41vh - 103px);
+    height: calc($statuses-height - 103px);
     overflow-y: scroll;
 
     @include desktop1440 {
