@@ -1,27 +1,19 @@
 import { call, put, select } from 'redux-saga/effects';
 
 import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
-import { RequestStatus } from 'types';
+import { AuthState, RequestStatus } from 'types';
 import { ApiEndpoint, callApi } from 'appConstants';
-import { ResponseGenerator } from 'next/dist/server/response-cache';
-import {
-  authChangePassword,
-  authSetStatus,
-} from '../actionCreators';
+import { authChangePassword, authSetStatus } from '../actionCreators';
 
 export function* authChangePasswordSaga({
   type,
-  payload: {
-    password,
-    successCallback,
-    errorCallback,
-  },
+  payload: { password, successCallback, errorCallback },
 }: ReturnType<typeof authChangePassword>) {
   try {
     yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
 
-    const email: ResponseGenerator = yield select((state) => state.auth.email);
-    const verificationCode: ResponseGenerator = yield select(
+    const email: AuthState['email'] = yield select((state) => state.auth.email);
+    const verificationCode: AuthState['verificationCode'] = yield select(
       (state) => state.auth.verificationCode,
     );
 
