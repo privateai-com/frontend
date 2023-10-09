@@ -12,6 +12,11 @@ const resetPassword = async (
     },
   );
 
-const confirmEmail = async () => {};
+const confirmEmail = async (email: string, password: string, code: string) =>
+  axios.post(`${apiBaseUrl}${ApiEndpoint.AuthConfirmResetPassword}`, {
+    email,
+    password,
+    verificationCode: code,
+  });
 
 export { resetPassword, confirmEmail };

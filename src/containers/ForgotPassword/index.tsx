@@ -26,6 +26,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
     ForgotPasswordStep.ResetPasswordStep,
   );
   const [email, setEmail] = useState('');
+  // const [code, setCode] = useState('');
 
   const resetPasswordHandler = useCallback(async (value: string) => {
     setEmail(value);
@@ -36,7 +37,8 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
     }
   }, []);
 
-  const confirmEmailHandler = useCallback(() => {
+  const confirmEmailHandler = useCallback(async () => {
+    // setCode(value);
     setCurrentStep(ForgotPasswordStep.NewPasswordStep);
   }, []);
 
