@@ -71,7 +71,6 @@ export const authLogout = (payload: {
 export const authConfirmCode = (payload: {
   email: string;
   successCallback: () => void;
-  errorCallback: (error: AuthErrorTransformResult) => void;
 }) => ({
   type: AuthActionTypes.ConfirmCode,
   payload,

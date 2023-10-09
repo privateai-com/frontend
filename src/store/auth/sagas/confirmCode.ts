@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 
-import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
+import { sagaExceptionHandler } from 'utils';
 import { RequestStatus } from 'types';
 import { ApiEndpoint, callApi } from 'appConstants';
 import {
@@ -11,7 +11,7 @@ import {
 
 export function* authConfirmCodeSage({
   type,
-  payload: { email, successCallback, errorCallback },
+  payload: { email, successCallback },
 }: ReturnType<typeof authConfirmCode>) {
   try {
     yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
@@ -33,7 +33,6 @@ export function* authConfirmCodeSage({
     
     successCallback();
   } catch (e) {
-    errorCallback(responseExceptionToFormError(e));
     sagaExceptionHandler(e);
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }

@@ -1,13 +1,14 @@
 import { FC, useCallback, useState } from 'react';
 
 import {
-  AuthWrapper,
-  Button,
-  TextInput,
-  Typography,
+  AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { emailValidator } from 'utils';
 
+import { useSelector } from 'react-redux';
+import { authSelectors } from 'store/auth/selectors';
+import { AuthActionTypes } from 'store/auth/actionTypes';
+import { RequestStatus } from 'types';
 import styles from './styles.module.scss';
 
 interface ResetPasswordProps {
@@ -16,11 +17,14 @@ interface ResetPasswordProps {
 }
 
 export const ResetPassword: FC<ResetPasswordProps> = ({
-  onConfirm, onBack,
+  onConfirm,
+  onBack,
 }) => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  
+  const isLoading =
+    useSelector(authSelectors.getStatus(AuthActionTypes.ConfirmCode)) ===
+    RequestStatus.REQUEST;
   const isNotError = !emailError && !!email;
 
   const onConfirmClick = useCallback(() => {
@@ -58,6 +62,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
           onClick={onConfirmClick}
           className={styles.button}
           disabled={!isNotError}
+          isLoading={isLoading}
         >
           Confirm
         </Button>

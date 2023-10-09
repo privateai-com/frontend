@@ -1,40 +1,35 @@
 import { FC, useCallback, useState } from 'react';
 
 import {
-  AuthWrapper,
-  Button,
-  TextInput,
-  Typography,
+  AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { passwordValidator } from 'utils';
 
 import styles from './styles.module.scss';
 
 interface NewPasswordProps {
-  onConfirm: () => void;
+  onConfirm: (password: string) => void;
 }
 
-export const NewPassword: FC<NewPasswordProps> = ({
-  onConfirm,
-}) => {
+export const NewPassword: FC<NewPasswordProps> = ({ onConfirm }) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
   const isNotError =
-    !passwordError
-      && password
-      && passwordConfirm
-      && (password === passwordConfirm);
+    !passwordError &&
+    password &&
+    passwordConfirm &&
+    password === passwordConfirm;
 
   const onConfirmClick = useCallback(() => {
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
 
-    const isError = !isNotError && !currentPasswordError;
+    const isError = !isNotError || currentPasswordError;
 
     if (!isError) {
-      onConfirm();
+      onConfirm(password);
     }
   }, [isNotError, onConfirm, password]);
 
