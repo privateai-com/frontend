@@ -20,14 +20,13 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
 }) => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-
-  const isNotError = !emailError && email;
+  
+  const isNotError = !emailError && !!email;
 
   const onConfirmClick = useCallback(() => {
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
-
-    const isError = !isNotError && !currentEmailError;
+    const isError = !isNotError || !!currentEmailError;
 
     if (!isError) {
       onConfirm(email);

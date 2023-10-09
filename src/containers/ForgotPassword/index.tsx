@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 
 import { ConfirmEmail } from 'components';
-import { resetPassword } from 'api/resetPassword';
+import { resetPassword } from 'api';
 import { ResetPassword } from './ResetPassword';
 import { NewPassword } from './NewPassword';
 import { Success } from './Success';
@@ -30,10 +30,10 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
   const resetPasswordHandler = useCallback(async (value: string) => {
     setEmail(value);
     const res = await resetPassword(value);
-    
-    if(res.data.statusCode === 200) {
+
+    if (res.data.statusCode === 200) {
       setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
-    } 
+    }
   }, []);
 
   const confirmEmailHandler = useCallback(() => {
