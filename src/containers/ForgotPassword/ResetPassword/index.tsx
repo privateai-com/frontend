@@ -39,7 +39,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
     if (isNoError) {
       onConfirm(email);
     }
-  }, [email, isNotError, onConfirm, emailError]);
+  }, [email, setEmailError, emailError, onConfirm]);
 
   const onEmailChange = useCallback(
     (value: string) => {
