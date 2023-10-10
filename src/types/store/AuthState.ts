@@ -10,6 +10,9 @@ export interface AuthState {
   accessToken?: string;
   refreshToken?: string;
   timestamp?: number;
+  email?: string;
+  verificationCode?: string;
+
   ui: PartialRecord<AuthActionTypes, RequestStatus>;
 }
 

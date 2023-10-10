@@ -22,6 +22,7 @@ interface ConfirmEmailProps {
   onBack?: () => void;
   onConfirm?: (code: string) => void;
   onResend?: () => void;
+  isShown?: boolean;
 }
 
 export const ConfirmEmail: FC<ConfirmEmailProps> = ({
@@ -30,10 +31,11 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   onBack,
   onConfirm,
   onResend,
+  isShown,
 }) => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
-  const [isShowResend, setIsShowResend] = useState(false);
+  const [isShowResend, setIsShowResend] = useState(isShown);
 
   const isNotError = !otpError && otp;
 

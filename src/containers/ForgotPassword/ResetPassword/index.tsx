@@ -1,43 +1,53 @@
 import { FC, useCallback, useState } from 'react';
 
 import {
-  AuthWrapper,
-  Button,
-  TextInput,
-  Typography,
+  AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { emailValidator } from 'utils';
 
+import { useSelector } from 'react-redux';
+import { authSelectors } from 'store/auth/selectors';
+import { AuthActionTypes } from 'store/auth/actionTypes';
+import { RequestStatus } from 'types';
 import styles from './styles.module.scss';
 
 interface ResetPasswordProps {
   onConfirm: (email: string) => void;
   onBack: () => void;
+  emailError: string;
+  setEmailError: (email: string) => void;
 }
 
 export const ResetPassword: FC<ResetPasswordProps> = ({
-  onConfirm, onBack,
+  onConfirm,
+  onBack,
+  emailError,
+  setEmailError,
 }) => {
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-
-  const isNotError = !emailError && email;
+  const isLoading =
+    useSelector(authSelectors.getStatus(AuthActionTypes.ConfirmCode)) ===
+    RequestStatus.REQUEST;
+  const isNotError = !emailError && !!email;
 
   const onConfirmClick = useCallback(() => {
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
 
-    const isError = !isNotError && !currentEmailError;
+    const isNoError = !currentEmailError && !emailError && !!email;
 
-    if (!isError) {
+    if (isNoError) {
       onConfirm(email);
     }
-  }, [email, isNotError, onConfirm]);
+  }, [email, setEmailError, emailError, onConfirm]);
 
-  const onEmailChange = useCallback((value: string) => {
-    setEmailError('');
-    setEmail(value);
-  }, []);
+  const onEmailChange = useCallback(
+    (value: string) => {
+      setEmailError('');
+      setEmail(value);
+    },
+    [setEmailError],
+  );
 
   return (
     <AuthWrapper onClickBack={onBack}>
@@ -59,6 +69,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
           onClick={onConfirmClick}
           className={styles.button}
           disabled={!isNotError}
+          isLoading={isLoading}
         >
           Confirm
         </Button>

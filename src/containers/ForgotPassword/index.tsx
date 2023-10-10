@@ -1,9 +1,17 @@
 import { FC, useCallback, useState } from 'react';
 
 import { ConfirmEmail } from 'components';
-import { ResetPassword } from './ResetPassword';
-import { NewPassword } from './NewPassword';
+import { useDispatch } from 'react-redux';
+import {
+  authChangePassword,
+  authConfirmCode,
+  authSetState,
+} from 'store/auth/actionCreators';
+
+import { AuthErrorTransformResult } from 'types';
 import { Success } from './Success';
+import { NewPassword } from './NewPassword';
+import { ResetPassword } from './ResetPassword';
 
 enum ForgotPasswordStep {
   ResetPasswordStep,
@@ -18,37 +26,82 @@ interface ForgotPasswordProps {
 }
 
 export const ForgotPassword: FC<ForgotPasswordProps> = ({
-  onBack, onSuccess,
+  onBack,
+  onSuccess,
 }) => {
-  const [currentStep, setCurrentStep] = useState(ForgotPasswordStep.ResetPasswordStep);
+  const [currentStep, setCurrentStep] = useState(
+    ForgotPasswordStep.ResetPasswordStep,
+  );
+
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
 
-  const resetPasswordHandler = useCallback((value: string) => {
-    setEmail(value);
+  const dispatch = useDispatch();
+
+  const emailErrorSuccessCallback = () => {
     setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
+  };
+
+  const emailErrorCallback = useCallback((error: AuthErrorTransformResult) => {
+    if (error.fields.email) setEmailError(error.fields.email);
   }, []);
 
-  const confirmEmailHandler = useCallback(() => {
-    setCurrentStep(ForgotPasswordStep.NewPasswordStep);
-  }, []);
+  const resetPasswordHandler = useCallback(
+    (value: string) => {
+      dispatch(
+        authConfirmCode({
+          email: value,
+          successCallback: emailErrorSuccessCallback,
+          errorCallback: emailErrorCallback,
+        }),
+      );
+      setEmail(value);
+    },
+    [dispatch, emailErrorCallback],
+  );
+
+  const confirmEmailHandler = useCallback(
+    (value: string) => {
+      dispatch(authSetState({ verificationCode: value }));
+      setCurrentStep(ForgotPasswordStep.NewPasswordStep);
+    },
+    [dispatch],
+  );
 
   const resetPasswordBackHandler = useCallback(() => {
     setCurrentStep(ForgotPasswordStep.ResetPasswordStep);
     onBack();
   }, [onBack]);
 
-  const confirmNewPasswordHandler = useCallback(() => {
-    setCurrentStep(ForgotPasswordStep.SuccessStep);
-  }, []);
-
   const successHandler = useCallback(() => {
     onSuccess();
   }, [onSuccess]);
+
+  const newPasswordErrorCallback = () => {
+    setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
+  };
+
+  const confirmNewPasswordHandler = useCallback(
+    (password: string) => {
+      dispatch(
+        authChangePassword({
+          password,
+          successCallback: successHandler,
+          errorCallback: newPasswordErrorCallback,
+        }),
+      );
+
+      setCurrentStep(ForgotPasswordStep.SuccessStep);
+    },
+    [dispatch, successHandler],
+  );
 
   return (
     <>
       {currentStep === ForgotPasswordStep.ResetPasswordStep && (
         <ResetPassword
+          emailError={emailError}
+          setEmailError={setEmailError}
           onConfirm={resetPasswordHandler}
           onBack={resetPasswordBackHandler}
         />
@@ -57,21 +110,18 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
       {currentStep === ForgotPasswordStep.ConfirmEmailStep && (
         <ConfirmEmail
           email={email}
+          isShown
           onBack={() => setCurrentStep(ForgotPasswordStep.ResetPasswordStep)}
           onConfirm={confirmEmailHandler}
         />
       )}
 
       {currentStep === ForgotPasswordStep.NewPasswordStep && (
-        <NewPassword
-          onConfirm={confirmNewPasswordHandler}
-        />
+        <NewPassword onConfirm={confirmNewPasswordHandler} />
       )}
 
       {currentStep === ForgotPasswordStep.SuccessStep && (
-        <Success
-          onConfirm={successHandler}
-        />
+        <Success onConfirm={successHandler} />
       )}
     </>
   );
