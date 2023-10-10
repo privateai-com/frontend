@@ -1,6 +1,8 @@
 import { FC, useCallback, useState } from 'react';
 
-import { AuthWrapper, Button, TextInput, Typography } from 'components';
+import {
+  AuthWrapper, Button, TextInput, Typography, 
+} from 'components';
 import { emailValidator } from 'utils';
 
 import { useSelector } from 'react-redux';
@@ -44,7 +46,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
       setEmailError('');
       setEmail(value);
     },
-    [setEmailError]
+    [setEmailError],
   );
 
   return (

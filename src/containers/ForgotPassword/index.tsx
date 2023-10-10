@@ -53,11 +53,11 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
           email: value,
           successCallback: emailErrorSuccessCallback,
           errorCallback: emailErrorCallback,
-        }),
+        })
       );
       setEmail(value);
     },
-    [dispatch],
+    [dispatch, emailErrorCallback]
   );
 
   const confirmEmailHandler = useCallback(
