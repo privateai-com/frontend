@@ -31,7 +31,7 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm }) => {
     if (!isError) {
       onConfirm(password);
     }
-  }, [isNotError, onConfirm, password]);
+  }, [passwordError, onConfirm, password]);
 
   const onPasswordChange = useCallback((value: string) => {
     setPasswordError('');

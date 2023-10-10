@@ -1,8 +1,6 @@
 import { FC, useCallback, useState } from 'react';
 
-import {
-  AuthWrapper, Button, TextInput, Typography, 
-} from 'components';
+import { AuthWrapper, Button, TextInput, Typography } from 'components';
 import { emailValidator } from 'utils';
 
 import { useSelector } from 'react-redux';
@@ -39,12 +37,15 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
     if (isNoError) {
       onConfirm(email);
     }
-  }, [email, isNotError, onConfirm]);
+  }, [email, isNotError, onConfirm, emailError]);
 
-  const onEmailChange = useCallback((value: string) => {
-    setEmailError('');
-    setEmail(value);
-  }, []);
+  const onEmailChange = useCallback(
+    (value: string) => {
+      setEmailError('');
+      setEmail(value);
+    },
+    [setEmailError]
+  );
 
   return (
     <AuthWrapper onClickBack={onBack}>
