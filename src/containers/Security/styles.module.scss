@@ -1,0 +1,50 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.security {
+  position: relative;
+
+  &_title {
+    font-size: 38px;
+    margin-bottom: 25px;
+  }
+}
+
+.main {
+  padding: 30px 20px 48px 40px;
+  background-color: $color-white;
+  border-radius: 16px;
+  
+  &_wrapper {
+    max-height: 859px;
+    overflow-y: scroll;
+    padding-right: 20px;
+    @include greenScrollbar;
+  }
+
+  &_title {
+    &:not(:first-of-type){
+      margin: 30px 0 20px;
+    }
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+  }
+
+  &_text,
+  ul {
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 36px;
+    text-align: justify;
+  }
+
+  li {
+    list-style-type: circle;
+  }
+
+  &_block_halfed {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
