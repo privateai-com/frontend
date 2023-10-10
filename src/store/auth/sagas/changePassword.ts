@@ -4,6 +4,7 @@ import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
 import { AuthState, RequestStatus } from 'types';
 import { ApiEndpoint, callApi } from 'appConstants';
 import { authChangePassword, authSetStatus } from '../actionCreators';
+import { authSelectors } from '../selectors';
 
 export function* authChangePasswordSaga({
   type,
@@ -12,9 +13,11 @@ export function* authChangePasswordSaga({
   try {
     yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
 
-    const email: AuthState['email'] = yield select((state) => state.auth.email);
+    const email: AuthState['email'] = yield select(
+      authSelectors.getProp('email')
+    );
     const verificationCode: AuthState['verificationCode'] = yield select(
-      (state) => state.auth.verificationCode,
+      authSelectors.getProp('verificationCode')
     );
 
     yield call(callApi, {

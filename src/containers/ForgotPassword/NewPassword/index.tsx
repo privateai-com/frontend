@@ -1,6 +1,8 @@
 import { FC, useCallback, useState } from 'react';
 
-import { AuthWrapper, Button, TextInput, Typography } from 'components';
+import {
+  AuthWrapper, Button, TextInput, Typography, 
+} from 'components';
 import { passwordValidator } from 'utils';
 
 import styles from './styles.module.scss';
