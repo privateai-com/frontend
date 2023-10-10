@@ -19,3 +19,7 @@ export const profileSetStatus = (
 export const profileLinkWallet = () => ({
   type: ProfileActionTypes.LinkWallet,
 });
+
+export const profileGetProfile = () => ({
+  type: ProfileActionTypes.GetProfile,
+});
