@@ -1,9 +1,31 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+@mixin avatar {
+	width: 450px;
+	height: 450px;
+	border-radius: 100%;
+	border: 1px solid $color-grey2;
+
+	@include desktop1440 {
+		width: 300px;
+		height: 300px;
+	}
+
+	@include desktop1024 {
+		width: 250px;
+		height: 250px;
+	}
+
+	@include mobile {
+		width: 100px;
+		height: 100px;
+	}
+}
 
 .wrapper {
 	position: relative;
-	box-shadow: -10px 56px 140px 0px #8F9BBA33;
+	box-shadow: -10px 56px 140px 0px #8f9bba33;
 	background-color: $color-white;
 	border-radius: 16px;
 	display: flex;
@@ -83,7 +105,7 @@
 		@include mobile {
 			padding: 15px;
 			background-color: $color-white;
-			box-shadow: -10px 10px 140px 0px #8F9BBA33;
+			box-shadow: -10px 10px 140px 0px #8f9bba33;
 			border-radius: 8px;
 			gap: 12px;
 			margin: 0;
@@ -177,5 +199,27 @@
 		span {
 			color: $color-green;
 		}
+	}
+}
+
+.no_avatar {
+	min-width: 450px;
+	min-height: 450px;
+	border-radius: 100%;
+	border: 1px solid $color-grey2;
+	background-color: $color-grey2;
+	@include desktop1440 {
+		min-width: 300px;
+		min-height: 300px;
+	}
+
+	@include desktop1024 {
+		min-width: 250px;
+		min-height: 250px;
+	}
+
+	@include mobile {
+		min-width: 100px;
+		min-height: 100px;
 	}
 }
