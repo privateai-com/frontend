@@ -28,7 +28,7 @@ export function* authConfirmCodeSage({
     yield put(
       authSetState({
         email,
-      })
+      }),
     );
 
     successCallback();

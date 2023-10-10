@@ -8,10 +8,10 @@ import {
   authSetState,
 } from 'store/auth/actionCreators';
 
+import { AuthErrorTransformResult } from 'types';
 import { Success } from './Success';
 import { NewPassword } from './NewPassword';
 import { ResetPassword } from './ResetPassword';
-import { AuthErrorTransformResult } from 'types';
 
 enum ForgotPasswordStep {
   ResetPasswordStep,
@@ -30,7 +30,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
   onSuccess,
 }) => {
   const [currentStep, setCurrentStep] = useState(
-    ForgotPasswordStep.ResetPasswordStep
+    ForgotPasswordStep.ResetPasswordStep,
   );
 
   const [email, setEmail] = useState('');
@@ -53,11 +53,11 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
           email: value,
           successCallback: emailErrorSuccessCallback,
           errorCallback: emailErrorCallback,
-        })
+        }),
       );
       setEmail(value);
     },
-    [dispatch]
+    [dispatch],
   );
 
   const confirmEmailHandler = useCallback(
@@ -65,7 +65,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
       dispatch(authSetState({ verificationCode: value }));
       setCurrentStep(ForgotPasswordStep.NewPasswordStep);
     },
-    [dispatch]
+    [dispatch],
   );
 
   const resetPasswordBackHandler = useCallback(() => {
@@ -88,12 +88,12 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
           password,
           successCallback: successHandler,
           errorCallback: newPasswordErrorCallback,
-        })
+        }),
       );
 
       setCurrentStep(ForgotPasswordStep.SuccessStep);
     },
-    [dispatch, successHandler]
+    [dispatch, successHandler],
   );
 
   return (

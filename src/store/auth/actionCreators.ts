@@ -57,7 +57,7 @@ export const authLoginWallet = (payload: { successCallback: () => void }) => ({
 export const authLogout = (
   payload: {
     callback?: () => void;
-  } = {}
+  } = {},
 ) => ({
   type: AuthActionTypes.Logout,
   payload,
