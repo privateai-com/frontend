@@ -11,6 +11,7 @@ import {
 import { Success } from './Success';
 import { NewPassword } from './NewPassword';
 import { ResetPassword } from './ResetPassword';
+import { AuthErrorTransformResult } from 'types';
 
 enum ForgotPasswordStep {
   ResetPasswordStep,
@@ -29,28 +30,34 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
   onSuccess,
 }) => {
   const [currentStep, setCurrentStep] = useState(
-    ForgotPasswordStep.ResetPasswordStep,
+    ForgotPasswordStep.ResetPasswordStep
   );
 
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const dispatch = useDispatch();
 
+  const emailErrorSuccessCallback = () => {
+    setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
+  };
+
+  const emailErrorCallback = useCallback((error: AuthErrorTransformResult) => {
+    if (error.fields.email) setEmailError(error.fields.email);
+  }, []);
+
   const resetPasswordHandler = useCallback(
     (value: string) => {
-      const successCallback = () => {
-        setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
-      };
-
       dispatch(
         authConfirmCode({
           email: value,
-          successCallback,
-        }),
+          successCallback: emailErrorSuccessCallback,
+          errorCallback: emailErrorCallback,
+        })
       );
       setEmail(value);
     },
-    [dispatch],
+    [dispatch]
   );
 
   const confirmEmailHandler = useCallback(
@@ -58,7 +65,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
       dispatch(authSetState({ verificationCode: value }));
       setCurrentStep(ForgotPasswordStep.NewPasswordStep);
     },
-    [dispatch],
+    [dispatch]
   );
 
   const resetPasswordBackHandler = useCallback(() => {
@@ -70,29 +77,31 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
     onSuccess();
   }, [onSuccess]);
 
+  const newPasswordErrorCallback = () => {
+    setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
+  };
+
   const confirmNewPasswordHandler = useCallback(
     (password: string) => {
-      const errorCallback = () => {
-        setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
-      };
-
       dispatch(
         authChangePassword({
           password,
           successCallback: successHandler,
-          errorCallback,
-        }),
+          errorCallback: newPasswordErrorCallback,
+        })
       );
 
       setCurrentStep(ForgotPasswordStep.SuccessStep);
     },
-    [dispatch, successHandler],
+    [dispatch, successHandler]
   );
 
   return (
     <>
       {currentStep === ForgotPasswordStep.ResetPasswordStep && (
         <ResetPassword
+          emailError={emailError}
+          setEmailError={setEmailError}
           onConfirm={resetPasswordHandler}
           onBack={resetPasswordBackHandler}
         />

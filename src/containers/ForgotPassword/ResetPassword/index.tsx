@@ -1,8 +1,6 @@
 import { FC, useCallback, useState } from 'react';
 
-import {
-  AuthWrapper, Button, TextInput, Typography, 
-} from 'components';
+import { AuthWrapper, Button, TextInput, Typography } from 'components';
 import { emailValidator } from 'utils';
 
 import { useSelector } from 'react-redux';
@@ -14,14 +12,17 @@ import styles from './styles.module.scss';
 interface ResetPasswordProps {
   onConfirm: (email: string) => void;
   onBack: () => void;
+  emailError: string;
+  setEmailError: (email: string) => void;
 }
 
 export const ResetPassword: FC<ResetPasswordProps> = ({
   onConfirm,
   onBack,
+  emailError,
+  setEmailError,
 }) => {
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
   const isLoading =
     useSelector(authSelectors.getStatus(AuthActionTypes.ConfirmCode)) ===
     RequestStatus.REQUEST;
@@ -31,9 +32,9 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
 
-    const isError = !currentEmailError && !emailError && !!email;
+    const isNoError = !currentEmailError && !emailError && !!email;
 
-    if (!isError) {
+    if (isNoError) {
       onConfirm(email);
     }
   }, [email, isNotError, onConfirm]);

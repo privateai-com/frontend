@@ -14,10 +14,10 @@ export function* authChangePasswordSaga({
     yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
 
     const email: AuthState['email'] = yield select(
-      authSelectors.getProp('email')
+      authSelectors.getProp('email'),
     );
     const verificationCode: AuthState['verificationCode'] = yield select(
-      authSelectors.getProp('verificationCode')
+      authSelectors.getProp('verificationCode'),
     );
 
     yield call(callApi, {

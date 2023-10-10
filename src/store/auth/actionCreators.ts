@@ -11,59 +11,54 @@ export const authSetState = (payload: Partial<AuthState>) => ({
   payload,
 });
 
-export const authSetStatus = (
-  payload: { type: AuthActionTypes, status: RequestStatus },
-) => ({
+export const authSetStatus = (payload: {
+  type: AuthActionTypes;
+  status: RequestStatus;
+}) => ({
   type: AuthActionTypes.SetStatus,
   payload,
 });
 
-export const authRegistration = (
-  payload: {
-    email: string,
-    password: string,
-    successCallback: () => void,
-    errorCallback: (error: AuthErrorTransformResult) => void,
-  },
-) => ({
+export const authRegistration = (payload: {
+  email: string;
+  password: string;
+  successCallback: () => void;
+  errorCallback: (error: AuthErrorTransformResult) => void;
+}) => ({
   type: AuthActionTypes.Registration,
   payload,
 });
 
-export const authConfirmEmail = (
-  payload: {
-    email: string,
-    code: string,
-    successCallback: () => void,
-    errorCallback: (error: AuthErrorTransformResult) => void,
-  },
-) => ({
+export const authConfirmEmail = (payload: {
+  email: string;
+  code: string;
+  successCallback: () => void;
+  errorCallback: (error: AuthErrorTransformResult) => void;
+}) => ({
   type: AuthActionTypes.ConfirmEmail,
   payload,
 });
 
-export const authLogin = (
-  payload: {
-    email: string,
-    password: string,
-    successCallback: () => void,
-    errorCallback: (error: AuthErrorTransformResult) => void,
-  },
-) => ({
+export const authLogin = (payload: {
+  email: string;
+  password: string;
+  successCallback: () => void;
+  errorCallback: (error: AuthErrorTransformResult) => void;
+}) => ({
   type: AuthActionTypes.Login,
   payload,
 });
 
-export const authLoginWallet = (payload: {
-  successCallback: () => void,
-}) => ({
+export const authLoginWallet = (payload: { successCallback: () => void }) => ({
   type: AuthActionTypes.LoginWallet,
   payload,
 });
 
-export const authLogout = (payload: {
-  callback?: () => void;
-} = {}) => ({
+export const authLogout = (
+  payload: {
+    callback?: () => void;
+  } = {}
+) => ({
   type: AuthActionTypes.Logout,
   payload,
 });
@@ -71,6 +66,7 @@ export const authLogout = (payload: {
 export const authConfirmCode = (payload: {
   email: string;
   successCallback: () => void;
+  errorCallback: (error: AuthErrorTransformResult) => void;
 }) => ({
   type: AuthActionTypes.ConfirmCode,
   payload,
@@ -90,11 +86,7 @@ export const authOnUpdateAccessTokensFinish = (payload: UpdatePayload) => ({
   ...payload,
 });
 
-export const authResendConfCode = (
-  payload: {
-    email: string,
-  },
-) => ({
+export const authResendConfCode = (payload: { email: string }) => ({
   type: AuthActionTypes.ResendConfCode,
   payload,
 });
