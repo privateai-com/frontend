@@ -1,20 +1,27 @@
-import { useState } from 'react';
+import { FC } from 'react';
 
 import {
   Button,
   Typography,
 } from 'components';
+import { GraphD3 } from './GraphD3';
 
 import styles from './styles.module.scss';
+import { GraphResponseType } from '../types';
 
-enum GraphEnum {
-  draw,
-  edit,
-  delete,
+// enum GraphEnum {
+//   draw,
+//   edit,
+//   delete,
+// }
+
+interface GraphProps {
+  edges: GraphResponseType[];
+  setEdges: (edges: GraphResponseType[]) => void;
 }
 
-export const Graph = () => {
-  const [graphControl, setGraphControl] = useState(GraphEnum.draw);
+export const Graph: FC<GraphProps> = ({ edges, setEdges }) => {
+  // const [graphControl, setGraphControl] = useState(GraphEnum.draw);
   const {
     nodesCount,
     edgesCount,
@@ -32,7 +39,7 @@ export const Graph = () => {
         <Button>Delete file</Button>
       </div>
       <div className={styles.storageFile__wrapper}>
-        <div className={styles.storageFile__control_buttons}>
+        {/* <div className={styles.storageFile__control_buttons}>
           <Button
             className={styles.button}
             theme={GraphEnum.draw === graphControl ? 'primary' : 'secondary'}
@@ -54,7 +61,9 @@ export const Graph = () => {
           >
             Delete
           </Button>
-        </div>
+        </div> */}
+
+        <GraphD3 edges={edges} setEdges={setEdges} />
 
         <Typography type="h2">Data core structure</Typography>
         <div className={styles.graph_info}>

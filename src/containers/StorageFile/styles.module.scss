@@ -7,7 +7,7 @@
 	grid-template-areas: 'back back'
     'info data'
     'buttons data';
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
   grid-template-rows: auto auto;
 	column-gap: 40px;
 }
