@@ -1,6 +1,6 @@
 import { Layout } from 'components';
-import { Header } from 'containers';
-import { Security } from 'containers';
+import { Header, Security } from 'containers';
+
 import { NextPage } from 'next';
 
 const SecurityPage: NextPage = () => (
