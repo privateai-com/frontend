@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Typography } from 'components';
 import styles from './styles.module.scss';
 import { Item } from './Item';
