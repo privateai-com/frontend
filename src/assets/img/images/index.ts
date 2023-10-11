@@ -5,6 +5,6 @@ export { default as AsymmetricEncryption } from './asymmetricEncryption.png';
 export { default as AsymmetricEncryptionMob } from './asymmetricEncryptionMob.png';
 export { default as PrivateKey } from './privateKey.png';
 export { default as PrivateKeyTablet } from './privateKeyTablet.png';
-export { default as PrivateKeyMob } from './privateKeyMob.png'
+export { default as PrivateKeyMob } from './privateKeyMob.png';
 export { default as SharedKey } from './sharedKey.png';
-export { default as SharedKeyMob } from './sharedKeyMob.png'
+export { default as SharedKeyMob } from './sharedKeyMob.png';
