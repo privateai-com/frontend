@@ -8,3 +8,4 @@ export { Storage } from './Storage';
 export { Upload } from './Upload';
 export { KnowledgeBase } from './KnowledgeBase';
 export { NotFound } from './NotFound';
+export { Security } from './Security';
