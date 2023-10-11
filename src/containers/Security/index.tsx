@@ -111,8 +111,14 @@ const Security = () => {
               the file from unauthorized access. Let’s start from the definition
               of encryption itself. According to
               {' '}
-              <a href="https://en.wikipedia.org/wiki/Encryption">wikipedia</a>
-              ,
+              <a
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Encryption"
+                rel="noreferrer"
+              >
+                wikipedia
+              </a>
+              , 
               {' '}
               <strong>encryption</strong>
               {' '}
@@ -162,12 +168,20 @@ const Security = () => {
                 here:
                 <ul>
                   <li>
-                    <a href="https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography">
+                    <a
+                      target="_blank"
+                      href="https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography"
+                      rel="noreferrer"
+                    >
                       https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography
                     </a>
                   </li>
                   <li>
-                    <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">
+                    <a
+                      target="_blank"
+                      href="https://en.wikipedia.org/wiki/Public-key_cryptography"
+                      rel="noreferrer"
+                    >
                       https://en.wikipedia.org/wiki/Public-key_cryptography
                     </a>
                   </li>
@@ -214,12 +228,20 @@ const Security = () => {
                 encryption, can check the reference:
                 <ul>
                   <li>
-                    <a href="https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography">
+                    <a
+                      target="_blank"
+                      href="https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography"
+                      rel="noreferrer"
+                    >
                       https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography
                     </a>
                   </li>
                   <li>
-                    <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">
+                    <a
+                      target="_blank"
+                      href="https://en.wikipedia.org/wiki/Public-key_cryptography"
+                      rel="noreferrer"
+                    >
                       https://en.wikipedia.org/wiki/Public-key_cryptography
                     </a>
                   </li>
@@ -252,12 +274,20 @@ const Security = () => {
                 information about digital signature can be found here:
                 <ul>
                   <li>
-                    <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">
+                    <a
+                      target="_blank"
+                      href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack"
+                      rel="noreferrer"
+                    >
                       https://en.wikipedia.org/wiki/Man-in-the-middle_attack
                     </a>
                   </li>
                   <li>
-                    <a href="https://bntan.medium.com/understanding-rsa-digital-signatures-cfba3bc67428">
+                    <a
+                      target="_blank"
+                      href="https://bntan.medium.com/understanding-rsa-digital-signatures-cfba3bc67428"
+                      rel="noreferrer"
+                    >
                       https://bntan.medium.com/understanding-rsa-digital-signatures-cfba3bc67428
                     </a>
                   </li>
@@ -318,12 +348,20 @@ const Security = () => {
               <ul>
                 <br />
                 <li>
-                  <a href="https://joaoschmitt.wordpress.com/2018/09/17/cryptography-algorithm-rsa/">
+                  <a
+                    target="_blank"
+                    href="https://joaoschmitt.wordpress.com/2018/09/17/cryptography-algorithm-rsa/"
+                    rel="noreferrer"
+                  >
                     https://joaoschmitt.wordpress.com/2018/09/17/cryptography-algorithm-rsa/
                   </a>
                 </li>
                 <li>
-                  <a href="https://crypto.stackexchange.com/questions/3043/how-much-computing-resource-is-required-to-brute-force-rsa">
+                  <a
+                    target="_blank"
+                    href="https://crypto.stackexchange.com/questions/3043/how-much-computing-resource-is-required-to-brute-force-rsa"
+                    rel="noreferrer"
+                  >
                     https://crypto.stackexchange.com/questions/3043/how-much-computing-resource-is-required-to-brute-force-rsa
                   </a>
                 </li>
@@ -460,10 +498,21 @@ const Security = () => {
               encryption keys whose concepts and usage were described in
               previous sections (
               <span>
-                <a href="#link1">link1</a>
+                <a
+                  target="_blank"
+                  href="#link1"
+                >
+                  link1
+                </a>
                 {' '}
                 and
-                <a href="#link2"> link2</a>
+                <a
+                  target="_blank"
+                  href="#link2"
+                >
+                  {' '}
+                  link2
+                </a>
                 ).
               </span>
               <br /> 
@@ -526,7 +575,11 @@ const Security = () => {
               These principles and much more are described in
               detail in the documentation of HashiCorp itself and you can see it
               in case you are interested in more specific nuances -
-              <a href="https://developer.hashicorp.com/vault/docs?product_intent=vault">
+              <a
+                target="_blank"
+                href="https://developer.hashicorp.com/vault/docs?product_intent=vault"
+                rel="noreferrer"
+              >
                 https://developer.hashicorp.com/vault/docs?product_intent=vault
               </a>
             </div>
