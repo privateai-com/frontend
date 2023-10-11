@@ -21,7 +21,7 @@ const Security = () => {
   const getImage = (
     image1: StaticImageData,
     image2: StaticImageData,
-    image3: StaticImageData
+    image3: StaticImageData,
   ): StaticImageData => {
     if (isMobile) {
       return image3;
@@ -66,17 +66,22 @@ const Security = () => {
                   and authorized users. When a user uploads a file to the Archon
                   system, it undergoes encryption using RSA. This means that
                   even if an unauthorized party gains access to the encrypted
-                  files, they would be unable to decipher the content. (RSA){' '}
+                  files, they would be unable to decipher the content. (RSA)
+                  {' '}
                 </li>
                 <li>
-                  <strong>key password</strong> - an additional layer of
+                  <strong>key password</strong>
+                  {' '}
+                  - an additional layer of
                   security implying the encryption of the owner’s private key
                   with a custom password. It allows storing the users’
                   encryption keys on the backend side of the Archon application
                   without lowering the security level. (Key Password)
                 </li>
                 <li>
-                  <strong>a backend vault for key storage</strong> - a special
+                  <strong>a backend vault for key storage</strong>
+                  {' '}
+                  - a special
                   backend zone with additional security techniques for storing
                   sensitive information, the users’ encryption keys in
                   particular. (Vault)
@@ -87,7 +92,8 @@ const Security = () => {
               secure and trustworthy platform for their data storage. In the
               following sections, we will delve into the details of each used
               mechanism, highlighting their significance and how they contribute
-              to the overall security framework of Archon.{' '}
+              to the overall security framework of Archon.
+              {' '}
             </div>
             <div id="link1">
               <Typography
@@ -103,16 +109,23 @@ const Security = () => {
               all possible opportunities. In this paragraph we briefly tell you
               about the way your file is encrypted and how it helps to safeguard
               the file from unauthorized access. Let’s start from the definition
-              of encryption itself. According to{' '}
-              <a href="https://en.wikipedia.org/wiki/Encryption">wikipedia</a>,
-              <strong>encryption</strong> is the process that converts the
+              of encryption itself. According to
+              {' '}
+              <a href="https://en.wikipedia.org/wiki/Encryption">wikipedia</a>
+              ,
+              {' '}
+              <strong>encryption</strong>
+              {' '}
+              is the process that converts the
               original representation of the information, known as plaintext,
               into an alternative form known as ciphertext. The goal is to let
               only authorized parties decrypt the ciphertext and get access to
               the valuable original information. In general, most encryption
               protocols can be divided into two groups - symmetric and
               asymmetric ones.
-              <strong> Symmetric protocols</strong> generate one key that allows
+              <strong> Symmetric protocols</strong>
+              {' '}
+              generate one key that allows
               both encrypt and decrypt the information, i.e. sender and
               recipient use the same key. It is presented on the schemes below.
               In case Bob wants to transfer a file to Alice, they should
@@ -127,14 +140,18 @@ const Security = () => {
                 disadvantages:
                 <ul>
                   <li>
-                    <strong>Key Distribution</strong> - both should securely
+                    <strong>Key Distribution</strong>
+                    {' '}
+                    - both should securely
                     distribute the encryption key before they can use the
                     system. If the key falls into the malicious party during
                     distribution, it compromises the security of the entire
                     system.
                   </li>
                   <li>
-                    <strong>Scalability</strong> - symmetric encryption becomes
+                    <strong>Scalability</strong>
+                    {' '}
+                    - symmetric encryption becomes
                     more challenging to manage as the number of parties involved
                     increases. With each additional participant, a unique key
                     needs to be securely distributed and that could be a complex
@@ -169,7 +186,9 @@ const Security = () => {
               better solution for many applications.
               <br />
               <br />
-              <strong>Asymmetric encryption mechanism</strong> implies the usage
+              <strong>Asymmetric encryption mechanism</strong>
+              {' '}
+              implies the usage
               of a key pair by each user - the public and the private one. The
               public key as it can be seen from its name can be shared with any
               other party without compromising any data, whereas the private key
@@ -211,7 +230,7 @@ const Security = () => {
                   src={getImage(
                     SharedKeyImage,
                     SharedKeyImage,
-                    SharedKeyMobImage
+                    SharedKeyMobImage,
                   )}
                   alt="Shared Key"
                 />
@@ -250,7 +269,7 @@ const Security = () => {
                     src={getImage(
                       AsymmetricEncryptionImage,
                       AsymmetricEncryptionImage,
-                      AsymmetricEncryptionMobImage
+                      AsymmetricEncryptionMobImage,
                     )}
                     alt="Asymetric Encryption"
                   />
@@ -258,7 +277,7 @@ const Security = () => {
                     src={getImage(
                       PrivateKeyImage,
                       PrivateKeyTabletImage,
-                      PrivateKeyMobImage
+                      PrivateKeyMobImage,
                     )}
                     alt="Asymetric Encryption"
                   />
@@ -332,7 +351,11 @@ const Security = () => {
               users&apos; private keys and store multiple copies. Instead, only
               one encrypted file copy needs to be stored, accessible to all
               authorized parties.
-              <br /> <br /> By combining these principles, the Archon creates a
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              By combining these principles, the Archon creates a
               multi-layered security approach that maximizes the protection of
               its storages. This comprehensive strategy ensures that sensitive
               information and valuable assets remain secure.
@@ -341,7 +364,9 @@ const Security = () => {
               We introduce an additional security measure - the key password. In
               this section we will briefly explain this concept and how it helps
               to protect your data even more.
-              <br /> <br />
+              <br /> 
+              {' '}
+              <br />
               The encryption system presented above allows securely storing the
               files within the system, while the key password provides the
               additional protection for users’ private keys. Each user is asked
@@ -351,18 +376,23 @@ const Security = () => {
               encodes the private key with the key password. Therefore, the
               private key is also stored in the encrypted form and cannot be
               used by an attacker even if it was compromised.
-              <br /> <br />
+              <br /> 
+              {' '}
+              <br />
               The user should enter the key password each time he downloads the
               file from the system in order to prove that he is the owner of the
               key pair. Thus, the decryption process has the following steps:
               <ul>
                 <li>Key password decrypts the private key.</li>
                 <li>Private key decrypts the file.</li>
-              </ul>{' '}
+              </ul>
+              {' '}
               <br />
               Such an approach helps us to solve another issue related to the
               encryption system - transfer of the encryption keys to another
-              device. <br />
+              device. 
+              {' '}
+              <br />
               Initially, there was proposed a system, where all the encryption
               keys are stored on the client side of the application, to be more
               precise, in the browser local storage.
@@ -373,18 +403,26 @@ const Security = () => {
               somehow transfer the keys manually. This process would not be
               quite user-friendly and there would be a necessity for writing a
               special user instruction for this situation.
-              <br /> But since the private key is additionally encrypted, we can
+              <br />
+              {' '}
+              But since the private key is additionally encrypted, we can
               store its copy on the backend side of the application without
               lowering the security level. A user will not have to worry about
               transferring the keys manually, the system will do it instead of
               him internally.
-              <br /> In case the user enters the app from a new device, all we
+              <br />
+              {' '}
+              In case the user enters the app from a new device, all we
               need to do is ensure that this is indeed the user himself, not the
               attacker. And the key password is an excellent opportunity to do
               that in addition to the standard authorization process with email
               and login password. The user will be asked to enter the key
               password as an extra approval that he is the owner of the account.
-              <br /> <br /> A few more additional notes: the encrypted private
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              A few more additional notes: the encrypted private
               <ul>
                 <li>
                   keys will be stored in the special extra-secured backend
@@ -422,15 +460,25 @@ const Security = () => {
               encryption keys whose concepts and usage were described in
               previous sections (
               <span>
-                <a href="#link1">link1</a> and
+                <a href="#link1">link1</a>
+                {' '}
+                and
                 <a href="#link2"> link2</a>
                 ).
               </span>
-              <br /> <br /> First of all, Vault provides secure audit trail
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              First of all, Vault provides secure audit trail
               instruments which logs all access and operations performed on
               secrets. This helps with compliance requirements and provides
               visibility into who accessed what secrets and when.
-              <br /> <br /> One of the Vault key features is its dynamic secrets
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              One of the Vault key features is its dynamic secrets
               capability. It can generate short-lived credentials for various
               systems and services, reducing the risk of long-term exposure.
               This concept also implements the idea that each service should be
@@ -448,14 +496,22 @@ const Security = () => {
               authentication. It integrates with popular identity providers like
               LDAP, Active Directory, and cloud providers for seamless
               authentication.
-              <br /> <br /> HashiCorp takes security seriously and actively
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              HashiCorp takes security seriously and actively
               works to address any vulnerabilities that may arise. The
               open-source nature of HashiCorp allows for transparency, enabling
               users and specialists to review the code and identify any
               potential security issues. Moreover, it periodically undergoes
               audits from professional audit teams and confirms its commitment
               to reliability.
-              <br /> <br /> Overall, HashiCorp Vault is a powerful tool for
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              Overall, HashiCorp Vault is a powerful tool for
               managing secrets securely, providing organizations with a robust
               solution to protect sensitive data in modern computing
               environments. Archon integrates it for secure storing of the
@@ -463,7 +519,11 @@ const Security = () => {
               development as a strong and reliable tool, but it also opens huge
               possibilities for further security system upgrade, complication
               and optimization.
-              <br /> <br /> These principles and much more are described in
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              These principles and much more are described in
               detail in the documentation of HashiCorp itself and you can see it
               in case you are interested in more specific nuances -
               <a href="https://developer.hashicorp.com/vault/docs?product_intent=vault">
