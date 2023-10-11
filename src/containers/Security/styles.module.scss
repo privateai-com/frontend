@@ -1,0 +1,180 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.security {
+  position: relative;
+  height: 100%;
+
+  &_title {
+    font-size: 38px;
+    margin-bottom: 25px;
+
+    @include desktop1440 {
+      margin-bottom: 16px;
+      font-size: 32px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 34px;
+    }
+
+    @include mobile {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+  }
+}
+
+.main {
+  padding: 30px 20px 20px 40px;
+  background-color: $color-white;
+  border-radius: 16px;
+  height: calc(100% - 64px);
+
+  @include desktop1440 {
+    height: calc(100% - 45px);
+    padding: 15px 20px 20px 30px;
+  }
+
+  @include tablet1024 {
+    height: calc(100% - 63px);
+    padding: 15px 30px;
+  }
+
+  @include mobile {
+    height: calc(100% - 32px);
+    padding: 10px 15px;
+  }
+
+  &_wrapper {
+    height: 100%;
+    position: relative;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    @include greenScrollbar;
+
+    @include tablet1024 {
+      overflow-y: auto;
+    }
+  }
+
+  &_content {
+    position: absolute;
+    height: 100%;
+    padding-right: 20px;
+
+    @include tablet1024 {
+      position: relative;
+      padding-right: 0;
+    }
+  }
+
+  &_title {
+    margin: 30px 0 20px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+
+    @include desktop1440 {
+      margin: 20px 0 15px;
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    @include mobile {
+      margin: 15px 0 10px;
+      font-size: 16px;
+      line-height: 16px;
+    }
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  span a {
+    display: contents;
+  }
+
+  &_text,
+  ul {
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 36px;
+    text-align: justify;
+
+    @include desktop1440 {
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  ul {
+    list-style-position: outside;
+    margin-inline-start: 35px;
+
+    @include mobile {
+      margin-inline-start: 20px;
+    }
+  }
+
+  a {
+    word-break: break-all;
+  }
+
+  &_block_halfed {
+    display: flex;
+    align-items: center;
+
+    @include tablet1024 {
+      flex-direction: column;
+    }
+
+    .main_text {
+      flex-basis: 52%;
+      padding-right: 60px;
+
+      @include desktop1440 {
+        padding-right: 35px;
+      }
+      @include tablet1024 {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &_img_block {
+    flex-basis: 48%;
+    width: 100%;
+    height: 100%;
+
+    @include tablet1024 {
+      margin: 30px 0;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &_imgs_block {
+    @include tablet1024 {
+      padding: 0 9.8vw;
+    }
+    @include mobile {
+      padding: 0;
+    }
+    img {
+      &:first-of-type {
+        border-bottom: 1px solid $color-green;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
