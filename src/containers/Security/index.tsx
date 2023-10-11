@@ -89,12 +89,14 @@ const Security = () => {
               mechanism, highlighting their significance and how they contribute
               to the overall security framework of Archon.{' '}
             </div>
-            <Typography
-              className={styles.main_title}
-              type="h3"
-            >
-              How do we keep your data secure and private?
-            </Typography>
+            <div id="link1">
+              <Typography
+                className={styles.main_title}
+                type="h3"
+              >
+                How do we keep your data secure and private?
+              </Typography>
+            </div>
             <div className={styles.main_text}>
               The Archon team considers the security of users’ data as the
               highest priority and tends to increase the security level using
@@ -309,12 +311,14 @@ const Security = () => {
                 <br />
               </ul>
             </div>
-            <Typography
-              className={styles.main_title}
-              type="h3"
-            >
-              What is the key password and why is it needed?
-            </Typography>
+            <div id="link2">
+              <Typography
+                className={styles.main_title}
+                type="h3"
+              >
+                What is the key password and why is it needed?
+              </Typography>
+            </div>
             <div className={styles.main_text}>
               Apart from the mentioned methods, the Archon system incorporates a
               feature known as multikey encryption ?. This serves as a
@@ -418,8 +422,8 @@ const Security = () => {
               encryption keys whose concepts and usage were described in
               previous sections (
               <span>
-                <a href="https://#.com">link1</a> and
-                <a href="https://#.com"> link2</a>
+                <a href="#link1">link1</a> and
+                <a href="#link2"> link2</a>
                 ).
               </span>
               <br /> <br /> First of all, Vault provides secure audit trail
