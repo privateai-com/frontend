@@ -17,7 +17,7 @@ const Typography: FC<TypographyProps> = memo(({
   children,
   mod,
   align,
-  id
+  id,
 }: TypographyProps) => {
   const Tag = type;
   const modClasses = {
