@@ -1,0 +1,61 @@
+@import "assets/styles/variables.scss";
+
+.help {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+
+  &:hover &_text {
+    visibility: inherit;
+    opacity: 1;
+    transition: all 0.2s;
+  }
+
+  &_text,
+  &_text_mobile {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: $color-white;
+  }
+
+  &_text_mobile {
+    margin: 15px;
+  }
+
+  &_text {
+    position: absolute;
+    top: -16px;
+    width: 270px;
+    border: 1px solid $color-grey2;
+    box-shadow: 0px 5px 5px 0px #00000040;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+
+  &_bc_mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 20, 14, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 10;
+  }
+}
+
+.showed {
+  visibility: inherit;
+  opacity: 1;
+  transition: all 0.2s;
+}

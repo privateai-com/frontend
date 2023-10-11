@@ -1,4 +1,9 @@
-import { FC, useCallback, useState } from 'react';
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useState, 
+} from 'react';
 
 import {
   AuthWrapper,
@@ -13,18 +18,24 @@ import styles from './styles.module.scss';
 
 interface ConfirmEmailProps {
   email: string;
+  error?: string;
   onBack?: () => void;
-  onConfirm?: () => void;
+  onConfirm?: (code: string) => void;
+  onResend?: () => void;
+  isShown?: boolean;
 }
 
 export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   email,
+  error,
   onBack,
   onConfirm,
+  onResend,
+  isShown,
 }) => {
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
-  const [isShowResend, setIsShowResend] = useState(false);
+  const [isShowResend, setIsShowResend] = useState(isShown);
 
   const isNotError = !otpError && otp;
 
@@ -36,7 +47,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
     const isError = !isNotError && !currentOtpError;
 
     if (!isError && onConfirm) {
-      onConfirm();
+      onConfirm(otp);
     }
   }, [isNotError, onConfirm, otp]);
 
@@ -46,8 +57,12 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   }, []);
 
   const onResendCodeClick = useCallback(() => {
+    if (onResend) onResend();
+  }, [onResend]);
 
-  }, []);
+  useEffect(() => {
+    if (error) setOtpError(error);
+  }, [error]);
   
   return (
     <AuthWrapper onClickBack={onBack}>
@@ -56,7 +71,8 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
           type="p"
           className={styles.description}
         >
-          Please enter the verification code we sent to 
+          Please enter the verification code we sent to
+          <br />
           <strong>{` ${email}`}</strong>
         </Typography>
         <InputOtp
@@ -69,6 +85,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 
         {isShowResend && (
           <ButtonResend
+            className={styles.resender}
             onClick={onResendCodeClick}
           />
         )}

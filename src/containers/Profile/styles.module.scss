@@ -46,8 +46,11 @@
 
 	@include mobile {
 		margin-bottom: 15px;
+		row-gap: 10px;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
 	}
-
+	
 	&_title {
 		display: flex;
 		justify-content: space-between;
@@ -105,6 +108,10 @@
 
 		@include desktop1024 {
 			max-width: 220px;
+		}
+
+		@include mobile {
+			max-width: 150px;
 		}
 	}
 }

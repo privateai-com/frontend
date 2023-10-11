@@ -1,0 +1,113 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.upload {
+  position: relative;
+
+  &_title {
+    margin-bottom: 25px;
+    font-size: 38px;
+    font-weight: 700;
+
+    @include desktop1440 {
+      margin-bottom: 16px;
+      font-size: 32px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 26px;
+    }
+
+    @include mobile {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+  }
+
+  &_dnd,
+  &_btn {
+    margin: 0 auto 30px;
+
+    @include desktop1440 {
+      margin-bottom: 15px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 40px;
+    }
+
+    @include mobile {
+      margin-bottom: 15px;
+    }
+  }
+
+  &_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 370px;
+    height: 50px;
+    color: $color-white;
+    background-color: $color-green;
+    border-radius: 8px;
+    cursor: pointer;
+
+    @include desktop1440 {
+      width: 350px;
+      height: 40px;
+    }
+  }
+
+  &_input {
+    display: none;
+  }
+}
+
+.statuses {
+  padding: 30px 45px;
+  background-color: $color-white;
+  border-radius: 16px;
+
+  &_items {
+    padding-right: 17px;
+    height: 323px;
+    overflow-y: scroll;
+
+    @include desktop1440 {
+      padding-right: 13px;
+    }
+
+    @include greenScrollbar;
+  }
+
+  &_title {
+    margin-bottom: 21px;
+    font-size: 32px;
+
+    @include desktop1440 {
+      margin-bottom: 13px;
+      font-size: 24px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 20px;
+    }
+
+    @include mobile {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  }
+
+  @include desktop1440 {
+    padding: 20px 30px;
+  }
+
+  @include tablet1024 {
+    padding: 15px 30px;
+  }
+
+  @include mobile {
+    padding: 10px 15px;
+  }
+}

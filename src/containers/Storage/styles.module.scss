@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .storage__container {
 	position: relative;
@@ -26,19 +26,19 @@
 
 .storage__head_buttons {
 	display: flex;
-	background-color: $color-white;
-	border: 1px solid $color-green;
-	border-radius: 8px;
 
 	@include mobile {
 		width: 100%;
 	}
 
 	button {
-		padding: 11px 45px;
+		
+		@include desktop1440 {
+			width: 192.5px;
+		}
 
 		@include desktop1024 {
-			padding: 6px 45px;
+			width: 180px;
 		}
 
 		@include mobile {
@@ -47,12 +47,14 @@
 		}
 
 		&:first-child {
-			border-top-right-radius: 0;
-			border-bottom-right-radius: 0;
+			border-radius: 8px 0 0 8px;
 		}
 		&:last-of-type {
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
+			border-radius: 0 8px 8px 0;
 		}
 	}
+}
+
+.secondary {
+	color: $color-grey !important;
 }

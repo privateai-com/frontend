@@ -7,9 +7,15 @@ import createSagaMiddleware, { Task } from 'redux-saga';
 import { createWrapper } from 'next-redux-wrapper';
 import { persistReducer, persistStore } from 'redux-persist';
 import storageSession from 'redux-persist/lib/storage/session';
+import storage from 'redux-persist/lib/storage';
 
 import { configureStore } from '@reduxjs/toolkit';
-import { MetamaskState, State } from 'types';
+import {
+  AccountState,
+  AuthState,
+  MetamaskState,
+  State,
+} from 'types';
 import reducer from './rootReducer';
 import rootSaga from './rootSaga';
 
@@ -46,10 +52,30 @@ export const makeStore = () => {
     storage: storageSession,
     whitelist: ['isLostWallet'] as Array<keyof MetamaskState>,
   };
+
+  const authPersistConfig = {
+    key: 'auth',
+    storage,
+    whitelist: [
+      'accessToken',
+      'refreshToken',
+      'timestamp',
+    ] as Array<keyof AuthState>,
+  };
+
+  const accountPersistConfig = {
+    key: 'account',
+    storage,
+    whitelist: [
+      'username',
+    ] as Array<keyof AccountState>,
+  };
   
   const persistedReducer = combineReducers({
     ...reducer,
     metamask: persistReducer(persistConfig, reducer.metamask),
+    auth: persistReducer(authPersistConfig, reducer.auth),
+    account: persistReducer(accountPersistConfig, reducer.account),
   });
   
   const sagaMiddleware = createSagaMiddleware();

@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .storage__search {
 	display: flex;
@@ -12,28 +12,20 @@
 }
 
 .input {
-	max-width: 1090px;
-	height: 40px !important;
 
 	@include desktop1440 {
 		max-width: 600px;
-		height: 50px !important;
 	}
 
 	@include desktop1024 {
-		max-width: 587px;
-		height: 50px !important;
-	}
-
-	@include mobile {
-		height: 30px !important;
+		max-width: 590px;
 	}
 }
 
 .upload {
 	position: relative;
 	padding: 16px 68px;
-
+	margin-left: 150px;
 	@include desktop1440 {
 		padding: 14px 40px;
 	}
@@ -44,14 +36,15 @@
 }
 
 .plus_icon {
-  width: 18px;
-  height: 18px;
-  position: absolute;
+	width: 18px;
+	height: 18px;
+	position: absolute;
 	left: 18px;
 	display: block;
 
-	&:before, &:after {
-		content: '';
+	&:before,
+	&:after {
+		content: "";
 		position: absolute;
 		background-color: $color-white;
 	}

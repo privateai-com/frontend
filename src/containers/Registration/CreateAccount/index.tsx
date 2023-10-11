@@ -1,5 +1,6 @@
 import { FC, useCallback, useState } from 'react';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { routes } from 'appConstants';
 import {
@@ -9,6 +10,10 @@ import {
   Typography,
 } from 'components';
 import { emailValidator, passwordValidator } from 'utils';
+import { authRegistration } from 'store/auth/actionCreators';
+import { authSelectors } from 'store/auth/selectors';
+import { AuthActionTypes } from 'store/auth/actionTypes';
+import { AuthErrorTransformResult, RequestStatus } from 'types';
 
 import styles from './styles.module.scss';
 
@@ -17,11 +22,13 @@ interface CreateAccountProps {
 }
 
 export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const status = useSelector(authSelectors.getStatus(AuthActionTypes.Registration));
 
   const isNotError =
     !passwordError
@@ -31,20 +38,34 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
       && passwordConfirm
       && (password === passwordConfirm);
 
+  const successCallback = useCallback(() => {
+    onConfirmEmail(email);
+  }, [email, onConfirmEmail]);
+
+  const errorCallback = useCallback((error: AuthErrorTransformResult) => {
+    if (error.fields.email) setEmailError(error.fields.email);
+    if (error.fields.password) setPasswordError(error.fields.password);
+  }, []);
+
   const onCreateAccountClick = useCallback(() => {
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
 
-    const isError = !isNotError 
-     && !currentPasswordError
-     && !currentEmailError;
+    const isNoError = !currentPasswordError
+      && !currentEmailError
+      && !passwordError
+      && !emailError
+      && !!email
+      && !!password;
 
-    if (!isError) {
-      onConfirmEmail(email);
+    if (isNoError) {
+      dispatch(authRegistration({
+        email, password, successCallback, errorCallback,
+      }));
     }
-  }, [email, isNotError, onConfirmEmail, password]);
+  }, [dispatch, email, emailError, errorCallback, password, passwordError, successCallback]);
 
   const onEmailChange = useCallback((value: string) => {
     setEmailError('');
@@ -97,6 +118,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           onClick={onCreateAccountClick}
           className={styles.button}
           disabled={!isNotError}
+          isLoading={status === RequestStatus.REQUEST}
         >
           Create account
         </Button>

@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import cx from 'classnames';
-
-import { ButtonIcon, TextInput } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+
+import { ButtonIcon, TextInput, SelectedText } from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
+import { authLogout } from 'store/auth/actionCreators';
+import { accountSelectors } from 'store/account/selectors';
+
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -18,20 +23,23 @@ const results = [
 ];
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const username = useSelector(accountSelectors.getProp('username'));
 
   const onNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
   };
 
-  const inputClassNames = search.length
-    ? `${styles.input_wrapper_input}, ${styles.input_wrapper_input_filled}`
-    : styles.input_wrapper_input;
+  const callback = useCallback(() => {
+    router.push(routes.login.root);
+  }, [router]);
 
-  const isWordMatchingSearch = (word: string) => word.toLowerCase() === search.toLowerCase();
-
-  const name = 'John Doe';
+  const onClickLogout = useCallback(() => {
+    dispatch(authLogout({ callback }));
+  }, [callback, dispatch]);
 
   return (
     <header className={styles.header}>
@@ -42,7 +50,9 @@ export const Header = () => {
           placeholder="Global search"
           isSearch
           isClearable
-          classNameInputBox={inputClassNames}
+          classNameInputBox={cx(styles.input_wrapper_input, {
+            [styles.input_wrapper_input_filled]: !!search.length,
+          })}
         />
         {!!search.length && (
           <div className={styles.search_result}>
@@ -52,17 +62,11 @@ export const Header = () => {
                   // eslint-disable-next-line react/no-array-index-key
                   key={i}
                 >
-                  {result.split(' ').map((word) => {
-                    if (isWordMatchingSearch(word)) {
-                      return (
-                        <>
-                          <span className={styles.selected}>{word}</span>
-                          {' '}
-                        </>
-                      );
-                    }
-                    return `${word} `;
-                  })}
+                  <SelectedText
+                    text={result}
+                    searchWord={search}
+                    className={styles.selected}
+                  />
                 </li>
               ))}
             </ul>
@@ -75,7 +79,7 @@ export const Header = () => {
           </div>
         )}
       </div>
-      <span>{name}</span>
+      <span>{username}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}
@@ -89,7 +93,7 @@ export const Header = () => {
       <ButtonIcon
         className={styles.button}
         image={logoutIcon}
-        onClick={() => {}}
+        onClick={onClickLogout}
       />
       <Notification isOpen={isNotificationOpen} />
     </header>
