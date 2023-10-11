@@ -3,6 +3,7 @@
 
 .security {
   position: relative;
+  height: 100%;
 
   &_title {
     font-size: 38px;
@@ -28,28 +29,40 @@
   padding: 30px 20px 20px 40px;
   background-color: $color-white;
   border-radius: 16px;
-  height: 72vh;
+  height: calc(100% - 64px);
 
   @include desktop1440 {
+    height: calc(100% - 45px);
     padding: 15px 20px 20px 30px;
   }
 
+  @include tablet1024 {
+    height: calc(100% - 63px);
+  }
+
   @include mobile {
+    height: calc(100% - 32px);
     padding: 10px 10px 15px 15px;
   }
 
   &_wrapper {
-    max-height: calc(72vh - 50px);
+    height: 100%;
+    position: relative;
     overflow-y: scroll;
-    padding-right: 20px;
-
+    
     @include greenScrollbar;
-
+    
     @include mobile {
       padding-right: 7px;
     }
   }
-
+  
+  &_content {
+    position: absolute;
+    height: 100%;
+    padding-right: 20px;
+  }
+  
   &_title {
     margin: 30px 0 20px;
     font-weight: 700;
