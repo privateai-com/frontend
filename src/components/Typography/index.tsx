@@ -8,6 +8,7 @@ type TypographyProps = {
   children: React.ReactNode | string;
   mod?: 'small' | 'bold' | 'label';
   align?: 'left' | 'center' | 'right' | 'full';
+  id?: string
 };
 
 const Typography: FC<TypographyProps> = memo(({
@@ -16,6 +17,7 @@ const Typography: FC<TypographyProps> = memo(({
   children,
   mod,
   align,
+  id
 }: TypographyProps) => {
   const Tag = type;
   const modClasses = {
@@ -38,6 +40,7 @@ const Typography: FC<TypographyProps> = memo(({
         { [modClasses[mod!]]: mod },
         { [alignClasses[align!]]: align },
       )}
+      id={id}
     >
       {children}
     </Tag>
