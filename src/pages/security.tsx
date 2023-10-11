@@ -3,7 +3,7 @@ import { Header } from 'containers';
 import { Security } from 'containers/Security';
 import { NextPage } from 'next';
 
-const RequestsPage: NextPage = () => (
+const SecurityPage: NextPage = () => (
   <Layout
     meta={{
       name: 'description',
@@ -19,4 +19,4 @@ const RequestsPage: NextPage = () => (
   </Layout>
 );
 
-export default RequestsPage;
+export default SecurityPage;
