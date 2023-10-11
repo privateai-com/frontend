@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Typography } from 'components';
 import styles from './styles.module.scss';
 import { Item } from './Item';
@@ -21,8 +20,10 @@ export const KnowledgeBase: React.FC = () => {
           <div className={styles.items_container}>
             {items.map(
               (
-                { name, author, field, core, status, created, modified },
-                ind
+                {
+                  name, author, field, core, status, created, modified, 
+                },
+                ind,
               ) => (
                 <Item
                   key={ind} // eslint-disable-line react/no-array-index-key
@@ -35,11 +36,12 @@ export const KnowledgeBase: React.FC = () => {
                   modified={modified}
                   search={search}
                 />
-              )
+              ),
             )}
           </div>
         </div>
-      </div>{' '}
+      </div>
+      {' '}
     </div>
   );
 };
