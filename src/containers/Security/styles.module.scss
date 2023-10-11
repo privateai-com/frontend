@@ -28,6 +28,7 @@
   padding: 30px 20px 20px 40px;
   background-color: $color-white;
   border-radius: 16px;
+  height: 72vh;
 
   @include desktop1440 {
     padding: 15px 20px 20px 30px;
@@ -38,7 +39,7 @@
   }
 
   &_wrapper {
-    max-height: 859px;
+    max-height: calc(72vh - 50px);
     overflow-y: scroll;
     padding-right: 20px;
 
@@ -74,11 +75,6 @@
 
   span a {
     display: contents;
-  }
-
-  a {
-    word-wrap: break-word;
-    max-width: 685px;
   }
 
   &_text,
