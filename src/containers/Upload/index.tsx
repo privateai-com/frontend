@@ -55,51 +55,55 @@ export const Upload = () => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
   return (
     <div className={styles.upload}>
-      <Typography
-        className={styles.upload_title}
-        type="h3"
-      >
-        Upload activity
-      </Typography>
-
-      <div className={styles.upload_dnd_block}>
-        <DragNDrop className={styles.upload_dnd}/>
-      </div>
-
-      {!isMobile && (
-        <label
-          htmlFor="upload"
-          className={styles.upload_btn}
-        >
-          Select a file from local directory
-          <input
-            type="file"
-            id="upload"
-            className={styles.upload_input}
-          />
-        </label>
-      )}
-
-      <div className={styles.statuses}>
+      <div className={styles.upload_wrapper}>
         <Typography
-          className={styles.statuses_title}
-          type="h4"
+          className={styles.upload_title}
+          type="h3"
         >
-          Statuses
+          Upload activity
         </Typography>
-        <div className={styles.statuses_items}>
-          {data.map(({
-            id, name, percents, weight, 
-          }) => (
-            <Item
-              key={id}
-              name={name}
-              percents={percents}
-              weight={weight}
-            />
-          ))}
+
+        <div className={styles.upload_dnd_block}>
+          <DragNDrop className={styles.upload_dnd} />
         </div>
-      </div>
+
+        {!isMobile && (
+          <label
+            htmlFor="upload"
+            className={styles.upload_btn}
+          >
+            Select a file from local directory
+            <input
+              type="file"
+              id="upload"
+              className={styles.upload_input}
+            />
+          </label>
+        )}
+
+        <div className={styles.statuses}>
+          <Typography
+            className={styles.statuses_title}
+            type="h4"
+          >
+            Statuses
+          </Typography>
+          <div className={styles.statuses_items}>
+            <div className={styles.statuses_wrapper}>
+              <div className={styles.statuses_content}>
+                {data.map(({ id, name, percents, weight }) => (
+                  <Item
+                    key={id}
+                    name={name}
+                    percents={percents}
+                    weight={weight}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>{' '}
     </div>
   );
 };

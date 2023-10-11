@@ -5,7 +5,12 @@ $statuses-height: calc(60vh - 210px);
 
 .upload {
   position: relative;
+  height: 100%;
 
+  &_wrapper {
+    height: 100%;
+  }
+  
   &_title {
     margin-bottom: 25px;
     font-size: 38px;
@@ -69,10 +74,35 @@ $statuses-height: calc(60vh - 210px);
   padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
-  height: $statuses-height;
+  height: 100%;
+
+  @include desktop1440 {
+    padding: 20px 30px;
+  }
+
+  @include tablet1024 {
+    padding: 15px 30px;
+  }
+
+  @include mobile {
+    padding: 10px 15px;
+  }
+
+  &_wrapper {
+    position: relative;
+    height: 100%;
+  }
+
+  &_content {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
   &_items {
     padding-right: 17px;
-    height: calc($statuses-height - 103px);
+    height: calc(100% - 53px);
+    // height: calc($statuses-height - 103px);
     overflow-y: scroll;
 
     @include desktop1440 {
@@ -99,17 +129,5 @@ $statuses-height: calc(60vh - 210px);
       margin-bottom: 10px;
       font-size: 14px;
     }
-  }
-
-  @include desktop1440 {
-    padding: 20px 30px;
-  }
-
-  @include tablet1024 {
-    padding: 15px 30px;
-  }
-
-  @include mobile {
-    padding: 10px 15px;
   }
 }
