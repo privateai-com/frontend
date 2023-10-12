@@ -17,6 +17,7 @@ $btn-height1024: 120px;
   }
 
   @include mobile {
+    height: calc($height3 - (7.5px / 2));
   }
 }
 
@@ -95,7 +96,7 @@ $btn-height1024: 120px;
   padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
-  height: 50%;
+  @include height(61%, 60%, 65%);
 
   @include desktop1440 {
     padding: 20px 30px;

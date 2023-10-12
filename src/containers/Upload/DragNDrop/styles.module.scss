@@ -7,6 +7,8 @@
     height: 100%;
     width: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
+
     @include greenScrollbar;
   }
 
@@ -65,6 +67,10 @@
 
     @include tablet1024 {
       margin-bottom: 66px;
+    }
+
+    @include tablet1024 {
+      margin-bottom: 53px;
     }
   }
 
