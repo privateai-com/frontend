@@ -71,7 +71,8 @@ export const Login = () => {
           onConfirm={onLogin}
           onResotre={() => setIsShowForgotPassword(true)}
           onConnectWallet={onConnectWallet}
-          loginError={loginError || walletError}
+          loginError={loginError}
+          walletError={walletError}
         />
       )}
     </div>
