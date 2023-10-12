@@ -5,15 +5,22 @@ import cx from 'classnames';
 import { arrowGreenIcon, minusCircleIcon, plusCircleIcon } from 'assets';
 
 import Link from 'next/link';
+import { SelectedText } from 'components/SelectedText';
 import styles from './styles.module.scss';
 
 type ItemProps = {
   className?: string;
   name: string;
   children: ReactNode;
+  searchWord?: string;
 };
 
-const ExpandableMobileItem: FC<ItemProps> = ({ className, name, children }) => {
+const ExpandableMobileItem: FC<ItemProps> = ({
+  className,
+  name,
+  children,
+  searchWord,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -24,7 +31,15 @@ const ExpandableMobileItem: FC<ItemProps> = ({ className, name, children }) => {
             src={isOpen ? minusCircleIcon : plusCircleIcon}
             alt="icon"
           />
-          {name}
+          {searchWord ? (
+            <SelectedText
+              text={name}
+              searchWord={searchWord}
+              className={styles.selected}
+            />
+          ) : (
+            name
+          )}
         </button>
 
         <Link href="/#">

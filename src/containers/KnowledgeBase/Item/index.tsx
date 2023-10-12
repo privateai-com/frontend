@@ -76,14 +76,21 @@ export const Item: React.FC<ItemProps> = ({
   return (
     <div>
       {isMobile ? (
-        <ExpandableMobileItem name={name}>
+        <ExpandableMobileItem
+          name={name}
+          searchWord={search}
+        >
           <div>
             <div className={styles.item_row_block}>
               <span className={getStatusStyle()}>{status}</span>
             </div>
             <div className={styles.item_row_block}>
               <span className={styles.title}>Field: </span>
-              {field}
+              <SelectedText
+                text={field}
+                searchWord={search}
+                className={styles.selected}
+              />
             </div>
             <div className={styles.item_row_block}>
               <span className={styles.title}>Author: </span>
