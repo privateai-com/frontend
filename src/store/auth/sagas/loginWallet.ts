@@ -1,30 +1,38 @@
 import { call, put } from 'redux-saga/effects';
 import { sagaExceptionHandler } from 'utils';
+import { RequestStatus, UserResponse } from 'types';
 import {
-  RequestStatus,
-  UserResponse,
-} from 'types';
-import { ApiEndpoint, callApi } from 'appConstants';
+  ApiEndpoint,
+  callApi,
+  metamaskError,
+  walletNotAttachedError,
+} from 'appConstants';
 import { signPersonalEvm } from 'api';
 import { accountSetState } from 'store/account/actionCreators';
+import detectEthereumProvider from '@metamask/detect-provider';
+
+import { providers } from 'ethers';
 import { authLoginWallet, authSetStatus } from '../actionCreators';
 
 const message = 'Connect Archon!';
 
 export function* authloginWalletSaga({
-  type, payload: {
-    successCallback,
-  },
+  type,
+  payload: { successCallback, errorCallback },
 }: ReturnType<typeof authLoginWallet>) {
   try {
     yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
 
+    const metamaskProvider: providers.ExternalProvider =
+      yield detectEthereumProvider();
+    if (!metamaskProvider || !metamaskProvider.isMetaMask) {
+      errorCallback(metamaskError);
+    }
+
     const signature: string = yield call(signPersonalEvm, message);
 
     const {
-      data: {
-        user,
-      },
+      data: { user },
     }: UserResponse = yield call(callApi, {
       method: 'POST',
       endpoint: ApiEndpoint.AuthWalletLogin,
@@ -34,13 +42,17 @@ export function* authloginWalletSaga({
       },
     });
 
-    yield put(accountSetState({
-      ...user,
-    }));
+    yield put(
+      accountSetState({
+        ...user,
+      }),
+    );
 
     successCallback();
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
+    errorCallback(walletNotAttachedError);
+
     sagaExceptionHandler(e);
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }

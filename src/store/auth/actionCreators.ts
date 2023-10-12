@@ -55,7 +55,8 @@ export const authLogin = (
 });
 
 export const authLoginWallet = (payload: {
-  successCallback: () => void,
+  successCallback: () => void;
+  errorCallback: (error: string) => void;
 }) => ({
   type: AuthActionTypes.LoginWallet,
   payload,
