@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
-import { AccountState, RequestStatus } from 'types';
+import { RequestStatus } from 'types';
 import { ApiEndpoint, callApi } from 'appConstants';
 import { accountSetState } from 'store/account/actionCreators';
 import { profileDeleteWallet, profileSetStatus } from '../actionCreators';
@@ -20,7 +20,7 @@ export function* profileDeleteWalletSaga({
     yield put(
       accountSetState({
         walletAddress: null,
-      })
+      }),
     );
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));

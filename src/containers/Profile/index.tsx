@@ -10,7 +10,7 @@ import { accountSelectors } from 'store/account/selectors';
 import { profileSelectors } from 'store/profile/selectors';
 import { ProfileActionTypes } from 'store/profile/actionTypes';
 import { RequestStatus } from 'types';
-import { profileLinkWallet } from 'store/profile/actionCreators';
+import { profileDeleteWallet, profileLinkWallet } from 'store/profile/actionCreators';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
 
@@ -46,8 +46,8 @@ export const Profile = () => {
   }, [dispatch]);
 
   const onDisconnectLinkWalletClick = useCallback(() => {
-
-  }, []);
+    dispatch(profileDeleteWallet());
+  }, [dispatch]);
 
   return (
     <div className={styles.profile__container}>
