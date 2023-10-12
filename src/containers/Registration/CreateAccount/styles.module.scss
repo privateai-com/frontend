@@ -72,6 +72,11 @@
 			margin-bottom: 35px;
 		}
 	}
+
+	&_last {
+
+	}
+	
 }
 
 .description {
@@ -131,4 +136,10 @@
 	@include mobile {
 		margin-bottom: 6px;
 	}
+}
+
+.error {
+	color: $color-red !important;
+	text-align: center;
+	margin-bottom: 20px;
 }
