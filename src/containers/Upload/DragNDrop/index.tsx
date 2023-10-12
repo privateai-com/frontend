@@ -56,28 +56,32 @@ const DragNDrop: React.FC<DragNDropProps> = ({ className }) => {
         Add a file
       </Typography>
 
-      <p className={styles.dnd_text}>
-        {doc ? (
-          'Uploaded'
-        ) : (
-          <span>
-            {isSmallDesktop
-              ? 'Tap to upload your file'
-              : 'Drag and drop your file'}
-          </span>
-        )}
-      </p>
-      <Image
-        src={uploadIcon}
-        alt="icon"
-        className={styles.dnd_img}
-      />
-      <input
-        type="file"
-        id="upload"
-        onChange={onUploadClick}
-        className={styles.dnd_input}
-      />
+      <div className={styles.dnd_wrapper}>
+        <div className={styles.dnd_content}>
+          <p className={styles.dnd_text}>
+            {doc ? (
+              'Uploaded'
+            ) : (
+              <span>
+                {isSmallDesktop
+                  ? 'Tap to upload your file'
+                  : 'Drag and drop your file'}
+              </span>
+            )}
+          </p>
+          <Image
+            src={uploadIcon}
+            alt="icon"
+            className={styles.dnd_img}
+          />
+          <input
+            type="file"
+            id="upload"
+            onChange={onUploadClick}
+            className={styles.dnd_input}
+          />
+        </div>
+      </div>
     </label>
   );
 };

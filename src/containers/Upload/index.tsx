@@ -55,16 +55,16 @@ export const Upload = () => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
   return (
     <div className={styles.upload}>
+      <Typography
+        className={styles.upload_title}
+        type="h3"
+      >
+        Upload activity
+      </Typography>
       <div className={styles.upload_wrapper}>
-        <Typography
-          className={styles.upload_title}
-          type="h3"
-        >
-          Upload activity
-        </Typography>
-
+        
         <div className={styles.upload_dnd_block}>
-          <DragNDrop className={styles.upload_dnd} />
+          <DragNDrop />
         </div>
 
         {!isMobile && (

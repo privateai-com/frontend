@@ -8,9 +8,9 @@ $statuses-height: calc(60vh - 210px);
   height: 100%;
 
   &_wrapper {
-    height: 100%;
+    height: calc(100% - 61px);
   }
-  
+
   &_title {
     margin-bottom: 25px;
     font-size: 38px;
@@ -29,6 +29,10 @@ $statuses-height: calc(60vh - 210px);
       margin-bottom: 15px;
       font-size: 18px;
     }
+  }
+
+  &_dnd_block {
+    height: 29%;
   }
 
   &_dnd_block,
@@ -74,7 +78,7 @@ $statuses-height: calc(60vh - 210px);
   padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
-  height: 100%;
+  height: 50%;
 
   @include desktop1440 {
     padding: 20px 30px;
