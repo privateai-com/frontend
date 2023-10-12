@@ -1,6 +1,8 @@
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, docRegex } from 'appConstants';
-import { ChangeEvent, DragEvent, useCallback, useState } from 'react';
+import {
+  ChangeEvent, DragEvent, useCallback, useState, 
+} from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { uploadIcon } from 'assets';
