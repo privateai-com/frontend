@@ -1,18 +1,12 @@
 import {
-  FC,
-  useCallback,
-  useEffect,
-  useState,
+  FC, useCallback, useEffect, useState, 
 } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 
 import {
-  AuthWrapper,
-  Button,
-  TextInput,
-  Typography,
+  AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { walletIcon } from 'assets';
 import { emailValidator, passwordValidator } from 'utils';
@@ -21,13 +15,15 @@ import { authSelectors } from 'store/auth/selectors';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 import { RequestStatus } from 'types';
 
+import cx from 'classnames';
 import styles from './styles.module.scss';
 
 interface SigninProps {
-  onConfirm: ({ email, password }: { email: string, password: string }) => void;
+  onConfirm: ({ email, password }: { email: string; password: string }) => void;
   onConnectWallet: () => void;
   onResotre: () => void;
-  loginError: { emailError: string, passwordError: string },
+  loginError: { emailError: string; passwordError: string };
+  walletError?: string;
 }
 
 export const Signin: FC<SigninProps> = ({
@@ -35,6 +31,7 @@ export const Signin: FC<SigninProps> = ({
   onConnectWallet,
   onResotre,
   loginError,
+  walletError,
 }) => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -42,11 +39,7 @@ export const Signin: FC<SigninProps> = ({
   const [passwordError, setPasswordError] = useState('');
   const status = useSelector(authSelectors.getStatus(AuthActionTypes.Login));
 
-  const isNotError =
-    !passwordError
-      && !emailError
-      && email
-      && password;
+  const isNotError = !passwordError && !emailError && email && password;
 
   const onSigninClick = useCallback(() => {
     const currentPasswordError = passwordValidator(password);
@@ -55,12 +48,12 @@ export const Signin: FC<SigninProps> = ({
     setEmailError(currentEmailError);
 
     const isNoErrors =
-     !emailError &&
-     !passwordError &&
-     !currentEmailError &&
-     !currentPasswordError &&
-     email &&
-     password;
+      !emailError &&
+      !passwordError &&
+      !currentEmailError &&
+      !currentPasswordError &&
+      email &&
+      password;
 
     if (isNoErrors) {
       onConfirm({ email, password });
@@ -82,6 +75,8 @@ export const Signin: FC<SigninProps> = ({
     if (loginError.passwordError) setPasswordError(loginError.passwordError);
   }, [loginError.emailError, loginError.passwordError]);
 
+  const Errors = passwordError || emailError || walletError;
+
   return (
     <AuthWrapper>
       <div className={styles.signin__container}>
@@ -91,7 +86,10 @@ export const Signin: FC<SigninProps> = ({
           onClick={onConnectWallet}
         >
           Sign in with your wallet
-          <Image src={walletIcon} alt="wallet" />
+          <Image
+            src={walletIcon}
+            alt="wallet"
+          />
         </Button>
         <Typography
           type="p"
@@ -110,7 +108,6 @@ export const Signin: FC<SigninProps> = ({
           value={email}
           onChangeValue={onEmailChange}
           classNameContainer={styles.input__container}
-          error={emailError}
         />
         <TextInput
           label="Password"
@@ -118,15 +115,17 @@ export const Signin: FC<SigninProps> = ({
           onChangeValue={onPasswordChange}
           isPassword
           classNameContainer={styles.input__container}
-          error={passwordError}
         />
         <Typography
           type="p"
-          className={styles.forgot_password}
+          className={cx(styles.forgot_password, {
+            [styles.forgot_password_margin]: passwordError || emailError,
+          })}
         >
           Forgot your password?
           <button onClick={onResotre}>Restore</button>
         </Typography>
+        {Errors ? <div className={styles.error}>{Errors}</div> : null}
         <Button
           onClick={onSigninClick}
           className={styles.button}

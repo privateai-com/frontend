@@ -13,7 +13,11 @@ import styles from './styles.module.scss';
 export const Login = () => {
   const dispatch = useDispatch();
   const [isShowForgotPassword, setIsShowForgotPassword] = useState(false);
-  const [loginError, setLoginError] = useState({ emailError: '', passwordError: '' });
+  const [loginError, setLoginError] = useState({
+    emailError: '',
+    passwordError: '',
+  });
+  const [walletError, setWalletError] = useState('');
   const router = useRouter();
 
   const successCallback = useCallback(() => {
@@ -27,20 +31,32 @@ export const Login = () => {
     });
   }, []);
 
-  const onLogin = useCallback(({ email, password }: { email: string, password: string }) => {
-    dispatch(authLogin({
-      email,
-      password,
-      successCallback,
-      errorCallback,
-    }));
-  }, [dispatch, errorCallback, successCallback]);
-  
+  const onLogin = useCallback(
+    ({ email, password }: { email: string; password: string }) => {
+      dispatch(
+        authLogin({
+          email,
+          password,
+          successCallback,
+          errorCallback,
+        }),
+      );
+    },
+    [dispatch, errorCallback, successCallback],
+  );
+
+  const walletErrorCallback = useCallback((e: string) => {
+    setWalletError(e);
+  }, []);
+
   const onConnectWallet = useCallback(() => {
-    dispatch(authLoginWallet({
-      successCallback,
-    }));
-  }, [dispatch, successCallback]);
+    dispatch(
+      authLoginWallet({
+        successCallback,
+        errorCallback: walletErrorCallback,
+      }),
+    );
+  }, [dispatch, successCallback, walletErrorCallback]);
 
   return (
     <div className={styles.login__container}>
@@ -55,7 +71,7 @@ export const Login = () => {
           onConfirm={onLogin}
           onResotre={() => setIsShowForgotPassword(true)}
           onConnectWallet={onConnectWallet}
-          loginError={loginError}
+          loginError={loginError || walletError}
         />
       )}
     </div>
