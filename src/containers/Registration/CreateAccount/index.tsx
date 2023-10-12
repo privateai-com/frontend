@@ -36,10 +36,11 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
   }, [email, onConfirmEmail]);
 
   const errorCallback = useCallback((error: AuthErrorTransformResult) => {
-    if (error.fields.email)
+    if (error.fields.email) {
       setEmailError(
         'An account with entered email address already exists. Please enter another email or sign in.'
       );
+    }
     if (error.fields.password) setPasswordError(error.fields.password);
   }, []);
 
@@ -52,7 +53,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
       password,
       passwordConfirm
     );
-    setPasswordError(passwordConfirmError);
+    if (passwordConfirmError) setPasswordError(passwordConfirmError);
 
     const isNoError =
       !currentPasswordError &&
@@ -81,6 +82,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     password,
     passwordError,
     successCallback,
+    passwordConfirm,
   ]);
 
   const onEmailChange = useCallback((value: string) => {
@@ -94,6 +96,8 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
   }, []);
 
   const onConfirmPasswordChange = useCallback((value: string) => {
+    console.log(passwordConfirm);
+
     setPasswordError('');
     setPasswordConfirm(value);
   }, []);

@@ -15,12 +15,12 @@ export const passwordValidator = (password: string) => {
 
 export const passwordConfirmValidator = (
   password: string,
-  passwordConfirm: string
+  passwordConfirm: string,
 ) => {
   if(password !== passwordConfirm) {
     return 'Entered passwords mismatch. Please check them and try one more time.';
   }
-  return ''
+  return '';
 };
 
 export const emailValidator = (email: string) => {
