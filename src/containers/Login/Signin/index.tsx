@@ -24,6 +24,8 @@ interface SigninProps {
   onResotre: () => void;
   loginError: { emailError: string; passwordError: string };
   walletError?: string;
+  email: string;
+  setEmail: (email: string) => void;
 }
 
 export const Signin: FC<SigninProps> = ({
@@ -32,8 +34,9 @@ export const Signin: FC<SigninProps> = ({
   onResotre,
   loginError,
   walletError,
+  email,
+  setEmail,
 }) => {
-  const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -60,12 +63,16 @@ export const Signin: FC<SigninProps> = ({
     }
   }, [email, emailError, onConfirm, password, passwordError]);
 
-  const onEmailChange = useCallback((value: string) => {
-    setEmailError('');
-    setEmail(value);
-  }, []);
+  const onEmailChange = useCallback(
+    (value: string) => {
+      setEmailError('');
+      setEmail(value);
+    },
+    [setEmail],
+  );
 
   const onPasswordChange = useCallback((value: string) => {
+    setEmailError('');
     setPasswordError('');
     setPassword(value);
   }, []);

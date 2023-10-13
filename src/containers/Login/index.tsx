@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { ForgotPassword } from 'containers';
 import { authLogin, authLoginWallet } from 'store/auth/actionCreators';
-import { routes } from 'appConstants';
+import { errorsNotification, routes } from 'appConstants';
 import { AuthErrorTransformResult } from 'types';
 import { Signin } from './Signin';
 
@@ -12,6 +12,8 @@ import styles from './styles.module.scss';
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const [localEmail, setLocalEmail] = useState('');
+
   const [isShowForgotPassword, setIsShowForgotPassword] = useState(false);
   const [loginError, setLoginError] = useState({
     emailError: '',
@@ -24,12 +26,16 @@ export const Login = () => {
     router.push(routes.home.root);
   }, [router]);
 
-  const errorCallback = useCallback((error: AuthErrorTransformResult) => {
-    setLoginError({
-      emailError: error.fields.email || '',
-      passwordError: error.fields.password || '',
-    });
-  }, []);
+  const errorCallback = useCallback(
+    (error: AuthErrorTransformResult) =>
+      setLoginError({
+        emailError: localEmail
+          ? error.fields.email || ''
+          : errorsNotification.authError,
+        passwordError: error.fields.password || '',
+      }),
+    [],
+  );
 
   const onLogin = useCallback(
     ({ email, password }: { email: string; password: string }) => {
@@ -73,6 +79,8 @@ export const Login = () => {
           onConnectWallet={onConnectWallet}
           loginError={loginError}
           walletError={walletError}
+          email={localEmail}
+          setEmail={setLocalEmail}
         />
       )}
     </div>
