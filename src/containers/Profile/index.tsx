@@ -10,7 +10,10 @@ import { accountSelectors } from 'store/account/selectors';
 import { profileSelectors } from 'store/profile/selectors';
 import { ProfileActionTypes } from 'store/profile/actionTypes';
 import { RequestStatus } from 'types';
-import { profileDeleteWallet, profileLinkWallet } from 'store/profile/actionCreators';
+import {
+  profileDeleteWallet,
+  profileLinkWallet,
+} from 'store/profile/actionCreators';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
 
@@ -21,15 +24,20 @@ export const Profile = () => {
   const router = useRouter();
   const [isEditProfile, setIsEditProfile] = useState(false);
   const walletAddress = useSelector(accountSelectors.getProp('walletAddress'));
-  const status = useSelector(profileSelectors.getStatus(ProfileActionTypes.LinkWallet));
-  
-  const [showSuccess, hideSuccess] = useModal(() => (
-    <ProfileSuccess
-      onClickCancel={hideSuccess}
-      onClickUpload={() => {}}
-      onClickBrowse={() => {}}
-    />
-  ), []);
+  const status = useSelector(
+    profileSelectors.getStatus(ProfileActionTypes.LinkWallet)
+  );
+
+  const [showSuccess, hideSuccess] = useModal(
+    () => (
+      <ProfileSuccess
+        onClickCancel={hideSuccess}
+        onClickUpload={() => {}}
+        onClickBrowse={() => {}}
+      />
+    ),
+    []
+  );
 
   useEffect(() => {
     const { showModal } = router.query;
@@ -48,6 +56,10 @@ export const Profile = () => {
   const onDisconnectLinkWalletClick = useCallback(() => {
     dispatch(profileDeleteWallet());
   }, [dispatch]);
+
+  const isDeleteLoading =
+    useSelector(profileSelectors.getStatus(ProfileActionTypes.DeleteWallet)) ===
+    RequestStatus.REQUEST;
 
   return (
     <div className={styles.profile__container}>
@@ -73,6 +85,7 @@ export const Profile = () => {
                 className={styles.profile__head_button}
                 theme="secondary"
                 onClick={onDisconnectLinkWalletClick}
+                isLoading={isDeleteLoading}
               >
                 Disconnect wallet
               </Button>
