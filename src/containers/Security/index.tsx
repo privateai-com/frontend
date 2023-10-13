@@ -107,8 +107,12 @@ const Security = () => {
               highest priority and tends to increase the security level using
               all possible opportunities. In this paragraph we briefly tell you
               about the way your file is encrypted and how it helps to safeguard
-              the file from unauthorized access. Let’s start from the definition
-              of encryption itself. According to
+              the file from unauthorized access.
+              <br />
+              <br />
+              {' '}
+              Let’s start from the definition of encryption itself.
+              According to
               {' '}
               <a
                 target="_blank"
@@ -125,9 +129,14 @@ const Security = () => {
               original representation of the information, known as plaintext,
               into an alternative form known as ciphertext. The goal is to let
               only authorized parties decrypt the ciphertext and get access to
-              the valuable original information. In general, most encryption
-              protocols can be divided into two groups - symmetric and
-              asymmetric ones.
+              the valuable original information.
+              <br /> 
+              {' '}
+              <br />
+              {' '}
+              In general, most encryption protocols can be divided
+              into two groups - symmetric and asymmetric ones.
+              <br />
               <strong> Symmetric protocols</strong>
               {' '}
               generate one key that allows
@@ -165,7 +174,7 @@ const Security = () => {
                 </ul>
                 More information about the symmetric encryption can be found
                 here:
-                <ul>
+                <ul className={styles.main_link_list}>
                   <li>
                     <a
                       target="_blank"
@@ -207,25 +216,28 @@ const Security = () => {
               other party without compromising any data, whereas the private key
               should be kept in secret by its owner. The public key is used for
               the encrypting of the information, so one can always take any
-              public key and encrypt data for the corresponding user. However,
-              since the private key is needed for decrypting the data, only the
-              intended recipient who possesses the corresponding private key can
-              decrypt and access the information.
+              public key and encrypt data for the corresponding user.
+              <br />
+              However, since the private key is needed for decrypting the data,
+              only the intended recipient who possesses the corresponding
+              private key can decrypt and access the information.
             </div>
             <div className={styles.main_block_halfed}>
               <div className={styles.main_text}>
                 To provide an example, let’s assume that Bob wants to send a
-                private message to Alice. To do that, he should take Alice’s
-                public key, encode the message with it and send it to Alice via
-                an insecure channel. A message can be intercepted, but no one
-                can decrypt the data besides Alice, because she is the only one
-                who possesses the private key. So her only necessity is to keep
-                the private key and not share it with anybody.
+                private message to Alice.
+                <br />
+                To do that, he should take Alice’s public key, encode the
+                message with it and send it to Alice via an insecure channel. A
+                message can be intercepted, but no one can decrypt the data
+                besides Alice, because she is the only one who possesses the
+                private key. So her only necessity is to keep the private key
+                and not share it with anybody.
                 <br />
                 <br />
                 Those, who want to dig into details about the asymmetric
                 encryption, can check the reference:
-                <ul>
+                <ul className={styles.main_link_list}>
                   <li>
                     <a
                       target="_blank"
@@ -271,7 +283,7 @@ const Security = () => {
                 messages are signed with the sender’s private key, therefore the
                 recipient can always verify the sender’s identity. More
                 information about digital signature can be found here:
-                <ul>
+                <ul className={styles.main_link_list}>
                   <li>
                     <a
                       target="_blank"
@@ -339,12 +351,14 @@ const Security = () => {
               also fulfill them. And it is true for the most popular encryption
               protocol RSA which is based on the task of factoring the product
               of two large prime numbers that is also known as the
-              &quot;factoring problem&quot;. Without going deep into math
-              details, we’d say that it is extremely difficult to guess two
-              prime numbers which result in the given large number after
-              multiplication. The explanations of its complexity and the
+              {' '}
+              <strong>&quot;factoring problem&quot;</strong>
+              . Without going deep
+              into math details, we’d say that it is extremely difficult to
+              guess two prime numbers which result in the given large number
+              after multiplication. The explanations of its complexity and the
               approximate brute-force break times can be found here:
-              <ul>
+              <ul className={styles.main_link_list}>
                 <br />
                 <li>
                   <a
@@ -366,6 +380,37 @@ const Security = () => {
                 </li>
                 <br />
               </ul>
+              <div className={styles.main_text}>
+                In addition to the high complexity of breaking the RSA protocol,
+                the protocol itself is well-known, tested throughout decades,
+                and widely used in various applications. Because of these
+                reasons, the PrivateAI platform implements the RSA protocol as
+                one of its core security mechanisms.
+                <br /> 
+                {' '}
+                <br />
+                {' '}
+                Apart from the mentioned methods, the Archon
+                system incorporates a feature known as multikey encryption. This
+                serves as a complement to asymmetric protocols and enables the
+                encryption of a file with multiple public keys. Consequently,
+                the file can be decrypted using any corresponding private key.
+                This mechanism offers flexibility in granting access to
+                encrypted data to multiple recipients, which is particularly
+                useful when a file needs to be shared with numerous users. With
+                multikey encryption, there is no need to individually encrypt
+                the data with different users&apos; private keys and store
+                multiple copies. Instead, only one encrypted file copy needs to
+                be stored, accessible to all authorized parties.
+                <br /> 
+                {' '}
+                <br />
+                {' '}
+                By combining these principles, the Archon creates
+                a multi-layered security approach that maximizes the protection
+                of its storages. This comprehensive strategy ensures that
+                sensitive information and valuable assets remain secure.
+              </div>
             </div>
             <Typography
               className={styles.main_title}
@@ -374,28 +419,6 @@ const Security = () => {
             >
               What is the key password and why is it needed?
             </Typography>
-            <div className={styles.main_text}>
-              Apart from the mentioned methods, the Archon system incorporates a
-              feature known as multikey encryption ?. This serves as a
-              complement to asymmetric protocols and enables the encryption of a
-              file with multiple public keys. Consequently, the file can be
-              decrypted using any corresponding private key. This mechanism
-              offers flexibility in granting access to encrypted data to
-              multiple recipients, which is particularly useful when a file
-              needs to be shared with numerous users. With multikey encryption,
-              there is no need to individually encrypt the data with different
-              users&apos; private keys and store multiple copies. Instead, only
-              one encrypted file copy needs to be stored, accessible to all
-              authorized parties.
-              <br /> 
-              {' '}
-              <br />
-              {' '}
-              By combining these principles, the Archon creates a
-              multi-layered security approach that maximizes the protection of
-              its storages. This comprehensive strategy ensures that sensitive
-              information and valuable assets remain secure.
-            </div>
             <div className={styles.main_text}>
               We introduce an additional security measure - the key password. In
               this section we will briefly explain this concept and how it helps
@@ -458,13 +481,13 @@ const Security = () => {
               {' '}
               <br />
               {' '}
-              A few more additional notes: the encrypted private
+              A few more additional notes:
               <ul>
                 <li>
-                  keys will be stored in the special extra-secured backend
-                  section called Vault. It will increase the security and
-                  privacy of private keys as well as the security of the system
-                  in general;
+                  the encrypted private keys will be stored in the special
+                  extra-secured backend section called Vault. It will increase
+                  the security and privacy of private keys as well as the
+                  security of the system in general;
                 </li>
                 <li>
                   at the current version the functionality of changing the key
@@ -488,12 +511,14 @@ const Security = () => {
             <div className={styles.main_text}>
               The Archon project integrates a popular open-source tool called
               HashiCorp Vault which is commonly used for securely storing and
-              accessing sensitive data in modern computing environments. Vault
-              provides a centralized solution for managing so-called secrets or
-              in other words sensitive information such as passwords, API tokens
-              or database credentials. As for the Archon main use case in
-              particular, it is the secure storing and monitoring of the users’
-              encryption keys whose concepts and usage were described in
+              accessing sensitive data in modern computing environments.
+              <br />
+              <br />
+              Vault provides a centralized solution for managing so-called
+              secrets or in other words sensitive information such as passwords,
+              API tokens or database credentials. As for the Archon main use
+              case in particular, it is the secure storing and monitoring of the
+              users’ encryption keys whose concepts and usage were described in
               previous sections (
               <span>
                 <a href="#link1">link1</a>
@@ -559,9 +584,19 @@ const Security = () => {
               {' '}
               <br />
               {' '}
-              These principles and much more are described in
-              detail in the documentation of HashiCorp itself and you can see it
-              in case you are interested in more specific nuances -
+              <span className={styles.main_last_words}>
+                <br /> 
+                {' '}
+                <br />
+                {' '}
+                These principles and much more are described in
+                detail in the documentation of HashiCorp itself and you can see
+                it in case you are interested in more specific nuances -
+                <br /> 
+                {' '}
+                <br />
+                {' '}
+              </span>
               <a
                 target="_blank"
                 href="https://developer.hashicorp.com/vault/docs?product_intent=vault"
