@@ -40,7 +40,7 @@ export function* authloginWalletSaga({
     yield put(
       accountSetState({
         ...user,
-      })
+      }),
     );
 
     successCallback();
