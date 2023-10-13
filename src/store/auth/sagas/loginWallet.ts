@@ -21,7 +21,7 @@ export function* authloginWalletSaga({
     const metamaskProvider: providers.ExternalProvider =
       yield detectEthereumProvider();
     if (!metamaskProvider || !metamaskProvider.isMetaMask) {
-      errorCallback(errorsNotification.metamaskError);
+      return errorCallback(errorsNotification.metamaskError);
     }
 
     const signature: string = yield call(signPersonalEvm, message);
@@ -40,7 +40,7 @@ export function* authloginWalletSaga({
     yield put(
       accountSetState({
         ...user,
-      }),
+      })
     );
 
     successCallback();
