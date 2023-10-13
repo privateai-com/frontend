@@ -123,6 +123,17 @@
     }
   }
 
+  &_link_list {
+    li {
+      &::marker {
+        color: $color-green;
+      }
+      a {
+        vertical-align: text-top;
+      }
+    }
+  }
+
   a {
     word-break: break-all;
   }
