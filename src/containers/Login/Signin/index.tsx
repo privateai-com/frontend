@@ -75,7 +75,7 @@ export const Signin: FC<SigninProps> = ({
     if (loginError.passwordError) setPasswordError(loginError.passwordError);
   }, [loginError.emailError, loginError.passwordError]);
 
-  const Errors = passwordError || emailError || walletError;
+  const errors = passwordError || emailError || walletError;
 
   return (
     <AuthWrapper>
@@ -125,7 +125,7 @@ export const Signin: FC<SigninProps> = ({
           Forgot your password?
           <button onClick={onResotre}>Restore</button>
         </Typography>
-        {Errors ? <div className={styles.error}>{Errors}</div> : null}
+        {errors ? <div className={styles.error}>{errors}</div> : null}
         <Button
           onClick={onSigninClick}
           className={styles.button}
