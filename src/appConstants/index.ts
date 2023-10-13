@@ -6,6 +6,7 @@ export * from './notifications';
 export * from './wallets';
 export * from './regex';
 export * from './callApi';
+export * from './errorsNotification';
 
 export const decimalPlaces = 6;
 export const decimalPlacesForFee = 8;
@@ -25,4 +26,10 @@ export const secondsInDay = 3600;
 
 export const countRowsOnPage = 10;
 
-export const authErrorWords = ['username', 'password', 'email', 'code', 'check'] as const;
+export const authErrorWords = [
+  'username',
+  'password',
+  'email',
+  'code',
+  'check',
+] as const;

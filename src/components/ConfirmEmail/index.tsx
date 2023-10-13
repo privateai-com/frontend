@@ -1,9 +1,4 @@
-import {
-  FC,
-  useCallback,
-  useEffect,
-  useState, 
-} from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import {
   AuthWrapper,
@@ -13,35 +8,35 @@ import {
   Typography,
 } from 'components';
 import { otpValidator } from 'utils';
+import cx from 'classnames';
 
 import styles from './styles.module.scss';
 
 interface ConfirmEmailProps {
   email: string;
   error?: string;
+  setError?: (err: string) => void;
   onBack?: () => void;
   onConfirm?: (code: string) => void;
   onResend?: () => void;
-  isShown?: boolean;
 }
 
 export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   email,
   error,
+  setError,
   onBack,
   onConfirm,
   onResend,
-  isShown,
 }) => {
   const [otp, setOtp] = useState('');
-  const [otpError, setOtpError] = useState('');
-  const [isShowResend, setIsShowResend] = useState(isShown);
+  const [isShowResend, setIsShowResend] = useState(false);
 
-  const isNotError = !otpError && otp;
+  const isNotError = !error && otp;
 
   const onConfirmClick = useCallback(() => {
     const currentOtpError = otpValidator(otp);
-    setOtpError(currentOtpError);
+    if (setError) setError(currentOtpError);
     setIsShowResend(true);
 
     const isError = !isNotError && !currentOtpError;
@@ -49,21 +44,20 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
     if (!isError && onConfirm) {
       onConfirm(otp);
     }
-  }, [isNotError, onConfirm, otp]);
+  }, [isNotError, onConfirm, otp, setError]);
 
-  const onOtpChange = useCallback((value: string) => {
-    setOtpError('');
-    setOtp(value);
-  }, []);
+  const onOtpChange = useCallback(
+    (value: string) => {
+      if (setError) setError('');
+      setOtp(value);
+    },
+    [setError],
+  );
 
   const onResendCodeClick = useCallback(() => {
     if (onResend) onResend();
   }, [onResend]);
 
-  useEffect(() => {
-    if (error) setOtpError(error);
-  }, [error]);
-  
   return (
     <AuthWrapper onClickBack={onBack}>
       <div className={styles.confirmEmail__container}>
@@ -79,7 +73,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
           value={otp}
           onChangeValue={onOtpChange}
           label="Verification code"
-          error={otpError}
+          error={error}
           classNameContainer={styles.otp_container}
         />
 
@@ -92,8 +86,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 
         <Button
           onClick={onConfirmClick}
-          className={styles.button}
-          disabled={!isNotError}
+          className={cx(styles.button, { [styles.button_margin]: error })}
         >
           Confirm
         </Button>

@@ -2,14 +2,15 @@ import { FC, useCallback, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { routes } from 'appConstants';
+import { errorsNotification, routes } from 'appConstants';
 import {
-  AuthWrapper,
-  Button,
-  TextInput,
-  Typography,
+  AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
-import { emailValidator, passwordValidator } from 'utils';
+import {
+  emailValidator,
+  passwordConfirmValidator,
+  passwordValidator,
+} from 'utils';
 import { authRegistration } from 'store/auth/actionCreators';
 import { authSelectors } from 'store/auth/selectors';
 import { AuthActionTypes } from 'store/auth/actionTypes';
@@ -28,22 +29,18 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const status = useSelector(authSelectors.getStatus(AuthActionTypes.Registration));
-
-  const isNotError =
-    !passwordError
-      && !emailError
-      && email
-      && password
-      && passwordConfirm
-      && (password === passwordConfirm);
+  const status = useSelector(
+    authSelectors.getStatus(AuthActionTypes.Registration),
+  );
 
   const successCallback = useCallback(() => {
     onConfirmEmail(email);
   }, [email, onConfirmEmail]);
 
   const errorCallback = useCallback((error: AuthErrorTransformResult) => {
-    if (error.fields.email) setEmailError(error.fields.email);
+    if (error.fields.email) {
+      setEmailError(errorsNotification.existEmailError);
+    }
     if (error.fields.password) setPasswordError(error.fields.password);
   }, []);
 
@@ -52,20 +49,41 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     setPasswordError(currentPasswordError);
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
+    const passwordConfirmError = passwordConfirmValidator(
+      password,
+      passwordConfirm,
+    );
+    if (passwordConfirmError) setPasswordError(passwordConfirmError);
 
-    const isNoError = !currentPasswordError
-      && !currentEmailError
-      && !passwordError
-      && !emailError
-      && !!email
-      && !!password;
+    const isNoError =
+      !currentPasswordError &&
+      !currentEmailError &&
+      !passwordError &&
+      !passwordConfirmError &&
+      !emailError &&
+      !!email &&
+      !!password;
 
     if (isNoError) {
-      dispatch(authRegistration({
-        email, password, successCallback, errorCallback,
-      }));
+      dispatch(
+        authRegistration({
+          email,
+          password,
+          successCallback,
+          errorCallback,
+        }),
+      );
     }
-  }, [dispatch, email, emailError, errorCallback, password, passwordError, successCallback]);
+  }, [
+    dispatch,
+    email,
+    emailError,
+    errorCallback,
+    password,
+    passwordError,
+    successCallback,
+    passwordConfirm,
+  ]);
 
   const onEmailChange = useCallback((value: string) => {
     setEmailError('');
@@ -97,7 +115,6 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           value={email}
           onChangeValue={onEmailChange}
           classNameContainer={styles.input__container}
-          error={emailError}
         />
         <TextInput
           label="Password"
@@ -105,7 +122,6 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           onChangeValue={onPasswordChange}
           isPassword
           classNameContainer={styles.input__container}
-          error={passwordError}
         />
         <TextInput
           label="Confirm password"
@@ -114,10 +130,12 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           isPassword
           classNameContainer={styles.input__container}
         />
+        {passwordError || emailError ? (
+          <div className={styles.error}>{passwordError || emailError}</div>
+        ) : null}
         <Button
           onClick={onCreateAccountClick}
           className={styles.button}
-          disabled={!isNotError}
           isLoading={status === RequestStatus.REQUEST}
         >
           Create account
