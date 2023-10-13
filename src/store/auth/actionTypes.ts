@@ -8,4 +8,6 @@ export enum AuthActionTypes {
   ConfirmEmail = 'AUTH.CONFIRM_EMAIL',
   OnUpdateAccessTokenFinish = 'AUTH.ON_UPDATE_ACCESS_TOKEN_FINISH',
   ResendConfCode = 'AUTH.RESEND_CONF_CODE',
+  ConfirmCode = 'AUTH.SENT_VERIFICATION_CODE',
+  ChangePassword = 'AUTH.CHANGE_PASSWORD',
 }

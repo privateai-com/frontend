@@ -1,2 +1,10 @@
 export { default as authGradientImage } from './authGradient.png';
 export { default as avatarImage } from './avatar.png';
+export { default as SymmetricEncryptionImage } from './symmetricEncryption.png';
+export { default as AsymmetricEncryptionImage } from './asymmetricEncryption.png';
+export { default as AsymmetricEncryptionMobImage } from './asymmetricEncryptionMob.png';
+export { default as PrivateKeyImage } from './privateKey.png';
+export { default as PrivateKeyTabletImage } from './privateKeyTablet.png';
+export { default as PrivateKeyMobImage } from './privateKeyMob.png';
+export { default as SharedKeyImage } from './sharedKey.png';
+export { default as SharedKeyMobImage } from './sharedKeyMob.png';

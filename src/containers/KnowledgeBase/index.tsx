@@ -16,26 +16,32 @@ export const KnowledgeBase: React.FC = () => {
         </Typography>
       </div>
       <div className={styles.items}>
-        <div className={styles.items_container}>
-          {items.map(
-            ({
-              name, author, field, core, status, created, modified, 
-            }, ind) => (
-              <Item
-                key={ind} // eslint-disable-line react/no-array-index-key
-                name={name}
-                field={field}
-                author={author}
-                core={core}
-                status={status}
-                created={created}
-                modified={modified}
-                search={search}
-              />
-            ),
-          )}
+        <div className={styles.items_wrapper}>
+          <div className={styles.items_container}>
+            {items.map(
+              (
+                {
+                  name, author, field, core, status, created, modified, 
+                },
+                ind,
+              ) => (
+                <Item
+                  key={ind} // eslint-disable-line react/no-array-index-key
+                  name={name}
+                  field={field}
+                  author={author}
+                  core={core}
+                  status={status}
+                  created={created}
+                  modified={modified}
+                  search={search}
+                />
+              ),
+            )}
+          </div>
         </div>
       </div>
+      {' '}
     </div>
   );
 };

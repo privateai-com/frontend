@@ -34,7 +34,7 @@ export const Login = () => {
           : errorsNotification.authError,
         passwordError: error.fields.password || '',
       }),
-    [],
+    [localEmail],
   );
 
   const onLogin = useCallback(

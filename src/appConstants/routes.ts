@@ -19,6 +19,10 @@ export const routes = {
     root: '/storage',
     title: 'My storage',
   },
+  storageFile: {
+    root: '/storage/:fileName',
+    title: 'My storage file',
+  },
   uploadActivity: {
     root: '/upload-activity',
     title: 'Upload activity',

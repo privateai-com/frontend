@@ -11,7 +11,7 @@ export const SelectedText: React.FC<SelectedTextProps> = ({
   searchWord,
   className,
 }) => (
-  <>
+  <span>
     {text.split(' ').map((word) =>
       (isWordMatchingSearch(word, searchWord) ? (
         <>
@@ -21,5 +21,5 @@ export const SelectedText: React.FC<SelectedTextProps> = ({
       ) : (
         `${word} `
       )))}
-  </>
+  </span>
 );
