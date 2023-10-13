@@ -6,7 +6,7 @@ export * from './notifications';
 export * from './wallets';
 export * from './regex';
 export * from './callApi';
-export * from './loginWalletError';
+export * from './errorsNotification';
 
 export const decimalPlaces = 6;
 export const decimalPlacesForFee = 8;

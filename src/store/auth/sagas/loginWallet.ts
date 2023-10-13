@@ -1,12 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { sagaExceptionHandler } from 'utils';
 import { RequestStatus, UserResponse } from 'types';
-import {
-  ApiEndpoint,
-  callApi,
-  metamaskError,
-  walletNotAttachedError,
-} from 'appConstants';
+import { ApiEndpoint, callApi, errorsNotification } from 'appConstants';
 import { signPersonalEvm } from 'api';
 import { accountSetState } from 'store/account/actionCreators';
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -26,7 +21,7 @@ export function* authloginWalletSaga({
     const metamaskProvider: providers.ExternalProvider =
       yield detectEthereumProvider();
     if (!metamaskProvider || !metamaskProvider.isMetaMask) {
-      errorCallback(metamaskError);
+      errorCallback(errorsNotification.metamaskError);
     }
 
     const signature: string = yield call(signPersonalEvm, message);
@@ -45,13 +40,13 @@ export function* authloginWalletSaga({
     yield put(
       accountSetState({
         ...user,
-      }),
+      })
     );
 
     successCallback();
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
-    errorCallback(walletNotAttachedError);
+    errorCallback(errorsNotification.walletNotAttachedError);
 
     sagaExceptionHandler(e);
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
