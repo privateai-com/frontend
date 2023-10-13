@@ -130,12 +130,9 @@
       }
       a {
         vertical-align: text-top;
+        word-break: break-all;
       }
     }
-  }
-
-  a {
-    word-break: break-all;
   }
 
   &_block_halfed {
@@ -187,5 +184,9 @@
         margin-bottom: 10px;
       }
     }
+  }
+
+  &_last_words {
+    text-align: left;
   }
 }
