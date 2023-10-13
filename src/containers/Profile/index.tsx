@@ -25,7 +25,7 @@ export const Profile = () => {
   const [isEditProfile, setIsEditProfile] = useState(false);
   const walletAddress = useSelector(accountSelectors.getProp('walletAddress'));
   const status = useSelector(
-    profileSelectors.getStatus(ProfileActionTypes.LinkWallet)
+    profileSelectors.getStatus(ProfileActionTypes.LinkWallet),
   );
 
   const [showSuccess, hideSuccess] = useModal(
@@ -36,7 +36,7 @@ export const Profile = () => {
         onClickBrowse={() => {}}
       />
     ),
-    []
+    [],
   );
 
   useEffect(() => {
