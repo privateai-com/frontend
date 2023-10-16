@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import Link from 'next/link';
 import { ItemRowProps } from 'types';
+import { RequestCell } from 'components';
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
 
@@ -35,7 +36,16 @@ export const useColumns = () =>
           row: {
             original: { owner },
           },
-        }: ItemRowProps<RequestedDataType>) => owner || '-',
+        }: ItemRowProps<RequestedDataType>) => <RequestCell>{owner}</RequestCell> || '-',
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        Cell: ({
+          row: {
+            original: { status },
+          },
+        }: ItemRowProps<RequestedDataType>) => status || '-',
       },
     ],
     [],
