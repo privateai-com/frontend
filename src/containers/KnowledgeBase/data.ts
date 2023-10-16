@@ -22,7 +22,7 @@ const statuses: StatusProps[] = [
   'Permission given',
   'Permission needed',
   'Access request pending',
-  'Access denied'
+  'Access denied',
 ];
 
 let count = 0;
