@@ -2,26 +2,46 @@
 @import "assets/styles/_mixins.scss";
 
 .dnd {
+  &_wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include greenScrollbar;
+  }
+
+  &_content {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   &_btn {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
+    height: 100%;
     width: 100%;
-    padding: 30px 40px 50px;
+    padding: 30px 40px;
     background-color: $color-white;
     border-radius: 16px;
     box-shadow: -10px 56px 140px 0px #8f9bba33;
 
     @include desktop1440 {
-      padding: 15px 30px 43px;
-    }
-
-    @include tablet1024 {
-      padding-bottom: 104px;
+      padding: 15px 30px;
     }
 
     @include mobile {
-      padding: 10px 15px 90px;
+      padding: 10px 15px;
     }
   }
 
@@ -48,16 +68,20 @@
     @include tablet1024 {
       margin-bottom: 66px;
     }
+
+    @include tablet1024 {
+      margin-bottom: 53px;
+    }
   }
 
   &_text {
-    margin-bottom: 37px;
+    margin-bottom: 33px;
     text-align: center;
     font-weight: 700;
     color: $color-grey;
 
     @include desktop1440 {
-      margin-bottom: 45px;
+      margin-bottom: 11px;
     }
 
     @include tablet1024 {
