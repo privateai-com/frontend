@@ -1,7 +1,3 @@
-import { arrowDownSquare } from 'assets';
-import { ButtonIcon, RequestCell } from 'components';
-import styles from './styles.module.scss';
-
 export const data = [
   {
     id: '1',
@@ -22,18 +18,3 @@ export const data = [
     owner: 'Alex Smith',
   },
 ];
-
-export const content = data.map((i) => ({
-  ...i,
-  owner: (
-    <div className={styles.columns_owner_block}>
-      <div className={styles.mock} />
-      <RequestCell>{i.owner}</RequestCell>
-      <ButtonIcon
-        className={styles.columns_img}
-        image={arrowDownSquare}
-        onClick={() => {}}
-      />
-    </div>
-  ),
-}));

@@ -24,8 +24,16 @@
 		position: relative;
 		padding: 0 40px;
 
-		@include desktop1660 {
-			padding: 0 30px;
+		@include media-breakpoint-up(lg) {
+			padding: 0 10px;
+		}
+
+		@include media-breakpoint-up(xl) {
+			padding: 0 20px;
+		}
+
+		@include media-breakpoint-up(xxl) {
+			padding: 0 20px;
 		}
 
 		td {

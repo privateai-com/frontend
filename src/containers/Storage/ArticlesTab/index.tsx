@@ -1,5 +1,4 @@
 import { Button } from 'components';
-
 import { routes } from 'appConstants';
 import { content } from './data';
 import { useColumns } from './columns';

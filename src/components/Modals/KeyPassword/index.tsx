@@ -5,16 +5,19 @@ import styles from './styles.module.scss';
 
 type KeyPasswordProps = {
   onClose: () => void;
+  onSubmit: () => void;
+  classNameModal?: string
 };
 
-const KeyPassword: React.FC<KeyPasswordProps> = ({ onClose }) => {
+const KeyPassword: React.FC<KeyPasswordProps> = ({ onClose, onSubmit, classNameModal }) => {
   const [keyPassword, setKeyPassword] = useState('');
 
   return (
     <CommonPassword
       text="Please enter your key password in order to decrypt the file you are attempting to download."
-      onSubmit={() => {}}
+      onSubmit={onSubmit}
       onClose={onClose}
+      classNameModal={classNameModal}
     >
       <div className={styles.key_block}>
         <div className={styles.key_label}>Key password</div>

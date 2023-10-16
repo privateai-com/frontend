@@ -44,17 +44,15 @@ AdaptivePaginationTableProps
         ? Object.fromEntries(
           Object.entries(content[0]).map(([key]) => [
             key,
-            isMobile
-              ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
-              : '',
+            '',
           ]),
         )
         : {}),
-    [content, isMobile],
+    [content],
   );
 
   const data = useMemo(() => {
-    if (content.length >= itemsOnPageQuantity) {
+    if (content.length >= itemsOnPageQuantity || isMobile) {
       return content;
     }
     const emptyObjectsCount = itemsOnPageQuantity - content.length;
@@ -63,7 +61,7 @@ AdaptivePaginationTableProps
       () => initialObj,
     );
     return [...content, ...emptyObjects];
-  }, [content, initialObj, itemsOnPageQuantity]);
+  }, [content, initialObj, isMobile, itemsOnPageQuantity]);
 
   const pageCount = usePageCount(data.length, itemsOnPageQuantity);
 

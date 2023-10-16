@@ -88,6 +88,7 @@ export const useColumns = () => useMemo(() => ([
         <ButtonIcon
           image={trashIcon}
           onClick={() => {}}
+          className={styles.delete_btn}
         />
       ) : ('')
     ),
