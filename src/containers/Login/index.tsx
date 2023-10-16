@@ -23,7 +23,7 @@ export const Login = () => {
   const router = useRouter();
 
   const successCallback = useCallback(() => {
-    router.push(routes.home.root);
+    router.push(routes.profile.root);
   }, [router]);
 
   const errorCallback = useCallback(
