@@ -16,6 +16,7 @@ export const itemsOnPageQuantity = 10;
 export const addressZero = '0x0000000000000000000000000000000000000000';
 
 export enum ScreenWidth {
+  desktop1920 = 1920,
   desktop1440 = 1440,
   notebook1024 = 1024,
   mobile = 576,

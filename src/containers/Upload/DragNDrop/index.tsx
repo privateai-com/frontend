@@ -1,6 +1,8 @@
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, docRegex } from 'appConstants';
-import { ChangeEvent, DragEvent, useCallback, useState } from 'react';
+import {
+  ChangeEvent, DragEvent, useCallback, useState, 
+} from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { documentTextIcon1, uploadIcon } from 'assets';
@@ -49,7 +51,7 @@ const DragNDrop = () => {
         className={styles.dnd_title}
         type="h4"
       >
-        Add a file
+        Add a file*
       </Typography>
 
       <div className={styles.dnd_content}>
@@ -77,7 +79,7 @@ const DragNDrop = () => {
         />
       </div>
 
-      <div className={styles.mock}></div>
+      <div className={styles.mock} />
     </label>
   );
 };

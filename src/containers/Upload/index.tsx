@@ -53,6 +53,7 @@ const data: DataProps[] = [
 
 export const Upload = () => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
+  
   return (
     <div className={styles.upload}>
       <Typography
@@ -64,6 +65,10 @@ export const Upload = () => {
 
       <div className={styles.upload_dnd}>
         <DragNDrop />
+        <span className={styles.upload_notice}>
+          * - name of the file will be displayed on the platform after the
+          upload, rename it beforehand if necessary
+        </span>
       </div>
 
       {!isMobile && (
@@ -88,9 +93,7 @@ export const Upload = () => {
           Statuses
         </Typography>
         <div className={styles.statuses_items}>
-          {data.map(({
-            id, name, percents, weight, 
-          }) => (
+          {data.map(({ id, name, percents, weight }) => (
             <Item
               key={id}
               name={name}
