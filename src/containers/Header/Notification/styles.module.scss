@@ -6,35 +6,50 @@ $margin-right-hidden: -310px;
 $margin-right-hidden-mobile: -610px;
 $margin-horizontal-mobile: 15px;
 
-.notification_container {
-  width: 600px;
-  height: auto;
-  padding: 8px;
-  background-color: $color-white;
-  box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
-  position: fixed;
-  top: 78px;
-  right: 8.5%;
-  z-index: 100;
-  border-radius: 8px;
-  border: 1px solid $color-green;
-  box-sizing: border-box;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(100%);
-  transition: all 0.5s;
+.notification {
+  &_container {
+    width: 600px;
+    height: 226px;
+    padding: 8px;
+    background-color: $color-white;
+    box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
+    position: fixed;
+    top: 78px;
+    right: 8.5%;
+    z-index: 100;
+    border-radius: 8px;
+    border: 1px solid $color-green;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: all 0.5s;
 
-  @include desktop1440 {
-    width: 550px;
+    @include desktop1440 {
+      width: 550px;
+      height: 196px;
+      padding: 15px;
+    }
+
+    @include mobile {
+      right: 15px;
+      width: calc(100% - 30px);
+      top: 48px;
+    }
   }
 
-  @include mobile {
-    right: 15px;
-    width: calc(100% - 30px);
-    top: 48px;
+  &_content {
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 20px;
+
+    @include greenScrollbar;
+
+    @include desktop1440 {
+      padding-right: 15px;
+    }
   }
 }
-
 .show {
   opacity: 1;
   visibility: visible;
