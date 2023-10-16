@@ -1,8 +1,6 @@
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, docRegex } from 'appConstants';
-import {
-  ChangeEvent, DragEvent, useCallback, useState, 
-} from 'react';
+import { ChangeEvent, DragEvent, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { documentTextIcon1, uploadIcon } from 'assets';
@@ -10,9 +8,13 @@ import cx from 'classnames';
 import { Typography } from 'components';
 import styles from './styles.module.scss';
 
-const DragNDrop = () => {
+type DragNDropProps = {
+  doc: File | null;
+  setDoc: (doc: File | null) => void;
+};
+
+const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
-  const [doc, setDoc] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   function checkFile(file: File[] | FileList | null) {
@@ -23,18 +25,24 @@ const DragNDrop = () => {
     setDoc(file ? file[0] : null);
   }
 
-  const onUploadClick = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files;
-    checkFile(file);
-  }, []);
+  const onUploadClick = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files;
+      checkFile(file);
+    },
+    [checkFile]
+  );
 
-  const handleDrop = useCallback((e: DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    setIsDragging(false);
+  const handleDrop = useCallback(
+    (e: DragEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+      setIsDragging(false);
 
-    const file = e.dataTransfer.files;
-    checkFile(file);
-  }, []);
+      const file = e.dataTransfer.files;
+      checkFile(file);
+    },
+    [checkFile]
+  );
 
   return (
     <label
@@ -55,17 +63,17 @@ const DragNDrop = () => {
       </Typography>
 
       <div className={styles.dnd_content}>
-        <p className={styles.dnd_text}>
-          {doc ? (
-            doc.name
-          ) : (
+        {doc ? (
+          <span className={styles.dnd_file_name}>{doc.name}</span>
+        ) : (
+          <p className={styles.dnd_text}>
             <span>
               {isSmallDesktop
                 ? 'Tap to upload your file'
                 : 'Drag and drop your file'}
             </span>
-          )}
-        </p>
+          </p>
+        )}
         <Image
           src={doc ? documentTextIcon1 : uploadIcon}
           alt="icon"

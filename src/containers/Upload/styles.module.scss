@@ -25,12 +25,19 @@
   }
 
   &_notice {
+    display: block;
     margin-top: 5px;
     color: $color-grey;
+
+    @include mobile {
+      margin-top: 10px;
+      font-size: 12px;
+    }
   }
 
   &_dnd,
-  &_btn {
+  &_btn,
+  &_btn_block {
     margin: 0 auto 30px;
 
     @include desktop1440 {
@@ -57,9 +64,22 @@
     border-radius: 8px;
     cursor: pointer;
 
+    &_block {
+      display: flex;
+      justify-content: center;
+    }
+
     @include desktop1440 {
       width: 350px;
       height: 40px;
+    }
+  }
+
+  &_btns {
+    height: 50px;
+    width: 200px;
+    &:first-of-type {
+      margin-right: 20px;
     }
   }
 

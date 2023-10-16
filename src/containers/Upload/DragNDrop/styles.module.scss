@@ -11,9 +11,8 @@
     padding: 20px 0;
     width: 55%;
 
-    @include desktop1440 {
-      padding: 0;
-      background-image: none;
+    @include mobile {
+      width: 85%;
     }
   }
 
@@ -42,7 +41,8 @@
   }
 
   &_title,
-  &_text {
+  &_text,
+  &_file_name {
     font-size: 32px;
 
     @include desktop1440 {
@@ -66,7 +66,8 @@
     }
   }
 
-  &_text {
+  &_text,
+  &_file_name {
     margin-bottom: 18px;
     text-align: center;
     font-weight: 700;
@@ -99,6 +100,13 @@
       height: 40px;
       width: 40px;
     }
+  }
+
+  &_file_name {
+    width: 90%;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    text-wrap: nowrap;
   }
 }
 
