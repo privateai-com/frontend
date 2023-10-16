@@ -9,3 +9,4 @@ export { StorageFile } from './StorageFile';
 export { Upload } from './Upload';
 export { KnowledgeBase } from './KnowledgeBase';
 export { NotFound } from './NotFound';
+export { Security } from './Security';

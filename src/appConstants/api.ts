@@ -13,5 +13,5 @@ export enum ApiEndpoint {
   AuthConfirmResetPassword = '/verification/confirm-reset-password',
 
   ProfileAddWallet = '/profile/add-wallet',
-  
+  ProfileDeleteWallet = '/profile/delete-wallet',
 }

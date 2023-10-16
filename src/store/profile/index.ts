@@ -7,6 +7,7 @@ import { profileHandlers } from './handlers';
 export const profileInitialState: Readonly<ProfileState> = {
   ui: {
     [ProfileActionTypes.LinkWallet]: RequestStatus.INIT,
+    [ProfileActionTypes.DeleteWallet]: RequestStatus.INIT,
   },
 };
 

@@ -61,45 +61,52 @@ export const Upload = () => {
       >
         Upload activity
       </Typography>
+      <div className={styles.upload_wrapper}>
+        
+        <div className={styles.upload_dnd_block}>
+          <DragNDrop />
+        </div>
 
-      <div className={styles.upload_dnd}>
-        <DragNDrop />
-      </div>
-
-      {!isMobile && (
-        <label
-          htmlFor="upload"
-          className={styles.upload_btn}
-        >
-          Select a file from local directory
-          <input
-            type="file"
-            id="upload"
-            className={styles.upload_input}
-          />
-        </label>
-      )}
-
-      <div className={styles.statuses}>
-        <Typography
-          className={styles.statuses_title}
-          type="h4"
-        >
-          Statuses
-        </Typography>
-        <div className={styles.statuses_items}>
-          {data.map(({
-            id, name, percents, weight, 
-          }) => (
-            <Item
-              key={id}
-              name={name}
-              percents={percents}
-              weight={weight}
+        {!isMobile && (
+          <label
+            htmlFor="upload"
+            className={styles.upload_btn}
+          >
+            Select a file from local directory
+            <input
+              type="file"
+              id="upload"
+              className={styles.upload_input}
             />
-          ))}
+          </label>
+        )}
+
+        <div className={styles.statuses}>
+          <Typography
+            className={styles.statuses_title}
+            type="h4"
+          >
+            Statuses
+          </Typography>
+          <div className={styles.statuses_items}>
+            <div className={styles.statuses_wrapper}>
+              <div className={styles.statuses_content}>
+                {data.map(({
+                  id, name, percents, weight, 
+                }) => (
+                  <Item
+                    key={id}
+                    name={name}
+                    percents={percents}
+                    weight={weight}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      {' '}
     </div>
   );
 };

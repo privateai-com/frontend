@@ -110,7 +110,6 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
       {currentStep === ForgotPasswordStep.ConfirmEmailStep && (
         <ConfirmEmail
           email={email}
-          isShown
           onBack={() => setCurrentStep(ForgotPasswordStep.ResetPasswordStep)}
           onConfirm={confirmEmailHandler}
         />

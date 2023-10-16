@@ -33,16 +33,4 @@
 		height: fit-content;
 		margin-left: 8px;
 	}
-
-	.button_delete {
-		grid-area: buttonDelete;
-		padding: 9px;
-		background-color: $color-red;
-		height: fit-content;
-		margin-left: auto;
-
-		&:hover:enabled {
-			background-color: rgba($color-red, .7);
-		}
-	}
 }

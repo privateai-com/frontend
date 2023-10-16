@@ -10,7 +10,11 @@ import cx from 'classnames';
 import { Typography } from 'components';
 import styles from './styles.module.scss';
 
-const DragNDrop = () => {
+type DragNDropProps = {
+  className?: string;
+};
+
+const DragNDrop: React.FC<DragNDropProps> = ({ className }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [doc, setDoc] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -39,7 +43,7 @@ const DragNDrop = () => {
   return (
     <label
       htmlFor="upload"
-      className={cx(styles.dnd_btn, {
+      className={cx(styles.dnd_btn, className, {
         [styles.dragOver]: isDragging,
       })}
       onDragOver={() => setIsDragging(true)}
@@ -54,28 +58,32 @@ const DragNDrop = () => {
         Add a file
       </Typography>
 
-      <p className={styles.dnd_text}>
-        {doc ? (
-          'Uploaded'
-        ) : (
-          <span>
-            {isSmallDesktop
-              ? 'Tap to upload your file'
-              : 'Drag and drop your file'}
-          </span>
-        )}
-      </p>
-      <Image
-        src={uploadIcon}
-        alt="icon"
-        className={styles.dnd_img}
-      />
-      <input
-        type="file"
-        id="upload"
-        onChange={onUploadClick}
-        className={styles.dnd_input}
-      />
+      <div className={styles.dnd_wrapper}>
+        <div className={styles.dnd_content}>
+          <p className={styles.dnd_text}>
+            {doc ? (
+              'Uploaded'
+            ) : (
+              <span>
+                {isSmallDesktop
+                  ? 'Tap to upload your file'
+                  : 'Drag and drop your file'}
+              </span>
+            )}
+          </p>
+          <Image
+            src={uploadIcon}
+            alt="icon"
+            className={styles.dnd_img}
+          />
+          <input
+            type="file"
+            id="upload"
+            onChange={onUploadClick}
+            className={styles.dnd_input}
+          />
+        </div>
+      </div>
     </label>
   );
 };

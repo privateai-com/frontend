@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .signin__container {
 	position: relative;
@@ -13,13 +13,13 @@
 		margin: 25px 0 10px;
 	}
 
-  @include desktop1024 {
+	@include desktop1024 {
 		margin: 50px 0 10px;
 	}
 
-  @include mobile {
-    margin: 32px 0 10px;
-  }
+	@include mobile {
+		margin: 32px 0 10px;
+	}
 
 	h4 {
 		color: $color-grey;
@@ -28,11 +28,11 @@
 		@include desktop1440 {
 			margin-bottom: 20px;
 		}
-	
+
 		@include desktop1024 {
 			margin-bottom: 50px;
 		}
-	
+
 		@include mobile {
 			margin-bottom: 30px;
 		}
@@ -53,7 +53,6 @@
 	}
 
 	& > div {
-		
 		display: flex;
 		align-items: center;
 
@@ -111,6 +110,14 @@
 		font-size: 14px;
 		margin-bottom: 36px;
 	}
+
+	&_margin {
+		margin-bottom: 20px;
+
+		@include mobile {
+			margin-bottom: 10px;
+		}
+	}
 }
 
 .button {
@@ -142,7 +149,7 @@
 }
 
 .signin__container,
-.button_connect, 
+.button_connect,
 .description_wallet,
 .description,
 .input__container,
@@ -150,4 +157,9 @@
 .button,
 .footer_text {
 	@include font-size;
+}
+
+.error {
+	color: $color-red;
+	margin-bottom: 20px;
 }

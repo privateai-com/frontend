@@ -29,6 +29,7 @@ export const GraphD3: FC<GraphD3Props> = ({ edges, setEdges }) => {
   const [showEdit, setShowEdit] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [editedValue, setEditedValue] = useState('');
+  const [nodeId, setNodeId] = useState('');
   const [positionEdit, setPosition] = useState({ x: 0, y: 0 });
 
   function clearGraph() {
@@ -38,7 +39,22 @@ export const GraphD3: FC<GraphD3Props> = ({ edges, setEdges }) => {
   }
 
   const handleSaveClick = () => {
-    setShowEdit(false);
+    if (editedValue) {
+      const updatedEdges = [...edges];
+      const nodeToUpdate = updatedEdges.find((edge) =>
+        edge.head === nodeId || edge.type === nodeId);
+  
+      if (nodeToUpdate) {
+        if (nodeToUpdate.head === nodeId) {
+          nodeToUpdate.head = editedValue;
+        } else {
+          nodeToUpdate.type = editedValue;
+        }
+        setEdges(updatedEdges);
+        setShowEdit(false);
+        setEditedValue('');
+      }
+    }
   };
 
   const handleDeleteNode = useCallback((nodeData: NodeDatum) => {
@@ -50,6 +66,7 @@ export const GraphD3: FC<GraphD3Props> = ({ edges, setEdges }) => {
       if (indexToDelete !== -1) {
         updatedEdges.splice(indexToDelete, 1);
         setEdges(updatedEdges);
+        setNodeId('');
       }
     }
   }, [graph, edges, setEdges]);
@@ -104,12 +121,13 @@ export const GraphD3: FC<GraphD3Props> = ({ edges, setEdges }) => {
       .style('stroke-width', 2)
       .style('background', 'radial-gradient(#00DEA3, transparent)')
       .call(drag(simulation))
-      .on('dblclick', (event) => {
+      .on('dblclick', (event, d) => {
         event.preventDefault();
         setShowEdit((state) => !state);
         const svgT = d3.select(svgRef.current);
         const [x, y] = d3.pointer(event, svgT.node());
         setPosition({ x, y });
+        setNodeId(d.id);
       })
       .on('contextmenu', (event, d) => {
         event.preventDefault();
@@ -189,7 +207,6 @@ export const GraphD3: FC<GraphD3Props> = ({ edges, setEdges }) => {
             placeholder="Edit node name"
           />
           <Button className={styles.button_save} onClick={handleSaveClick}>Save</Button>
-          <Button className={styles.button_delete} onClick={handleSaveClick}>Delete node</Button>
         </div>
       )}
     </div>
