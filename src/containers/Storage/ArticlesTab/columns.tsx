@@ -4,14 +4,15 @@ import Link from 'next/link';
 import { ButtonIcon, RadioButtons } from 'components';
 import { routes } from 'appConstants';
 import { trashIcon } from 'assets';
-
 import { ItemRowProps } from 'types';
+import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { ArticlesType } from './types';
+
 import styles from './styles.module.scss';
 
 export const useColumns = () => useMemo(() => ([
   {
-    Header: 'File name',
+    Header: <TitleWithArrows title="File name" onClick={() => {}} />,
     accessor: 'name',
     Cell: ({
       row: {
@@ -24,7 +25,7 @@ export const useColumns = () => useMemo(() => ([
     ),
   },
   {
-    Header: 'Status',
+    Header: <TitleWithArrows title="Status" onClick={() => {}} />,
     accessor: 'status',
     Cell: ({
       row: {
@@ -48,7 +49,7 @@ export const useColumns = () => useMemo(() => ([
     ),
   },
   {
-    Header: 'Availability',
+    Header: <TitleWithArrows title="Availability" onClick={() => {}} />,
     accessor: 'availability',
     Cell: ({
       row: {

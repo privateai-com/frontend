@@ -94,6 +94,18 @@
       right: -44px;
       transform: translate(-50%, 75%);
       border-radius: 100%;
+
+      @include media-breakpoint-up(lg) {
+        right: - vw(24, 1024);
+      }
+    
+      @include media-breakpoint-up(xxl) {
+        right: - vw(24, 1440);
+      }
+    
+      @include media-breakpoint-up(fhd) {
+        right: -44px;
+      }
     }
 
     .active_svg {

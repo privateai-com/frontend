@@ -73,12 +73,7 @@
 .radio_buttons {
 	display: flex;
 	flex-direction: column;
-	margin-left: 60px;
 	min-width: 230px;
-
-	@include desktop1660 {
-		margin-left: 0;
-	}
 }
 
 .empty_space {
@@ -86,4 +81,50 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.table {
+	thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  tbody {
+    height: calc(100vh - 416px);
+    table-layout: fixed;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include greenScrollbar();
+	}
+
+	thead, tbody {
+		th {
+			&:last-of-type {
+				width: 7rem;
+			}
+		}
+
+		td {
+			&:last-of-type {
+				width: 0;
+			}
+		}
+
+		@media screen and (max-width: 1900px) {
+			th {
+				&:last-of-type {
+					width: 70px;
+				}
+			}
+	
+			td {
+				&:last-of-type {
+					width: 24px;
+				}
+			}
+		}
+	}
 }

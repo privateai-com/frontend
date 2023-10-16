@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Column } from 'react-table';
+import cx from 'classnames';
 
 import { Pagination, Table } from 'components';
 
@@ -18,6 +19,7 @@ type AdaptivePaginationTableProps = {
   key2: string;
   itemsOnPageQuantity?: number;
   withPagination?: boolean;
+  classNameTableContainer?: string;
 };
 
 export const AdaptivePaginationTable: React.FC<
@@ -31,6 +33,7 @@ AdaptivePaginationTableProps
   key2,
   itemsOnPageQuantity = 6,
   withPagination = false,
+  classNameTableContainer,
 }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
@@ -90,7 +93,7 @@ AdaptivePaginationTableProps
           <Table
             columns={columns as unknown as Column<object>[]}
             data={tableData}
-            className={styles.table}
+            className={cx(styles.table, classNameTableContainer)}
           />
           {withPagination && (
             <Pagination

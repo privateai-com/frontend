@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import Link from 'next/link';
 import { ItemRowProps } from 'types';
+import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
 
@@ -9,7 +10,7 @@ export const useColumns = () =>
   useMemo(
     () => [
       {
-        Header: 'File name',
+        Header: <TitleWithArrows title="File name" onClick={() => {}} />,
         accessor: 'name',
         Cell: ({
           row: {
@@ -29,7 +30,7 @@ export const useColumns = () =>
           (core ? <p className={styles.columns_core}>{core}</p> : '-'),
       },
       {
-        Header: 'Owner',
+        Header: <TitleWithArrows title="Owner" onClick={() => {}} />,
         accessor: 'owner',
         Cell: ({
           row: {

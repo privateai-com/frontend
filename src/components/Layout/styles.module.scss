@@ -23,6 +23,7 @@
 		grid-template-areas: 'sidebar header'
     'sidebar main';
     grid-template-rows: 60px auto;
+    grid-template-columns: min-content auto;
     height: 100%;
 	}
 
