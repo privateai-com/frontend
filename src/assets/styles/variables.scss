@@ -33,3 +33,16 @@ $primary: $color-green;
 $spinner-border-width: 0.063rem;
 
 $header-modal-breakpoint: 791px;
+
+$breakpoints: (
+  xs: 375px,
+  sm: 576px,
+  md: 768px,
+  lg: 1025px,
+  xl: 1280px,
+  xxl: 1440px,
+  xxxl: 1600px,
+  fhd: 1920px,
+  qhd: 2560px,
+  uhd: 3840px
+);

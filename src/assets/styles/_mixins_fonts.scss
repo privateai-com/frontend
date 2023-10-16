@@ -1,0 +1,42 @@
+@import 'assets/styles/variables.scss';
+
+
+@mixin adaptive-font-size($mobile, $tablet, $desktopXL, $desktopXXL, $desktopFHD) {
+	font-size: #{$mobile}px;
+
+	@media (min-width: #{map-get($breakpoints, md)}) {
+		font-size: #{$tablet}px;
+	}
+
+	@media (min-width: #{map-get($breakpoints, lg)}) {
+		font-size: calc(#{$desktopXL / $mobile}vw);
+	}
+
+	@media (min-width: #{map-get($breakpoints, xxl)}) {
+		font-size: calc(#{$desktopXXL / 1440 * 100}vw);
+	}
+
+	@media (min-width: #{map-get($breakpoints, fhd)}) {
+		font-size: calc(#{$desktopFHD / 1920 * 100 / 2}vw + #{$desktopFHD / 1080 * 100 / 2}vh);
+	}
+};
+
+@mixin font-38 {
+	@include adaptive-font-size(18, 24, 32, 32, 38);
+}
+
+@mixin font-32 {
+	@include adaptive-font-size(14, 16, 24, 24, 32);
+}
+
+@mixin font-24 {
+	@include adaptive-font-size(14, 16, 24, 24, 24);
+}
+
+@mixin font-20 {
+	@include adaptive-font-size(14, 16, 18, 16, 20);
+}
+
+@mixin font-20-p {
+	@include adaptive-font-size(12, 14, 16, 16, 20);
+}

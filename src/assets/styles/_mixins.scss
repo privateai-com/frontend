@@ -1,3 +1,6 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins_fonts.scss';
+
 // Media request mixins MobileFirst
 @mixin small_s_mobile {
 	@media screen and (max-width: 375px) {
@@ -70,6 +73,12 @@
 	}
 }
 
+@mixin desktop1920 {
+	@media screen and (max-width: 1920) {
+		@content;
+	}
+}
+
 @mixin hidden() {
 	visibility: hidden;
 	pointer-events: none;
@@ -127,22 +136,6 @@
 	}
 }
 
-@mixin greenScrollbar {
-	&::-webkit-scrollbar {
-		width: 8px;
-	}
-
-	&::-webkit-scrollbar-track {
-		border-radius: 4px;
-		background-color: $color-grey2;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		border-radius: 4px;
-		background-color: $color-green;
-	}
-}
-
 @mixin font-size {
 	font-size: 20px;
 
@@ -156,5 +149,15 @@
 
 	@include mobile {
 		font-size: 14px;	
+	}
+};
+
+@mixin media-breakpoint-up($name, $px: 0) {
+	@each $breakpoint-name, $resolution in $breakpoints {
+			@if $name == $breakpoint-name {
+					@media (min-width: $resolution + $px) {
+							@content;
+					}
+			}
 	}
 }
