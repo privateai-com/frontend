@@ -2,9 +2,10 @@ import { memo } from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
 import Image from 'next/image';
-import { arrowIcon } from 'assets';
+import { arrowIcon, closeModalIcon } from 'assets';
 import { routes } from 'appConstants';
 import styles from './styles.module.scss';
+import { ButtonIcon } from 'components';
 
 type NotificationProps = {
   isOpen: boolean;
@@ -28,7 +29,16 @@ const Notification = memo(({ isOpen }: NotificationProps) => (
         className={styles.item_container}
         key={text}
       >
-        <div className={styles.item_time}>{time}</div>
+        <div className={styles.item_block}>
+          <div className={styles.item_time}>{time}</div>
+          <ButtonIcon
+            className={styles.item_close}
+            onClick={() => {}}
+            image={closeModalIcon}
+            height={12}
+            width={12}
+          />
+        </div>
         <Link
           href={`${routes.requests.root}`}
           className={styles.item_content}
