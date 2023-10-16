@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 type StatusProps =
   | 'Open sourced'
-  | 'Permission given'
+  | 'Access granted'
   | 'Permission needed'
   | 'Access request pending'
   | 'Access denied';
@@ -42,8 +42,8 @@ export const Item: React.FC<ItemProps> = ({
       case 'Open sourced':
         return styles.open;
 
-      case 'Permission given':
-        return styles.permission_given;
+      case 'Access granted':
+        return styles.granted;
 
       case 'Permission needed':
         return styles.permission_needed;

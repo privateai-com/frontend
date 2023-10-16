@@ -1,6 +1,6 @@
 type StatusProps =
   | 'Open sourced'
-  | 'Permission given'
+  | 'Access granted'
   | 'Permission needed'
   | 'Access request pending'
   | 'Access denied';
@@ -19,7 +19,7 @@ export const items: ItemProp[] = [];
 
 const statuses: StatusProps[] = [
   'Open sourced',
-  'Permission given',
+  'Access granted',
   'Permission needed',
   'Access request pending',
   'Access denied',

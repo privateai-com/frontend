@@ -165,7 +165,7 @@
 
 .open,
 .permission_needed,
-.permission_given,
+.granted,
 .pending,
 .denied {
   font-weight: 500;
@@ -178,7 +178,7 @@
   }
 }
 
-.permission_given,
+.granted,
 .pending {
   color: $color-grey;
 }
@@ -189,7 +189,8 @@
   @include icon("../../../assets/img/icons/check1.svg");
 }
 
-.permission_given {
+.granted {
+  color: $color-green;
   @include icon("../../../assets/img/icons/alertSquare.svg");
 }
 
