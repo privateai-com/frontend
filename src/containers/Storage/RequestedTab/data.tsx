@@ -1,8 +1,6 @@
-import { arrowDownSquare } from 'assets';
 import { ButtonIcon } from 'components';
-import { getStatusStyle } from 'utils/getStatusClassName';
-import { Status } from 'types';
 import styles from './styles.module.scss';
+import { getStatusImg, getStatusStyle } from './utils';
 
 export const data = [
   {
@@ -32,11 +30,11 @@ export const content = data.map((i) => ({
   ...i,
   status: (
     <div className={styles.columns_owner_block}>
-      <div className={getStatusStyle(i.status as Status, styles)} />
-      {i.status}
+      <div className={styles.mock} />
+      <div className={getStatusStyle(i.status, styles)}>{i.status}</div>
       <ButtonIcon
         className={styles.columns_img}
-        image={arrowDownSquare}
+        image={getStatusImg(i.status)}
         onClick={() => {}}
       />
     </div>

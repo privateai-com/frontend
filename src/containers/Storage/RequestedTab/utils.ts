@@ -4,7 +4,7 @@ export const getStatusStyle = (
   status: string,
   styles: {
     readonly [key: string]: string;
-  }
+  },
 ) => {
   switch (status) {
     case 'Open sourced':
