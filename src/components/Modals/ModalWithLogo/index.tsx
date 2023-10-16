@@ -7,12 +7,14 @@ import { ModalBase } from '../ModalBase';
 type ModalWithLogoProps = {
   children: ReactNode;
   onClose: () => void;
+  classNameModal?: string;
 };
 
-const ModalWithLogo: React.FC<ModalWithLogoProps> = ({ children, onClose }) => (
+const ModalWithLogo: React.FC<ModalWithLogoProps> = ({ children, onClose, classNameModal }) => (
   <ModalBase
     closeModal={onClose}
     isWithCloseButton
+    classNameModal={classNameModal}
   >
     <div className={styles.modal}>
       <div className={styles.modal_container}>

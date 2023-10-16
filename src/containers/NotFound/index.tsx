@@ -15,7 +15,7 @@ const NotFound = () => (
       Sorry, we were unable to find that page
     </span>
     <Button
-      href={routes.home.root}
+      href={routes.profile.root}
       className={styles.not_found_link}
     >
       Back to home

@@ -11,6 +11,10 @@ export const routes = {
     root: '/login',
     title: 'Login',
   },
+  profile: {
+    root: '/profile',
+    title: 'Profile',
+  },
   knowledge: {
     root: '/knowledge',
     title: 'Knowledge base',

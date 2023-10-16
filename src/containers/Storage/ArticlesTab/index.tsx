@@ -1,11 +1,10 @@
 import { Button } from 'components';
-
 import { routes } from 'appConstants';
-import styles from './styles.module.scss';
-
 import { content } from './data';
 import { useColumns } from './columns';
 import { Common } from '../Common';
+
+import styles from './styles.module.scss';
 
 export const ArticlesTab = () => {
   const columns = useColumns();
@@ -19,6 +18,7 @@ export const ArticlesTab = () => {
       mobileTitle2="Core entites"
       key2="core"
       inputClassName={styles.input}
+      classNameTableContainer={styles.table}
     >
       <Button
         className={styles.upload}

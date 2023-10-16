@@ -1,5 +1,6 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
+@import 'assets/styles/function.scss';
 
 
 .page_container {
@@ -7,35 +8,38 @@
 	width: 100%;
 	min-height: 100vh;
   height: 100%;
+  overflow: hidden;
 
   display: grid;
-  grid-template-areas: 'sidebar header'
-    'sidebar main';
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 80px auto;
+  grid-template-areas: 'header header'
+      'main main';
+  grid-template-columns: auto auto;
+  grid-template-rows: 40px auto;
+  height: fit-content;
 
 	background: linear-gradient(to top right, rgba(250, 232, 255, 1), rgba(255, 255, 255, 1), rgba(219, 255, 202, 1));
 
-  overflow: hidden;
-
-  @include desktop1440 {
-    grid-template-rows: 70px auto;
-  }
-
-  @include desktop1024 {
-    grid-template-areas: 'header header'
-      'main main';
-    grid-template-columns: 268px 1fr;
+  @include media-breakpoint-up(lg) {
+		grid-template-areas: 'sidebar header'
+    'sidebar main';
     grid-template-rows: 60px auto;
-    height: fit-content;
-  }
+    grid-template-columns: min-content auto;
+    height: 100%;
+	}
 
-	@include mobile {
-    grid-template-rows: 40px auto;
-  }
+  @include media-breakpoint-up(xxl) {
+    grid-template-columns: vw(300, 1440) 1fr;
+    grid-template-rows: 70px auto;
+	}
+
+  @include media-breakpoint-up(fhd) {
+    grid-template-columns: vw(300) 1fr;
+    grid-template-rows: 80px auto;
+	}
 }
 
 .page__main {
+  position: relative;
 	grid-area: main;
 	min-height: calc(100vh - 100px - 90px);
 
@@ -48,19 +52,19 @@
 	row-gap: 20px;
 	justify-content: flex-start;
 
-	padding: 30px 40px 62px;
+  padding: 10px 15px;
 
-	@include desktop1440 {
-		padding: 15px 40px 20px;
+  @include media-breakpoint-up(lg) {
+		padding: vw(20) vw(30, 1024);
 	}
 
-	@include desktop1024 {
-		padding: 20px 30px;
+	@include media-breakpoint-up(xxl) {
+		padding: vw(15) vw(40, 1440) vw(20);
 	}
 
-  @include mobile {
-    padding: 10px 15px;
-  }
+	@include media-breakpoint-up(fhd) {
+		padding: vw(30) vw(40) vw(62);
+	}
 }
 
 .background {

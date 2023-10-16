@@ -1,30 +1,38 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
+@import 'assets/styles/function.scss';
 
 .profile__container {
 	position: relative;
+	height: 100%;
 
 	display: grid;
-  grid-template-areas: 'head head'
-    'info info2'
-		'info info3'
-		'footer footer';
-  grid-template-columns: 1fr 1.26fr;
-  grid-template-rows: auto auto;
-
-	@include desktop1440 {
-		grid-template-columns: 1fr 1.15fr;
-	}
-
-	@include desktop1024 {
-		grid-template-areas: 'head'
+	grid-template-areas: 'head'
 			'info'
 			'info2'
 			'info3'
 			'footer';
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr;
-		margin-bottom: 30px;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	margin-bottom: 30px;
+	justify-content: space-between;
+
+	@include media-breakpoint-up(lg) {
+		grid-template-areas: 'head head'
+    'info info2'
+		'info info3'
+		'footer footer';
+		grid-template-columns: vw(300, 1024) vw(400, 1024);
+		grid-template-rows: repeat(4, min-content);
+		margin-bottom: 0;
+	}
+
+	@include media-breakpoint-up(xxl) {
+		grid-template-columns: vw(470, 1440) vw(570, 1440);
+	}
+
+	@include media-breakpoint-up(fhd) {
+		grid-template-columns: vw(647) vw(863);
 	}
 }
 
@@ -32,25 +40,30 @@
 	grid-area: head;
 
 	display: grid;
-	grid-template-columns: 1fr 1.26fr;
-	margin-bottom: 25px;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+	margin-bottom: 15px;
+	row-gap: 10px;
 
-	@include desktop1440 {
-		margin-bottom: 15px;
-		grid-template-columns: 1fr 1.15fr;
+	@include media-breakpoint-up(sm) {
+		grid-template-columns: auto auto;
 	}
 
-	@include desktop1024 {
+	@include media-breakpoint-up(lg) {
+		margin-bottom: 25px;
+		grid-template-rows: 1fr;
+	}
+
+	@include media-breakpoint-up(xxl) {
+		grid-template-columns: vw(470, 1440) vw(570, 1440);
+		margin-bottom: 15px;
+	}
+
+	@include media-breakpoint-up(fhd) {
+		grid-template-columns: vw(647) vw(863);
 		margin-bottom: 25px;
 	}
 
-	@include mobile {
-		margin-bottom: 15px;
-		row-gap: 10px;
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr 1fr;
-	}
-	
 	&_title {
 		display: flex;
 		justify-content: space-between;
@@ -120,12 +133,23 @@
 	grid-area: footer;
 	display: flex;
 	align-items: center;
-	gap: 30px;
-	margin-top: 40px;
+	flex-wrap: wrap;
+	gap: 14px;
 
-	@include mobile {
-		flex-wrap: wrap;
-		gap: 14px;
+	@include media-breakpoint-up(lg) {
+		flex-wrap: nowrap;
+		gap: vw(30, 1024);
+		margin-top: vw(40, 1024);
+}
+
+	@include media-breakpoint-up(xxl) {
+		margin-top: vw(10, 1440);
+		gap: vw(30, 1440);
+	}
+
+	@include media-breakpoint-up(fhd) {
+		margin-top: vw(40);
+		gap: vw(30);
 	}
 
 	&_list {
