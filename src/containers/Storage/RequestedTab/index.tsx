@@ -12,21 +12,21 @@ const RequestedTab = () => {
   const columns = useColumns();
   const [search, setSearch] = useState('');
   const isMobile = useScreenWidth(ScreenWidth.mobile);
-  let itemsOnPageQuantity = 6;
+  const itemsOnPageQuantity = 6;
 
   const initialObj = useMemo(
     () =>
-      content.length
+      (content.length
         ? Object.fromEntries(
-            Object.entries(content[0]).map(([key]) => [
-              key,
-              isMobile
-                ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
-                : '',
-            ])
-          )
-        : {},
-    [content, isMobile]
+          Object.entries(content[0]).map(([key]) => [
+            key,
+            isMobile
+              ? 'Exploring the role of Gut Microbiota in Immune System Regulation'
+              : '',
+          ]),
+        )
+        : {}),
+    [content, isMobile],
   );
 
   const data = useMemo(() => {
@@ -36,7 +36,7 @@ const RequestedTab = () => {
     const emptyObjectsCount = itemsOnPageQuantity - content.length;
     const emptyObjects = Array.from(
       { length: emptyObjectsCount },
-      () => initialObj
+      () => initialObj,
     );
     return [...content, ...emptyObjects];
   }, [content, initialObj, itemsOnPageQuantity]);
