@@ -4,8 +4,8 @@ import cx from 'classnames';
 import Image from 'next/image';
 import { arrowIcon, closeModalIcon } from 'assets';
 import { routes } from 'appConstants';
-import styles from './styles.module.scss';
 import { ButtonIcon } from 'components';
+import styles from './styles.module.scss';
 
 type NotificationProps = {
   isOpen: boolean;
