@@ -1,11 +1,9 @@
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, docRegex } from 'appConstants';
-import {
-  ChangeEvent, DragEvent, useCallback, useState, 
-} from 'react';
+import { ChangeEvent, DragEvent, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
-import { uploadIcon } from 'assets';
+import { documentTextIcon1, uploadIcon } from 'assets';
 import cx from 'classnames';
 import { Typography } from 'components';
 import styles from './styles.module.scss';
@@ -54,28 +52,32 @@ const DragNDrop = () => {
         Add a file
       </Typography>
 
-      <p className={styles.dnd_text}>
-        {doc ? (
-          'Uploaded'
-        ) : (
-          <span>
-            {isSmallDesktop
-              ? 'Tap to upload your file'
-              : 'Drag and drop your file'}
-          </span>
-        )}
-      </p>
-      <Image
-        src={uploadIcon}
-        alt="icon"
-        className={styles.dnd_img}
-      />
-      <input
-        type="file"
-        id="upload"
-        onChange={onUploadClick}
-        className={styles.dnd_input}
-      />
+      <div className={styles.dnd_content}>
+        <p className={styles.dnd_text}>
+          {doc ? (
+            doc.name
+          ) : (
+            <span>
+              {isSmallDesktop
+                ? 'Tap to upload your file'
+                : 'Drag and drop your file'}
+            </span>
+          )}
+        </p>
+        <Image
+          src={doc ? documentTextIcon1 : uploadIcon}
+          alt="icon"
+          className={styles.dnd_img}
+        />
+        <input
+          type="file"
+          id="upload"
+          onChange={onUploadClick}
+          className={styles.dnd_input}
+        />
+      </div>
+
+      <div className={styles.mock}></div>
     </label>
   );
 };
