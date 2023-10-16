@@ -166,7 +166,9 @@
 .open,
 .permission_needed,
 .permission_given,
-.pending {
+.pending,
+.denied {
+  font-weight: 500;
   position: relative;
   align-self: end;
   margin-bottom: 40px;
@@ -199,4 +201,15 @@
   color: $color-pink;
   text-decoration: underline;
   @include icon("../../../assets/img/icons/alertSquare1.svg");
+}
+
+.permission_needed {
+  color: $color-pink;
+  text-decoration: underline;
+  @include icon("../../../assets/img/icons/alertSquare1.svg");
+}
+
+.denied {
+  color: $color-black;
+  @include icon("../../../assets/img/icons/denied.svg");
 }

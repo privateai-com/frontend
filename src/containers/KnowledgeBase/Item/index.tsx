@@ -11,7 +11,9 @@ type StatusProps =
   | 'Open sourced'
   | 'Permission given'
   | 'Permission needed'
-  | 'Access request pending';
+  | 'Access request pending'
+  | 'Access denied';
+
 
 type ItemProps = {
   name: string;
@@ -49,6 +51,9 @@ export const Item: React.FC<ItemProps> = ({
 
       case 'Access request pending':
         return styles.pending;
+
+        case 'Access denied': 
+        return styles.denied;
 
       default:
         return styles.item_status;
