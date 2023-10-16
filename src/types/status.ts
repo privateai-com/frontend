@@ -1,5 +1,6 @@
 export type Status =
   | 'Open sourced'
-  | 'Permission given'
+  | 'Access granted'
   | 'Permission needed'
-  | 'Access request pending';
+  | 'Access request pending'
+  | 'Access denied';

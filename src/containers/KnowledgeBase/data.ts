@@ -1,24 +1,20 @@
-type StatusProps =
-  | 'Open sourced'
-  | 'Permission given'
-  | 'Permission needed'
-  | 'Access request pending';
+import { Status } from "types";
 
 type ItemProp = {
   name: string;
   field: string;
   author: string;
   core: string[];
-  status: StatusProps;
+  status: Status;
   created: string;
   modified: string;
 };
 
 export const items: ItemProp[] = [];
 
-const statuses: StatusProps[] = [
+const statuses: Status[] = [
   'Open sourced',
-  'Permission given',
+  'Access granted',
   'Permission needed',
   'Access request pending',
 ];
