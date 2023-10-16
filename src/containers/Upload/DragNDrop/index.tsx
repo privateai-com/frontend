@@ -1,6 +1,8 @@
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, docRegex } from 'appConstants';
-import { ChangeEvent, DragEvent, useCallback, useState } from 'react';
+import {
+  ChangeEvent, DragEvent, useCallback, useState, 
+} from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { documentTextIcon1, uploadIcon } from 'assets';
@@ -30,7 +32,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc }) => {
       const file = e.target.files;
       checkFile(file);
     },
-    [checkFile]
+    [checkFile],
   );
 
   const handleDrop = useCallback(
@@ -41,7 +43,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc }) => {
       const file = e.dataTransfer.files;
       checkFile(file);
     },
-    [checkFile]
+    [checkFile],
   );
 
   return (
