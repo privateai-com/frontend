@@ -5,16 +5,21 @@ import { ScreenWidth } from 'appConstants';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 
 import { useModal } from 'react-modal-hook';
-import { getStatusStyle } from 'utils/getStatusClassName';
-import { Status } from 'types';
 import styles from './styles.module.scss';
+
+type StatusProps =
+  | 'Open sourced'
+  | 'Access granted'
+  | 'Permission needed'
+  | 'Access request pending'
+  | 'Access denied';
 
 type ItemProps = {
   name: string;
   field: string;
   author: string;
   core: string[];
-  status: Status;
+  status: StatusProps;
   created: string;
   modified: string;
   search: string;
@@ -31,6 +36,28 @@ export const Item: React.FC<ItemProps> = ({
   search,
 }) => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
+
+  const getStatusStyle = () => {
+    switch (status) {
+      case 'Open sourced':
+        return styles.open;
+
+      case 'Access granted':
+        return styles.granted;
+
+      case 'Permission needed':
+        return styles.permission_needed;
+
+      case 'Access request pending':
+        return styles.pending;
+
+      case 'Access denied': 
+        return styles.denied;
+
+      default:
+        return styles.item_status;
+    }
+  };
 
   const [showRequester, hideRequester] = useModal(
     () => (
@@ -59,7 +86,7 @@ export const Item: React.FC<ItemProps> = ({
         >
           <div>
             <div className={styles.item_row_block}>
-              <span className={getStatusStyle(status, styles)}>{status}</span>
+              <span className={getStatusStyle()}>{status}</span>
             </div>
             <div className={styles.item_row_block}>
               <span className={styles.title}>Field: </span>
@@ -135,7 +162,7 @@ export const Item: React.FC<ItemProps> = ({
               </div>
             </div>
             <div className={styles.item_second_block}>
-              <span className={getStatusStyle(status, styles)}>{status}</span>
+              <span className={getStatusStyle()}>{status}</span>
               <div className={styles.item_date_block}>
                 <div className={styles.item_created_block}>
                   <span className={styles.title}>Created</span>
