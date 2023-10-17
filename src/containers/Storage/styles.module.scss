@@ -54,6 +54,12 @@
 		}
 	}
 }
+.storage_title {
+	width: 100%;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
 
 .secondary {
 	color: $color-grey !important;

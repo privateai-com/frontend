@@ -26,7 +26,7 @@ const RequestedTab = () => {
           ]),
         )
         : {}),
-    [content, isMobile],
+    [isMobile],
   );
 
   const data = useMemo(() => {
@@ -39,7 +39,7 @@ const RequestedTab = () => {
       () => initialObj,
     );
     return [...content, ...emptyObjects];
-  }, [content, initialObj, itemsOnPageQuantity]);
+  }, [initialObj, itemsOnPageQuantity]);
 
   return (
     <>

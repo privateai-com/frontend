@@ -1,14 +1,15 @@
-import { Button } from 'components';
-
-import { routes } from 'appConstants';
+import { ScreenWidth } from 'appConstants';
+import { useScreenWidth } from 'hooks';
 import styles from './styles.module.scss';
 
 import { content } from './data';
 import { useColumns } from './columns';
 import { Common } from '../Common';
+import { UploadButton } from '../Common/uploadButton';
 
 export const ArticlesTab = () => {
   const columns = useColumns();
+  const isMobile = useScreenWidth(ScreenWidth.mobile);
 
   return (
     <Common
@@ -20,13 +21,7 @@ export const ArticlesTab = () => {
       key2="core"
       inputClassName={styles.input}
     >
-      <Button
-        className={styles.upload}
-        href={routes.uploadActivity.root}
-      >
-        <span className={styles.plus_icon} />
-        Upload new file
-      </Button>
+      {!isMobile && <UploadButton />}
     </Common>
   );
 };
