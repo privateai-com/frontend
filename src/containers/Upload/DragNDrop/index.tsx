@@ -13,13 +13,10 @@ import styles from './styles.module.scss';
 type DragNDropProps = {
   doc: File | null;
   setDoc: (doc: File | null) => void;
-};
-
-type DragNDropProps = {
   className?: string;
 };
 
-const DragNDrop: React.FC<DragNDropProps>: React.FC<DragNDropProps> = ({ doc, setDoc }{ className }) => {
+const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc, className }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [isDragging, setIsDragging] = useState(false);
 
