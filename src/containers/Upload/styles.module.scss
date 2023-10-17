@@ -61,7 +61,7 @@ $btn-height1024: 120px;
   }
 
   &_dnd_block {
-    @include height(39%, 40%, 35%);
+    @include height(39%, 45%, 35%);
   }
 
   &_btn,
@@ -120,7 +120,7 @@ $btn-height1024: 120px;
   padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
-  @include height(61%, 60%, 65%);
+  @include height(61%, 55%, 65%);
 
   @include desktop1440 {
     padding: 20px 30px;
