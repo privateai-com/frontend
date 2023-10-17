@@ -6,18 +6,18 @@ $btn-height1440: 70px;
 $btn-height1024: 120px;
 
 @mixin height($height1, $height2, $height3) {
-  height: calc($height1 - ($btn-height1920 / 2));
+  height: calc($height1 - (($btn-height1920 + 30px) / 2));
 
   @include desktop1440 {
-    height: calc($height2 - ($btn-height1440 / 2));
+    height: calc($height2 - (($btn-height1440 + 30px) / 2));
   }
 
   @include tablet1024 {
-    height: calc($height3 - ($btn-height1024 / 2));
+    height: calc($height3 - (($btn-height1024 + 30px) / 2));
   }
 
   @include mobile {
-    height: calc($height3 - (7.5px / 2));
+    height: calc($height3 - ((7.5px + 40px)/ 2));
   }
 }
 
@@ -64,8 +64,8 @@ $btn-height1024: 120px;
     @include height(39%, 40%, 35%);
   }
 
-  &_dnd_block,
-  &_btn {
+  &_btn,
+  &_notice {
     margin: 0 auto 30px;
 
     @include desktop1440 {
