@@ -15,6 +15,7 @@ type CommonProps = {
   children?: ReactNode;
   withPagination?: boolean;
   inputClassName?: string;
+  classNameTableContainer?: string;
 };
 
 const Common: React.FC<CommonProps> = ({
@@ -27,6 +28,7 @@ const Common: React.FC<CommonProps> = ({
   children,
   withPagination,
   inputClassName,
+  classNameTableContainer,
 }) => {
   const [search, setSearch] = useState('');
 
@@ -51,6 +53,7 @@ const Common: React.FC<CommonProps> = ({
         mobileTitle2={mobileTitle2}
         key2={key2}
         withPagination={withPagination}
+        classNameTableContainer={classNameTableContainer}
       />
     </>
   );

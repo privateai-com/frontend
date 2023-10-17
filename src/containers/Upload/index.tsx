@@ -68,17 +68,11 @@ export const Upload = () => {
       >
         Upload activity
       </Typography>
-
-      <div className={styles.upload_dnd}>
-        <DragNDrop
-          doc={doc}
-          setDoc={setDoc}
-        />
-        <span className={styles.upload_notice}>
-          * - name of the file will be displayed on the platform after the
-          upload, rename it beforehand if necessary
-        </span>
-      </div>
+      <div className={styles.upload_wrapper}>
+        
+        <div className={styles.upload_dnd_block}>
+          <DragNDrop />
+        </div>
 
       {!isMobile &&
         (doc ? (
@@ -106,26 +100,32 @@ export const Upload = () => {
           </label>
         ))}
 
-      <div className={styles.statuses}>
-        <Typography
-          className={styles.statuses_title}
-          type="h4"
-        >
-          Statuses
-        </Typography>
-        <div className={styles.statuses_items}>
-          {data.map(({
-            id, name, percents, weight, 
-          }) => (
-            <Item
-              key={id}
-              name={name}
-              percents={percents}
-              weight={weight}
-            />
-          ))}
+        <div className={styles.statuses}>
+          <Typography
+            className={styles.statuses_title}
+            type="h4"
+          >
+            Statuses
+          </Typography>
+          <div className={styles.statuses_items}>
+            <div className={styles.statuses_wrapper}>
+              <div className={styles.statuses_content}>
+                {data.map(({
+                  id, name, percents, weight, 
+                }) => (
+                  <Item
+                    key={id}
+                    name={name}
+                    percents={percents}
+                    weight={weight}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      {' '}
     </div>
   );
 };

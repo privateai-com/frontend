@@ -15,7 +15,11 @@ type DragNDropProps = {
   setDoc: (doc: File | null) => void;
 };
 
-const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc }) => {
+type DragNDropProps = {
+  className?: string;
+};
+
+const DragNDrop: React.FC<DragNDropProps>: React.FC<DragNDropProps> = ({ doc, setDoc }{ className }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -52,7 +56,7 @@ const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc }) => {
   return (
     <label
       htmlFor="upload"
-      className={cx(styles.dnd_btn, {
+      className={cx(styles.dnd_btn, className, {
         [styles.dragOver]: isDragging,
       })}
       onDragOver={() => setIsDragging(true)}

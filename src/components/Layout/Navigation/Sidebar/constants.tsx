@@ -15,7 +15,7 @@ export const navPathName = [
     icon: <KnowledgeIcon />,
   },
   {
-    href: routes.home.root,
+    href: routes.profile.root,
     title: 'My profile',
     icon: <MyProfileIcon />,
   },

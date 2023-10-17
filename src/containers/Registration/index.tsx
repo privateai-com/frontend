@@ -21,7 +21,7 @@ export const Registration = () => {
 
   const successCallback = useCallback(() => {
     router.push({
-      pathname: routes.home.root,
+      pathname: routes.profile.root,
       query: { showModal: 'true' },
     });
   }, [router]);

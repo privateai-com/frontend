@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 30px 40px 50px;
+    padding: 30px 40px;
     background-color: $color-white;
     border-radius: 16px;
     box-shadow: -10px 56px 140px 0px #8f9bba33;
@@ -36,7 +36,7 @@
     }
 
     @include mobile {
-      padding: 10px 15px 90px;
+      padding: 10px 15px;
     }
   }
 
@@ -64,6 +64,10 @@
     @include tablet1024 {
       margin-bottom: 66px;
     }
+
+    @include tablet1024 {
+      margin-bottom: 53px;
+    }
   }
 
   &_text,
@@ -74,7 +78,7 @@
     color: $color-grey;
 
     @include desktop1440 {
-      margin-bottom: 45px;
+      margin-bottom: 11px;
     }
 
     @include tablet1024 {

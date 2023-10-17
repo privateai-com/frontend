@@ -5,7 +5,6 @@
 .h1 {
   font: {
     family: $montserrat;
-    size: 38px;
     weight: bold;
   }
   color: $color-black;
@@ -13,13 +12,13 @@
   padding: 0;
   line-height: 46px;
 
+  @include font-38;
+
   @include desktop1440 {
-		font-size: 32px;
     line-height: 39px;
 	}
 
   @include mobile {
-    font-size: 18px;
     line-height: 22px;
   }
 }
@@ -27,7 +26,6 @@
 .h2 {
   font: {
     family: $montserrat;
-    size: 32px;
     weight: bold;
   }
   color: $color-black;
@@ -35,13 +33,13 @@
   padding: 0;
   line-height: 39px;
 
+  @include font-32;
+
   @include desktop1440 {
-		font-size: 24px;
     line-height: 29px;
 	}
 
   @include mobile {
-    font-size: 14px;
     line-height: 17px;
   }
 }
@@ -49,7 +47,6 @@
 .h3 {
   font: {
     family: $montserrat;
-    size: 24px;
     weight: 700;
   }
   color: $color-black;
@@ -57,14 +54,14 @@
   margin: 0;
   padding: 0;
 
+  @include font-24;
+
   @include desktop1440 {
-		font-size: 24px;
     line-height: 36px;
     font-weight: 500;
 	}
 
   @include mobile {
-    font-size: 14px;
     line-height: 17px;
   }
 }
@@ -72,7 +69,6 @@
 .h4 {
   font: {
     family: $montserrat;
-    size: 20px;
     weight: 700;
   }
   line-height: 32px;
@@ -80,18 +76,17 @@
   padding: 0;
   color: $color-black;
 
+  @include font-20;
+
   @include desktop1440 {
-		font-size: 16px;
     line-height: 20px;
 	}
 
   @include desktop1024 {
-		font-size: 18px;
     line-height: 22px;
 	}
 
   @include mobile {
-    font-size: 14px;
     line-height: 17px;
   }
 }

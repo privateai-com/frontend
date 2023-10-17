@@ -1,5 +1,6 @@
 @import 'assets/styles/_mixins.scss';
 @import 'assets/styles/variables.scss';
+@import 'assets/styles/function.scss';
 @import 'react-datepicker/dist/react-datepicker.css';
 @import 'rc-time-picker/assets/index.css';
 
@@ -22,6 +23,8 @@ body {
   margin: 0;
   padding: 0; 
   font-family: $montserrat;
+
+  @include greenScrollbar;
 }
 
 input[type='number'] {
