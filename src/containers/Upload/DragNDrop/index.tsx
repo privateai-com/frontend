@@ -19,13 +19,16 @@ const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [isDragging, setIsDragging] = useState(false);
 
-  function checkFile(file: File[] | FileList | null) {
-    if (file && !docRegex.test(file[0]?.name.toLowerCase())) {
-      toast.error('Only TXT, DOCX and PDF.');
-      return setDoc(null);
-    }
-    setDoc(file ? file[0] : null);
-  }
+  const checkFile = useCallback(
+    (file: File[] | FileList | null) => {
+      if (file && !docRegex.test(file[0]?.name.toLowerCase())) {
+        toast.error('Only TXT, DOCX and PDF.');
+        return setDoc(null);
+      }
+      setDoc(file ? file[0] : null);
+    },
+    [setDoc],
+  );
 
   const onUploadClick = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
