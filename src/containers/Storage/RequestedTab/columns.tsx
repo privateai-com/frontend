@@ -4,9 +4,9 @@ import { useModal } from 'react-modal-hook';
 
 import { ItemRowProps } from 'types';
 import { KeyPassword, RequestCell, SetKeyPassword } from 'components';
+import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
-import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 
 export const useColumns = () => {
   const [showKeyPassword, hideKeyPassword] = useModal(
@@ -20,7 +20,7 @@ export const useColumns = () => {
     [],
   );
 
-  const [showSetKeyPassword, hideSetKeyPassword] = useModal(
+  const [, hideSetKeyPassword] = useModal(
     () => (
       <SetKeyPassword
         onClose={hideSetKeyPassword}

@@ -21,8 +21,13 @@ export const Storage = () => {
   return (
     <div className={styles.storage__container}>
       <div className={styles.storage__head}>
-        <div className={styles.storage_title}>
-          <Typography type="h1">My storage</Typography>
+        <div className={styles.storage__title_block}>
+          <Typography
+            className={styles.storage__title}
+            type="h1"
+          >
+            My storage
+          </Typography>
           {isMobile && <UploadButton />}
         </div>
         <div className={styles.storage__head_buttons}>
