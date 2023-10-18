@@ -19,11 +19,11 @@ export function* profileGetProfileSaga({
 
     if (!imageRegexp.test(data.avatarUrl)) data.avatarUrl = '';
     if (!data.fullName) {
-      data.fullName = `Archonaut #000`;
+      data.fullName = 'Archonaut #000';
     }
 
     if (data.fullName && !data.username) {
-      data.username = `Archonaut #000`;
+      data.username = 'Archonaut #000';
     }
     yield put(accountSetState(data));
 
