@@ -18,13 +18,15 @@ export function* profileGetProfileSaga({
     });
 
     if (!imageRegexp.test(data.avatarUrl)) data.avatarUrl = '';
+
     if (!data.fullName) {
-      data.fullName = 'Archonaut #000';
+      data.fullName = `Archonaut #${data.id}`;
     }
 
     if (data.fullName && !data.username) {
-      data.username = 'Archonaut #000';
+      data.username = `Archonaut #${data.id}`;
     }
+
     yield put(accountSetState(data));
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
