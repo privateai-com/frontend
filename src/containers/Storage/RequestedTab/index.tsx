@@ -1,5 +1,5 @@
-import { RequestCell, Table, TextInput } from 'components';
-import { useMemo, useState } from 'react';
+import { RequestCell, Table } from 'components';
+import { useMemo } from 'react';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
@@ -10,7 +10,6 @@ import { useColumns } from './columns';
 
 const RequestedTab = () => {
   const columns = useColumns();
-  const [search, setSearch] = useState('');
   const isMobile = useScreenWidth(ScreenWidth.mobile);
   const itemsOnPageQuantity = 6;
 
@@ -42,16 +41,7 @@ const RequestedTab = () => {
   }, [initialObj, itemsOnPageQuantity]);
 
   return (
-    <>
-      <div className={styles.storage__search}>
-        <TextInput
-          value={search}
-          onChangeValue={setSearch}
-          placeholder="Search by file name"
-          isSearch
-          classNameInputBox={styles.input}
-        />
-      </div>
+    <div>
       {isMobile ? (
         <div className={styles.table_mobile}>
           {data.map((iter, ind) => (
@@ -88,7 +78,7 @@ const RequestedTab = () => {
           className={styles.table}
         />
       )}
-    </>
+    </div>
   );
 };
 export { RequestedTab };

@@ -1,17 +1,6 @@
 @import "assets/styles/_mixins.scss";
 @import "assets/styles/variables.scss";
 
-.storage__search {
-	display: flex;
-	margin-bottom: 25px;
-	justify-content: space-between;
-
-	@include mobile {
-		flex-direction: column;
-		gap: 15px;
-	}
-}
-
 .upload {
 	position: relative;
 	padding: 16px 68px;
