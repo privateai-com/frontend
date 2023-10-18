@@ -41,6 +41,10 @@ export const Header = () => {
     dispatch(authLogout({ callback }));
   }, [callback, dispatch]);
 
+  const onRedirectClick = useCallback(() => {
+    router.push(routes.profile.root);
+  }, [router]);
+
   return (
     <header className={styles.header}>
       <div className={styles.input_wrapper}>
@@ -83,7 +87,7 @@ export const Header = () => {
       <ButtonIcon
         className={styles.button}
         image={userIcon}
-        onClick={() => {}}
+        onClick={onRedirectClick}
       />
       <ButtonIcon
         className={cx(styles.button, { [styles.active]: true })}
