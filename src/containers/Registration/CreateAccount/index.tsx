@@ -3,9 +3,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { errorsNotification, routes } from 'appConstants';
-import {
-  AuthWrapper, Button, TextInput, Typography, 
-} from 'components';
+import { AuthWrapper, Button, TextInput, Typography } from 'components';
 import {
   emailValidator,
   passwordConfirmValidator,
@@ -30,7 +28,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
   const [passwordError, setPasswordError] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const status = useSelector(
-    authSelectors.getStatus(AuthActionTypes.Registration),
+    authSelectors.getStatus(AuthActionTypes.Registration)
   );
 
   const successCallback = useCallback(() => {
@@ -51,7 +49,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     setEmailError(currentEmailError);
     const passwordConfirmError = passwordConfirmValidator(
       password,
-      passwordConfirm,
+      passwordConfirm
     );
     if (passwordConfirmError) setPasswordError(passwordConfirmError);
 
@@ -71,7 +69,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           password,
           successCallback,
           errorCallback,
-        }),
+        })
       );
     }
   }, [
@@ -99,6 +97,8 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     setPasswordError('');
     setPasswordConfirm(value);
   }, []);
+
+  const isEmptyInputs = !email || !password || !passwordConfirm;
 
   return (
     <AuthWrapper>
@@ -137,6 +137,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           onClick={onCreateAccountClick}
           className={styles.button}
           isLoading={status === RequestStatus.REQUEST}
+          disabled={isEmptyInputs}
         >
           Create account
         </Button>
