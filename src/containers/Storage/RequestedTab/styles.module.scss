@@ -87,18 +87,6 @@
   }
 }
 
-.storage__search {
-  margin-bottom: 25px;
-
-  @include desktop1440 {
-    margin-bottom: 30px;
-  }
-
-  @include mobile {
-    margin-bottom: 20px;
-  }
-}
-
 .table_mobile {
   display: flex;
   flex-direction: column;

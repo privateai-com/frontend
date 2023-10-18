@@ -74,7 +74,7 @@ const RequestedTab = () => {
       ) : (
         <Table
           columns={columns as unknown as Column<object>[]}
-          data={content}
+          data={data}
           className={styles.table}
         />
       )}

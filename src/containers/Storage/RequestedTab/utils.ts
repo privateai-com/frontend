@@ -1,4 +1,4 @@
-import { arrowDownSquare, tryIcon, xSquareIcon } from 'assets';
+import { arrowDownSquare, xSquareIcon } from 'assets';
 
 export const getStatusStyle = (
   status: string,
@@ -36,7 +36,7 @@ export const getStatusImg = (status: string) => {
       return xSquareIcon;
 
     case 'Access denied':
-      return tryIcon;
+      return xSquareIcon;
 
     default:
       return arrowDownSquare;
