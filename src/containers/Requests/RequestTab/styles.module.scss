@@ -4,6 +4,30 @@
 $border-radius: 8px;
 
 .table {
+  thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  tbody {
+    height: calc(100vh - 332px);
+    table-layout: fixed;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include greenScrollbar();
+
+    tr {
+      min-height: 73px;
+
+      @include desktop1440 {
+        min-height: 60px;
+      }
+    }
+  }
+
   &_block_btn {
     display: flex;
     justify-content: center;

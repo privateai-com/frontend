@@ -17,11 +17,12 @@ const statuses: Status[] = [
   'Access granted',
   'Permission needed',
   'Access request pending',
+  'Access denied',
 ];
 
 let count = 0;
-for (let i = 0; i < 6; i += 1) {
-  if (count > 3) count = 0;
+for (let i = 0; i < 7; i += 1) {
+  if (count > 4) count = 0;
   items.push({
     name: 'New breakthroughs in gene therapy',
     field: 'Gene therapy',

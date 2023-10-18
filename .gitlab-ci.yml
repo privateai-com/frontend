@@ -12,7 +12,6 @@ variables:
   TRANSFER_METER_FREQUENCY: 1s
   GIT_DEPTH: 1
   image_ansible: cytopia/ansible:latest-tools
-  services_for_build: "$CI_PROJECT_NAME"
   containers_for_logs: "$CI_PROJECT_NAME"
 
 .deploy_prepare:
@@ -187,6 +186,6 @@ Deploy to stage:
     - .before_merge
     - .merge_to_stage
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "develop1"'
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
       when: manual
   needs: []

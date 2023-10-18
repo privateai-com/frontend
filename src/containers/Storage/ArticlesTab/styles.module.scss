@@ -23,6 +23,10 @@
 }
 
 
+.delete_btn {
+	margin: 0 auto;
+}
+
 .green_text {
 	color: $color-green;
 }
@@ -30,12 +34,7 @@
 .radio_buttons {
 	display: flex;
 	flex-direction: column;
-	margin-left: 60px;
 	min-width: 230px;
-
-	@include desktop1660 {
-		margin-left: 0;
-	}
 }
 
 .empty_space {
@@ -43,4 +42,42 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.table {
+	thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  tbody {
+    height: calc(100vh - 416px);
+    table-layout: fixed;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include greenScrollbar();
+	}
+
+	thead, tbody {
+
+		@include media-breakpoint-up(lg) {
+			th, td {
+				padding: 16px 6px;
+			}	
+		}
+		th {
+			&:last-of-type {
+				width: 7rem;
+			}
+		}
+
+		td {
+			&:last-of-type {
+				width: 2rem;
+			}
+		}
+	}
 }

@@ -1,8 +1,33 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
+$btn-height1920: 110px;
+$btn-height1440: 70px;
+$btn-height1024: 120px;
+
+@mixin height($height1, $height2, $height3) {
+  height: calc($height1 - (($btn-height1920 + 30px) / 2));
+
+  @include desktop1440 {
+    height: calc($height2 - (($btn-height1440 + 30px) / 2));
+  }
+
+  @include tablet1024 {
+    height: calc($height3 - (($btn-height1024 + 30px) / 2));
+  }
+
+  @include mobile {
+    height: calc($height3 - ((7.5px + 40px)/ 2));
+  }
+}
+
 .upload {
   position: relative;
+  height: 100%;
+
+  &_wrapper {
+    height: calc(100% - 61px);
+  }
 
   &_title {
     margin-bottom: 25px;
@@ -24,8 +49,23 @@
     }
   }
 
-  &_dnd,
-  &_btn {
+  &_notice {
+    display: block;
+    margin-top: 5px;
+    color: $color-grey;
+
+    @include mobile {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+  }
+
+  &_dnd_block {
+    @include height(39%, 45%, 35%);
+  }
+
+  &_btn,
+  &_notice {
     margin: 0 auto 30px;
 
     @include desktop1440 {
@@ -52,9 +92,22 @@
     border-radius: 8px;
     cursor: pointer;
 
+    &_block {
+      display: flex;
+      justify-content: center;
+    }
+
     @include desktop1440 {
       width: 350px;
       height: 40px;
+    }
+  }
+
+  &_btns {
+    height: 50px;
+    width: 200px;
+    &:first-of-type {
+      margin-right: 20px;
     }
   }
 
@@ -67,10 +120,34 @@
   padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
+  @include height(61%, 55%, 65%);
+
+  @include desktop1440 {
+    padding: 20px 30px;
+  }
+
+  @include tablet1024 {
+    padding: 15px 30px;
+  }
+
+  @include mobile {
+    padding: 10px 15px;
+  }
+
+  &_wrapper {
+    position: relative;
+    height: 100%;
+  }
+
+  &_content {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
 
   &_items {
     padding-right: 17px;
-    height: 323px;
+    height: calc(100% - 53px);
     overflow-y: scroll;
 
     @include desktop1440 {
@@ -97,17 +174,5 @@
       margin-bottom: 10px;
       font-size: 14px;
     }
-  }
-
-  @include desktop1440 {
-    padding: 20px 30px;
-  }
-
-  @include tablet1024 {
-    padding: 15px 30px;
-  }
-
-  @include mobile {
-    padding: 10px 15px;
   }
 }

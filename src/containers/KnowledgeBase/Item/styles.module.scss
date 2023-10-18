@@ -165,8 +165,10 @@
 
 .open,
 .permission_needed,
-.permission_given,
-.pending {
+.granted,
+.pending,
+.denied {
+  font-weight: 500;
   position: relative;
   align-self: end;
   margin-bottom: 40px;
@@ -176,7 +178,7 @@
   }
 }
 
-.permission_given,
+.granted,
 .pending {
   color: $color-grey;
 }
@@ -188,6 +190,7 @@
 }
 
 .granted {
+  color: $color-green;
   @include icon("../../../assets/img/icons/alertSquare.svg");
 }
 
@@ -199,4 +202,15 @@
   color: $color-pink;
   text-decoration: underline;
   @include icon("../../../assets/img/icons/alertSquare1.svg");
+}
+
+.permission_needed {
+  color: $color-pink;
+  text-decoration: underline;
+  @include icon("../../../assets/img/icons/alertSquare1.svg");
+}
+
+.denied {
+  color: $color-black;
+  @include icon("../../../assets/img/icons/denied.svg");
 }

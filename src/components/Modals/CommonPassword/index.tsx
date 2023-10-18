@@ -10,6 +10,7 @@ type CommonPasswordProps = {
   children: ReactNode;
   onClose: () => void;
   onSubmit: () => void;
+  classNameModal?: string;
 };
 
 const CommonPassword: React.FC<CommonPasswordProps> = ({
@@ -18,8 +19,9 @@ const CommonPassword: React.FC<CommonPasswordProps> = ({
   text,
   onSubmit,
   onClose,
+  classNameModal,
 }) => (
-  <ModalWithLogo onClose={onClose}>
+  <ModalWithLogo onClose={onClose} classNameModal={classNameModal}>
     <>
       {title && (<span className={styles.key_title}>{title}</span>)}
       <span className={styles.key_text}>{text}</span>

@@ -12,7 +12,7 @@ export const useColumns = () =>
   useMemo(
     () => [
       {
-        Header: <TitleWithArrows title="File name" />,
+        Header: <TitleWithArrows title="File name" onClick={() => {}} />,
         accessor: 'name',
         Cell: ({
           row: {
@@ -26,7 +26,7 @@ export const useColumns = () =>
           )),
       },
       {
-        Header: <TitleWithArrows title="Request date" />,
+        Header: <TitleWithArrows title="Request date" onClick={() => {}} />,
         accessor: 'date',
         Cell: ({
           row: {
@@ -35,7 +35,7 @@ export const useColumns = () =>
         }: ItemRowProps<RequestsType>) => date || '-',
       },
       {
-        Header: <TitleWithArrows title="Requester" />,
+        Header: <TitleWithArrows title="Requester" onClick={() => {}} />,
         accessor: 'requester',
         Cell: ({
           row: {

@@ -2,17 +2,49 @@
 @import "assets/styles/_mixins.scss";
 
 .dnd {
+  &_wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include greenScrollbar;
+  }
+
+  &_content {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='40' ry='40' stroke='%2300DEA3FF' stroke-width='1' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
+    border-radius: 40px;
+    padding: 20px 0;
+    width: 55%;
+
+    @include mobile {
+      width: 85%;
+    }
+  }
+
   &_btn {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    justify-content: space-between;
     width: 100%;
-    padding: 30px 40px 50px;
+    height: 100%;
+    padding: 30px 40px;
     background-color: $color-white;
     border-radius: 16px;
     box-shadow: -10px 56px 140px 0px #8f9bba33;
 
     @include desktop1440 {
+      flex-direction: column;
       padding: 15px 30px 43px;
     }
 
@@ -21,12 +53,13 @@
     }
 
     @include mobile {
-      padding: 10px 15px 90px;
+      padding: 10px 15px;
     }
   }
 
   &_title,
-  &_text {
+  &_text,
+  &_file_name {
     font-size: 32px;
 
     @include desktop1440 {
@@ -48,16 +81,21 @@
     @include tablet1024 {
       margin-bottom: 66px;
     }
+
+    @include tablet1024 {
+      margin-bottom: 53px;
+    }
   }
 
-  &_text {
-    margin-bottom: 37px;
+  &_text,
+  &_file_name {
+    margin-bottom: 18px;
     text-align: center;
     font-weight: 700;
     color: $color-grey;
 
     @include desktop1440 {
-      margin-bottom: 45px;
+      margin-bottom: 11px;
     }
 
     @include tablet1024 {
@@ -84,8 +122,19 @@
       width: 40px;
     }
   }
+
+  &_file_name {
+    width: 90%;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    text-wrap: nowrap;
+  }
 }
 
 .dragOver {
   background-color: rgba($color-green, 0.3);
+}
+
+.mock {
+  width: 154.5px;
 }

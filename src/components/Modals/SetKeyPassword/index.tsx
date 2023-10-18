@@ -14,9 +14,11 @@ const tooltipId = 'SetKeyPassword';
 
 type SetKeyPasswordProps = {
   onClose: () => void;
+  onSubmit: () => void;
+  classNameModal?: string;
 };
 
-const SetKeyPassword: React.FC<SetKeyPasswordProps> = ({ onClose }) => {
+const SetKeyPassword: React.FC<SetKeyPasswordProps> = ({ onClose, onSubmit, classNameModal }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -24,8 +26,9 @@ const SetKeyPassword: React.FC<SetKeyPasswordProps> = ({ onClose }) => {
     <CommonPassword
       title="Set a key password"
       text="Set a key password in order to upload or download the files. Please fill out the fields below."
-      onSubmit={() => {}}
+      onSubmit={onSubmit}
       onClose={onClose}
+      classNameModal={classNameModal}
     >
       <div className={styles.key_block}>
         <div className={styles.key_label}>Password</div>

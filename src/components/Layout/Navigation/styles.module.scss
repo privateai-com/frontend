@@ -12,9 +12,9 @@
   width: 40px;
   background-color: $color-green;
   border-radius: 8px;
+  margin-left: 15px;
 
   @include desktop1024 {
-    margin-left: 30px;
     grid-area: header;
     margin-top: auto;
   }
@@ -23,8 +23,11 @@
     height: 30px;
     width: 30px;
     padding: 9px 7px;
-    margin-left: 15px;
   }
+
+  @include media-breakpoint-up(lg) {
+		margin-left: 0;
+	}
 }
 
 .bar {
