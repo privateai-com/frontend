@@ -100,6 +100,8 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     setPasswordConfirm(value);
   }, []);
 
+  const isEmptyInputs = !email || !password || !passwordConfirm;
+
   return (
     <AuthWrapper>
       <div className={styles.createAccount__container}>
@@ -137,6 +139,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           onClick={onCreateAccountClick}
           className={styles.button}
           isLoading={status === RequestStatus.REQUEST}
+          disabled={isEmptyInputs}
         >
           Create account
         </Button>
