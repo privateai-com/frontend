@@ -1,9 +1,8 @@
 import { call, put } from 'redux-saga/effects';
 import { ApiEndpoint, callApi, imageRegexp } from 'appConstants';
-import { RequestStatus } from 'types';
+import { AccountState, RequestStatus } from 'types';
 import { sagaExceptionHandler } from 'utils';
 import { accountSetState } from 'store/account/actionCreators';
-import { ProfileResponse } from 'types/profileResponse';
 import { profileGetProfile, profileSetStatus } from '../actionCreators';
 
 export function* profileGetProfileSaga({
@@ -12,12 +11,13 @@ export function* profileGetProfileSaga({
   try {
     yield put(profileSetStatus({ type, status: RequestStatus.REQUEST }));
 
-    const { data }: { data: ProfileResponse } = yield call(callApi, {
+    const { data }: { data: AccountState } = yield call(callApi, {
       method: 'GET',
       endpoint: ApiEndpoint.ProfileGet,
     });
-
-    if (!imageRegexp.test(data.avatarUrl)) data.avatarUrl = '';
+    
+    if (data.avatarUrl)
+      if (!imageRegexp.test(data.avatarUrl)) data.avatarUrl = '';
 
     if (!data.fullName) {
       data.fullName = `Archonaut #${data.id}`;
