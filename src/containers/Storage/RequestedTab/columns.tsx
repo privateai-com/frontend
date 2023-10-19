@@ -10,10 +10,10 @@ import {
   SetKeyPassword,
 } from 'components';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
+import { routes } from 'appConstants';
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
 import { getStatusImg, getStatusStyle } from './utils';
-import { routes } from 'appConstants';
 
 export const useColumns = () => {
   const [showKeyPassword, hideKeyPassword] = useModal(
