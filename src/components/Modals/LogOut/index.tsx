@@ -1,11 +1,11 @@
 import { Button } from 'components/Button';
-import { ModalWithLogo } from '../ModalWithLogo';
-import styles from './styles.module.scss';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { routes } from 'appConstants';
 import { authLogout } from 'store/auth/actionCreators';
+import styles from './styles.module.scss';
+import { ModalWithLogo } from '../ModalWithLogo';
 
 type LogOutProps = {
   onClose: () => void;

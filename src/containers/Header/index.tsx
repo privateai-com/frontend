@@ -1,19 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import cx from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { ButtonIcon, TextInput, SelectedText, LogOut } from 'components';
+import {
+  ButtonIcon, TextInput, SelectedText, LogOut, 
+} from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
-import { authLogout } from 'store/auth/actionCreators';
 import { accountSelectors } from 'store/account/selectors';
 
+import { useModal } from 'react-modal-hook';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
-import { useModal } from 'react-modal-hook';
 
 const results = [
   'A brief history of the antibiotics era',
@@ -24,7 +25,6 @@ const results = [
 ];
 
 export const Header = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
