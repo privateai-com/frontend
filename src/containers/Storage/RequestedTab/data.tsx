@@ -1,7 +1,3 @@
-import { ButtonIcon } from 'components';
-import styles from './styles.module.scss';
-import { getStatusImg, getStatusStyle } from './utils';
-
 export const data = [
   {
     id: '1',
@@ -25,18 +21,3 @@ export const data = [
     status: 'Access denied',
   },
 ];
-
-export const content = data.map((i) => ({
-  ...i,
-  status: (
-    <div className={styles.columns_owner_block}>
-      <div className={styles.mock} />
-      <div className={getStatusStyle(i.status, styles)}>{i.status}</div>
-      <ButtonIcon
-        className={styles.columns_img}
-        image={getStatusImg(i.status)}
-        onClick={() => {}}
-      />
-    </div>
-  ),
-}));

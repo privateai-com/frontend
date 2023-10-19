@@ -106,6 +106,8 @@
   }
 
   &_block_status {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 0;
   }
 }

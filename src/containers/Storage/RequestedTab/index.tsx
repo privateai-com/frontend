@@ -1,12 +1,13 @@
-import { RequestCell, Table } from 'components';
+import { ButtonIcon, RequestCell, Table } from 'components';
 import { useMemo } from 'react';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 import { Column } from 'react-table';
 import styles from './styles.module.scss';
-import { content } from './data';
+import { data as content } from './data';
 import { useColumns } from './columns';
+import { getStatusImg, getStatusStyle } from './utils';
 
 const RequestedTab = () => {
   const columns = useColumns();
@@ -64,8 +65,18 @@ const RequestedTab = () => {
                 </div>
 
                 <div className={styles.table_mobile_block_status}>
-                  <div className={styles.table_mobile_title}>Status:</div>
-                  {iter.status}
+                  <div>
+                    <div className={styles.table_mobile_title}>Status:</div>
+                    <div className={getStatusStyle(iter.status, styles)}>
+                      {iter.status}
+                    </div>
+                  </div>
+                  <ButtonIcon
+                    className={styles.columns_img}
+                    image={getStatusImg(iter.status)}
+                    onClick={() => {}}
+                  />
+                  {' '}
                 </div>
               </div>
             </ExpandableMobileItem>
