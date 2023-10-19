@@ -13,6 +13,7 @@ import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArr
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
 import { getStatusImg, getStatusStyle } from './utils';
+import { routes } from 'appConstants';
 
 export const useColumns = () => {
   const [showKeyPassword, hideKeyPassword] = useModal(
@@ -55,7 +56,7 @@ export const useColumns = () => {
             original: { name },
           },
         }: ItemRowProps<RequestedDataType>) =>
-          (name ? <Link href="/#">{name}</Link> : '-'),
+          (name ? <Link href={`${routes.storage.root}/${name}`}>{name}</Link> : '-'),
       },
       {
         Header: 'Core entities',
