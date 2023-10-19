@@ -7,7 +7,7 @@ import { ScreenWidth } from 'appConstants';
 import styles from './styles.module.scss';
 import { ArticlesTab } from './ArticlesTab';
 import { RequestedTab } from './RequestedTab';
-import { UploadButton } from './Common/uploadButton';
+import { UploadButton } from './uploadButton';
 
 enum MyStorageTab {
   articles,
