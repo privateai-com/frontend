@@ -1,4 +1,3 @@
----
 stages:
   - build
   - deploy
@@ -7,18 +6,19 @@ stages:
 
 variables:
   FF_USE_FASTZIP: "true"
-  ARTIFACT_COMPRESSION_LEVEL: fastest
-  CACHE_COMPRESSION_LEVEL: fast
-  TRANSFER_METER_FREQUENCY: 1s
-  GIT_DEPTH: 1
-  image_ansible: cytopia/ansible:latest-tools
-  containers_for_logs: "$CI_PROJECT_NAME"
+  ARTIFACT_COMPRESSION_LEVEL: "fastest"
+  CACHE_COMPRESSION_LEVEL: "fast"
+  TRANSFER_METER_FREQUENCY: "1s"
+  GIT_DEPTH: "1"
+  IMAGE_ANSIBLE: "cytopia/ansible:2.13-tools"
+  IMAGE_MERGER: "alpine:3.18.3"
+  CONTAINERS_FOR_LOGS: "$CI_PROJECT_NAME"
 
 .deploy_prepare:
   variables:
-    ANSIBLE_HOST_KEY_CHECKING: "False"
+    ANSIBLE_HOST_KEY_CHECKING: "false"
     ANSIBLE_CALLBACKS_ENABLED: "timer, profile_tasks, profile_roles"
-    ANSIBLE_PIPELINING: "True"
+    ANSIBLE_PIPELINING: "true"
   before_script: 
     - eval `ssh-agent -s`
     - echo -n "$SSH_PRIVATE_KEY" | ssh-add -
@@ -34,24 +34,23 @@ variables:
 
 .deploy:
   stage: deploy
-  image: $image_ansible
+  image: $IMAGE_ANSIBLE
   script:
-    - ansible-playbook -i ci_cd/ansible/inventory/hosts.yml ci_cd/ansible/main.yml -l $CI_COMMIT_REF_NAME
+    - ansible-playbook -i ci_cd/ansible/inventory/hosts.yml ci_cd/ansible/deploy.yml -l $CI_COMMIT_REF_NAME
       -e "CI_REGISTRY_IMAGE='$CI_REGISTRY_IMAGE'"
       -e "CI_JOB_TOKEN='$CI_JOB_TOKEN'"
       -e "CI_REGISTRY='$CI_REGISTRY'"
-      -e "services_for_build='$services_for_build'"
       -e "CI_PROJECT_NAME='$CI_PROJECT_NAME'"
       -e "CI_COMMIT_REF_NAME='$CI_COMMIT_REF_NAME'"
       -e "SERVER_VARIABLE='$SERVER_VARIABLE'"
 
 .get_logs:
   stage: logs
-  image: $image_ansible
+  image: $IMAGE_ANSIBLE
   script:
     - mkdir -p ci_cd/logs
-    - ansible-playbook -i ci_cd/ansible/inventory/hosts.yml ci_cd/ansible/fetch_log.yml -l $CI_COMMIT_REF_NAME
-      -e "containers_for_logs='$containers_for_logs'"
+    - ansible-playbook -i ci_cd/ansible/inventory/hosts.yml ci_cd/ansible/get_logs.yml -l $CI_COMMIT_REF_NAME
+      -e "CONTAINERS_FOR_LOGS='$CONTAINERS_FOR_LOGS'"
       -e "CI_PROJECT_NAME='$CI_PROJECT_NAME'"
       -e "SERVER_VARIABLE='$SERVER_VARIABLE'"
   artifacts:
@@ -73,7 +72,7 @@ variables:
 # internal merge
 .merge_devops_to_dev:
   stage: post_actions
-  image: alpine:3.18.3
+  image: $IMAGE_MERGER
   script:
     - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
     - git remote set-url origin $PUSH_REPO
@@ -91,7 +90,7 @@ variables:
 
 .merge_to_stage:
   stage: post_actions
-  image: alpine:3.18.3
+  image: $IMAGE_MERGER
   script:
     - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
     - git remote set-url origin $PUSH_REPO
