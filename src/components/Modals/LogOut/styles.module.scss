@@ -1,0 +1,60 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.logout {
+  padding: 62px 35px 0px;
+  display: flex;
+  flex-direction: column;
+
+  @include desktop1440 {
+    padding: 40px 25px 0px;
+  }
+
+  @include mobile {
+    padding: 25px 30px 0px;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    text-align: center;
+    
+    @include desktop1440 {
+      margin-bottom: 30px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+
+
+  &__btn {
+    width: 280px;
+    height: 50px;
+
+    @include desktop1440 {
+      width: 220px;
+      height: 40px;
+    }
+
+    @include tablet1024 {
+      width: 200px;
+    }
+
+    @include mobile {
+      width: 130px;
+      height: 30px;
+    }
+    &:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  &__btn_block {
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -5,3 +5,4 @@ export * from './Requester';
 export * from './DeletePublication';
 export * from './SetKeyPassword';
 export * from './KeyPassword';
+export * from './LogOut';
