@@ -16,8 +16,7 @@ export function* profileGetProfileSaga({
       endpoint: ApiEndpoint.ProfileGet,
     });
     
-    if (data.avatarUrl)
-      if (!imageRegexp.test(data.avatarUrl)) data.avatarUrl = '';
+    if (data.avatarUrl) if (!imageRegexp.test(data.avatarUrl)) data.avatarUrl = '';
 
     if (!data.fullName) {
       data.fullName = `Archonaut #${data.id}`;
