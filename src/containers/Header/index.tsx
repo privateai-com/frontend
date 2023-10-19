@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { ButtonIcon, TextInput, SelectedText } from 'components';
+import { ButtonIcon, TextInput, SelectedText, LogOut } from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
 import { authLogout } from 'store/auth/actionCreators';
@@ -13,6 +13,7 @@ import { accountSelectors } from 'store/account/selectors';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
+import { useModal } from 'react-modal-hook';
 
 const results = [
   'A brief history of the antibiotics era',
@@ -33,13 +34,9 @@ export const Header = () => {
     setIsNotificationOpen(!isNotificationOpen);
   };
 
-  const callback = useCallback(() => {
-    router.push(routes.home.root);
-  }, [router]);
-
-  const onClickLogout = useCallback(() => {
-    dispatch(authLogout({ callback }));
-  }, [callback, dispatch]);
+  const [showLogout, hideLogout] = useModal(() => (
+    <LogOut onClose={hideLogout} />
+  ));
 
   const onRedirectClick = useCallback(() => {
     router.push(routes.profile.root);
@@ -97,7 +94,7 @@ export const Header = () => {
       <ButtonIcon
         className={styles.button}
         image={logoutIcon}
-        onClick={onClickLogout}
+        onClick={showLogout}
       />
       <Notification isOpen={isNotificationOpen} />
     </header>
