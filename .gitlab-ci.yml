@@ -27,7 +27,7 @@ variables:
   stage: build
   script:
     - echo "Build frontend"
-    - time docker build -f ci_cd/Dockerfile . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - time docker build -f ci_cd/Dockerfile . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg CI_COMMIT_REF_NAME --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
     - echo "Pushing..."
     - time docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - time docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
@@ -50,8 +50,8 @@ variables:
   script:
     - mkdir -p ci_cd/logs
     - ansible-playbook -i ci_cd/ansible/inventory/hosts.yml ci_cd/ansible/get_logs.yml -l $CI_COMMIT_REF_NAME
-      -e "CONTAINERS_FOR_LOGS='$CONTAINERS_FOR_LOGS'"
       -e "CI_PROJECT_NAME='$CI_PROJECT_NAME'"
+      -e "CONTAINERS_FOR_LOGS='$CONTAINERS_FOR_LOGS'"
       -e "SERVER_VARIABLE='$SERVER_VARIABLE'"
   artifacts:
     paths: ["ci_cd/logs/*"]
