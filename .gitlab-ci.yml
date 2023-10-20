@@ -12,6 +12,7 @@ variables:
   GIT_DEPTH: "1"
   IMAGE_ANSIBLE: "cytopia/ansible:2.13-tools"
   IMAGE_MERGER: "alpine:3.18.3"
+  IMAGE_DOCKER: "node:20.8-alpine"
   CONTAINERS_FOR_LOGS: "$CI_PROJECT_NAME"
 
 .deploy_prepare:
@@ -27,7 +28,7 @@ variables:
   stage: build
   script:
     - echo "Build frontend"
-    - time docker build -f ci_cd/Dockerfile . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg CI_COMMIT_REF_NAME --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - time docker build -f ci_cd/Dockerfile . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg IMAGE_DOCKER --build-arg CI_COMMIT_REF_NAME --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
     - echo "Pushing..."
     - time docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - time docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
