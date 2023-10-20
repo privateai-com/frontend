@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .createAccount__container {
 	position: relative;
@@ -12,13 +12,13 @@
 		margin: 25px 0 10px;
 	}
 
-  @include desktop1024 {
+	@include desktop1024 {
 		margin: 50px 0 10px;
 	}
 
-  @include mobile {
-    margin: 32px 0 10px;
-  }
+	@include mobile {
+		margin: 32px 0 10px;
+	}
 
 	h4 {
 		color: $color-grey;
@@ -27,11 +27,11 @@
 		@include desktop1440 {
 			margin-bottom: 20px;
 		}
-	
+
 		@include desktop1024 {
 			margin-bottom: 50px;
 		}
-	
+
 		@include mobile {
 			margin-bottom: 30px;
 		}
@@ -63,7 +63,7 @@
 		@include desktop1440 {
 			margin-bottom: 20px;
 		}
-	
+
 		@include desktop1024 {
 			margin-bottom: 75px;
 		}
@@ -72,13 +72,14 @@
 			margin-bottom: 35px;
 		}
 	}
+	
 }
 
 .description {
 	margin-bottom: 48px;
 
 	@include font-size();
-	
+
 	@include desktop1440 {
 		margin-bottom: 18px;
 	}
@@ -91,7 +92,10 @@
 		margin-bottom: 34px;
 	}
 }
-
+.welcome,
+.label {
+	color: $color-black !important;
+}
 .button {
 	margin-bottom: 20px;
 	padding: 15px 60px;
@@ -128,4 +132,10 @@
 	@include mobile {
 		margin-bottom: 6px;
 	}
+}
+
+.error {
+	color: $color-red !important;
+	text-align: center;
+	margin-bottom: 20px;
 }

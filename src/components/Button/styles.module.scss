@@ -81,6 +81,11 @@
       background-color: rgba($color-green, 0.7);
       color: $color-white;
     }
+
+    &:disabled {
+      color: $color-white;
+      border: 1px solid transparent;
+    }
   }
 
   &.grey {

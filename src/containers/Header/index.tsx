@@ -34,7 +34,7 @@ export const Header = () => {
   };
 
   const callback = useCallback(() => {
-    router.push(routes.login.root);
+    router.push(routes.home.root);
   }, [router]);
 
   const onClickLogout = useCallback(() => {

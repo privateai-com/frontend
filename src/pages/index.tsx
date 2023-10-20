@@ -1,10 +1,9 @@
-import { Layout } from 'components';
-import { Header, Profile } from 'containers';
-
+import { LayoutAuth } from 'components';
+import { Login } from 'containers';
 import { NextPage } from 'next';
 
-const MainPage: NextPage = () => (
-  <Layout
+const LoginPage: NextPage = () => (
+  <LayoutAuth
     meta={{
       name: 'description',
       content: 'description',
@@ -13,10 +12,9 @@ const MainPage: NextPage = () => (
       rel: 'icon',
       href: '/favicon.ico',
     }}
-    header={(<Header />)}
   >
-    <Profile />
-  </Layout>
+    <Login />
+  </LayoutAuth>
 );
 
-export default MainPage;
+export default LoginPage;

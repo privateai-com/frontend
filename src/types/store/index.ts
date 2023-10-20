@@ -4,8 +4,8 @@ import { AccountState } from './AccountState';
 import { ProfileState } from './ProfileState';
 
 export interface State {
-  metamask: MetamaskState
-  auth: AuthState
-  account: AccountState
-  profile: ProfileState
+  metamask: MetamaskState;
+  auth: AuthState;
+  account: AccountState;
+  profile: ProfileState;
 }

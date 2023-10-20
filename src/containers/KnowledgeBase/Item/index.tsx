@@ -9,9 +9,10 @@ import styles from './styles.module.scss';
 
 type StatusProps =
   | 'Open sourced'
-  | 'Permission given'
+  | 'Access granted'
   | 'Permission needed'
-  | 'Access request pending';
+  | 'Access request pending'
+  | 'Access denied';
 
 type ItemProps = {
   name: string;
@@ -41,14 +42,17 @@ export const Item: React.FC<ItemProps> = ({
       case 'Open sourced':
         return styles.open;
 
-      case 'Permission given':
-        return styles.permission_given;
+      case 'Access granted':
+        return styles.granted;
 
       case 'Permission needed':
         return styles.permission_needed;
 
       case 'Access request pending':
         return styles.pending;
+
+      case 'Access denied': 
+        return styles.denied;
 
       default:
         return styles.item_status;
@@ -76,14 +80,21 @@ export const Item: React.FC<ItemProps> = ({
   return (
     <div>
       {isMobile ? (
-        <ExpandableMobileItem name={name}>
+        <ExpandableMobileItem
+          name={name}
+          searchWord={search}
+        >
           <div>
             <div className={styles.item_row_block}>
               <span className={getStatusStyle()}>{status}</span>
             </div>
             <div className={styles.item_row_block}>
               <span className={styles.title}>Field: </span>
-              {field}
+              <SelectedText
+                text={field}
+                searchWord={search}
+                className={styles.selected}
+              />
             </div>
             <div className={styles.item_row_block}>
               <span className={styles.title}>Author: </span>

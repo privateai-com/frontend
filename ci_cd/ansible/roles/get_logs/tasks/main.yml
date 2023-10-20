@@ -1,9 +1,6 @@
----
-# tasks file for ci_cd/ansible/roles/get_logs
-
 - name: Debug
   debug:
-    msg: "{{ containers_for_logs }}"
+    msg: "{{ CONTAINERS_FOR_LOGS }}"
 
 - name: Remove old logs directory
   file:
@@ -19,7 +16,7 @@
   shell: "docker logs {{ item }} &> /opt/{{ CI_PROJECT_NAME }}/logs/{{ item }}.log"
   args:
     executable: /bin/bash
-  with_items: "{{  containers_for_logs.split(' ') }}"
+  with_items: "{{ CONTAINERS_FOR_LOGS.split(' ') }}"
   ignore_errors: yes
 
 - name: Copy logs directory from remote instance
@@ -27,5 +24,5 @@
     src:  "/opt/{{ CI_PROJECT_NAME }}/logs/{{ item }}.log"
     dest: "../logs/{{ inventory_hostname }}/"
     flat: yes
-  with_items: "{{  containers_for_logs.split(' ') }}"
+  with_items: "{{ CONTAINERS_FOR_LOGS.split(' ') }}"
   ignore_errors: yes

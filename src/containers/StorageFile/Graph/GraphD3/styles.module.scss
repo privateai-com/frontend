@@ -1,0 +1,36 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.graphD3_container {
+	position: relative;
+}
+
+.edit {
+	position: absolute;
+	transform: translateX(-50%);
+	background-color: $color-white;
+	padding: 10px;
+	border: 1px solid $color-grey;
+	border-radius: 8px;
+	display: grid;
+	grid-template-areas: 'input buttonSave'
+    'buttonDelete buttonDelete';
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 80px auto;
+
+	input {
+		grid-area: input;
+		border: 1px solid $color-green;
+		border-radius: 8px;
+		height: 40px;
+		outline: none;
+		padding: 10px;
+	}
+
+	.button_save {
+		grid-area: buttonSave;
+		padding: 9px;
+		height: fit-content;
+		margin-left: 8px;
+	}
+}

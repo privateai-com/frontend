@@ -11,6 +11,10 @@ export const routes = {
     root: '/login',
     title: 'Login',
   },
+  profile: {
+    root: '/profile',
+    title: 'Profile',
+  },
   knowledge: {
     root: '/knowledge',
     title: 'Knowledge base',
@@ -18,6 +22,10 @@ export const routes = {
   storage: {
     root: '/storage',
     title: 'My storage',
+  },
+  storageFile: {
+    root: '/storage/:fileName',
+    title: 'My storage file',
   },
   uploadActivity: {
     root: '/upload-activity',

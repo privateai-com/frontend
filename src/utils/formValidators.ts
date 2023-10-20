@@ -3,10 +3,22 @@ import { emailRegex, passwordRegex } from 'appConstants';
 export const passwordValidator = (password: string) => {
   if (!password) {
     return 'Password required';
-  } if (password.length < 8) {
+  }
+  if (password.length < 8) {
     return 'Password min 8 characters';
-  } if (!new RegExp(passwordRegex).test(password)) {
+  }
+  if (!new RegExp(passwordRegex).test(password)) {
     return 'Password incorrect';
+  }
+  return '';
+};
+
+export const passwordConfirmValidator = (
+  password: string,
+  passwordConfirm: string,
+) => {
+  if(password !== passwordConfirm) {
+    return 'Entered passwords mismatch. Please check them and try one more time.';
   }
   return '';
 };
@@ -14,7 +26,8 @@ export const passwordValidator = (password: string) => {
 export const emailValidator = (email: string) => {
   if (!email) {
     return 'Email required';
-  } if (!new RegExp(emailRegex).test(email)) {
+  }
+  if (!new RegExp(emailRegex).test(email)) {
     return 'Email incorrect';
   }
   return '';

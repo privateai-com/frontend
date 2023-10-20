@@ -3,4 +3,5 @@ export enum ProfileActionTypes {
   SetStatus = 'PROFILE.SET_STATUS',
   LinkWallet = 'PROFILE.LINK_WALLET',
   GetProfile = 'PROFILE.GET_PROFILE',
+  DeleteWallet = 'PROFILE.DELETE_WALLET',
 }

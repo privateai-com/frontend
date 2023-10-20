@@ -1,5 +1,6 @@
-@import "assets/styles/variables.scss";
-@import "assets/styles/_mixins.scss";
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+@import 'assets/styles/function.scss';
 
 @mixin avatar {
 	width: 450px;
@@ -8,8 +9,8 @@
 	border: 1px solid $color-grey2;
 
 	@include desktop1440 {
-		width: 300px;
-		height: 300px;
+		width: vw(300, 1440);
+		height: vw(300, 1440);
 	}
 
 	@include desktop1024 {
@@ -32,16 +33,16 @@
 	flex-direction: column;
 	align-items: center;
 	gap: 20px;
-	padding: 30px 40px 55px;
+	padding: vw(30) vw(40) vw(55);
 
 	@include desktop1440 {
 		gap: 14px;
-		padding: 15px 30px 30px;
+		padding: vw(15, 1440) vw(30, 1440) vw(30, 1440);
 	}
 
 	@include desktop1024 {
 		gap: 30px;
-		padding: 20px 30px 30px;
+		padding: vw(20, 1024) vw(30, 1024) vw(30, 1024);
 	}
 
 	@include mobile {
@@ -57,15 +58,16 @@
 
 .info {
 	grid-area: info;
+	height: fit-content;
 
 	width: 100%;
 	height: 100%;
 	max-width: 648px;
-	gap: 25px;
+	gap: 20px;
 
 	@include desktop1440 {
 		max-width: 470px;
-		padding: 40px 30px 30px;
+		// padding: 40px 30px 30px;
 	}
 
 	@include desktop1024 {
@@ -73,8 +75,8 @@
 		margin-bottom: 30px;
 		flex-direction: row;
 		align-items: flex-start;
-		padding: 45px 20px 20px 120px;
-		gap: 125px;
+		// padding: 45px 20px 20px 120px;
+		// gap: 125px;
 	}
 
 	@include mobile {
@@ -83,8 +85,25 @@
 		padding: 0;
 		background-color: transparent;
 		box-shadow: none;
-		gap: 20px;
 		margin-bottom: 0;
+	}
+
+	@include media-breakpoint-up(sm) {
+		padding: vw(45, 768) vw(20, 768) vw(20, 768) vw(120, 768);
+		gap: vw(125, 768);
+	}
+
+	@include media-breakpoint-up(lg) {
+		padding: vw(40, 1024) vw(30, 1024) vw(30, 1024);
+		gap: 25px;
+	}
+
+	@include media-breakpoint-up(xxl) {
+		padding: vw(40, 1440) vw(30, 1440) vw(30, 1440);
+	}
+
+	@include media-breakpoint-up(fhd) {
+		padding: vw(40) vw(30) vw(30);
 	}
 
 	&_wrapper {
@@ -117,25 +136,7 @@
 	}
 
 	&_avatar {
-		width: 450px;
-		height: 450px;
-		border-radius: 100%;
-		border: 1px solid $color-grey2;
-
-		@include desktop1440 {
-			width: 300px;
-			height: 300px;
-		}
-
-		@include desktop1024 {
-			width: 250px;
-			height: 250px;
-		}
-
-		@include mobile {
-			width: 100px;
-			height: 100px;
-		}
+		@include avatar();
 	}
 }
 
@@ -146,6 +147,7 @@
 
 	@include desktop1440 {
 		margin-bottom: 20px;
+		padding: vw(20, 1440) vw(30, 1440) vw(30, 1440);
 	}
 
 	@include desktop1024 {
@@ -159,40 +161,35 @@
 
 .info3 {
 	grid-area: info3;
-	gap: 24px;
+
+	@include media-breakpoint-up(xxl) {
+		gap: vw(12, 1440);
+	}
+	@include media-breakpoint-up(fhd) {
+		gap: vw(24);
+	}
 }
 
 .info_item {
 	font-weight: 400;
-	font-size: 24px;
 	line-height: 29px;
 
 	width: 100%;
 
-	@include desktop1440 {
-		font-size: 20px;
-	}
-
-	@include desktop1024 {
-		font-size: 20px;
-	}
-
-	@include mobile {
-		font-size: 16px;
-	}
+	@include adaptive-font-size(16, 18, 20, 20, 24);
 
 	h4 {
 		color: $color-grey;
 		font-weight: 500;
 		margin-bottom: 12px;
 
+		@include adaptive-font-size(14, 16, 18, 20, 20);
+
 		@include desktop1024 {
-			font-size: 18px;
 			margin-bottom: 25px;
 		}
 
 		@include mobile {
-			font-size: 14px;
 			margin-bottom: 0;
 		}
 
@@ -203,23 +200,6 @@
 }
 
 .no_avatar {
-	min-width: 450px;
-	min-height: 450px;
-	border-radius: 100%;
-	border: 1px solid $color-grey2;
 	background-color: $color-grey2;
-	@include desktop1440 {
-		min-width: 300px;
-		min-height: 300px;
-	}
-
-	@include desktop1024 {
-		min-width: 250px;
-		min-height: 250px;
-	}
-
-	@include mobile {
-		min-width: 100px;
-		min-height: 100px;
-	}
+	@include avatar();
 }

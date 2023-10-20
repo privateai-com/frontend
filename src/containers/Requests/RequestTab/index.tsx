@@ -1,7 +1,10 @@
-import { AdaptivePaginationTable } from 'components';
 import React from 'react';
+
+import { AdaptivePaginationTable } from 'components';
 import { content } from './data';
 import { useColumns } from './columns';
+
+import styles from './styles.module.scss';
 
 const RequestTab = () => {
   const columns = useColumns();
@@ -14,6 +17,7 @@ const RequestTab = () => {
       mobileTitle2="Requester"
       key1="date"
       key2="requester"
+      classNameTableContainer={styles.table}
     />
   );
 };

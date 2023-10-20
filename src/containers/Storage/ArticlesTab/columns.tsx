@@ -1,15 +1,18 @@
 import React, { useMemo } from 'react';
-
 import Link from 'next/link';
+
 import { ButtonIcon, RadioButtons } from 'components';
+import { routes } from 'appConstants';
 import { trashIcon } from 'assets';
 import { ItemRowProps } from 'types';
+import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { ArticlesType } from './types';
+
 import styles from './styles.module.scss';
 
 export const useColumns = () => useMemo(() => ([
   {
-    Header: 'File name',
+    Header: <TitleWithArrows title="File name" onClick={() => {}} />,
     accessor: 'name',
     Cell: ({
       row: {
@@ -17,12 +20,12 @@ export const useColumns = () => useMemo(() => ([
       },
     }: ItemRowProps<ArticlesType>) => (
       name 
-        ? <Link href="/#">{name}</Link> 
+        ? <Link href={`${routes.storage.root}/${name}`}>{name}</Link> 
         : <div className={styles.empty_space}>-</div>
     ),
   },
   {
-    Header: 'Status',
+    Header: <TitleWithArrows title="Status" onClick={() => {}} />,
     accessor: 'status',
     Cell: ({
       row: {
@@ -46,7 +49,7 @@ export const useColumns = () => useMemo(() => ([
     ),
   },
   {
-    Header: 'Availability',
+    Header: <TitleWithArrows title="Availability" onClick={() => {}} />,
     accessor: 'availability',
     Cell: ({
       row: {
@@ -85,6 +88,7 @@ export const useColumns = () => useMemo(() => ([
         <ButtonIcon
           image={trashIcon}
           onClick={() => {}}
+          className={styles.delete_btn}
         />
       ) : ('')
     ),

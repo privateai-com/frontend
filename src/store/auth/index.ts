@@ -8,11 +8,16 @@ export const authInitialState: Readonly<AuthState> = {
   accessToken: undefined,
   refreshToken: undefined,
   timestamp: undefined,
+  email: '',
+  verificationCode: '',
+
   ui: {
     [AuthActionTypes.Registration]: RequestStatus.INIT,
     [AuthActionTypes.Login]: RequestStatus.INIT,
     [AuthActionTypes.Logout]: RequestStatus.INIT,
     [AuthActionTypes.ResendConfCode]: RequestStatus.INIT,
+    [AuthActionTypes.ConfirmCode]: RequestStatus.INIT,
+    [AuthActionTypes.ChangePassword]: RequestStatus.INIT,
   },
 };
 

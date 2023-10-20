@@ -1,5 +1,5 @@
-@import 'assets/styles/variables.scss';
-@import 'assets/styles/_mixins.scss';
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
 
 .confirmEmail__container {
 	position: relative;
@@ -12,13 +12,13 @@
 		margin: 40px 0 10px;
 	}
 
-  @include desktop1024 {
+	@include desktop1024 {
 		margin: 50px 0 10px;
 	}
 
-  @include mobile {
-    margin: 24px 0 10px;
-  }
+	@include mobile {
+		margin: 24px 0 10px;
+	}
 
 	p {
 		text-align: center;
@@ -59,6 +59,14 @@
 	@include mobile {
 		margin: 25px 0 34px;
 		padding: 8px 27px;
+	}
+
+	&_margin {
+		margin-top: 18px;
+
+		@include desktop1024 {
+			margin-top: 26px;
+		}
 	}
 }
 
