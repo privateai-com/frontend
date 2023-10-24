@@ -133,16 +133,16 @@
 
 		& > li {
 			color: $color-grey;
-			margin-bottom: 4px;
+			margin-bottom: 20px;
 
 			@include font_size();
 
-			@include tablet1024 {
-				margin-bottom: 10px;
+			@include desktop1440 {
+				margin-bottom: 16px;
 			}
 
 			@include mobile {
-				margin-bottom: 5px;
+				margin-bottom: 13px;
 			}
 		}
 	}
@@ -204,6 +204,5 @@
 }
 
 .selected {
-	text-decoration: underline;
-	color: $color-green;
+	background-color: $color-yellow;
 }
