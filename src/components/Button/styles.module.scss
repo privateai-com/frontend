@@ -95,6 +95,15 @@
     @include state($color-grey2);
   }
 
+  &.white {
+    background-color: $color-white;
+	  border: 1px solid $color-black;
+    transition: background-color 0.3s;
+    color: $color-black;
+
+    @include state($color-grey2);
+  }
+
   &.full_width {
     width: 100%;
   }

@@ -1,42 +1,34 @@
 import { FC } from 'react';
+import { Edge } from 'vis-network';
 
 import {
   Button,
   Typography,
 } from 'components';
-import { GraphD3 } from './GraphD3';
 
 import styles from './styles.module.scss';
 import { GraphResponseType } from '../types';
-
-// enum GraphEnum {
-//   draw,
-//   edit,
-//   delete,
-// }
+import { GraphVis } from './GraphVis';
+import { transformDataToNodesAndEdges } from './utils';
 
 interface GraphProps {
-  edges: GraphResponseType[];
-  setEdges: (edges: GraphResponseType[]) => void;
+  graphData: GraphResponseType[];
+  setGraphData: (edges: GraphResponseType[]) => void;
+  isEdit: boolean;
 }
 
-export const Graph: FC<GraphProps> = ({ edges, setEdges }) => {
-  // const [graphControl, setGraphControl] = useState(GraphEnum.draw);
-  const {
-    nodesCount,
-    edgesCount,
-    relations,
-  } = {
-    nodesCount: 8,
-    edgesCount: 10,
-    relations: 'Health state',
-  };
+export const Graph: FC<GraphProps> = ({ graphData, setGraphData, isEdit }) => {
+  const { nodes, edges } = transformDataToNodesAndEdges(graphData);
+  const edgesCurrent = edges.get().filter(({ to }: Edge) => to !== 0);
+  const edgesCount = edgesCurrent.length;
+  const nodesCount = nodes.length;
+  const relations = edgesCurrent.filter(({ to }: Edge) => Number(to) > 1).map((edge) => edge.head);
   
   return (
     <div className={styles.storageFile__data}>
       <div className={styles.storageFile__data_head}>
         <Typography type="h1">Data core structure</Typography>
-        <Button>Delete file</Button>
+        <Button className={styles.storageFile__data_btn} theme="white">Delete file</Button>
       </div>
       <div className={styles.storageFile__wrapper}>
         {/* <div className={styles.storageFile__control_buttons}>
@@ -63,7 +55,13 @@ export const Graph: FC<GraphProps> = ({ edges, setEdges }) => {
           </Button>
         </div> */}
 
-        <GraphD3 edges={edges} setEdges={setEdges} />
+        <GraphVis
+          graphData={graphData}
+          setGraphData={setGraphData}
+          nodes={nodes}
+          edges={edges}
+          isEdit={isEdit}
+        />
 
         <Typography type="h2">Data core structure</Typography>
         <div className={styles.graph_info}>
@@ -77,7 +75,7 @@ export const Graph: FC<GraphProps> = ({ edges, setEdges }) => {
           </div>
           <div className={styles.graph_info__item}>
             <p>Node with most relations</p>
-            <span>{relations}</span>
+            <span>{relations.join(', ')}</span>
           </div>
         </div>
       </div>
