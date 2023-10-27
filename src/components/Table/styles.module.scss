@@ -47,35 +47,19 @@
     }
   }
 
-  th {
+  th, td {
     text-align: center;
-    font-size: 20px;
+    @include font-20();
+  }
+
+  th {
     font-weight: 600;
     line-height: 24px;
-
-    @include desktop1660 {
-      font-size: 18px;
-    }
-
-    @include desktop1440 {
-      font-size: 16px;
-    }
   }
 
   td {
-    text-align: center;
-
-    font-size: 20px;
     font-weight: 500;
     line-height: 20px;
-
-    @include desktop1660 {
-      font-size: 18px;
-    }
-
-    @include desktop1440 {
-      font-size: 16px;
-    }
 
     span {
       display: block;

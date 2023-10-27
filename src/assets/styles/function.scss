@@ -1,0 +1,7 @@
+@function vw($value, $screenWidth: 1920) {
+  @return #{$value / $screenWidth * 100}vw;
+}
+
+@function vh($value, $screenHeight: 1080) {
+  @return #{$value / $screenHeight * 100}vh;
+}

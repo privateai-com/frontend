@@ -1,15 +1,17 @@
 import React, { useCallback, useState } from 'react';
 import cx from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { ButtonIcon, TextInput, SelectedText } from 'components';
+import {
+  ButtonIcon, TextInput, SelectedText, LogOut, 
+} from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
-import { authLogout } from 'store/auth/actionCreators';
 import { accountSelectors } from 'store/account/selectors';
 
+import { useModal } from 'react-modal-hook';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -23,7 +25,6 @@ const results = [
 ];
 
 export const Header = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -33,13 +34,13 @@ export const Header = () => {
     setIsNotificationOpen(!isNotificationOpen);
   };
 
-  const callback = useCallback(() => {
-    router.push(routes.login.root);
-  }, [router]);
+  const [showLogout, hideLogout] = useModal(() => (
+    <LogOut onClose={hideLogout} />
+  ));
 
-  const onClickLogout = useCallback(() => {
-    dispatch(authLogout({ callback }));
-  }, [callback, dispatch]);
+  const onRedirectClick = useCallback(() => {
+    router.push(routes.profile.root);
+  }, [router]);
 
   return (
     <header className={styles.header}>
@@ -83,7 +84,7 @@ export const Header = () => {
       <ButtonIcon
         className={styles.button}
         image={userIcon}
-        onClick={() => {}}
+        onClick={onRedirectClick}
       />
       <ButtonIcon
         className={cx(styles.button, { [styles.active]: true })}
@@ -93,7 +94,7 @@ export const Header = () => {
       <ButtonIcon
         className={styles.button}
         image={logoutIcon}
-        onClick={onClickLogout}
+        onClick={showLogout}
       />
       <Notification isOpen={isNotificationOpen} />
     </header>

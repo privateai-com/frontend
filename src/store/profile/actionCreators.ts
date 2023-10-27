@@ -18,6 +18,10 @@ export const profileLinkWallet = () => ({
   type: ProfileActionTypes.LinkWallet,
 });
 
+export const profileGetProfile = () => ({
+  type: ProfileActionTypes.GetProfile,
+});
+
 export const profileDeleteWallet = () => ({
   type: ProfileActionTypes.DeleteWallet,
 });
