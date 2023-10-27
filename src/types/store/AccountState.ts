@@ -1,7 +1,7 @@
 export enum UserRole {
   User = 'user',
+  VIP = 'vip',
   Admin = 'admin',
-  Support = 'support',
 }
 
 export interface AccountState {

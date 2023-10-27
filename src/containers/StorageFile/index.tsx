@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { accountSelectors } from 'store/account/selectors';
+import { UserRole } from 'types';
 import { ButtonBack } from './ButtonBack';
 import { FileInfo } from './FileInfo';
 import { FileInfoEdit } from './FileInfoEdit';
@@ -12,6 +15,8 @@ import { GraphResponseType } from './types';
 export const StorageFile = () => {
   const [graphData, setGraphData] = useState<GraphResponseType[]>(data);
   const [isEdit, setIsEdit] = useState(false);
+  const { role } = useSelector(accountSelectors.getAccount);
+  
   return (
     <div className={styles.storageFile__container}>
       <ButtonBack title="Back" />
@@ -22,7 +27,10 @@ export const StorageFile = () => {
           onSaveClick={() => setIsEdit(false)}
         />
       ) : (
-        <FileInfo onEditClick={() => setIsEdit(true)} />
+        <FileInfo
+          onEditClick={() => setIsEdit(true)}
+          isVipUser={role === UserRole.VIP}
+        />
       )}
       <Graph
         graphData={graphData}
