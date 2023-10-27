@@ -3,17 +3,17 @@ import Link from 'next/link';
 import { useModal } from 'react-modal-hook';
 
 import { ItemRowProps } from 'types';
-import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import {
   ButtonIcon,
   KeyPassword,
   RequestCell,
-  SetKeyPassword, 
+  SetKeyPassword,
 } from 'components';
-import { arrowDownSquare } from 'assets';
-import { RequestedDataType } from './types';
-
+import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
+import { routes } from 'appConstants';
 import styles from './styles.module.scss';
+import { RequestedDataType } from './types';
+import { getStatusImg, getStatusStyle } from './utils';
 
 export const useColumns = () => {
   const [showKeyPassword, hideKeyPassword] = useModal(
@@ -27,11 +27,14 @@ export const useColumns = () => {
     [],
   );
 
-  const [showSetKeyPassword, hideSetKeyPassword] = useModal(
+  const [, hideSetKeyPassword] = useModal(
     () => (
       <SetKeyPassword
         onClose={hideSetKeyPassword}
-        onSubmit={() => { showKeyPassword(); hideSetKeyPassword(); }}
+        onSubmit={() => {
+          showKeyPassword();
+          hideSetKeyPassword();
+        }}
         classNameModal={styles.modal_set_key_password}
       />
     ),
@@ -41,14 +44,19 @@ export const useColumns = () => {
   return useMemo(
     () => [
       {
-        Header: <TitleWithArrows title="File name" onClick={() => {}} />,
+        Header: (
+          <TitleWithArrows
+            title="File name"
+            onClick={() => {}}
+          />
+        ),
         accessor: 'name',
         Cell: ({
           row: {
             original: { name },
           },
         }: ItemRowProps<RequestedDataType>) =>
-          (name ? <Link href="/#">{name}</Link> : '-'),
+          (name ? <Link href={`${routes.storage.root}/${name}`}>{name}</Link> : '-'),
       },
       {
         Header: 'Core entities',
@@ -61,27 +69,43 @@ export const useColumns = () => {
           (core ? <p className={styles.columns_core}>{core}</p> : '-'),
       },
       {
-        Header: <TitleWithArrows title="Owner" onClick={() => {}} />,
+        Header: (
+          <TitleWithArrows
+            title="Owner"
+            onClick={() => {}}
+          />
+        ),
         accessor: 'owner',
         Cell: ({
           row: {
             original: { owner },
           },
-        }: ItemRowProps<RequestedDataType>) => (
-          <div className={styles.columns_owner_block}>
-            <div className={styles.mock} />
-            <RequestCell>{owner || ''}</RequestCell>
-            {owner && (
+        }: ItemRowProps<RequestedDataType>) =>
+          <RequestCell>{owner}</RequestCell> || '-',
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        Cell: ({
+          row: {
+            original: { status },
+          },
+        }: ItemRowProps<RequestedDataType>) =>
+          (status ? (
+            <div className={styles.columns_owner_block}>
+              <div className={styles.mock} />
+              <div className={getStatusStyle(status, styles)}>{status}</div>
               <ButtonIcon
                 className={styles.columns_img}
-                image={arrowDownSquare}
-                onClick={showSetKeyPassword}
+                image={getStatusImg(status)}
+                onClick={() => {}}
               />
-            )}
-          </div>
-        ),
+            </div>
+          ) : (
+            '-'
+          )),
       },
     ],
-    [showSetKeyPassword],
+    [],
   );
 };

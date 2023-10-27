@@ -1,12 +1,22 @@
 import cx from 'classnames';
 import Image from 'next/image';
 
-import { avatarImage } from 'assets';
 import { Typography } from 'components';
 
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { profileGetProfile } from 'store/profile/actionCreators';
+
+import { accountSelectors } from 'store/account/selectors';
 import styles from './styles.module.scss';
 
 export const ProfileInfo = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(profileGetProfile());
+  }, [dispatch]);
+
   const {
     avatarUrl,
     fullName,
@@ -17,40 +27,32 @@ export const ProfileInfo = () => {
     organization,
     position,
     researchFields,
-  } = {
-    avatarUrl: avatarImage,
-    fullName: 'John Doe',
-    country: 'UK',
-    city: 'London',
-    email: 'JohnDoe@gmail.com',
-    facebookLink: 'https:/facebook.com/profile',
-    organization: 'London Institute of Medical Sciences',
-    position: 'Head of neurosurgery laboratory',
-    researchFields: 'Neurobiology, neurosurgery, neuropathology',
-  };
+  } = useSelector(accountSelectors.getAccount);
 
   return (
     <>
       <div className={cx(styles.wrapper, styles.info)}>
-        <Image
-          src={avatarUrl}
-          alt="avatar"
-          className={styles.info_avatar}
-        />
+        {avatarUrl ? (
+          <Image
+            src={avatarUrl}
+            alt="avatar"
+            className={styles.info_avatar}
+          />
+        ) : (
+          <div className={styles.no_avatar} />
+        )}
         <div className={styles.info_wrapper}>
           <div className={styles.info_item}>
             <Typography type="h4">
-              Username/name
+              Username/name 
               {' '}
               <span>*</span>
             </Typography>
             {fullName}
           </div>
           <div className={styles.info_item}>
-            <Typography type="h4">
-              Location (Country and/or City)
-            </Typography>
-            {`${city}, ${country}`}
+            <Typography type="h4">Location (Country and/or City)</Typography>
+            {city || country ? `${city}, ${country}` : ''}
           </div>
         </div>
       </div>
@@ -58,16 +60,14 @@ export const ProfileInfo = () => {
         <Typography type="h2">Contact information</Typography>
         <div className={styles.info_item}>
           <Typography type="h4">
-            Email address
+            Email address 
             {' '}
             <span>*</span>
           </Typography>
           {email}
         </div>
         <div className={styles.info_item}>
-          <Typography type="h4">
-            Social media links
-          </Typography>
+          <Typography type="h4">Social media links</Typography>
           {facebookLink}
         </div>
       </div>
@@ -75,7 +75,7 @@ export const ProfileInfo = () => {
         <Typography type="h2">Field of activity</Typography>
         <div className={styles.info_item}>
           <Typography type="h4">
-            Organisation/Institute
+            Organisation/Institute 
             {' '}
             <span>*</span>
           </Typography>
@@ -83,7 +83,7 @@ export const ProfileInfo = () => {
         </div>
         <div className={styles.info_item}>
           <Typography type="h4">
-            Position
+            Position 
             {' '}
             <span>*</span>
           </Typography>
@@ -91,7 +91,7 @@ export const ProfileInfo = () => {
         </div>
         <div className={styles.info_item}>
           <Typography type="h4">
-            Research fields
+            Research fields 
             {' '}
             <span>*</span>
           </Typography>

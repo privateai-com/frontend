@@ -1,6 +1,5 @@
----
 - hosts: all
   gather_facts: yes
   become: yes
   roles:
-  - get_logs
+    - get_logs

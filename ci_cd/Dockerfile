@@ -1,13 +1,18 @@
-FROM node:20.7-alpine as builder
+ARG IMAGE_DOCKER
+
+FROM $IMAGE_DOCKER as builder
+ARG CI_COMMIT_REF_NAME
 WORKDIR /app
 
 COPY package.json yarn.lock ./
 RUN yarn install
 
 COPY . .
-RUN yarn build
+
+RUN if [ "$CI_COMMIT_REF_NAME" == "develop" ] || [ "$CI_COMMIT_REF_NAME" == "stage" ]; then yarn build:$CI_COMMIT_REF_NAME; else yarn build:develop; fi
+
                                     
-FROM node:20.7-alpine as executor
+FROM $IMAGE_DOCKER as executor
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs

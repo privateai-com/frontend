@@ -2,9 +2,31 @@
 @import 'assets/styles/_mixins.scss';
 @import 'assets/styles/function.scss';
 
+@mixin avatar {
+	width: 450px;
+	height: 450px;
+	border-radius: 100%;
+	border: 1px solid $color-grey2;
+
+	@include desktop1440 {
+		width: vw(300, 1440);
+		height: vw(300, 1440);
+	}
+
+	@include desktop1024 {
+		width: 250px;
+		height: 250px;
+	}
+
+	@include mobile {
+		width: 100px;
+		height: 100px;
+	}
+}
+
 .wrapper {
 	position: relative;
-	box-shadow: -10px 56px 140px 0px #8F9BBA33;
+	box-shadow: -10px 56px 140px 0px #8f9bba33;
 	background-color: $color-white;
 	border-radius: 16px;
 	display: flex;
@@ -102,7 +124,7 @@
 		@include mobile {
 			padding: 15px;
 			background-color: $color-white;
-			box-shadow: -10px 10px 140px 0px #8F9BBA33;
+			box-shadow: -10px 10px 140px 0px #8f9bba33;
 			border-radius: 8px;
 			gap: 12px;
 			margin: 0;
@@ -114,25 +136,7 @@
 	}
 
 	&_avatar {
-		width: vw(450);
-		height: vw(450);
-		border-radius: 100%;
-		border: 1px solid $color-grey2;
-
-		@include desktop1440 {
-			width: vw(300, 1440);
-			height: vw(300, 1440);
-		}
-
-		@include desktop1024 {
-			width: 250px;
-			height: 250px;
-		}
-
-		@include mobile {
-			width: 100px;
-			height: 100px;
-		}
+		@include avatar();
 	}
 }
 
@@ -193,4 +197,9 @@
 			color: $color-green;
 		}
 	}
+}
+
+.no_avatar {
+	background-color: $color-grey2;
+	@include avatar();
 }
