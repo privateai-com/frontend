@@ -1,11 +1,11 @@
 import {
   FC, useCallback, useEffect, useRef, useState, 
 } from 'react';
-import Link from 'next/link';
 
 import {
   Button,
   RadioButtons,
+  TextInput,
   Typography,
 } from 'components';
 
@@ -43,6 +43,8 @@ export const FileInfoEdit: FC<FileInfoProps> = ({ edges, setEdges, onSaveClick }
     type: '',
     tail: '',
   });
+  const [nameFile, setNameFile] = useState(name);
+  const [fieldFile, setFieldFile] = useState(field);
   const lastEdgeAvaliable = lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail;
 
   const updateGraphItem = (index: number, updatedItem: GraphResponseType) => {
@@ -88,13 +90,21 @@ export const FileInfoEdit: FC<FileInfoProps> = ({ edges, setEdges, onSaveClick }
         <div className={styles.storageFile__wrapper}>
           <div className={styles.storageFile__item}>
             File name:
-            <span>{name}</span>
+            <TextInput
+              onChangeValue={setNameFile}
+              value={nameFile}
+              classNameContainer={styles.storageFile__item_input}
+              classNameInputBox={styles.storageFile__item_input_box}
+            />
           </div>
           <div className={styles.storageFile__item}>
             Field: 
-            <Link href="/#">
-              {field}
-            </Link>
+            <TextInput
+              onChangeValue={setFieldFile}
+              value={fieldFile}
+              classNameContainer={styles.storageFile__item_input}
+              classNameInputBox={styles.storageFile__item_input_box}
+            />
           </div>
           <div className={styles.storageFile__item}>
             Graph edges: 

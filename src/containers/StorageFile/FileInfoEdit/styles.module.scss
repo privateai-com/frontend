@@ -15,6 +15,7 @@
 	font-weight: 700;
 	color: $color-grey;
 	display: flex;
+	align-items: center;
 	gap: 10px;
 
 	&:nth-child(3) {
@@ -24,6 +25,17 @@
 	a, span {
 		font-weight: 500;
 		font-size: 20px;
+	}
+}
+
+.storageFile__item_input {
+	height: fit-content;
+	display: flex;
+	flex: 2;
+
+	&_box {
+		height: 28px !important;
+		width: 100%;
 	}
 }
 
