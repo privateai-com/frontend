@@ -9,13 +9,14 @@ $margin-horizontal-mobile: 15px;
 .notification {
   &_container {
     width: 600px;
-    height: 226px;
+    max-height: 226px;
+    height: 100%;
     padding: 8px;
     background-color: $color-white;
     box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
     position: fixed;
-    top: 78px;
-    right: 8.5%;
+    top: 94px;
+    right: 110px;
     z-index: 100;
     border-radius: 8px;
     border: 1px solid $color-green;
@@ -24,18 +25,27 @@ $margin-horizontal-mobile: 15px;
     visibility: hidden;
     transform: translateX(100%);
     transition: all 0.5s;
+    overflow: hidden;
 
     @include desktop1440 {
       width: 550px;
-      height: 196px;
+      max-height: 196;
       padding: 15px;
+      top: 80px;
+      rigth: 90px;
     }
 
-    @include mobile {
+    @include tablet {
       right: 15px;
       width: calc(100% - 30px);
       top: 48px;
     }
+
+    // @include mobile {
+    //   right: 15px;
+    //   width: calc(100% - 30px);
+    //   top: 48px;
+    // }
   }
 
   &_content {
@@ -89,5 +99,6 @@ $margin-horizontal-mobile: 15px;
     text-decoration: none;
     color: $color-grey4;
     font-size: 20px;
+    overflow: hidden;
   }
 }

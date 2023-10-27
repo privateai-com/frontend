@@ -13,7 +13,7 @@
 			'info3'
 			'footer';
 	grid-template-columns: 1fr;
-	grid-template-rows: 1fr;
+	grid-template-rows: repeat(5, min-content);
 	margin-bottom: 30px;
 	justify-content: space-between;
 
@@ -29,6 +29,7 @@
 
 	@include media-breakpoint-up(xxl) {
 		grid-template-columns: vw(470, 1440) vw(570, 1440);
+		grid-template-rows: 1fr;
 	}
 
 	@include media-breakpoint-up(fhd) {
