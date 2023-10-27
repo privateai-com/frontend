@@ -1,13 +1,5 @@
-import * as d3 from 'd3';
-
-export type NodeDatum = d3.SimulationNodeDatum & {
-  id: string;
-};
-
-export interface GraphDataType {
-  nodes: NodeDatum[];
-  links: d3.SimulationLinkDatum<NodeDatum>[];
-}
+import { DataSet } from 'vis-data';
+import { OptId } from 'vis-data/declarations/data-interface';
 
 export type GraphResponseType = {
   head: string;
@@ -18,7 +10,14 @@ export type GraphResponseType = {
   };
 };
 
-type Simulation = d3.Simulation<NodeDatum, undefined>;
+export type DatasetNodeType = 
+  DataSet<{ id: number; label: string; type: string; tail: string; }, 'id'>;
 
-export type DragFunction = (simulation: Simulation) =>
-d3.DragBehavior<SVGCircleElement, NodeDatum, undefined>;
+export type EdgeType = {
+  from: number;
+  head: string;
+  label: string;
+  to: number;
+};
+
+export type DatasetEdgeType = DataSet<Partial<Record<'id', OptId>> & GraphResponseType & EdgeType, 'id'>;
