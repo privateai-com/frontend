@@ -1,0 +1,46 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+.visContainer {
+  position: relative;
+  max-height: 574px;
+}
+
+.visManipulation {
+  background: $color-white !important;
+  border: none !important;
+  padding-top: 0 !important;
+}
+
+.visEditMode {
+  top: 0 !important;
+}
+
+.popup {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: 1000;
+  border: 1px solid $color-grey;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  padding: 8px;
+  border-radius: 8px;
+  background-color: $color-white;
+  display: flex;
+
+  input {
+    border: 0;
+    outline: 0;
+  }
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.hide {
+  display: none !important;
+}

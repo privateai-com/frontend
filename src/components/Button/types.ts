@@ -25,4 +25,4 @@ HTMLButtonElement
   href?: string;
 }>;
 
-export type ButtonTheme = 'primary' | 'secondary' | 'grey';
+export type ButtonTheme = 'primary' | 'secondary' | 'grey' | 'white';
