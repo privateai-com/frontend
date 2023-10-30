@@ -3,7 +3,7 @@ import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { articlesCreateArticle } from 'store/articles/actionCreators';
+import { articlesCreate } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { RequestStatus } from 'types';
@@ -24,7 +24,7 @@ export const Upload = () => {
 
   const onConfirmClick = () => {
     if (!doc) return;
-    dispatch(articlesCreateArticle({
+    dispatch(articlesCreate({
       file: doc,
       callback: () => {
         setDoc(null);

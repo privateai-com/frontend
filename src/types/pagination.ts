@@ -1,5 +1,6 @@
 export type Pagination = {
-  skip: number,
-  first: number,
-  total: number,
+  limit: number,
+  offset: number,
+  sortingDirection: 'ASC' | 'DESC',
+  sortingField: string,
 };

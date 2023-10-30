@@ -1,10 +1,20 @@
 import { Button } from 'components';
 import cx from 'classnames';
-import { ModalWithLogo } from '../ModalWithLogo';
 import styles from './styles.module.scss';
+import { ModalWithLogo } from '../ModalWithLogo';
 
-const DeletePublication = () => (
-  <ModalWithLogo onClose={() => {}}>
+type DeletePublicationProps = {
+  onClose: () => void;
+  onDelete: () => void;
+  isLoading?: boolean;
+};
+
+const DeletePublication: React.FC<DeletePublicationProps> = ({
+  onClose,
+  onDelete,
+  isLoading,
+}) => (
+  <ModalWithLogo onClose={onClose}>
     <div className={styles.delete_pub}>
       <span className={styles.delete_pub_text}>
         You are about to delete this publication.
@@ -21,12 +31,16 @@ const DeletePublication = () => (
           <Button
             className={cx(styles.delete_pub_btn, styles.delete_pub_black_btn)}
             theme="secondary"
+            onClick={onDelete}
+            isLoading={isLoading}
           >
             Yes, delete
           </Button>
           <Button
             className={styles.delete_pub_btn}
             theme="secondary"
+            onClick={onClose}
+            disabled={isLoading}
           >
             Don&apos;t delete
           </Button>

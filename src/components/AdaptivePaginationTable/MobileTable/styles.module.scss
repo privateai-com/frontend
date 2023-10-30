@@ -1,0 +1,17 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.table_mobile {
+	display: flex;
+	flex-direction: column;
+	background-color: $color-white;
+	border-radius: 8px;
+
+  height: calc(100vh - 166px);
+  table-layout: fixed;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @include greenScrollbar();
+}

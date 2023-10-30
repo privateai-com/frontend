@@ -36,6 +36,7 @@
     "react-copy-to-clipboard": "5.0.4",
     "react-datepicker": "4.15.0",
     "react-dom": "18.2.0",
+    "react-infinite-scroll-hook": "4.1.1",
     "react-modal": "3.15.1",
     "react-modal-hook": "3.0.2",
     "react-otp-input": "3.0.4",

@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 const RequestTab = () => {
   const columns = useColumns();
-
+  
   return (
     <AdaptivePaginationTable
       columns={columns}

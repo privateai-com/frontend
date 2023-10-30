@@ -22,9 +22,6 @@ export enum ScreenWidth {
   mobile = 576,
 }
 
-// export const secondsInDay = 86400;
-export const secondsInDay = 3600;
-
 export const countRowsOnPage = 10;
 
 export const authErrorWords = [
