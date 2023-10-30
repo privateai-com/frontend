@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
-import { ApiEndpoint, callApi } from 'appConstants';
+import { ApiEndpoint } from 'appConstants';
+import { callApi } from 'api';
 import { accountSetState } from 'store/account/actionCreators';
 import { accountInitialState } from 'store/account';
 

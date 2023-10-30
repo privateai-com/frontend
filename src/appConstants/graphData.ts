@@ -1,6 +1,6 @@
-import { GraphResponseType } from './types';
+import { GraphResponseType } from 'types';
 
-export const data: GraphResponseType[] = [
+export const graphData: GraphResponseType[] = [
   {
     head: 'Cassandra',
     meta: {

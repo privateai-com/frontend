@@ -3,7 +3,8 @@ import { sagaExceptionHandler } from 'utils';
 import {
   RequestStatus,
 } from 'types';
-import { ApiEndpoint, callApi } from 'appConstants';
+import { ApiEndpoint } from 'appConstants';
+import { callApi } from 'api';
 import { authResendConfCode, authSetStatus } from '../actionCreators';
 
 export function* authResendCodeEmailSaga({

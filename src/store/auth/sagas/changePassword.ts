@@ -2,7 +2,8 @@ import { call, put, select } from 'redux-saga/effects';
 
 import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
 import { AuthState, RequestStatus } from 'types';
-import { ApiEndpoint, callApi } from 'appConstants';
+import { ApiEndpoint } from 'appConstants';
+import { callApi } from 'api';
 import { authChangePassword, authSetStatus } from '../actionCreators';
 import { authSelectors } from '../selectors';
 

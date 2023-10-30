@@ -5,8 +5,8 @@ export * from './network';
 export * from './notifications';
 export * from './wallets';
 export * from './regex';
-export * from './callApi';
 export * from './errorsNotification';
+export * from './graphData';
 
 export const decimalPlaces = 6;
 export const decimalPlacesForFee = 8;

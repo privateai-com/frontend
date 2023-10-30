@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
-import { ApiEndpoint, callApi, imageRegexp } from 'appConstants';
+import { ApiEndpoint, imageRegexp } from 'appConstants';
+import { callApi } from 'api';
 import { AccountState, RequestStatus } from 'types';
 import { sagaExceptionHandler } from 'utils';
 import { accountSetState } from 'store/account/actionCreators';

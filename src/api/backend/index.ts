@@ -3,19 +3,19 @@ import { RefreshAccessTokensData, UpdatePayload } from 'types';
 
 import { SagaIterator } from 'redux-saga';
 import {
-  call,
-  select,
-  spawn,
-  put,
-  take,
+  call, select, spawn, put, take, 
 } from 'redux-saga/effects';
 
-import { authLogout, authSetState, authOnUpdateAccessTokensFinish } from 'store/auth/actionCreators';
+import {
+  authLogout,
+  authSetState,
+  authOnUpdateAccessTokensFinish,
+} from 'store/auth/actionCreators';
 import { authSelectors } from 'store/auth/selectors';
 import { getDataFromException, ApiError } from 'utils';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 
-import { ApiEndpoint } from './api';
+import { ApiEndpoint } from 'appConstants';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -27,8 +27,12 @@ function* updateAccessTokens() {
   try {
     const url = `${baseURL}${ApiEndpoint.AuthRefreshToken}`;
 
-    const refreshTokenCurrent: string = yield select(authSelectors.getProp('refreshToken'));
-    const accessTokenCurrent: string = yield select(authSelectors.getProp('accessToken'));
+    const refreshTokenCurrent: string = yield select(
+      authSelectors.getProp('refreshToken'),
+    );
+    const accessTokenCurrent: string = yield select(
+      authSelectors.getProp('accessToken'),
+    );
 
     const payload = {
       refreshToken: refreshTokenCurrent,
@@ -54,13 +58,15 @@ function* updateAccessTokens() {
     const {
       data,
     }: {
-      data: RefreshAccessTokensData,
-      status: number,
+      data: RefreshAccessTokensData;
+      status: number;
     } = yield call([response, response.json]);
 
-    yield put(authSetState({
-      ...data,
-    }));
+    yield put(
+      authSetState({
+        ...data,
+      }),
+    );
 
     updatePayload = {
       isSuccessfull: true,
@@ -81,15 +87,18 @@ function* updateAccessTokens() {
 }
 
 export function* waitForFreshAccessToken() {
-  const timestamp = (new Date()).getTime();
-  const timestampStored: number | undefined = yield select(authSelectors.getProp('timestamp'));
+  const timestamp = new Date().getTime();
+  const timestampStored: number | undefined = yield select(
+    authSelectors.getProp('timestamp'),
+  );
   // Reactotron.log('timestamp', timestamp);
   // Reactotron.log('timestampStored', timestampStored);
   // Reactotron.log(timestampStored !== undefined && timestamp / 1000 > timestampStored);
   if (
-    !isAccessTokensUpdating
-    && timestampStored !== undefined
-    && timestamp / 1000 > timestampStored) {
+    !isAccessTokensUpdating &&
+    timestampStored !== undefined &&
+    timestamp / 1000 > timestampStored
+  ) {
     yield call(updateAccessTokens);
   }
 }
@@ -97,29 +106,39 @@ export function* waitForFreshAccessToken() {
 export function* callApi(options: {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   endpoint: string;
-  payload?: Record<string, any>;
+  payload?: Record<string, any> | FormData;
 }): SagaIterator {
-  const {
-    method = 'GET',
-    endpoint,
-    payload,
-  } = options;
+  const { method = 'GET', endpoint, payload } = options;
 
   yield call(waitForFreshAccessToken);
 
   const url = `${baseURL}${endpoint}`;
 
-  const body = JSON.stringify(payload);
+  let body;
 
-  const requestOptions: Record<string, any> = {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body,
-  };
+  let requestOptions: Record<string, any>;
 
-  const accessToken: string | undefined = yield select(authSelectors.getProp('accessToken'));
+  if (payload instanceof FormData) {
+    body = payload;
+    requestOptions = {
+      method,
+      headers: {},
+      body,
+    };
+  } else {
+    body = JSON.stringify(payload);
+    requestOptions = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body,
+    };
+  }
+
+  const accessToken: string | undefined = yield select(
+    authSelectors.getProp('accessToken'),
+  );
 
   if (accessToken) {
     requestOptions.headers.Authorization = `Bearer ${accessToken}`;
@@ -133,13 +152,10 @@ export function* callApi(options: {
     const unknowJson: any = yield call([response, response.json]);
     json = unknowJson;
   } catch (error) {
-    json = {
-    };
+    json = {};
   }
 
-  const {
-    status,
-  } = response;
+  const { status } = response;
 
   if (status >= 400) {
     switch (status) {
@@ -152,10 +168,9 @@ export function* callApi(options: {
           yield spawn(updateAccessTokens);
         }
 
-        const {
-          isSuccessfull,
-          errorMessage,
-        }: UpdatePayload = yield take(AuthActionTypes.OnUpdateAccessTokenFinish);
+        const { isSuccessfull, errorMessage }: UpdatePayload = yield take(
+          AuthActionTypes.OnUpdateAccessTokenFinish,
+        );
         if (isSuccessfull) {
           return yield call(callApi, options);
         }

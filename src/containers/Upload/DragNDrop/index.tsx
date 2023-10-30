@@ -1,7 +1,7 @@
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, docRegex } from 'appConstants';
 import {
-  ChangeEvent, DragEvent, useCallback, useState, 
+  ChangeEvent, DragEvent, useCallback, useState, FC, 
 } from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ type DragNDropProps = {
   className?: string;
 };
 
-const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc, className }) => {
+export const DragNDrop: FC<DragNDropProps> = ({ doc, setDoc, className }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -42,22 +42,28 @@ const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc, className }) => {
   const handleDrop = useCallback(
     (e: DragEvent<HTMLLabelElement>) => {
       e.preventDefault();
-      setIsDragging(false);
 
       const file = e.dataTransfer.files;
       checkFile(file);
+      setIsDragging(false);
     },
     [checkFile],
   );
+
+  const onDragPrevent = (e: DragEvent<HTMLLabelElement>) => {
+    setIsDragging(true);
+    e.preventDefault();
+  };
 
   return (
     <label
       htmlFor="upload"
       className={cx(styles.dnd_btn, className, {
         [styles.dragOver]: isDragging,
+        doc,
       })}
-      onDragOver={() => setIsDragging(true)}
-      onDragEnter={() => setIsDragging(true)}
+      onDragOver={onDragPrevent}
+      onDragEnter={onDragPrevent}
       onDragLeave={() => setIsDragging(false)}
       onDrop={handleDrop}
     >
@@ -99,5 +105,3 @@ const DragNDrop: React.FC<DragNDropProps> = ({ doc, setDoc, className }) => {
     </label>
   );
 };
-
-export { DragNDrop };

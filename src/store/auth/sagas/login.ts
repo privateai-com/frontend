@@ -3,7 +3,8 @@ import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
 import {
   RequestStatus, UserResponse,
 } from 'types';
-import { ApiEndpoint, callApi } from 'appConstants';
+import { ApiEndpoint } from 'appConstants';
+import { callApi } from 'api';
 import { accountSetState } from 'store/account/actionCreators';
 import { authLogin, authSetState, authSetStatus } from '../actionCreators';
 
