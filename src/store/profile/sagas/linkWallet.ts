@@ -2,8 +2,8 @@ import { call, put } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
 import { AccountState, RequestStatus } from 'types';
-import { ApiEndpoint, callApi } from 'appConstants';
-import { signPersonalEvm } from 'api';
+import { ApiEndpoint } from 'appConstants';
+import { callApi, signPersonalEvm } from 'api';
 import { accountSetState } from 'store/account/actionCreators';
 import { profileLinkWallet, profileSetStatus } from '../actionCreators';
 

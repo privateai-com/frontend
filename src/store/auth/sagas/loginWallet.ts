@@ -1,8 +1,8 @@
 import { call, put } from 'redux-saga/effects';
 import { sagaExceptionHandler } from 'utils';
 import { RequestStatus, UserResponse } from 'types';
-import { ApiEndpoint, callApi, errorsNotification } from 'appConstants';
-import { signPersonalEvm } from 'api';
+import { ApiEndpoint, errorsNotification } from 'appConstants';
+import { signPersonalEvm, callApi } from 'api';
 import { accountSetState } from 'store/account/actionCreators';
 import detectEthereumProvider from '@metamask/detect-provider';
 

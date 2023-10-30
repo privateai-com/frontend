@@ -1,9 +1,9 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
-$btn-height1920: 110px;
-$btn-height1440: 70px;
-$btn-height1024: 120px;
+$btn-height1920: 120px;
+$btn-height1440: 80px;
+$btn-height1024: 130px;
 
 @mixin height($height1, $height2, $height3) {
   height: calc($height1 - (($btn-height1920 + 30px) / 2));
@@ -17,7 +17,7 @@ $btn-height1024: 120px;
   }
 
   @include mobile {
-    height: calc($height3 - ((7.5px + 40px)/ 2));
+    height: calc($height3 - ((7.5px + 90px) / 2));
   }
 }
 
@@ -61,7 +61,21 @@ $btn-height1024: 120px;
   }
 
   &_dnd_block {
-    @include height(39%, 45%, 35%);
+    // @include height(273px, 45%, 35%);
+    height: 273px;
+    margin-bottom: 10px;
+
+    @include desktop1440 {
+      height: 210px;
+    }
+
+    @include tablet1024 {
+      height: 360px;
+    }
+
+    @include mobile {
+      height: 250px;
+    }
   }
 
   &_btn,
@@ -92,22 +106,42 @@ $btn-height1024: 120px;
     border-radius: 8px;
     cursor: pointer;
 
-    &_block {
-      display: flex;
-      justify-content: center;
-    }
-
     @include desktop1440 {
       width: 350px;
       height: 40px;
+    }
+
+    &_block {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+
+      @include mobile {
+        justify-content: space-between;
+      }
     }
   }
 
   &_btns {
     height: 50px;
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
+
+    @include desktop1440 {
+      height: 40px;
+    }
+
+    @include mobile {
+      font-size: 12px;
+      height: 30px;
+    }
+
     &:first-of-type {
       margin-right: 20px;
+
+      @include mobile {
+        margin-right: 25px;
+      }
     }
   }
 
