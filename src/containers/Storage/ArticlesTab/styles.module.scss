@@ -22,19 +22,11 @@
 	}
 }
 
-
-.delete_btn {
-	margin: 0 auto;
-}
-
 .green_text {
 	color: $color-green;
 }
-
-.radio_buttons {
-	display: flex;
-	flex-direction: column;
-	min-width: 230px;
+.status {
+	text-transform: capitalize;
 }
 
 .empty_space {
@@ -52,7 +44,7 @@
   }
 
   tbody {
-    height: calc(100vh - 416px);
+    height: calc(100vh - 246px);
     table-layout: fixed;
     display: block;
     overflow-y: auto;

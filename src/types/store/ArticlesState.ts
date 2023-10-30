@@ -1,8 +1,15 @@
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { PartialRecord, RequestStatus } from 'types';
+import { GraphResponseType, PartialRecord, RequestStatus } from 'types';
 
 export interface ArticlesState {
-  articles: Article[]
+  articles: Article[];
+  total: number;
+  pagination?: {
+    limit: number,
+    offset: number,
+    sortingDirection: 'ASC' | 'DESC',
+    sortingField: string,
+  };
   ui: PartialRecord<ArticlesActionTypes, RequestStatus>;
 }
 
@@ -11,11 +18,12 @@ export type Article = {
   owner: {};
   title: string;
   articleUrl: string;
-  graph: {};
+  graph: GraphResponseType[];
+  graphDraft: GraphResponseType[];
   isGraphUpdated: boolean;
   buyers: string[];
   additionalData: {};
   isPublic: boolean;
   downloads: number;
-  uploadStatus: {};
+  uploadStatus: string;
 };

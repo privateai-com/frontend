@@ -4,12 +4,12 @@ import { sagaExceptionHandler } from 'utils';
 import { RequestStatus } from 'types';
 import { ApiEndpoint, graphData } from 'appConstants';
 import { callApi } from 'api';
-import { articlesCreateArticle, articlesSetStatus } from '../actionCreators';
+import { articlesCreate, articlesSetStatus } from '../actionCreators';
 
-export function* articlesCreateArticleSaga({
+export function* articlesCreateSaga({
   type,
   payload,
-}: ReturnType<typeof articlesCreateArticle>) {
+}: ReturnType<typeof articlesCreate>) {
   try {
     yield put(articlesSetStatus({ type, status: RequestStatus.REQUEST }));
 

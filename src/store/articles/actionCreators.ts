@@ -1,4 +1,4 @@
-import { RequestStatus, ArticlesState } from 'types';
+import { RequestStatus, ArticlesState, SortingDirection } from 'types';
 import { ArticlesActionTypes } from './actionTypes';
 
 export const articlesSetState = (payload: Partial<ArticlesState>) => ({
@@ -14,7 +14,7 @@ export const articlesSetStatus = (payload: {
   payload,
 });
 
-export const articlesCreateArticle = (payload: {
+export const articlesCreate = (payload: {
   file: File;
   callback: () => void;
 }) => ({
@@ -22,7 +22,7 @@ export const articlesCreateArticle = (payload: {
   payload,
 });
 
-export const articlesChangeArticleAccess = (payload: {
+export const articlesChangeAccess = (payload: {
   articleId: number;
   isOpen: boolean;
 }) => ({
@@ -30,7 +30,35 @@ export const articlesChangeArticleAccess = (payload: {
   payload,
 });
 
-export const articlesDeleteArticle = (payload: { articleId: number }) => ({
+export const articlesDelete = (payload: { 
+  articleId: number,
+  callback?: () => void,
+}) => ({
   type: ArticlesActionTypes.DeleteArticle,
+  payload,
+});
+
+export const articlesGetAll = (
+  payload: {
+    limit: number;
+    offset: number;
+    sortingField: string;
+    sortingDirection: SortingDirection;
+    searchField: string;
+  },
+) => ({
+  type: ArticlesActionTypes.GetArticles,
+  payload,
+});
+
+export const articlesGetMy = (
+  payload: {
+    limit: number;
+    offset: number;
+    sortingField: string;
+    sortingDirection: SortingDirection;
+  },
+) => ({
+  type: ArticlesActionTypes.GetMyArticles,
   payload,
 });

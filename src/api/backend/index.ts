@@ -16,6 +16,9 @@ import { getDataFromException, ApiError } from 'utils';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 
 import { ApiEndpoint } from 'appConstants';
+import { authInitialState } from 'store/auth';
+
+export * from './getApiQueries';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -52,7 +55,8 @@ function* updateAccessTokens() {
     const response: Response = yield call(fetch, url, requestOptions);
 
     if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+      yield put(authSetState(authInitialState));
+      // throw new Error(`Request failed with status ${response.status}`);
     }
 
     const {
@@ -73,6 +77,7 @@ function* updateAccessTokens() {
     };
   } catch (error) {
     const { message } = getDataFromException(error);
+    yield put(authSetState(authInitialState));
 
     yield put(authLogout());
 
@@ -157,6 +162,10 @@ export function* callApi(options: {
 
   const { status } = response;
 
+  if (json.message === 'token uncorrected') {
+    yield put(authSetState(authInitialState));
+    throw new Error('token uncorrected');
+  }
   if (status >= 400) {
     switch (status) {
       case 401: {

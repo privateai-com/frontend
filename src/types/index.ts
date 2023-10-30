@@ -15,3 +15,4 @@ export * from './itemRow';
 export * from './tabContent';
 export * from './status';
 export * from './graph';
+export * from './sort';

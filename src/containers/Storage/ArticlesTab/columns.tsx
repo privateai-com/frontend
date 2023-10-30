@@ -1,96 +1,118 @@
 import React, { useMemo } from 'react';
 import Link from 'next/link';
 
-import { ButtonIcon, RadioButtons } from 'components';
 import { routes } from 'appConstants';
-import { trashIcon } from 'assets';
-import { ItemRowProps } from 'types';
+import { Article, ItemRowProps } from 'types';
+import { listTitleGraphs } from 'utils';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
+import { DeleteBtn } from './DeleteBtn';
+import { ChangeAvailability } from './ChangeAvailability';
 import { ArticlesType } from './types';
 
 import styles from './styles.module.scss';
 
-export const useColumns = () => useMemo(() => ([
-  {
-    Header: <TitleWithArrows title="File name" onClick={() => {}} />,
-    accessor: 'name',
-    Cell: ({
-      row: {
-        original: { name },
-      },
-    }: ItemRowProps<ArticlesType>) => (
-      name 
-        ? <Link href={`${routes.storage.root}/${name}`}>{name}</Link> 
-        : <div className={styles.empty_space}>-</div>
-    ),
-  },
-  {
-    Header: <TitleWithArrows title="Status" onClick={() => {}} />,
-    accessor: 'status',
-    Cell: ({
-      row: {
-        original: { status },
-      },
-    }: ItemRowProps<ArticlesType>) => (
-      status 
-        ? <p className={status === 'Published' ? styles.green_text : ''}>{status}</p>
-        : '-'
-    ),
-  },
-  {
-    Header: 'Core entities',
-    accessor: 'core',
-    Cell: ({
-      row: {
-        original: { core },
-      },
-    }: ItemRowProps<ArticlesType>) => (
-      core || '-'
-    ),
-  },
-  {
-    Header: <TitleWithArrows title="Availability" onClick={() => {}} />,
-    accessor: 'availability',
-    Cell: ({
-      row: {
-        original: { id },
-      },
-    }: ItemRowProps<ArticlesType>) => (
-      id 
-        ? (
-          <RadioButtons
-            containerClassName={styles.radio_buttons}
-            options={[
-              {
-                value: '1',
-                label: 'Open-sourced',
-              },
-              {
-                value: '2',
-                label: 'Permission-based',
-              },
-            ]}
-            currentValue="1"
-            onChange={() => {}}
+export const useColumns = ({
+  onChangeSortingField, onToggleDirection, 
+}: {
+  onChangeSortingField: (field: string) => void,
+  onToggleDirection: () => void,
+}) =>
+  useMemo(
+    () => [
+      {
+        Header: (
+          <TitleWithArrows
+            title="File name"
+            onClick={() => {
+              onChangeSortingField('title');
+              onToggleDirection();
+            }}
           />
-        ) : ('-')
-    ),
-  },
-  {
-    Header: () => null,
-    accessor: 'delete',
-    Cell: ({
-      row: {
-        original: { id },
+        ),
+        accessor: 'title',
+        Cell: ({
+          row: {
+            original: { title },
+          },
+        }: ItemRowProps<Article>) =>
+          (title ? (
+            <Link href={`${routes.storage.root}/${title}`}>{title}</Link>
+          ) : (
+            <div className={styles.empty_space}>-</div>
+          )),
       },
-    }: ItemRowProps<ArticlesType>) => (
-      id ? (
-        <ButtonIcon
-          image={trashIcon}
-          onClick={() => {}}
-          className={styles.delete_btn}
-        />
-      ) : ('')
-    ),
-  },
-]), []);
+      {
+        Header: (
+          <TitleWithArrows
+            title="Status"
+            onClick={() => {
+              onChangeSortingField('uploadStatus');
+              onToggleDirection();
+            }}
+          />
+        ),
+        accessor: 'status',
+        Cell: ({
+          row: {
+            original: { uploadStatus },
+          },
+        }: ItemRowProps<Article>) =>
+          (uploadStatus ? (
+            <p
+              className={
+                uploadStatus === 'Published' ? styles.green_text : styles.status
+              }
+            >
+              {uploadStatus}
+            </p>
+          ) : (
+            '-'
+          )),
+      },
+      {
+        Header: 'Core entities',
+        accessor: 'core',
+        Cell: ({
+          row: {
+            original: { graphDraft, graph },
+          },
+        }: ItemRowProps<Article>) => (graph.length > 0 ? listTitleGraphs(graph) : listTitleGraphs(graphDraft)) || '-',
+      },
+      {
+        Header: (
+          <TitleWithArrows
+            title="Availability"
+            onClick={() => {
+              onChangeSortingField('isPublic');
+              onToggleDirection();
+            }}
+          />
+        ),
+        accessor: 'availability',
+        Cell: ({
+          row: {
+            original: { isPublic, id },
+          },
+        }: ItemRowProps<Article>) =>
+          (id ? (
+            <ChangeAvailability
+              id={Number(id)}
+              isPublic={isPublic}
+            />
+          ) : (
+            '-'
+          )),
+      },
+      {
+        Header: () => null,
+        accessor: 'delete',
+        Cell: ({
+          row: {
+            original: { id },
+          },
+        }: ItemRowProps<ArticlesType>) =>
+          (id ? <DeleteBtn id={Number(id)} /> : ''),
+      },
+    ],
+    [onChangeSortingField, onToggleDirection],
+  );
