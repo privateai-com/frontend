@@ -17,11 +17,14 @@ export enum ApiEndpoint {
   ProfileDeleteWallet = '/profile/delete-wallet',
 
   ArticlesGetArticles = '/articles',
+  ArticlesGetOneArticle = '/articles/article',
   ArticlesChangeArticleAccess = '/articles/access',
   ArticlesDeleteArticle = '/articles/delete',
   ArticlesCreateArticle = '/articles/create',
+  ArticlesUpdateArticle = '/articles/update',
   ArticlesGetMyArticles = '/articles/my-articles',
   ArticlesMyRequestedArticles = '/articles/my-requested-articles',
+  ArticlesPublishArticle = '/articles/publish',
   
   GraphSave = '/graph/save',
 }

@@ -162,8 +162,9 @@ export function* callApi(options: {
 
   const { status } = response;
 
-  if (json.message === 'token uncorrected') {
+  if (json.message === 'token uncorrected' || json.message === 'Token not found in headers') {
     yield put(authSetState(authInitialState));
+    window.location.replace('/');
     throw new Error('token uncorrected');
   }
   if (status >= 400) {
