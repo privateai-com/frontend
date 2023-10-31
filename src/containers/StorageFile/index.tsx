@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { accountSelectors } from 'store/account/selectors';
 import { UserRole, GraphResponseType } from 'types';
-import { graphData as graphDataMock } from 'appConstants';
+import { graphDataReal } from 'appConstants';
 import { ButtonBack } from './ButtonBack';
 import { FileInfo } from './FileInfo';
 import { FileInfoEdit } from './FileInfoEdit';
@@ -11,17 +11,21 @@ import { Graph } from './Graph';
 import styles from './styles.module.scss';
 
 export const StorageFile = () => {
-  const [graphData, setGraphData] = useState<GraphResponseType[]>(graphDataMock);
+  const [graphData, setGraphData] = useState<GraphResponseType[]>(graphDataReal);
   const [isEdit, setIsEdit] = useState(false);
   const { role } = useSelector(accountSelectors.getAccount);
   
+  const callback = useCallback((value: GraphResponseType[]) => {
+    setGraphData(value);
+  }, []);
+  // console.log(JSON.stringify(graphData[0]) === JSON.stringify(graphDataReal[0]))
   return (
     <div className={styles.storageFile__container}>
       <ButtonBack title="Back" />
       {isEdit ? (
         <FileInfoEdit
           edges={graphData}
-          setEdges={setGraphData}
+          // setEdges={setGraphData}
           onSaveClick={() => setIsEdit(false)}
         />
       ) : (
@@ -31,8 +35,8 @@ export const StorageFile = () => {
         />
       )}
       <Graph
-        graphData={graphData}
-        setGraphData={setGraphData}
+        graphData={graphDataReal}
+        setGraphData={callback}
         isEdit={isEdit}
       />
     </div>

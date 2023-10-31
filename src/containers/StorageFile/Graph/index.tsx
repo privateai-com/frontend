@@ -1,8 +1,7 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Edge } from 'vis-network';
 
 import {
-  Button,
   Typography,
 } from 'components';
 
@@ -17,18 +16,18 @@ interface GraphProps {
   isEdit: boolean;
 }
 
-export const Graph: FC<GraphProps> = ({ graphData, setGraphData, isEdit }) => {
+export const Graph: FC<GraphProps> = memo(({ graphData, setGraphData, isEdit }) => {
   const { nodes, edges } = transformDataToNodesAndEdges(graphData);
   const edgesCurrent = edges.get().filter(({ to }: Edge) => to !== 0);
   const edgesCount = edgesCurrent.length;
   const nodesCount = nodes.length;
-  const relations = edgesCurrent.filter(({ to }: Edge) => Number(to) > 1).map((edge) => edge.head);
-  
+  const relations = nodes.get().splice(0, 5).map(({ label }: Edge) => label);
+
   return (
     <div className={styles.storageFile__data}>
       <div className={styles.storageFile__data_head}>
         <Typography type="h1">Data core structure</Typography>
-        <Button className={styles.storageFile__data_btn} theme="white">Delete file</Button>
+        {/* <Button className={styles.storageFile__data_btn} theme="white">Delete file</Button> */}
       </div>
       <div className={styles.storageFile__wrapper}>
         {/* <div className={styles.storageFile__control_buttons}>
@@ -56,7 +55,7 @@ export const Graph: FC<GraphProps> = ({ graphData, setGraphData, isEdit }) => {
         </div> */}
 
         <GraphVis
-          graphData={graphData}
+          // graphData={graphData}
           setGraphData={setGraphData}
           nodes={nodes}
           edges={edges}
@@ -74,11 +73,11 @@ export const Graph: FC<GraphProps> = ({ graphData, setGraphData, isEdit }) => {
             <span>{edgesCount}</span>
           </div>
           <div className={styles.graph_info__item}>
-            <p>Node with most relations</p>
+            <p>Core Entities</p>
             <span>{relations.join(', ')}</span>
           </div>
         </div>
       </div>
     </div>
   );
-};
+});

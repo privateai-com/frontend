@@ -1,8 +1,13 @@
 import React, {
-  FC, useCallback, useEffect, useMemo, useRef, useState, 
+  FC, memo, useCallback, useEffect, useMemo, useRef, useState, 
 } from 'react';
 import {
-  Data, Edge, Network, Node, 
+  Data,
+  DataInterfaceEdges,
+  DataInterfaceNodes,
+  Edge,
+  Network,
+  Node, 
 } from 'vis-network';
 import cx from 'classnames';
 import 'vis-network/styles/vis-network.css';
@@ -14,29 +19,30 @@ import { options } from './constants';
 import { apdateGraphControls } from './hooks';
 
 import styles from './styles.module.scss';
+import { transformNodesAndEdgesToData } from '../utils';
 
 interface GraphVisProps {
-  graphData: GraphResponseType[];
-  setGraphData: (edges: GraphResponseType[]) => void;
+  setGraphData: (edges: GraphResponseType[]) => void
   nodes: DatasetNodeType,
   edges: DatasetEdgeType,
   isEdit: boolean,
 }
 
-export const GraphVis: FC<GraphVisProps> = ({
-  graphData, setGraphData, nodes, edges, isEdit,
+export const GraphVis: FC<GraphVisProps> = memo(({
+  nodes, edges, isEdit, setGraphData,
 }) => {
   const visJsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [editingNodeId, setEditingNodeId] = useState<number | null>(null);
+  const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
+  const [editingEdgeId, setEditingEdgeId] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
 
   const handleAddNode = useCallback((data: Node, callback: (data: Node) => void) => {
     const newNode: Node = {
       ...data,
-      id: nodes.length + 1,
+      id: (nodes.length + 1).toString(),
     };
-    setEditingNodeId(Number(newNode.id));
+    setEditingNodeId(newNode.id as string);
     setShowPopup(true);
     const inputElement = inputRef.current;
     if (inputElement) {
@@ -46,38 +52,17 @@ export const GraphVis: FC<GraphVisProps> = ({
         inputElement.select();
       }, 10);
     }
-    const newGraphData = [
-      ...graphData,
-      {
-        head: 'new',
-        tail: '',
-        type: '',
-        meta: {
-          spans: [[0]],
-        },
-      },
-    ];
-    setGraphData(newGraphData);
     callback(newNode);
-  }, [graphData, nodes, setGraphData]);
+  }, [nodes]);
 
   const handleAddOrEditEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
     if (!data.to || !data.from) return;
     const nodeTo = nodes.get(data.to);
     const nodeFrom = nodes.get(data.from);
     if (!nodeTo || !nodeFrom) return;
-    const updatedGraphData = graphData.map((edge, index) => {
-      if ((index + 1) === nodeFrom.id) {
-        return {
-          ...edge,
-          tail: nodeTo.label,
-        };
-      }
-      return edge;
-    });
-    setGraphData(updatedGraphData);
+    setGraphData(transformNodesAndEdgesToData(nodes, edges));
     callback(data);
-  }, [graphData, nodes, setGraphData]);
+  }, [edges, nodes, setGraphData]);
 
   const handleDeleteEdge = useCallback((data: Data, callback: (data: Data) => void) => {
     if (Array.isArray(data?.edges) && data.edges.length === 1) {
@@ -86,19 +71,16 @@ export const GraphVis: FC<GraphVisProps> = ({
       if (!currentEdge) return;
       const nodeFrom = nodes.get(currentEdge.from);
       if (!nodeFrom) return;
-      const updatedGraphData = graphData.map((edge, index) => {
-        if ((index + 1) === Number(nodeFrom.id)) {
-          return {
-            ...edge,
-            tail: '',
-          };
-        }
-        return edge;
-      });
-      setGraphData(updatedGraphData);
     }
+    setGraphData(transformNodesAndEdgesToData(nodes, edges));
     callback(data);
-  }, [edges, graphData, nodes, setGraphData]);
+  }, [edges, nodes, setGraphData]);
+
+  const handleDeleteNode = useCallback((data: Data, callback: (data: Data) => void) => {
+    if (!Array.isArray(data?.nodes)) return;
+    setGraphData(transformNodesAndEdgesToData(nodes, edges));
+    callback(data);
+  }, [edges, nodes, setGraphData]);
 
   const currentOption = useMemo(() => ({
     ...options,
@@ -106,89 +88,105 @@ export const GraphVis: FC<GraphVisProps> = ({
       enabled: isEdit,
       addNode: handleAddNode,
       addEdge: handleAddOrEditEdge,
-      editEdge: handleAddOrEditEdge,
-      deleteNode: (data: Data, callback: (data: Data) => void) => {
-        if (!Array.isArray(data?.nodes)) return;
-        const nodeIdToDelete = data.nodes[0];
-        const updatedGraphData =
-          graphData.filter((_, index) => (index + 1) !== nodeIdToDelete);
-        setGraphData(updatedGraphData);
-        
-        callback(data);
-      },
+      deleteNode: handleDeleteNode,
       deleteEdge: handleDeleteEdge,
     }, 
-  }), [graphData, handleAddNode, handleAddOrEditEdge, handleDeleteEdge, isEdit, setGraphData]);
+  }), [handleAddNode, handleAddOrEditEdge, handleDeleteEdge, handleDeleteNode, isEdit]);
 
   useEffect(() => {
     const network = visJsRef.current &&
       new Network(
         visJsRef.current, 
-        { nodes, edges: edges.get().map((edge) => edge) },
+        { nodes: nodes as DataInterfaceNodes, edges: edges as DataInterfaceEdges },
         currentOption,
       );
     apdateGraphControls(visJsRef);
     if (!network || !isEdit) return;
 
+    // network.on('doubleClick', (event) => {
+    //   const canvasPosition = network.canvasToDOM(event.pointer.canvas);
+    //   const nodeId = network.getNodeAt(canvasPosition);
+
+    //   if (nodeId !== undefined) {
+    //     setEditingNodeId(Number(nodeId));
+    //     setShowPopup(true);
+    //     const inputElement = inputRef.current;
+    //     const node = nodes.get(nodeId);
+
+    //     if (!node || !inputElement) return;
+
+    //     nodes.update(node);
+        
+    //     if (node) {
+    //       inputElement.value = node.label;
+    //     }
+    //     setTimeout(() => {
+    //       inputElement.focus();
+    //       inputElement.select();
+    //     }, 10);
+    //   } else {
+    //     setShowPopup(false);
+    //     setEditingNodeId(null);
+    //   }
+    // });
     network.on('doubleClick', (event) => {
       const canvasPosition = network.canvasToDOM(event.pointer.canvas);
       const nodeId = network.getNodeAt(canvasPosition);
-
+      const edgeId = network.getEdgeAt(canvasPosition);
       if (nodeId !== undefined) {
-        setEditingNodeId(Number(nodeId));
+        setEditingNodeId(nodeId as string);
         setShowPopup(true);
-        const inputElement = inputRef.current;
         const node = nodes.get(nodeId);
-
-        if (!node || !inputElement) return;
-
-        nodes.update(node);
-        
-        if (node) {
-          inputElement.value = node.label;
+        if (node && inputRef.current) {
+          inputRef.current.value = node.label;
+          inputRef.current.focus();
         }
-        setTimeout(() => {
-          inputElement.focus();
-          inputElement.select();
-        }, 10);
+      } else if (edgeId !== undefined) {
+        setEditingEdgeId(edgeId as string);
+        setShowPopup(true);
+        const edge = edges.get(edgeId);
+        if (edge && inputRef.current) {
+          inputRef.current.value = edge.label;
+          inputRef.current.focus();
+        }
       } else {
         setShowPopup(false);
         setEditingNodeId(null);
+        setEditingEdgeId(null);
       }
     });
-  }, [currentOption, edges, isEdit, nodes]);
+  }, [currentOption, edges, isEdit, nodes, setGraphData]);
 
-  const handleKeyPress = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      if (editingNodeId !== null) {
-        const updatedNode = nodes.get(editingNodeId);
-        if (updatedNode) {
-          const updatedGraph = graphData.map((edge, index) => {
-            if (index === editingNodeId - 1) {
-              return {
-                ...edge,
-                head: inputRef.current?.value || '',
-              };
-            }
-            return edge;
-          });
-  
-          setGraphData(updatedGraph);
-        }
-        setShowPopup(false);
-        setEditingNodeId(null);
+  const handleEnterPress = () => {
+    if (editingNodeId !== null) {
+      const updatedNode = nodes.get(editingNodeId);
+      if (updatedNode && inputRef.current) {
+        updatedNode.label = inputRef.current.value;
+        nodes.update(updatedNode);
       }
+      setEditingNodeId(null);
     }
-  }, [editingNodeId, graphData, nodes, setGraphData]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyPress);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [handleKeyPress]);
+    if (editingEdgeId !== null) {
+      const currentEdges = edges.get();
+      const updatedEdge = edges.get(editingEdgeId);
+      if (updatedEdge && currentEdges) {
+        currentEdges.forEach((edge) => {
+          if (edge.id === updatedEdge.id && inputRef.current) {
+            const newEdge = { ...edge };
+            newEdge.label = inputRef.current.value;
+            const index = currentEdges.findIndex((e) => e.id === updatedEdge.id);
+            if (index !== -1) {
+              currentEdges[index] = newEdge;
+            }
+          }
+        });
+        edges.update(currentEdges);
+      }
+      setEditingEdgeId(null);
+    }
+    setGraphData(transformNodesAndEdgesToData(nodes, edges));
+    setShowPopup(false);
+  };
 
   useEffect(() => {
     if (visJsRef.current) {
@@ -201,44 +199,27 @@ export const GraphVis: FC<GraphVisProps> = ({
     setEditingNodeId(null);
   }, []);
 
-  useEffect(() => {
-    // const handleClickOutside = (event: MouseEvent) => {
-    //   if (showPopup && inputRef.current && !inputRef.current.contains(event.target as Node)) {
-    //     setShowPopup(false);
-    //     setEditingNodeId(null);
-    //   }
-    // };
-  
-    // document.addEventListener('click', handleClickOutside);
-  
-    // return () => {
-    //   document.removeEventListener('click', handleClickOutside);
-    // };
-  }, [showPopup]);
-
   return (
     <div className={styles.visContainer}>
       <div ref={visJsRef} style={{ height: '500px', width: '100%' }} />
-      <div>
-        <span id="eventSpanHeading" />
-        <pre id="eventSpanContent" />
-      </div>
       <div
         className={cx(styles.popup, {
           [styles.show]: showPopup,
         })}
       >
-        <input
-          type="text"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            if (inputRef.current) {
-              inputRef.current.value = event.target.value;
-            }
-          }}
-          ref={inputRef}
-        />
-        <ButtonIcon image={closeModalIcon} onClick={onClosePopup} />
+        <div className={styles.popup_container}>
+          <input
+            type="text"
+            onKeyUp={(event) => {
+              if (event.key === 'Enter') {
+                handleEnterPress();
+              }
+            }}
+            ref={inputRef}
+          />
+          <ButtonIcon image={closeModalIcon} onClick={onClosePopup} />
+        </div>
       </div>
     </div>
   );
-};
+});

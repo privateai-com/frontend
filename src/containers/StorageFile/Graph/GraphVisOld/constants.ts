@@ -26,13 +26,7 @@ export const options = {
   width: '100%',
   physics: {
     enabled: true,
-    // solver: 'forceAtlas2Based',
-    barnesHut: {
-      gravitationalConstant: -6000,
-      springConstant: 0.001,
-      springLength: 150,
-      // avoidOverlap: 0.01,
-    },
+    solver: 'forceAtlas2Based',
   },
   nodes: {
     shape: 'dot',
@@ -54,8 +48,7 @@ export const options = {
       color: '#747474',
       face: 'Montserrat',
       size: 16,
-      strokeWidth: 16,
-      background: '#000',
+
     },
     shadow: {
       enabled: true,

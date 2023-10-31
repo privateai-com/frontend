@@ -10,14 +10,23 @@ export type GraphResponseType = {
   };
 };
 
-export type DatasetNodeType = 
-  DataSet<{ id: number; label: string; type: string; tail: string; }, 'id'>;
+// export type DatasetNodeType = 
+//   DataSet<{ id: number | string; label: string; type: string; tail: string; }, 'id'>;
+
+// export type DatasetNodeType = DataSet<{
+//   id: OptId;
+//   label: string;
+//   type: string;
+//   tail: string;
+// }, 'id'>;
 
 export type EdgeType = {
-  from: number;
+  from: number | string;
   head: string;
   label: string;
-  to: number;
+  to: number | string;
 };
+// Node[] | DataInterfaceNodes | undefined
+export type DatasetNodeType = DataSet<Partial<Record<'id', OptId>> & GraphResponseType & { label: string } & Node[]>;
 
-export type DatasetEdgeType = DataSet<Partial<Record<'id', OptId>> & GraphResponseType & EdgeType, 'id'>;
+export type DatasetEdgeType = DataSet<Partial<Record<'id', OptId>> & GraphResponseType & EdgeType>;
