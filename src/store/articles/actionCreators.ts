@@ -1,4 +1,6 @@
-import { RequestStatus, ArticlesState, SortingDirection } from 'types';
+import {
+  RequestStatus, ArticlesState, SortingDirection, GraphResponseType, 
+} from 'types';
 import { ArticlesActionTypes } from './actionTypes';
 
 export const articlesSetState = (payload: Partial<ArticlesState>) => ({
@@ -22,6 +24,25 @@ export const articlesCreate = (payload: {
   payload,
 });
 
+export const articlesPublish = (payload: {
+  articleId: number;
+  isPublished: boolean;
+  callback: () => void;
+}) => ({
+  type: ArticlesActionTypes.PublishArticle,
+  payload,
+});
+
+export const articlesUpdate = (payload: {
+  articleId: number;
+  title: string;
+  field: string;
+  callback: () => void;
+}) => ({
+  type: ArticlesActionTypes.UpdateArticle,
+  payload,
+});
+
 export const articlesChangeAccess = (payload: {
   articleId: number;
   isOpen: boolean;
@@ -38,6 +59,15 @@ export const articlesDelete = (payload: {
   payload,
 });
 
+export const articlesSaveGraph = (payload: { 
+  articleId: number,
+  data: GraphResponseType[],
+  callback?: () => void,
+}) => ({
+  type: ArticlesActionTypes.SaveGraph,
+  payload,
+});
+
 export const articlesGetAll = (
   payload: {
     limit: number;
@@ -48,6 +78,13 @@ export const articlesGetAll = (
   },
 ) => ({
   type: ArticlesActionTypes.GetArticles,
+  payload,
+});
+
+export const articlesGetOneArticle = (payload: {
+  articleId: number,
+}) => ({
+  type: ArticlesActionTypes.GetOneArticle,
   payload,
 });
 

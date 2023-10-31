@@ -3,6 +3,7 @@ import { GraphResponseType, PartialRecord, RequestStatus } from 'types';
 
 export interface ArticlesState {
   articles: Article[];
+  article?: Article,
   total: number;
   pagination?: {
     limit: number,
