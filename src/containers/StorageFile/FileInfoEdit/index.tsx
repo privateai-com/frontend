@@ -1,5 +1,5 @@
 import {
-  FC, useCallback, useEffect, useRef, useState, 
+  FC, memo, useRef, useState, 
 } from 'react';
 
 import {
@@ -13,18 +13,18 @@ import styles from './styles.module.scss';
 import { EditItem } from './EditItem';
 import { GraphResponseType } from '../types';
 
-const newEdge = {
-  head: 'New',
-  tail: '',
-  type: '',
-  meta: {
-    spans: [[]],
-  },
-};
+// const newEdge = {
+//   head: 'New',
+//   tail: '',
+//   type: '',
+//   meta: {
+//     spans: [[]],
+//   },
+// };
 
 interface FileInfoProps {
   edges: GraphResponseType[];
-  setEdges: (edges: GraphResponseType[]) => void;
+  // setEdges: (edges: GraphResponseType[]) => void;
   onSaveClick: () => void;
 }
 
@@ -36,52 +36,52 @@ const {
   field: 'Gene therapy',
 };
 
-export const FileInfoEdit: FC<FileInfoProps> = ({ edges, setEdges, onSaveClick }) => {
+export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSaveClick }) => {
   const storageFileItemRef = useRef<HTMLDivElement>(null);
-  const [lastEdgeFields, setLastEdgeFields] = useState({
-    head: '',
-    type: '',
-    tail: '',
-  });
+  // const [lastEdgeFields, setLastEdgeFields] = useState({
+  //   head: '',
+  //   type: '',
+  //   tail: '',
+  // });
   const [nameFile, setNameFile] = useState(name);
   const [fieldFile, setFieldFile] = useState(field);
-  const lastEdgeAvaliable = lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail;
+  // const lastEdgeAvaliable = lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail;
 
-  const updateGraphItem = (index: number, updatedItem: GraphResponseType) => {
-    const updatedGraphItems = [...edges];
-    updatedGraphItems[index] = updatedItem;
-    setEdges(updatedGraphItems);
-  };
+  // const updateGraphItem = (index: number, updatedItem: GraphResponseType) => {
+  //   const updatedGraphItems = [...edges];
+  //   updatedGraphItems[index] = updatedItem;
+  //   setEdges(updatedGraphItems);
+  // };
 
-  useEffect(() => {
-    const lastItem = edges[edges.length - 1];
-    if (lastItem) {
-      setLastEdgeFields({
-        head: lastItem.head,
-        type: lastItem.type,
-        tail: lastItem.tail,
-      });
-    }
-  }, [edges]);
+  // useEffect(() => {
+  //   const lastItem = edges[edges.length - 1];
+  //   if (lastItem) {
+  //     setLastEdgeFields({
+  //       head: lastItem.head,
+  //       type: lastItem.type,
+  //       tail: lastItem.tail,
+  //     });
+  //   }
+  // }, [edges]);
 
-  const addNewEdgeClick = useCallback(() => {
-    if (lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail) {
-      setEdges([...edges, newEdge]);
-      if (storageFileItemRef.current) {
-        setTimeout(() => {
-          if (storageFileItemRef.current) {
-            storageFileItemRef.current.scrollTop = storageFileItemRef.current.scrollHeight;
-          }
-        }, 100);
-      }
-    }
-  }, [edges, lastEdgeFields.head, lastEdgeFields.tail, lastEdgeFields.type, setEdges]);
+  // const addNewEdgeClick = useCallback(() => {
+  //   if (lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail) {
+  //     setEdges([...edges, newEdge]);
+  //     if (storageFileItemRef.current) {
+  //       setTimeout(() => {
+  //         if (storageFileItemRef.current) {
+  //           storageFileItemRef.current.scrollTop = storageFileItemRef.current.scrollHeight;
+  //         }
+  //       }, 100);
+  //     }
+  //   }
+  // }, [edges, lastEdgeFields.head, lastEdgeFields.tail, lastEdgeFields.type, setEdges]);
 
-  const onDelete = useCallback((indexToDelete: number) => {
-    const updatedGraphItems = [...edges];
-    updatedGraphItems.splice(indexToDelete, 1);
-    setEdges(updatedGraphItems);
-  }, [edges, setEdges]);
+  // const onDelete = useCallback((indexToDelete: number) => {
+  //   const updatedGraphItems = [...edges];
+  //   updatedGraphItems.splice(indexToDelete, 1);
+  //   setEdges(updatedGraphItems);
+  // }, [edges, setEdges]);
 
   return (
     <>
@@ -108,13 +108,13 @@ export const FileInfoEdit: FC<FileInfoProps> = ({ edges, setEdges, onSaveClick }
           </div>
           <div className={styles.storageFile__item}>
             Graph edges: 
-            <Button
+            {/* <Button
               onClick={addNewEdgeClick}
               theme="secondary"
               disabled={!lastEdgeAvaliable}
             >
               Add new edge
-            </Button>
+            </Button> */}
           </div>
           <div className={styles.storageFile__edit} ref={storageFileItemRef}>
             {edges?.length && (
@@ -127,8 +127,8 @@ export const FileInfoEdit: FC<FileInfoProps> = ({ edges, setEdges, onSaveClick }
                   head={head}
                   type={type}
                   tail={tail}
-                  updateGraphItem={updateGraphItem}
-                  onDelete={onDelete}
+                  // updateGraphItem={updateGraphItem}
+                  // onDelete={onDelete}
                 />
               ))
             )}
@@ -161,4 +161,4 @@ export const FileInfoEdit: FC<FileInfoProps> = ({ edges, setEdges, onSaveClick }
       </div>
     </>
   );
-};
+});

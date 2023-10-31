@@ -2,11 +2,11 @@ import { FC, useCallback } from 'react';
 import cx from 'classnames';
 
 import {
-  ButtonIcon,
+  // ButtonIcon,
   TextInput,
 } from 'components';
-import { trashIcon } from 'assets';
-import { GraphResponseType } from 'containers/StorageFile/types';
+// import { trashIcon } from 'assets';
+// import { GraphResponseType } from 'containers/StorageFile/types';
 
 import styles from './styles.module.scss';
 
@@ -16,8 +16,8 @@ interface EditItemProps {
   head: string;
   type: string;
   tail: string;
-  updateGraphItem: (index: number, updatedItem: GraphResponseType) => void;
-  onDelete: (index: number) => void;
+  // updateGraphItem: (index: number, updatedItem: GraphResponseType) => void;
+  // onDelete: (index: number) => void;
 }
 
 export const EditItem: FC<EditItemProps> = ({
@@ -26,20 +26,20 @@ export const EditItem: FC<EditItemProps> = ({
   head,
   type,
   tail,
-  updateGraphItem,
-  onDelete,
+  // updateGraphItem,
+  // onDelete,
 }) => {
-  const handleInputChange = useCallback((text: string, name?: string) => {
-    const updatedItem = {
-      head: name === 'subj' ? text : head,
-      type: name === 'verb' ? text : type,
-      tail: name === 'obj' ? text : tail,
-      meta: {
-        spans: [[]],
-      },
-    };
-    updateGraphItem(index, updatedItem);
-  }, [head, index, tail, type, updateGraphItem]);
+  const handleInputChange = useCallback(() => {
+    // const updatedItem = {
+    //   head: name === 'subj' ? text : head,
+    //   type: name === 'verb' ? text : type,
+    //   tail: name === 'obj' ? text : tail,
+    //   meta: {
+    //     spans: [[]],
+    //   },
+    // };
+    // updateGraphItem(index, updatedItem);
+  }, []);
 
   return (
     <div className={cx(styles.edit_item__container, className)}>
@@ -52,6 +52,7 @@ export const EditItem: FC<EditItemProps> = ({
           classNameContainer={styles.edit_item_input_container}
           classNameInputBox={styles.edit_item_inputBox}
           placeholder="Artificial Intelligence SUBJ"
+          disabled
         />
         <TextInput
           name="verb"
@@ -60,6 +61,7 @@ export const EditItem: FC<EditItemProps> = ({
           classNameContainer={styles.edit_item_input_container}
           classNameInputBox={styles.edit_item_inputBox}
           placeholder="Analyzes VERB"
+          disabled
         />
         <TextInput
           name="obj"
@@ -68,13 +70,14 @@ export const EditItem: FC<EditItemProps> = ({
           classNameContainer={styles.edit_item_input_container}
           classNameInputBox={styles.edit_item_inputBox}
           placeholder="Individual genome OBJ"
+          disabled
         />
       </div>
-      <ButtonIcon
+      {/* <ButtonIcon
         className={styles.edit_item_icon}
         image={trashIcon}
         onClick={() => onDelete(index)}
-      />
+      /> */}
     </div>
   );
 };

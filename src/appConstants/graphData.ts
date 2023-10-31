@@ -223,3 +223,162 @@ export const graphData: GraphResponseType[] = [
     type: 'use',
   },
 ];
+
+export const graphDataReal: GraphResponseType[] = [
+  {
+    head: 'Vitamin C',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'collagen biosynthesis',
+    type: 'is essential for',
+  },
+  {
+    head: 'Vitamin C',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'antiaging effect',
+    type: 'is thought to have',
+  },
+  {
+    head: 'Vitamin C',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'cofactor for prolyl and lysyl hydroxylase',
+    type: 'serves as',
+  },
+  {
+    head: 'key enzymes',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'collagen fibers',
+    type: 'cross-link',
+  },
+  {
+    head: 'key enzymes',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'collagen fibers',
+    type: 'stabilize',
+  },
+  {
+    head: 'Vitamin C',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'transcription factors',
+    type: 'activates',
+  },
+  {
+    head: 'Vitamin C',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'procollagen messenger RNA (mRNA)',
+    type: 'stabilizes',
+  },
+  {
+    head: 'transcription factors',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'collagen synthesis',
+    type: 'involved in',
+  },
+  {
+    head: 'procollagen messenger RNA (mRNA)',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'Type I and III collagen synthesis',
+    type: 'regulates',
+  },
+  {
+    head: 'vitamin C',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'gene expression of collagen and synthesis',
+    type: 'increases',
+  },
+  {
+    head: 'tissue inhibitor of MMP-1',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'collagen degradation',
+    type: 'decreases',
+  },
+  {
+    head: 'daily application',
+    meta: {
+      spans: [
+        [
+          0,
+          0,
+        ],
+      ],
+    },
+    tail: 'increase in the density',
+    type: 'led to',
+  },
+];
