@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from 'axios';
 import { RefreshAccessTokensData, UpdatePayload } from 'types';
 
 import { SagaIterator } from 'redux-saga';
@@ -112,8 +113,11 @@ export function* callApi(options: {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   endpoint: string;
   payload?: Record<string, any> | FormData;
+  callbackUploadStatus?: (percent: number) => void;
 }): SagaIterator {
-  const { method = 'GET', endpoint, payload } = options;
+  const {
+    method = 'GET', endpoint, payload, callbackUploadStatus, 
+  } = options;
 
   yield call(waitForFreshAccessToken);
 
@@ -123,7 +127,9 @@ export function* callApi(options: {
 
   let requestOptions: Record<string, any>;
 
-  if (payload instanceof FormData) {
+  const isUploadFile = payload instanceof FormData;
+
+  if (isUploadFile) {
     body = payload;
     requestOptions = {
       method,
@@ -148,6 +154,31 @@ export function* callApi(options: {
   if (accessToken) {
     requestOptions.headers.Authorization = `Bearer ${accessToken}`;
   }
+
+  if (isUploadFile) {
+    try {
+      const res = yield call(
+        axios.request,
+        {
+          method: requestOptions.method, 
+          url, 
+          data: requestOptions.body,
+          headers: requestOptions.headers, 
+          onUploadProgress: (p) => {
+            if (callbackUploadStatus) {
+              callbackUploadStatus(Math.ceil(100 * (p.loaded / p.total)));
+            }
+          },
+        
+        },
+      );
+      if (callbackUploadStatus) callbackUploadStatus(100);
+
+      return res;
+    } catch {
+      throw new ApiError('Error upload file', 500, 'error');
+    }
+  } 
 
   const response: Response = yield call(fetch, url, requestOptions);
 

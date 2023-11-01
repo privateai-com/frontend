@@ -29,6 +29,7 @@
     "crypto-js": "4.1.1",
     "env-cmd": "10.1.0",
     "ethers": "5.7.1",
+    "filesize": "10.1.0",
     "next": "13.4.7",
     "next-redux-wrapper": "8.0.0",
     "rc-time-picker": "3.7.3",

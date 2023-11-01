@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
 import { ArticlesActionTypes } from '../actionTypes';
 import { articlesGetAllSaga } from './getAllArticles';
 import { articlesGetMySaga } from './getMyArticles';
@@ -11,7 +11,7 @@ import { articlesUpdateSaga } from './update';
 import { articlesSaveGraphSaga } from './saveGraph';
 
 export default function* articlesSaga() {
-  yield takeLatest(ArticlesActionTypes.CreateArticle, articlesCreateSaga);
+  yield takeEvery(ArticlesActionTypes.CreateArticle, articlesCreateSaga);
   yield takeLatest(ArticlesActionTypes.GetArticles, articlesGetAllSaga);
   yield takeLatest(ArticlesActionTypes.GetMyArticles, articlesGetMySaga);
   yield takeLatest(ArticlesActionTypes.GetOneArticle, articlesGetOneArticleSaga);

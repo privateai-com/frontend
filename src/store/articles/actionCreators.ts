@@ -16,6 +16,18 @@ export const articlesSetStatus = (payload: {
   payload,
 });
 
+export const articlesSetStatusUpload = (payload: {
+  id: string;
+  fileName?: string;
+  size?: number;
+  percentUpload?: number;
+  status?: RequestStatus;
+  idArticle?: string,
+}) => ({
+  type: ArticlesActionTypes.SetStatusUpload,
+  payload,
+});
+
 export const articlesCreate = (payload: {
   file: File;
   callback: () => void;

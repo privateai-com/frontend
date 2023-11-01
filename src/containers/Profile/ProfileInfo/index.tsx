@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 import { Typography } from 'components';
 
@@ -33,11 +33,15 @@ export const ProfileInfo = () => {
     <>
       <div className={cx(styles.wrapper, styles.info)}>
         {avatarUrl ? (
-          <Image
-            src={avatarUrl}
-            alt="avatar"
-            className={styles.info_avatar}
-          />
+          // <Image
+          //   src={avatarUrl}
+          //   alt="avatar"
+          //   className={styles.info_avatar}
+          //   width={450}
+          //   height={450}
+          // />
+          <div className={styles.no_avatar} />
+
         ) : (
           <div className={styles.no_avatar} />
         )}
