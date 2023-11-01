@@ -4,6 +4,7 @@
 .storageFile__file {
 	grid-area: info;
 	margin-top: 20px;
+	margin-bottom: 30px;
 
 	h1 {
 		margin-bottom: 20px;
@@ -11,12 +12,12 @@
 }
 
 .storageFile__item {
-	font-size: 20px;
 	font-weight: 700;
 	color: $color-grey;
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	@include font-20();
 
 	&:nth-child(3) {
 		justify-content: space-between;
@@ -24,7 +25,7 @@
 
 	a, span {
 		font-weight: 500;
-		font-size: 20px;
+		@include font-20();
 	}
 }
 
@@ -40,13 +41,25 @@
 }
 
 .storageFile__wrapper {
-	padding: 44px 40px;
+	padding: 10px 15px;
 	background-color: $color-white;
 	box-shadow: -10px 56px 140px 0px #8F9BBA33;
 	border-radius: 16px;
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+
+	@include media-breakpoint-up(lg) {
+		padding: 30px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		padding: 20px;
+	}
+
+	@include media-breakpoint-up(fhd) {
+		padding: 44px 40px;
+	}
 }
 
 .storageFile__edit {
@@ -54,12 +67,24 @@
 	padding: 20px;
 	border: 1px solid $color-green;
 	border-radius: 16px;
-	max-height: 405px;
+	max-height: 376px;
 	overflow-y: scroll;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	scroll-behavior: smooth;
+
+	@include media-breakpoint-up(lg) {
+		max-height: 240px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		max-height: 220px;
+	}
+
+	@include media-breakpoint-up(fhd) {
+		max-height: 405px;
+	}
 
 	@include greenScrollbar();
 
@@ -82,15 +107,29 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 2px;
-	margin-top: 30px;
+	margin-top: auto;
+	height: fit-content;
+	row-gap: 10px;
 
 	& > {
 		button {
 			width: 100%;
-			max-width: 230px;
-			text-wrap: wrap;
+			max-width: 105px;
+			white-space: break-spaces;
 			padding: 5px 20px;
-			font-size: 20px;
+			@include font-20();
+
+			@include media-breakpoint-up(lg) {
+				max-width: 160px;
+			}
+		
+			@include media-breakpoint-up(xl) {
+				max-width: 160px;
+			}
+		
+			@include media-breakpoint-up(fhd) {
+				max-width: 230px;
+			}
 		}
 	}
 }

@@ -18,7 +18,7 @@ export const StorageFile = () => {
   const callback = useCallback((value: GraphResponseType[]) => {
     setGraphData(value);
   }, []);
-  // console.log(JSON.stringify(graphData[0]) === JSON.stringify(graphDataReal[0]))
+
   return (
     <div className={styles.storageFile__container}>
       <ButtonBack title="Back" />

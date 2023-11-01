@@ -40,3 +40,7 @@
 @mixin font-20-p {
 	@include adaptive-font-size(12, 14, 16, 16, 20);
 }
+
+@mixin font-16 {
+	@include adaptive-font-size(12, 14, 14, 14, 16);
+}

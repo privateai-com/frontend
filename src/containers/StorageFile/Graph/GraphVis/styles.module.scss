@@ -1,9 +1,45 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
+@import 'assets/styles/function.scss';
 
 .visContainer {
   position: relative;
   max-height: 574px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+
+  &_button {
+    padding: 2px 6px;
+    font-size: 14px;
+  }
+}
+
+.visNetwork {
+  outline: none;
+}
+
+.visWrapper {
+  height: 376px;
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+		height: vw(290, 1025);
+	}
+
+	@include media-breakpoint-up(xxl) {
+		height: vw(332, 1440);
+	}
+
+  @include media-breakpoint-up(xxxl) {
+		height: vw(500, 1660);
+	}
+
+	@include media-breakpoint-up(fhd) {
+		height: vw(500);
+	}
 }
 
 .visManipulation {

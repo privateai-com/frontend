@@ -62,7 +62,7 @@ export const Graph: FC<GraphProps> = memo(({ graphData, setGraphData, isEdit }) 
           isEdit={isEdit}
         />
 
-        <Typography type="h2">Data core structure</Typography>
+        <Typography type="h2">Data highlights:</Typography>
         <div className={styles.graph_info}>
           <div className={styles.graph_info__item}>
             <p>Number of nodes</p>

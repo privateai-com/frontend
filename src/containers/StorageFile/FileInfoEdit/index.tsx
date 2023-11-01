@@ -117,7 +117,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSaveClick }) => 
             </Button> */}
           </div>
           <div className={styles.storageFile__edit} ref={storageFileItemRef}>
-            {edges?.length && (
+            {!!edges?.length && (
               edges.map(({ head, tail, type }, index) => (
                 <EditItem
                   // eslint-disable-next-line react/no-array-index-key

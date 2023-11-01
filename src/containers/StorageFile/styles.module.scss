@@ -4,10 +4,24 @@
 .storageFile__container {
 	position: relative;
 	display: grid;
-	grid-template-areas: 'back back'
+	grid-template-areas: 'back'
+    'info'
+    'data'
+    'buttons';
+  grid-template-columns: minmax(100px, 1fr);
+  grid-template-rows: auto;
+	column-gap: 40px;
+
+  @include media-breakpoint-up(xxl) {
+		grid-template-areas: 'back back'
     'info data'
     'buttons data';
-  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
-  grid-template-rows: auto auto;
-	column-gap: 40px;
+    grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 20px;
+	}
+
+  @include media-breakpoint-up(fhd) {
+    column-gap: 40px;
+	}
 }
