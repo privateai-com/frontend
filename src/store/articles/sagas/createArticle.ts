@@ -2,16 +2,23 @@ import { call, put } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
 import { RequestStatus } from 'types';
-import { ApiEndpoint, graphData } from 'appConstants';
+import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { articlesCreate, articlesSetStatus } from '../actionCreators';
+import { store } from 'store/configureStore';
+import { articlesCreate, articlesSetStatusUpload } from '../actionCreators';
 
 export function* articlesCreateSaga({
-  type,
   payload,
 }: ReturnType<typeof articlesCreate>) {
+  const idFile = crypto.randomUUID(); 
   try {
-    yield put(articlesSetStatus({ type, status: RequestStatus.REQUEST }));
+    yield put(articlesSetStatusUpload({ 
+      id: idFile, 
+      status: RequestStatus.REQUEST,
+      percentUpload: 0,
+      fileName: payload.file.name,
+      size: payload.file.size,
+    }));
 
     const formData = new FormData();
 
@@ -27,30 +34,50 @@ export function* articlesCreateSaga({
     Object.entries(data).forEach(([key, value]) =>
       formData.append(key, value));
 
+    const handleSetStatusUpload = (percentUpload: number) => {
+      store.dispatch(
+        articlesSetStatusUpload({ 
+          id: idFile, 
+          percentUpload,
+        }), 
+      );
+    };
+
     const res: {
       data: {
-        id: string,
+        data: {
+          id: string,
+        }
       }
     } = yield call(callApi, {
       method: 'POST',
       endpoint: ApiEndpoint.ArticlesCreateArticle,
       payload: formData,
+      callbackUploadStatus: handleSetStatusUpload,
     });
 
-    yield call(callApi, {
-      method: 'PUT',
-      endpoint: ApiEndpoint.GraphSave,
-      payload: {
-        id: res.data.id,
-        graph: graphData,
-      },
-    });
+    // yield call(callApi, {
+    //   method: 'PUT',
+    //   endpoint: ApiEndpoint.GraphSave,
+    //   payload: {
+    //     id: res.data.data.id,
+    //     graph: graphData,
+    //   },
+    // });
     
     if(payload.callback) payload.callback();
 
-    yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
+    yield put(articlesSetStatusUpload({ 
+      id: idFile, 
+      status: RequestStatus.SUCCESS,
+      percentUpload: 100,
+      idArticle: res.data.data.id, 
+    }));  
   } catch (e) {
     sagaExceptionHandler(e);
-    yield put(articlesSetStatus({ type, status: RequestStatus.ERROR }));
+    yield put(articlesSetStatusUpload({ 
+      id: idFile, 
+      status: RequestStatus.ERROR,
+    }));
   }
 }

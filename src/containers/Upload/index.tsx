@@ -1,22 +1,27 @@
+import { filesize } from 'filesize';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Button, Typography } from 'components';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { RequestStatus } from 'types';
+
 import { articlesCreate } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { RequestStatus } from 'types';
 import styles from './styles.module.scss';
 import { DragNDrop } from './DragNDrop';
 import { Item } from './Item';
-import { data } from './data';
 
 export const Upload = () => {
   const [doc, setDoc] = useState<File | null>(null);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
   const dispatch = useDispatch();
 
+  const upload = useSelector(
+    articlesSelectors.getProp('upload'),
+  );
   const status = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.CreateArticle),
   );
@@ -27,14 +32,17 @@ export const Upload = () => {
     dispatch(articlesCreate({
       file: doc,
       callback: () => {
-        setDoc(null);
       },
     }));
+    setDoc(null);
   };
 
   const onClearClick = () => {
     setDoc(null);
   };
+
+  const timeToUploaded = Math.ceil(Object.values(upload)
+    .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
 
   return (
     <div className={styles.upload}>
@@ -101,14 +109,16 @@ export const Upload = () => {
           <div className={styles.statuses_items}>
             <div className={styles.statuses_wrapper}>
               <div className={styles.statuses_content}>
-                {data.map(({
-                  id, name, percents, weight, 
+                {Object.values(upload).map(({
+                  id, fileName, percentUpload, size, idArticle, 
                 }) => (
                   <Item
                     key={id}
-                    name={name}
-                    percents={percents}
-                    weight={weight}
+                    name={fileName}
+                    percents={percentUpload}
+                    weight={filesize(size, { standard: 'jedec' })}
+                    idArticle={idArticle}
+                    timeToUploaded={timeToUploaded}
                   />
                 ))}
               </div>

@@ -1,19 +1,24 @@
+import { CSSProperties } from 'react';
 import Image from 'next/image';
-import { circleCheckIcon, documentTextIcon1 } from 'assets';
 import Link from 'next/link';
 import { ScreenWidth, routes } from 'appConstants';
-import { CSSProperties } from 'react';
+import { circleCheckIcon, documentTextIcon1 } from 'assets';
+import { stringLongShortcut } from 'utils';
 import cx from 'classnames';
 import { useScreenWidth } from 'hooks';
 import styles from './styles.module.scss';
 
 type ItemProps = {
   name: string;
-  weight: number;
+  weight: string;
+  timeToUploaded: number;
+  idArticle?: string;
   percents: number;
 };
 
-export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
+export const Item: React.FC<ItemProps> = ({ 
+  name, weight, percents, timeToUploaded,
+}) => {
   const isLoaded = percents === 100;
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
@@ -27,9 +32,9 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
         <span className={styles.item_filename}>
           {!isMobile && 'File name: '} 
           {' '}
-          {name}
+          {name.length > 50 ? stringLongShortcut(name, 30, 10) : name}
         </span>
-        <span>{`${weight} MB`}</span>
+        <span>{`${weight}`}</span>
       </div>
       <div className={styles.item_status_block}>
         <Image
@@ -65,7 +70,7 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
             />
             <Link
               className={styles.item_link_btn}
-              href={routes.storage.root}
+              href={`${routes.storage.root}`}
             >
               {isMobile ? 'My storage' : 'See in my storage'}
             </Link>
@@ -77,7 +82,11 @@ export const Item: React.FC<ItemProps> = ({ name, weight, percents }) => {
               className={styles.item_disabled_btn}
               disabled
             >
-              ~ 25 min
+              ~ 
+              {' '}
+              {timeToUploaded}
+              {' '}
+              min
             </button>
           </div>
         )}

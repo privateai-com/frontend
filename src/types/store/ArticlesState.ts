@@ -12,6 +12,14 @@ export interface ArticlesState {
     sortingField: string,
   };
   ui: PartialRecord<ArticlesActionTypes, RequestStatus>;
+  upload: Record<string, { 
+    id: string,
+    status: RequestStatus, 
+    fileName: string, 
+    size: number,
+    percentUpload: number,
+    idArticle?: string,
+  }>;
 }
 
 export type Article = {

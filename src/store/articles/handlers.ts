@@ -3,6 +3,7 @@ import { ArticlesActionTypes } from './actionTypes';
 import {
   articlesSetState,
   articlesSetStatus,
+  articlesSetStatusUpload,
 } from './actionCreators';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,7 +29,22 @@ const setStatus: ArticlesStateActionFn<typeof articlesSetStatus> = (
   },
 });
 
+const setStatusUpload: ArticlesStateActionFn<typeof articlesSetStatusUpload> = (
+  state,
+  { payload },
+) => ({
+  ...state,
+  upload: {
+    ...state.upload,
+    [payload.id]: {
+      ...state.upload[payload.id],
+      ...payload, 
+    },
+  },
+});
+
 export const articlesHandlers = {
   [ArticlesActionTypes.SetState]: setState,
   [ArticlesActionTypes.SetStatus]: setStatus,
+  [ArticlesActionTypes.SetStatusUpload]: setStatusUpload,
 };

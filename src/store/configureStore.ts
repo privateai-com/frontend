@@ -42,6 +42,9 @@ const makeConfiguredStore = () =>
     devTools: true,
   });
 
+// eslint-disable-next-line import/no-mutable-exports
+export let store: Store;
+
 export const makeStore = () => {
   const isServer = typeof window === 'undefined';
   
@@ -80,7 +83,7 @@ export const makeStore = () => {
   
   const sagaMiddleware = createSagaMiddleware();
 
-  const store = configureStore({
+  store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ thunk: false, serializableCheck: false }).concat(sagaMiddleware),
