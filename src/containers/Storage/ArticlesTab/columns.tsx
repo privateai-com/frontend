@@ -54,16 +54,18 @@ export const useColumns = ({
         accessor: 'status',
         Cell: ({
           row: {
-            original: { uploadStatus },
+            original: { uploadStatus, uploadProgress },
           },
         }: ItemRowProps<Article>) =>
           (uploadStatus ? (
             <p
               className={
-                uploadStatus === 'Published' ? styles.green_text : styles.status
+                uploadStatus === 'published' ? styles.green_text : styles.status
               }
             >
-              {uploadStatus}
+              {uploadStatus} 
+              {' '}
+              {uploadStatus === 'processing' ? `- ${uploadProgress}%` : ''}
             </p>
           ) : (
             '-'
@@ -76,7 +78,7 @@ export const useColumns = ({
           row: {
             original: { graphDraft, graph },
           },
-        }: ItemRowProps<Article>) => (graph.length > 0 ? listTitleGraphs(graph) : listTitleGraphs(graphDraft)) || '-',
+        }: ItemRowProps<Article>) => (graph.length > 0 ? listTitleGraphs(graph.slice(0, 5)) : listTitleGraphs(graphDraft.slice(0, 5))) || '-',
       },
       {
         Header: (

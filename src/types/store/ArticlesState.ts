@@ -35,4 +35,5 @@ export type Article = {
   isPublic: boolean;
   downloads: number;
   uploadStatus: string;
+  uploadProgress: number;
 };
