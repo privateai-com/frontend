@@ -23,11 +23,11 @@ export function* articlesCreateSaga({
     const formData = new FormData();
 
     const data = {
-      num_return_sequences: '0',
-      max_length: '0',
+      num_return_sequences: '10',
+      max_length: '216',
       length_penalty: '0',
-      num_beams: '0',
-      span_length: '0',
+      num_beams: '10',
+      span_length: '128',
       file: payload.file,
     };
 
