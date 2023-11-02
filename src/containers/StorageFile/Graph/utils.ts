@@ -9,6 +9,13 @@ import {
 import { OptId } from 'vis-data/declarations/data-interface';
 
 export const transformDataToNodesAndEdges = (data: GraphResponseType[]) => {
+  if (!data?.length) {
+    return {
+      nodes: new DataSet(),
+      edges: new DataSet(),
+    } as { nodes: DatasetNodeType, edges: DatasetEdgeType };
+  }
+
   const nodes = new DataSet<Partial<Record<'id', OptId> & { label: string }>>();
   const uniqueNodes = new Set<string>();
   const uniqueEdges: { [key: string]: boolean } = {};

@@ -9,6 +9,7 @@ export const articlesInitialState: Readonly<ArticlesState> = {
   total: 0,
   ui: {
     [ArticlesActionTypes.GetArticles]: RequestStatus.INIT,
+    [ArticlesActionTypes.GetOneArticle]: RequestStatus.INIT,
   },
   upload: {},
 };

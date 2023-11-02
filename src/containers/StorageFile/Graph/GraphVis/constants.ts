@@ -6,7 +6,7 @@ export const options = {
   layout: {
     randomSeed: 6,
     // improvedLayout:true,
-    // improvedLayout: false,
+    improvedLayout: false,
     // clusterThreshold: 150,
     hierarchical: {
       enabled: false,

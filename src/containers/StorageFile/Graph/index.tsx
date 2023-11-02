@@ -10,14 +10,18 @@ import styles from './styles.module.scss';
 import { GraphResponseType } from '../types';
 import { GraphVis } from './GraphVis';
 import { transformDataToNodesAndEdges } from './utils';
+import { GraphLoader } from '../Loader';
 
 interface GraphProps {
   graphData: GraphResponseType[];
   setGraphData: (edges: GraphResponseType[]) => void;
   isEdit: boolean;
+  isLoading: boolean;
 }
 
-export const Graph: FC<GraphProps> = memo(({ graphData, setGraphData, isEdit }) => {
+export const Graph: FC<GraphProps> = memo(({
+  graphData, setGraphData, isEdit, isLoading,
+}) => {
   const { nodes, edges } = transformDataToNodesAndEdges(graphData);
   const edgesCurrent = edges.get().filter(({ to }: Edge) => to !== 0);
   const edgesCount = edgesCurrent.length;
@@ -56,29 +60,35 @@ export const Graph: FC<GraphProps> = memo(({ graphData, setGraphData, isEdit }) 
           </Button>
         </div> */}
 
-        <GraphVis
+        {isLoading ? (
+          <GraphLoader />
+        ) : (
+          <>
+            <GraphVis
           // graphData={graphData}
-          setGraphData={setGraphData}
-          nodes={nodes}
-          edges={edges}
-          isEdit={isEdit}
-        />
+              setGraphData={setGraphData}
+              nodes={nodes}
+              edges={edges}
+              isEdit={isEdit}
+            />
 
-        <Typography type="h2">Data highlights:</Typography>
-        <div className={styles.graph_info}>
-          <div className={styles.graph_info__item}>
-            <p>Number of nodes</p>
-            <span>{nodesCount}</span>
-          </div>
-          <div className={styles.graph_info__item}>
-            <p>Number of edges</p>
-            <span>{edgesCount}</span>
-          </div>
-          <div className={styles.graph_info__item}>
-            <p>Core Entities</p>
-            <span>{coreEntities}</span>
-          </div>
-        </div>
+            <Typography type="h2">Data highlights:</Typography>
+            <div className={styles.graph_info}>
+              <div className={styles.graph_info__item}>
+                <p>Number of nodes</p>
+                <span>{nodesCount}</span>
+              </div>
+              <div className={styles.graph_info__item}>
+                <p>Number of edges</p>
+                <span>{edgesCount}</span>
+              </div>
+              <div className={styles.graph_info__item}>
+                <p>Core Entities</p>
+                <span>{coreEntities}</span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
