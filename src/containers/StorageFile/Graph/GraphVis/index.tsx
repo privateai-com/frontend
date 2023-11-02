@@ -36,6 +36,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
   const [editingEdgeId, setEditingEdgeId] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
+  const networkRef = useRef<Network | null>(null);
 
   const handleAddNode = useCallback((data: Node, callback: (data: Node) => void) => {
     const newNode: Node = {
@@ -55,7 +56,21 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     callback(newNode);
   }, [nodes]);
 
-  const handleAddOrEditEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
+  const handleEditNode = useCallback((data: Node, callback: (data: Node) => void) => {
+    setEditingNodeId(data.id as string);
+    setShowPopup(true);
+    const inputElement = inputRef.current;
+    if (inputElement) {
+      inputElement.value = data.label || '';
+      setTimeout(() => {
+        inputElement.focus();
+        inputElement.select();
+      }, 10);
+    }
+    callback(data);
+  }, []);
+
+  const handleAddEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
     if (!data.to || !data.from) return;
     const nodeTo = nodes.get(data.to);
     const nodeFrom = nodes.get(data.from);
@@ -63,6 +78,21 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
     callback(data);
   }, [edges, nodes, setGraphData]);
+
+  // const handleEditEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
+  //   console.log(data);
+  //   // setEditingNodeId(data.id as string);
+  //   // setShowPopup(true);
+  //   // const inputElement = inputRef.current;
+  //   // if (inputElement) {
+  //   //   inputElement.value = data.label || '';
+  //   //   setTimeout(() => {
+  //   //     inputElement.focus();
+  //   //     inputElement.select();
+  //   //   }, 10);
+  //   // }
+  //   callback(data);
+  // }, []);
 
   const handleDeleteEdge = useCallback((data: Data, callback: (data: Data) => void) => {
     if (Array.isArray(data?.edges) && data.edges.length === 1) {
@@ -72,67 +102,44 @@ export const GraphVis: FC<GraphVisProps> = memo(({
       const nodeFrom = nodes.get(currentEdge.from);
       if (!nodeFrom) return;
     }
-    setGraphData(transformNodesAndEdgesToData(nodes, edges));
     callback(data);
+    setGraphData(transformNodesAndEdgesToData(nodes, edges));
   }, [edges, nodes, setGraphData]);
 
   const handleDeleteNode = useCallback((data: Data, callback: (data: Data) => void) => {
     if (!Array.isArray(data?.nodes)) return;
-    setGraphData(transformNodesAndEdgesToData(nodes, edges));
     callback(data);
+    setGraphData(transformNodesAndEdgesToData(nodes, edges));
   }, [edges, nodes, setGraphData]);
 
   const currentOption = useMemo(() => ({
     ...options,
     manipulation: {
       enabled: isEdit,
+      initiallyActive: isEdit,
       addNode: handleAddNode,
-      addEdge: handleAddOrEditEdge,
+      editNode: handleEditNode,
+      addEdge: handleAddEdge,
       deleteNode: handleDeleteNode,
       deleteEdge: handleDeleteEdge,
     }, 
-  }), [handleAddNode, handleAddOrEditEdge, handleDeleteEdge, handleDeleteNode, isEdit]);
+  }), [handleAddEdge, handleAddNode, handleDeleteEdge, handleDeleteNode, handleEditNode, isEdit]);
 
   useEffect(() => {
-    const network = visJsRef.current &&
+    networkRef.current = visJsRef.current &&
       new Network(
         visJsRef.current, 
         { nodes: nodes as DataInterfaceNodes, edges: edges as DataInterfaceEdges },
         currentOption,
       );
     apdateGraphControls(visJsRef);
-    if (!network || !isEdit) return;
+    if (!networkRef.current || !isEdit) return;
 
-    // network.on('doubleClick', (event) => {
-    //   const canvasPosition = network.canvasToDOM(event.pointer.canvas);
-    //   const nodeId = network.getNodeAt(canvasPosition);
-
-    //   if (nodeId !== undefined) {
-    //     setEditingNodeId(Number(nodeId));
-    //     setShowPopup(true);
-    //     const inputElement = inputRef.current;
-    //     const node = nodes.get(nodeId);
-
-    //     if (!node || !inputElement) return;
-
-    //     nodes.update(node);
-        
-    //     if (node) {
-    //       inputElement.value = node.label;
-    //     }
-    //     setTimeout(() => {
-    //       inputElement.focus();
-    //       inputElement.select();
-    //     }, 10);
-    //   } else {
-    //     setShowPopup(false);
-    //     setEditingNodeId(null);
-    //   }
-    // });
-    network.on('doubleClick', (event) => {
-      const canvasPosition = network.canvasToDOM(event.pointer.canvas);
-      const nodeId = network.getNodeAt(canvasPosition);
-      const edgeId = network.getEdgeAt(canvasPosition);
+    networkRef.current.on('doubleClick', (event) => {
+      if (!networkRef.current) return;
+      const canvasPosition = networkRef.current.canvasToDOM(event.pointer.canvas);
+      const nodeId = networkRef.current.getNodeAt(canvasPosition);
+      const edgeId = networkRef.current.getEdgeAt(canvasPosition);
       if (nodeId !== undefined) {
         setEditingNodeId(nodeId as string);
         setShowPopup(true);
@@ -201,7 +208,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
 
   return (
     <div className={styles.visContainer}>
-      <div ref={visJsRef} style={{ height: '500px', width: '100%' }} />
+      <div className={styles.visWrapper} ref={visJsRef} />
       <div
         className={cx(styles.popup, {
           [styles.show]: showPopup,

@@ -24,13 +24,25 @@
 }
 
 .storageFile__wrapper {
-	padding: 44px 40px;
+	padding: 10px 15px;
 	background-color: $color-white;
 	box-shadow: -10px 56px 140px 0px #8F9BBA33;
 	border-radius: 16px;
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+
+	@include media-breakpoint-up(lg) {
+		padding: 30px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		padding: 20px;
+	}
+
+	@include media-breakpoint-up(fhd) {
+		padding: 44px 40px;
+	}
 }
 
 .storageFile__edit {
@@ -73,8 +85,8 @@
 			width: 100%;
 			text-wrap: wrap;
 			padding: 15px 20px;
-			font-size: 20px;
 			height: fit-content;
+			@include font-20();
 		}
 	}
 }
@@ -95,8 +107,19 @@
 	flex-direction: column;
 	border-top: 1px solid $color-green;
 	padding-top: 40px;
-	margin-top: 180px;
 	color: $color-grey;
+
+	@include media-breakpoint-up(xxl) {
+		margin-top: vw(120, 1440);
+	}
+
+	@include media-breakpoint-up(xxxl) {
+		margin-top: vw(140, 1660);
+	}
+
+	@include media-breakpoint-up(fhd) {
+		margin-top: vw(180);
+	}
 }
 
 .storageFile__item_date {
@@ -123,7 +146,17 @@
 	font-weight: 500;
 
 	&:nth-child(2) {
-		margin-top: 140px;
+		@include media-breakpoint-up(xxl) {
+			margin-top: vw(120, 1440);
+		}
+
+		@include media-breakpoint-up(xxxl) {
+			margin-top: vw(140, 1660);
+		}
+
+		@include media-breakpoint-up(fhd) {
+			margin-top: vw(140);
+		}
 	}
 	&:nth-child(3) {
 		margin-top: 24px;

@@ -1,6 +1,7 @@
 import {
-  FC, memo, useRef, useState, 
+  FC, memo, useCallback, useRef, useState, 
 } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   Button,
@@ -8,10 +9,11 @@ import {
   TextInput,
   Typography,
 } from 'components';
-
-import styles from './styles.module.scss';
+import { articlesChangeAccess } from 'store/articles/actionCreators';
 import { EditItem } from './EditItem';
 import { GraphResponseType } from '../types';
+
+import styles from './styles.module.scss';
 
 // const newEdge = {
 //   head: 'New',
@@ -25,19 +27,24 @@ import { GraphResponseType } from '../types';
 interface FileInfoProps {
   edges: GraphResponseType[];
   // setEdges: (edges: GraphResponseType[]) => void;
-  onSaveClick: () => void;
+  onSave: () => void;
 }
 
 const {
   name,
   field,
+  isPublic,
+  id,
 } = {
   name: 'Newest breakthroughs in gene therapy',
   field: 'Gene therapy',
+  isPublic: false,
+  id: 0,
 };
 
-export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSaveClick }) => {
+export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSave }) => {
   const storageFileItemRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
   // const [lastEdgeFields, setLastEdgeFields] = useState({
   //   head: '',
   //   type: '',
@@ -45,6 +52,21 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSaveClick }) => 
   // });
   const [nameFile, setNameFile] = useState(name);
   const [fieldFile, setFieldFile] = useState(field);
+
+  const [articleAccess, setArticleAccess] = useState(
+    isPublic ? 'open' : ('closed' as 'open' | 'closed'),
+  );
+
+  const onChangeAvailabilityClick = useCallback((e: 'open' | 'closed') => {
+    setArticleAccess(e);
+  }, []);
+
+  const onSaveClick = useCallback(() => {
+    onSave();
+    const isOpen = articleAccess === 'open';
+    dispatch(articlesChangeAccess({ articleId: id, isOpen }));
+  }, [articleAccess, dispatch, onSave]);
+
   // const lastEdgeAvaliable = lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail;
 
   // const updateGraphItem = (index: number, updatedItem: GraphResponseType) => {
@@ -117,7 +139,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSaveClick }) => 
             </Button> */}
           </div>
           <div className={styles.storageFile__edit} ref={storageFileItemRef}>
-            {edges?.length && (
+            {!!edges?.length && (
               edges.map(({ head, tail, type }, index) => (
                 <EditItem
                   // eslint-disable-next-line react/no-array-index-key
@@ -140,16 +162,16 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSaveClick }) => 
               containerClassName={styles.radio_buttons}
               options={[
                 {
-                  value: '1',
+                  value: 'open',
                   label: 'Open-sourced',
                 },
                 {
-                  value: '2',
+                  value: 'closed',
                   label: 'Permission-based',
                 },
               ]}
-              currentValue="1"
-              onChange={() => {}}
+              currentValue={articleAccess}
+              onChange={onChangeAvailabilityClick}
             />
           </div>
         </div> 
