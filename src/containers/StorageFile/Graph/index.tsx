@@ -5,6 +5,7 @@ import {
   Typography,
 } from 'components';
 
+import { getTopEdges } from 'utils';
 import styles from './styles.module.scss';
 import { GraphResponseType } from '../types';
 import { GraphVis } from './GraphVis';
@@ -21,7 +22,8 @@ export const Graph: FC<GraphProps> = memo(({ graphData, setGraphData, isEdit }) 
   const edgesCurrent = edges.get().filter(({ to }: Edge) => to !== 0);
   const edgesCount = edgesCurrent.length;
   const nodesCount = nodes.length;
-  const relations = nodes.get().splice(0, 5).map(({ label }: Edge) => label);
+  const topEdges = getTopEdges(edges.get(), nodes.get());
+  const coreEntities = topEdges.map(({ label }) => label).join(', ');
 
   return (
     <div className={styles.storageFile__data}>
@@ -74,7 +76,7 @@ export const Graph: FC<GraphProps> = memo(({ graphData, setGraphData, isEdit }) 
           </div>
           <div className={styles.graph_info__item}>
             <p>Core Entities</p>
-            <span>{relations.join(', ')}</span>
+            <span>{coreEntities}</span>
           </div>
         </div>
       </div>

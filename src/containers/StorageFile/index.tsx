@@ -26,7 +26,7 @@ export const StorageFile = () => {
         <FileInfoEdit
           edges={graphData}
           // setEdges={setGraphData}
-          onSaveClick={() => setIsEdit(false)}
+          onSave={() => setIsEdit(false)}
         />
       ) : (
         <FileInfo

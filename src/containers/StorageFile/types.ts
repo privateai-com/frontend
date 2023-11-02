@@ -20,6 +20,11 @@ export type GraphResponseType = {
 //   tail: string;
 // }, 'id'>;
 
+export type NodeType = {
+  id: string | number;
+  label: string;
+};
+
 export type EdgeType = {
   from: number | string;
   head: string;
