@@ -1,5 +1,10 @@
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { GraphResponseType, PartialRecord, RequestStatus } from 'types';
+import {
+  AccountInfo,
+  GraphResponseType,
+  PartialRecord,
+  RequestStatus,
+} from 'types';
 
 export interface ArticlesState {
   articles: Article[];
@@ -22,10 +27,28 @@ export interface ArticlesState {
   }>;
 }
 
+export type ArticleOwner = {
+  id: number;
+  username: null | string;
+  fullName: null | string;
+};
+
+export type ArticleAccess = {
+  id: number;
+  article: Article;
+  requester?: AccountInfo;
+  approve: boolean;
+  isOwnerViewed?: boolean;
+  isRequesterViewed?: boolean;
+};
+
 export type Article = {
   id: number;
-  owner: {};
+  createdAt: string;
+  updatedAt: string;
+  owner: ArticleOwner;
   title: string;
+  field: string;
   articleUrl: string;
   graph: GraphResponseType[];
   graphDraft: GraphResponseType[];
@@ -36,4 +59,5 @@ export type Article = {
   downloads: number;
   uploadStatus: string;
   uploadProgress: number;
+  requests: ArticleAccess[];
 };

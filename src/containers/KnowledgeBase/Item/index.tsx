@@ -16,6 +16,7 @@ type StatusProps =
   | 'Access denied';
 
 type ItemProps = {
+  id: number;
   name: string;
   field: string;
   authorName: string;
@@ -28,6 +29,7 @@ type ItemProps = {
 };
 
 export const Item: React.FC<ItemProps> = ({
+  id,
   name,
   authorName,
   authorUserName,
@@ -86,6 +88,7 @@ export const Item: React.FC<ItemProps> = ({
         <ExpandableMobileItem
           name={name}
           searchWord={search}
+          id={id}
         >
           <div>
             <div className={styles.item_row_block}>

@@ -1,6 +1,7 @@
 import { Status } from 'types';
 
 type ItemProp = {
+  id: number;
   name: string;
   field: string;
   authorName: string;
@@ -25,6 +26,7 @@ let count = 0;
 for (let i = 0; i < 7; i += 1) {
   if (count > 4) count = 0;
   items.push({
+    id: count,
     name: 'New breakthroughs in gene therapy',
     field: 'Gene therapy',
     authorName: 'Ray Smith',

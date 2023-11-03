@@ -32,11 +32,11 @@ export const useColumns = ({
         accessor: 'title',
         Cell: ({
           row: {
-            original: { title, uploadStatus },
+            original: { id, title, uploadStatus },
           },
         }: ItemRowProps<Article>) =>
           (uploadStatus === 'complete' ? (
-            <Link href={`${routes.storage.root}/${title}`}>{title}</Link>
+            <Link href={`${routes.storage.root}/${id}`}>{title}</Link>
           ) : (
             <div className={styles.empty_space}>{title}</div>
           )),

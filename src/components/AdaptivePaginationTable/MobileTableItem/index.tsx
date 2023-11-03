@@ -10,6 +10,7 @@ interface ItemProps {
   state1: string | ReactNode;
   title2: string;
   state2: string | ReactNode;
+  id: number;
 }
 
 export const MobileTableItem: FC<ItemProps> = ({
@@ -19,10 +20,12 @@ export const MobileTableItem: FC<ItemProps> = ({
   state1,
   title2,
   state2,
+  id,
 }) => (
   <ExpandableMobileItem
     className={className}
     name={name}
+    id={id}
   >
     <div className={styles.item_item}>
       <span>

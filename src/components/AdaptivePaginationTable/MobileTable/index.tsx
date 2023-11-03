@@ -48,6 +48,7 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
         <MobileTableItem
           key={iter.id}
           name={iter.title}
+          id={iter.id}
           title1={mobileTitle1}
           state1={content[ind][key1 as keyof Article] as string}
           title2={mobileTitle2}

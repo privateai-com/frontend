@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest } from 'redux-saga/effects';
+import { takeEvery, takeLatest, takeLeading } from 'redux-saga/effects';
 import { ArticlesActionTypes } from '../actionTypes';
 import { articlesGetAllSaga } from './getAllArticles';
 import { articlesGetMySaga } from './getMyArticles';
@@ -14,7 +14,7 @@ export default function* articlesSaga() {
   yield takeEvery(ArticlesActionTypes.CreateArticle, articlesCreateSaga);
   yield takeLatest(ArticlesActionTypes.GetArticles, articlesGetAllSaga);
   yield takeLatest(ArticlesActionTypes.GetMyArticles, articlesGetMySaga);
-  yield takeLatest(ArticlesActionTypes.GetOneArticle, articlesGetOneArticleSaga);
+  yield takeLeading(ArticlesActionTypes.GetOneArticle, articlesGetOneArticleSaga);
   yield takeLatest(
     ArticlesActionTypes.DeleteArticle,
     articlesDeleteArticleSaga,

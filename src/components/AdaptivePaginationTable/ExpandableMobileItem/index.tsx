@@ -6,6 +6,7 @@ import { arrowGreenIcon, minusCircleIcon, plusCircleIcon } from 'assets';
 
 import Link from 'next/link';
 import { SelectedText } from 'components/SelectedText';
+import { routes } from 'appConstants';
 import styles from './styles.module.scss';
 
 type ItemProps = {
@@ -13,6 +14,7 @@ type ItemProps = {
   name: string;
   children: ReactNode;
   searchWord?: string;
+  id: number;
 };
 
 const ExpandableMobileItem: FC<ItemProps> = ({
@@ -20,6 +22,7 @@ const ExpandableMobileItem: FC<ItemProps> = ({
   name,
   children,
   searchWord,
+  id,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,7 +45,7 @@ const ExpandableMobileItem: FC<ItemProps> = ({
           )}
         </button>
 
-        <Link href="/#">
+        <Link href={`${routes.storage.root}/${id}`}>
           <Image
             src={arrowGreenIcon}
             alt="arrow"

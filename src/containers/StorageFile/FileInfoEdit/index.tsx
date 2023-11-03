@@ -9,7 +9,7 @@ import {
   TextInput,
   Typography,
 } from 'components';
-import { articlesChangeAccess } from 'store/articles/actionCreators';
+import { articlesChangeAccess, articlesSaveGraph } from 'store/articles/actionCreators';
 import { EditItem } from './EditItem';
 import { GraphResponseType } from '../types';
 
@@ -25,7 +25,7 @@ import styles from './styles.module.scss';
 // };
 
 interface FileInfoProps {
-  edges: GraphResponseType[];
+  graphData: GraphResponseType[];
   // setEdges: (edges: GraphResponseType[]) => void;
   onSave: () => void;
 }
@@ -39,10 +39,10 @@ const {
   name: 'Newest breakthroughs in gene therapy',
   field: 'Gene therapy',
   isPublic: false,
-  id: 0,
+  id: 142,
 };
 
-export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSave }) => {
+export const FileInfoEdit: FC<FileInfoProps> = memo(({ graphData, onSave }) => {
   const storageFileItemRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   // const [lastEdgeFields, setLastEdgeFields] = useState({
@@ -62,10 +62,11 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSave }) => {
   }, []);
 
   const onSaveClick = useCallback(() => {
-    onSave();
     const isOpen = articleAccess === 'open';
     dispatch(articlesChangeAccess({ articleId: id, isOpen }));
-  }, [articleAccess, dispatch, onSave]);
+    dispatch(articlesSaveGraph({ articleId: id, data: graphData }));
+    onSave();
+  }, [articleAccess, dispatch, graphData, onSave]);
 
   // const lastEdgeAvaliable = lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail;
 
@@ -139,8 +140,8 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({ edges, onSave }) => {
             </Button> */}
           </div>
           <div className={styles.storageFile__edit} ref={storageFileItemRef}>
-            {!!edges?.length && (
-              edges.map(({ head, tail, type }, index) => (
+            {!!graphData?.length && (
+              graphData.map(({ head, tail, type }, index) => (
                 <EditItem
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}

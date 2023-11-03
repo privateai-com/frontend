@@ -28,6 +28,9 @@ export enum ApiEndpoint {
   ArticlesPublishArticle = '/articles/publish',
   
   GraphSave = '/graph/save',
+
+  RequestsCreate = '/requests/create',
+
   ProfileUpdateProfile = '/profile/update',
   profileUploadAvatar = '/profile/upload-avatar',
 }

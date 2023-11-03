@@ -21,6 +21,7 @@ const Button = memo(
         isLoading,
         href,
         isMobileAdaptive,
+        isHrefBlank,
       }: ButtonProps,
       ref: ButtonRef,
     ) => {
@@ -42,6 +43,7 @@ const Button = memo(
             )}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            target={isHrefBlank ? '_blank' : '_self'}
           >
             <div className={cx({ [styles.children_while_loading]: isLoading })}>
               {children}

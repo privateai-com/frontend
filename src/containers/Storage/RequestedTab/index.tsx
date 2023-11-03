@@ -50,6 +50,7 @@ const RequestedTab = () => {
               // eslint-disable-next-line
               key={ind}
               name={iter.name}
+              id={Number(iter.id)}
             >
               <div className={styles.table_mobile_container}>
                 <div className={styles.table_mobile_block}>
