@@ -17,7 +17,7 @@ export function* articlesSaveGraphSaga({
     
     yield call(callApi, {
       method: 'PUT',
-      endpoint: ApiEndpoint.ArticlesUpdateArticle,
+      endpoint: ApiEndpoint.GraphSave,
       payload: {
         id: payload.articleId,
         graph: payload.data, 

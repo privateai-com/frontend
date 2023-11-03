@@ -10,6 +10,9 @@ export const articlesInitialState: Readonly<ArticlesState> = {
   ui: {
     [ArticlesActionTypes.GetArticles]: RequestStatus.INIT,
     [ArticlesActionTypes.GetOneArticle]: RequestStatus.INIT,
+    [ArticlesActionTypes.ChangeArticleAccess]: RequestStatus.INIT,
+    [ArticlesActionTypes.PublishArticle]: RequestStatus.INIT,
+    [ArticlesActionTypes.SaveGraph]: RequestStatus.INIT,
   },
   upload: {},
 };

@@ -1,7 +1,7 @@
 import {
-  FC, memo, useCallback, useRef, useState, 
+  FC, memo, useCallback, useEffect, useRef, useState, 
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Button,
@@ -9,9 +9,13 @@ import {
   TextInput,
   Typography,
 } from 'components';
-import { articlesChangeAccess, articlesSaveGraph } from 'store/articles/actionCreators';
+import { articlesChangeAccess, articlesSaveGraph, articlesUpdate } from 'store/articles/actionCreators';
+import { articlesSelectors } from 'store/articles/selectors';
+import { ArticlesActionTypes } from 'store/articles/actionTypes';
+import { Article, RequestStatus } from 'types';
 import { EditItem } from './EditItem';
 import { GraphResponseType } from '../types';
+import { exportToExcel } from './utils';
 
 import styles from './styles.module.scss';
 
@@ -26,48 +30,65 @@ import styles from './styles.module.scss';
 
 interface FileInfoProps {
   graphData: GraphResponseType[];
-  // setEdges: (edges: GraphResponseType[]) => void;
+  // setGraphData: (edges: GraphResponseType[]) => void;
   onSave: () => void;
+  onRevertToLastSaved: () => void;
+  onRevertToLastPublished: () => void;
+  article?: Article;
 }
 
-const {
-  name,
-  field,
-  isPublic,
-  id,
-} = {
-  name: 'Newest breakthroughs in gene therapy',
-  field: 'Gene therapy',
-  isPublic: false,
-  id: 142,
-};
-
-export const FileInfoEdit: FC<FileInfoProps> = memo(({ graphData, onSave }) => {
+export const FileInfoEdit: FC<FileInfoProps> = memo(({
+  graphData, onSave, onRevertToLastSaved, onRevertToLastPublished, article,
+}) => {
   const storageFileItemRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const statusUpdateArticle = useSelector(
+    articlesSelectors.getStatus(ArticlesActionTypes.UpdateArticle),
+  );
   // const [lastEdgeFields, setLastEdgeFields] = useState({
   //   head: '',
   //   type: '',
   //   tail: '',
   // });
-  const [nameFile, setNameFile] = useState(name);
-  const [fieldFile, setFieldFile] = useState(field);
+  const [nameFile, setNameFile] = useState('');
+  const [fieldFile, setFieldFile] = useState('');
 
-  const [articleAccess, setArticleAccess] = useState(
-    isPublic ? 'open' : ('closed' as 'open' | 'closed'),
-  );
+  const [articleAccess, setArticleAccess] = useState('closed' as 'open' | 'closed');
 
   const onChangeAvailabilityClick = useCallback((e: 'open' | 'closed') => {
     setArticleAccess(e);
   }, []);
 
-  const onSaveClick = useCallback(() => {
-    const isOpen = articleAccess === 'open';
-    dispatch(articlesChangeAccess({ articleId: id, isOpen }));
-    dispatch(articlesSaveGraph({ articleId: id, data: graphData }));
+  const successCallback = useCallback(() => {
     onSave();
-  }, [articleAccess, dispatch, graphData, onSave]);
+  }, [onSave]);
 
+  const onSaveClick = useCallback(() => {
+    if (article) {
+      const { id } = article;
+      if (id) {
+        const isOpen = articleAccess === 'open';
+        dispatch(articlesChangeAccess({ articleId: id, isOpen }));
+        dispatch(articlesSaveGraph({ articleId: id, data: graphData }));
+        dispatch(articlesUpdate({
+          articleId: id, title: nameFile, field: fieldFile, callback: successCallback,
+        }));
+      }
+    }
+  }, [article, articleAccess, dispatch, fieldFile, graphData, nameFile, successCallback]);
+
+  const onDownloadXlsxClick = useCallback(() => {
+    if (article) exportToExcel(graphData, article.title);
+  }, [article, graphData]);
+
+  useEffect(() => {
+    if (article) {
+      setNameFile(article.title);
+      setFieldFile(article.field);
+      setArticleAccess(article.isPublic ? 'open' : 'closed');
+    }
+  }, [article]);
+  
   // const lastEdgeAvaliable = lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail;
 
   // const updateGraphItem = (index: number, updatedItem: GraphResponseType) => {
@@ -174,13 +195,39 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({ graphData, onSave }) => {
               currentValue={articleAccess}
               onChange={onChangeAvailabilityClick}
             />
+            <Button
+              theme="secondary"
+              onClick={onDownloadXlsxClick}
+              disabled={!article}
+              className={styles.storageFile__download_xlsx}
+            >
+              Download xlsx
+            </Button>
           </div>
         </div> 
       </div>
       <div className={styles.storageFile__buttons}>
-        <Button theme="secondary" onClick={onSaveClick}>Save changes</Button>
-        <Button theme="secondary">Revert to last saved</Button>
-        <Button>Revert to last published</Button>
+        <Button
+          theme="secondary"
+          onClick={onSaveClick}
+          isLoading={statusUpdateArticle === RequestStatus.REQUEST}
+          disabled={!article}
+        >
+          Save changes
+        </Button>
+        <Button
+          theme="secondary"
+          onClick={onRevertToLastSaved}
+          disabled={!article}
+        >
+          Revert to last saved
+        </Button>
+        <Button
+          onClick={onRevertToLastPublished}
+          disabled={!article}
+        >
+          Revert to last published
+        </Button>
       </div>
     </>
   );

@@ -25,6 +25,7 @@
 }
 
 .storageFile__wrapper {
+	position: relative;
 	padding: 10px 15px;
 	background-color: $color-white;
 	box-shadow: -10px 56px 140px 0px #8F9BBA33;
@@ -112,6 +113,7 @@
 }
 
 .storageFile__item_wrapper {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	border-top: 1px solid $color-green;

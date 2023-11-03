@@ -25,12 +25,14 @@ export const StorageFile = memo(() => {
     articlesSelectors.getStatus(ArticlesActionTypes.GetOneArticle),
   );
   const initialGraphData = useMemo(
-    () =>
-      (article?.graphDraft ? article?.graphDraft : []),
-    [article?.graphDraft],
+    () => {
+      const graphArr = article?.graphDraft;
+      return (article && graphArr) ? graphArr : [];
+    },
+    [article],
   );
-  
-  const [graphData, setGraphData] = useState<GraphResponseType[]>(initialGraphData);
+
+  const [graphData, setGraphData] = useState<GraphResponseType[]>([]);
   const [isEdit, setIsEdit] = useState(false);
   // const { role } = useSelector(accountSelectors.getAccount);
   const callback = useCallback((value: GraphResponseType[]) => {
@@ -44,7 +46,7 @@ export const StorageFile = memo(() => {
   useEffect(() => {
     if (articleId) {
       const number = Number(articleId);
-      if (number) dispatch(articlesGetOneArticle({ articleId: Number(articleId) }));
+      if (number) dispatch(articlesGetOneArticle({ articleId: number }));
     }
   }, [articleId, dispatch]);
 
@@ -52,14 +54,24 @@ export const StorageFile = memo(() => {
     if (initialGraphData.length) setGraphData(initialGraphData);
   }, [initialGraphData]);
 
+  const onRevertToLastSavedClick = useCallback(() => {
+    if (article?.graphDraft) setGraphData(article?.graphDraft);
+  }, [article?.graphDraft]);
+
+  const onRevertToLastPublishedClick = useCallback(() => {
+    if (article?.graph && article?.graph.length) setGraphData(article?.graph);
+  }, [article?.graph]);
+
   return (
     <div className={styles.storageFile__container}>
       <ButtonBack title="Back" />
       {isEdit ? (
         <FileInfoEdit
           graphData={graphData}
-          // setEdges={setGraphData}
+          // setGraphData={setGraphData}
           onSave={isEditToggle}
+          onRevertToLastSaved={onRevertToLastSavedClick}
+          onRevertToLastPublished={onRevertToLastPublishedClick}
           {...(article && { article })}
         />
       ) : (

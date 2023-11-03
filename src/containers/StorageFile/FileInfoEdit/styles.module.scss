@@ -41,6 +41,7 @@
 }
 
 .storageFile__wrapper {
+	position: relative;
 	padding: 10px 15px;
 	background-color: $color-white;
 	box-shadow: -10px 56px 140px 0px #8F9BBA33;
@@ -143,4 +144,9 @@
 		border-radius: 0;
 		border: 1px solid transparent;
 	}
+}
+
+.storageFile__download_xlsx {
+	margin-left: auto;
+	padding: 10px;
 }
