@@ -60,4 +60,5 @@ export type Article = {
   uploadStatus: string;
   uploadProgress: number;
   requests: ArticleAccess[];
+  status?: string;
 };

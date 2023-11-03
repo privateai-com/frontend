@@ -84,9 +84,6 @@ export const articlesGetAll = (
   payload: {
     limit: number;
     offset: number;
-    sortingField: string;
-    sortingDirection: SortingDirection;
-    searchField: string;
   },
 ) => ({
   type: ArticlesActionTypes.GetArticles,

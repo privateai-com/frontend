@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useModal } from 'react-modal-hook';
 
 import {
   ButtonIcon, TextInput, SelectedText, LogOut, 
@@ -10,8 +11,8 @@ import {
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
 import { profileSelectors } from 'store/profile/selectors';
+import { profileGetProfile } from 'store/profile/actionCreators';
 
-import { useModal } from 'react-modal-hook';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -25,9 +26,12 @@ const results = [
 ];
 
 export const Header = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
+
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  
   const username = useSelector(profileSelectors.getPropAccountInfo('username'));
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
 
@@ -42,6 +46,10 @@ export const Header = () => {
   const onRedirectClick = useCallback(() => {
     router.push(routes.profile.root);
   }, [router]);
+
+  useEffect(() => {
+    dispatch(profileGetProfile());
+  }, [dispatch]);
 
   return (
     <header className={styles.header}>

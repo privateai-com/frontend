@@ -15,6 +15,7 @@ import {
 import { authSelectors } from 'store/auth/selectors';
 import { getDataFromException, ApiError } from 'utils';
 import { AuthActionTypes } from 'store/auth/actionTypes';
+import { store } from 'store/configureStore';
 
 import { ApiEndpoint } from 'appConstants';
 import { authInitialState } from 'store/auth';
@@ -56,7 +57,7 @@ function* updateAccessTokens() {
     const response: Response = yield call(fetch, url, requestOptions);
 
     if (!response.ok) {
-      yield put(authSetState(authInitialState));
+      store.dispatch(authSetState(authInitialState));
       // throw new Error(`Request failed with status ${response.status}`);
     }
 
@@ -67,11 +68,9 @@ function* updateAccessTokens() {
       status: number;
     } = yield call([response, response.json]);
 
-    yield put(
-      authSetState({
-        ...data,
-      }),
-    );
+    store.dispatch(authSetState({
+      ...data,
+    }));
 
     updatePayload = {
       isSuccessfull: true,

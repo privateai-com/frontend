@@ -11,7 +11,6 @@ import storage from 'redux-persist/lib/storage';
 
 import { configureStore } from '@reduxjs/toolkit';
 import {
-  // AccountState,
   AuthState,
   MetamaskState,
   State,
@@ -66,19 +65,10 @@ export const makeStore = () => {
     ] as Array<keyof AuthState>,
   };
 
-  // const accountPersistConfig = {
-  //   key: 'account',
-  //   storage,
-  //   whitelist: [
-  //     'username',
-  //   ] as Array<keyof AccountState>,
-  // };
-  
   const persistedReducer = combineReducers({
     ...reducer,
     metamask: persistReducer(persistConfig, reducer.metamask),
     auth: persistReducer(authPersistConfig, reducer.auth),
-    // account: persistReducer(accountPersistConfig, reducer.account),
   });
   
   const sagaMiddleware = createSagaMiddleware();

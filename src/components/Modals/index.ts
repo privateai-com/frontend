@@ -6,3 +6,4 @@ export * from './DeletePublication';
 export * from './SetKeyPassword';
 export * from './KeyPassword';
 export * from './LogOut';
+export * from './AccessConfirm';
