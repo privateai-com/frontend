@@ -1,5 +1,5 @@
 import {
-  FC, useCallback,
+  FC, memo, useCallback,
 } from 'react';
 import { useModal } from 'react-modal-hook';
 
@@ -21,7 +21,7 @@ type FileInfoProps = {
   article?: Article;
 };
 
-export const FileInfo: FC<FileInfoProps> = ({
+export const FileInfo: FC<FileInfoProps> = memo(({
   onEditClick, isOwner, isLoading, article,
 }) => {
   const [showRequester, hideRequester] = useModal(
@@ -159,4 +159,4 @@ export const FileInfo: FC<FileInfoProps> = ({
       </div>
     </>
   );
-};
+});

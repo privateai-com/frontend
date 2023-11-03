@@ -9,7 +9,7 @@ import {
 import { OptId } from 'vis-data/declarations/data-interface';
 
 export const transformDataToNodesAndEdges = (data: GraphResponseType[]) => {
-  if (!data?.length) {
+  if (!data || data?.length === 0) {
     return {
       nodes: new DataSet(),
       edges: new DataSet(),
@@ -64,7 +64,7 @@ export const transformNodesAndEdgesToData =
         const item = {
           head: headNode.label,
           tail: tailNode.label,
-          type: edge.label || '',
+          type: edge.label,
           meta: {
             spans: [
               [0, 0],

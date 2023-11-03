@@ -75,8 +75,8 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     const nodeTo = nodes.get(data.to);
     const nodeFrom = nodes.get(data.from);
     if (!nodeTo || !nodeFrom) return;
-    setGraphData(transformNodesAndEdgesToData(nodes, edges));
     callback(data);
+    setGraphData(transformNodesAndEdgesToData(nodes, edges));
   }, [edges, nodes, setGraphData]);
 
   // const handleEditEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
