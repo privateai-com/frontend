@@ -18,15 +18,29 @@ export function* articlesGetAllSaga({
   try {
     yield put(articlesSetStatus({ type, status: RequestStatus.REQUEST }));
 
-    const { data }: { data: Article[] } = yield call(callApi, {
+    const { data }: { data: [Article[], number] } = yield call(callApi, {
       method: 'GET',
-      endpoint: ApiEndpoint.ArticlesGetArticles + getApiQueries(payload),
+      endpoint: ApiEndpoint.ArticlesGetArticles + getApiQueries({
+        ...payload,
+        sortingField: 'id',
+        sortingDirection: 'DESC',
+        searchField: undefined,
+      }),
     });
     
-    const articles: ArticlesState['articles'] = yield select(
+    const articles: ArticlesState['articles'] = payload.offset !== 0 ? yield select(
       articlesSelectors.getProp('articles'),
-    );
-    yield put(articlesSetState({ articles: [...articles, ...data] }));
+    ) : [];
+
+    yield put(articlesSetState({ 
+      articles: [...articles, ...data[0]],
+      total: data[1], 
+      pagination: {
+        ...payload,
+        sortingField: 'id',
+        sortingDirection: 'DESC',
+      },
+    }));
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

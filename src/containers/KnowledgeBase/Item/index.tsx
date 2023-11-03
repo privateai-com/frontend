@@ -1,62 +1,78 @@
-import { Typography, SelectedText, Requester } from 'components';
-
+import { useMemo } from 'react';
+import { useModal } from 'react-modal-hook';
+import { useDispatch, useSelector } from 'react-redux';
+import { Typography, SelectedText, AccessConfirm } from 'components';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
+import { Article, RequestStatus, StatusArticle } from 'types';
+import {
+  getName, getStatusArticle, getTopCoreEntities, stringLongShortcut, 
+} from 'utils';
+import { requestCreate } from 'store/request/actionCreators';
+import { RequestActionTypes } from 'store/request/actionsTypes';
+import { requestSelectors } from 'store/request/selectors';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 
-import { useModal } from 'react-modal-hook';
-import { getName } from 'utils';
 import styles from './styles.module.scss';
 
-type StatusProps =
-  | 'Open sourced'
-  | 'Access granted'
-  | 'Permission needed'
-  | 'Access request pending'
-  | 'Access denied';
+const textStatus = {
+  [StatusArticle.OpenSource]: 'Open sourced', 
+  [StatusArticle.AccessGranted]: 'Access granted', 
+  [StatusArticle.PermissionNeeded]: 'Permission needed', 
+  [StatusArticle.AccessRequestPending]: 'Access request pending', 
+  [StatusArticle.AccessDenied]: 'Access denied', 
+};
 
 type ItemProps = {
-  id: number;
-  name: string;
-  field: string;
-  authorName: string;
-  authorUserName: string;
-  core: string[];
-  status: StatusProps;
-  created: string;
-  modified: string;
-  search: string;
+  article: Article;
 };
 
 export const Item: React.FC<ItemProps> = ({
-  id,
-  name,
-  authorName,
-  authorUserName,
-  field,
-  core,
-  status,
-  created,
-  modified,
-  search,
+  article,
 }) => {
+  const dispatch = useDispatch();
   const isMobile = useScreenWidth(ScreenWidth.mobile);
+
+  const statusCreate = useSelector(requestSelectors.getStatus(RequestActionTypes.Create));
+
+  const {
+    id,
+    title,
+    field,
+    owner: {
+      username,
+      fullName,
+    },
+    createdAt,
+    updatedAt,
+    graph,
+    graphDraft,
+  } = article;
+
+  const search = '';
+
+  const core = useMemo(
+    () => getTopCoreEntities(graph.length > 0 ? graph : graphDraft) || '-', 
+    [graph, graphDraft],
+  );
+
+  const status = getStatusArticle(article);
 
   const getStatusStyle = () => {
     switch (status) {
-      case 'Open sourced':
+      case StatusArticle.OpenSource:
         return styles.open;
 
-      case 'Access granted':
+      case StatusArticle.AccessGranted:
         return styles.granted;
 
-      case 'Permission needed':
+      case StatusArticle.PermissionNeeded:
         return styles.permission_needed;
 
-      case 'Access request pending':
+      case StatusArticle.AccessRequestPending:
         return styles.pending;
 
-      case 'Access denied':
+      case StatusArticle.AccessDenied:
         return styles.denied;
 
       default:
@@ -64,29 +80,31 @@ export const Item: React.FC<ItemProps> = ({
     }
   };
 
-  const [showRequester, hideRequester] = useModal(
+  const [showAccessConfirm, hideAccessConfirm] = useModal(
     () => (
-      <Requester
-        avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
-        name="John Doe"
-        contry="London, UK (GMT +0)"
-        organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
-        position="Head of neurosurgery laboratory"
-        fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
-        socialMedia="https:/facebook.com/profile"
+      <AccessConfirm
+        isLoading={statusCreate === RequestStatus.REQUEST}
         onCloseModal={() => {
-          hideRequester();
+          hideAccessConfirm();
+        }}
+        onConfirm={() => {
+          dispatch(requestCreate({
+            articleId: id, 
+            callback: () => {
+              hideAccessConfirm();
+            },
+          }));
         }}
       />
     ),
-    [],
+    [statusCreate],
   );
 
   return (
     <div>
       {isMobile ? (
         <ExpandableMobileItem
-          name={name}
+          name={title}
           searchWord={search}
           id={id}
         >
@@ -106,23 +124,23 @@ export const Item: React.FC<ItemProps> = ({
               <span className={styles.title}>Author: </span>
               <button
                 className={styles.item_btn_link}
-                onClick={showRequester}
+                onClick={showAccessConfirm}
               >
-                {getName(authorName, authorUserName, 1)}
+                {getName(fullName, username, 1)}
               </button>
             </div>
             <div className={styles.item_col_block}>
               <span className={styles.title}>Core entities: </span>
-              <span className={styles.item_core}>{core.join(', ')}</span>
+              <span className={styles.item_core}>{core}</span>
             </div>
             <div className={styles.item_date_block}>
               <div className={styles.item_created_block}>
                 <span className={styles.title}>Created</span>
-                {created}
+                {createdAt}
               </div>
               <div className={styles.item_col_block}>
                 <span className={styles.title}>Modified</span>
-                {modified}
+                {updatedAt}
               </div>
             </div>
           </div>
@@ -136,7 +154,7 @@ export const Item: React.FC<ItemProps> = ({
                 type="h4"
               >
                 <SelectedText
-                  text={name}
+                  text={title}
                   searchWord={search}
                   className={styles.selected}
                 />
@@ -155,28 +173,28 @@ export const Item: React.FC<ItemProps> = ({
                     <span className={styles.title}>Author: </span>
                     <button
                       className={styles.item_btn_link}
-                      onClick={showRequester}
+                      onClick={showAccessConfirm}
                     >
-                      {getName(authorName, authorUserName, 1)}
+                      {stringLongShortcut(getName(fullName, username, 1) ?? '-', 8, 4)}
                     </button>
                   </div>
                 </div>
                 <div className={styles.item_col_block}>
                   <span className={styles.title}>Core entities</span>
-                  <span className={styles.item_core}>{core.join(', ')}</span>
+                  <span className={styles.item_core}>{core}</span>
                 </div>
               </div>
             </div>
             <div className={styles.item_second_block}>
-              <span className={getStatusStyle()}>{status}</span>
+              <span className={getStatusStyle()}>{textStatus[status]}</span>
               <div className={styles.item_date_block}>
                 <div className={styles.item_created_block}>
                   <span className={styles.title}>Created</span>
-                  {created}
+                  {createdAt}
                 </div>
                 <div className={styles.item_col_block}>
                   <span className={styles.title}>Modified</span>
-                  {modified}
+                  {updatedAt}
                 </div>
               </div>
             </div>

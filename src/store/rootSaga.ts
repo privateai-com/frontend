@@ -3,8 +3,10 @@ import metamaskSaga from './metamask/sagas';
 import authSaga from './auth/sagas';
 import profileSaga from './profile/sagas';
 import articlesSaga from './articles/sagas';
+import requestSaga from './request/sagas';
 
 export default function* rootSaga() {
+  yield fork(requestSaga);
   yield fork(metamaskSaga);
   yield fork(authSaga);
   yield fork(profileSaga);

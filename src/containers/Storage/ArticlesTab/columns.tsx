@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { routes } from 'appConstants';
 import { Article, ItemRowProps } from 'types';
-import { listTitleGraphs } from 'utils';
+import { getTopCoreEntities } from 'utils';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { DeleteBtn } from './DeleteBtn';
 import { ChangeAvailability } from './ChangeAvailability';
@@ -78,7 +78,7 @@ export const useColumns = ({
           row: {
             original: { graphDraft, graph },
           },
-        }: ItemRowProps<Article>) => (graph.length > 0 ? listTitleGraphs(graph.slice(0, 5)) : listTitleGraphs(graphDraft.slice(0, 5))) || '-',
+        }: ItemRowProps<Article>) => getTopCoreEntities(graph.length > 0 ? graph : graphDraft) || '-',
       },
       {
         Header: (

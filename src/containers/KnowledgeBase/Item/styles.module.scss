@@ -86,18 +86,19 @@
   }
 
   &_field_author_block {
+    min-width: 288px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-right: 80px;
-    text-wrap: nowrap;
+    gap: 25px;
 
     @include desktop1440 {
-      margin-right: 54px;
+      gap: 25px;
+      min-width: 198px;
     }
 
     @include tablet1024 {
-      margin-right: 44px;
+      min-width: 198px;
+      gap: 20px;
     }
   }
 
@@ -196,12 +197,6 @@
 
 .pending {
   @include icon("../../../assets/img/icons/clock.svg");
-}
-
-.permission_needed {
-  color: $color-pink;
-  text-decoration: underline;
-  @include icon("../../../assets/img/icons/alertSquare1.svg");
 }
 
 .permission_needed {

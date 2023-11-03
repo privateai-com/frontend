@@ -1,10 +1,49 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+
 import { Typography } from 'components';
-import styles from './styles.module.scss';
+import { itemsOnPageQuantity } from 'appConstants';
+import { RequestStatus } from 'types';
+import { articlesGetAll } from 'store/articles/actionCreators';
+import { ArticlesActionTypes } from 'store/articles/actionTypes';
+import { articlesSelectors } from 'store/articles/selectors';
 import { Item } from './Item';
-import { items } from './data';
+import styles from './styles.module.scss';
 
 export const KnowledgeBase: React.FC = () => {
-  const search = 'gene';
+  const dispatch = useDispatch();
+
+  const [offset, setOffset] = useState(0);
+
+  const total = useSelector(articlesSelectors.getProp('total'));
+  const articles = useSelector(articlesSelectors.getProp('articles'));
+  const statusGetArticles = useSelector(
+    articlesSelectors.getStatus(ArticlesActionTypes.GetArticles),
+  );
+  
+  const increaseOffset = useCallback(() => setOffset((value) => value + 1), []);
+
+  useEffect(() => {
+    const payload = {
+      limit: itemsOnPageQuantity,
+      offset: offset * itemsOnPageQuantity,
+    };
+    dispatch(articlesGetAll(payload));
+  }, [dispatch, offset]);
+
+  const isHasNextPage = (offset + 1) * itemsOnPageQuantity < total; 
+
+  const isLoading = statusGetArticles === RequestStatus.REQUEST; 
+
+  const [sentryRef, { rootRef }] = useInfiniteScroll({
+    loading: isLoading,
+    hasNextPage: isHasNextPage ?? true,
+    onLoadMore: increaseOffset,
+    disabled: statusGetArticles === RequestStatus.ERROR,
+    rootMargin: '0px 0px 40px 0px',
+  });
+  
   return (
     <div className={styles.knowledge}>
       <div className={styles.knowledge_header}>
@@ -17,36 +56,17 @@ export const KnowledgeBase: React.FC = () => {
       </div>
       <div className={styles.items}>
         <div className={styles.items_wrapper}>
-          <div className={styles.items_container}>
-            {items.map(
-              (
-                {
-                  id,
-                  name,
-                  authorName,
-                  field,
-                  core,
-                  status,
-                  created,
-                  modified,
-                  authorUserName,
-                },
-                ind,
-              ) => (
+          <div className={styles.items_container} ref={rootRef}>
+            {articles.map(
+              (item) => (
                 <Item
-                  key={ind} // eslint-disable-line react/no-array-index-key
-                  id={id}
-                  name={name}
-                  field={field}
-                  authorName={authorName}
-                  core={core}
-                  status={status}
-                  created={created}
-                  modified={modified}
-                  search={search}
-                  authorUserName={authorUserName}
+                  key={item.id} 
+                  article={item}
                 />
               ),
+            )}
+            {(isLoading || isHasNextPage) && (
+              <div ref={sentryRef} />
             )}
           </div>
         </div>
