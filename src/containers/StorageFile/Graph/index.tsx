@@ -59,36 +59,32 @@ export const Graph: FC<GraphProps> = memo(({
             Delete
           </Button>
         </div> */}
-
-        {isLoading ? (
+        {isLoading && (
           <GraphLoader />
-        ) : (
-          <>
-            <GraphVis
-          // graphData={graphData}
-              setGraphData={setGraphData}
-              nodes={nodes}
-              edges={edges}
-              isEdit={isEdit}
-            />
-
-            <Typography type="h2">Data highlights:</Typography>
-            <div className={styles.graph_info}>
-              <div className={styles.graph_info__item}>
-                <p>Number of nodes</p>
-                <span>{nodesCount}</span>
-              </div>
-              <div className={styles.graph_info__item}>
-                <p>Number of edges</p>
-                <span>{edgesCount}</span>
-              </div>
-              <div className={styles.graph_info__item}>
-                <p>Core Entities</p>
-                <span>{coreEntities}</span>
-              </div>
-            </div>
-          </>
         )}
+        <GraphVis
+          // graphData={graphData}
+          setGraphData={setGraphData}
+          nodes={nodes}
+          edges={edges}
+          isEdit={isEdit}
+        />
+
+        <Typography type="h2">Data highlights:</Typography>
+        <div className={styles.graph_info}>
+          <div className={styles.graph_info__item}>
+            <p>Number of nodes</p>
+            <span>{nodesCount}</span>
+          </div>
+          <div className={styles.graph_info__item}>
+            <p>Number of edges</p>
+            <span>{edgesCount}</span>
+          </div>
+          <div className={styles.graph_info__item}>
+            <p>Core Entities</p>
+            <span>{coreEntities}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
