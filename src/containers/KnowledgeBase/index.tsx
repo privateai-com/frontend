@@ -21,7 +21,15 @@ export const KnowledgeBase: React.FC = () => {
             {items.map(
               (
                 {
-                  id, name, author, field, core, status, created, modified, 
+                  id,
+                  name,
+                  authorName,
+                  field,
+                  core,
+                  status,
+                  created,
+                  modified,
+                  authorUserName,
                 },
                 ind,
               ) => (
@@ -30,12 +38,13 @@ export const KnowledgeBase: React.FC = () => {
                   id={id}
                   name={name}
                   field={field}
-                  author={author}
+                  authorName={authorName}
                   core={core}
                   status={status}
                   created={created}
                   modified={modified}
                   search={search}
+                  authorUserName={authorUserName}
                 />
               ),
             )}

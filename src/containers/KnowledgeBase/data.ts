@@ -4,7 +4,8 @@ type ItemProp = {
   id: number;
   name: string;
   field: string;
-  author: string;
+  authorName: string;
+  authorUserName: string;
   core: string[];
   status: Status;
   created: string;
@@ -28,7 +29,8 @@ for (let i = 0; i < 7; i += 1) {
     id: count,
     name: 'New breakthroughs in gene therapy',
     field: 'Gene therapy',
-    author: 'Ray Smith',
+    authorName: 'Ray Smith',
+    authorUserName: 'Ray Smith',
     core: [
       'Healthcare',
       'Drug discovery',

@@ -113,10 +113,11 @@ export function* callApi(options: {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   endpoint: string;
   payload?: Record<string, any> | FormData;
+  isBlob?: boolean;
   callbackUploadStatus?: (percent: number) => void;
 }): SagaIterator {
   const {
-    method = 'GET', endpoint, payload, callbackUploadStatus, 
+    method = 'GET', endpoint, payload, isBlob, callbackUploadStatus,
   } = options;
 
   yield call(waitForFreshAccessToken);
@@ -183,7 +184,13 @@ export function* callApi(options: {
   const response: Response = yield call(fetch, url, requestOptions);
 
   let json: Record<string, any>;
-
+  if (isBlob) {
+    try {
+      return yield call([response, response.blob]);
+    } catch (error) {
+      json = {};
+    }
+  }
   try {
     const unknowJson: any = yield call([response, response.json]);
     json = unknowJson;

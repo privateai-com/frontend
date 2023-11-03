@@ -6,7 +6,8 @@ import {
 } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { accountSetState } from 'store/account/actionCreators';
+// import { accountSetState } from 'store/account/actionCreators';
+import { profileSetAccountInfo } from 'store/profile/actionCreators';
 import { authConfirmEmail, authSetState, authSetStatus } from '../actionCreators';
 
 export function* authConfirmEmailSaga({
@@ -35,7 +36,7 @@ export function* authConfirmEmailSaga({
         code,
       },
     });
-    yield put(accountSetState({
+    yield put(profileSetAccountInfo({
       ...user,
     }));
     yield put(authSetState({

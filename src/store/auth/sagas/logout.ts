@@ -2,15 +2,14 @@ import { call, put } from 'redux-saga/effects';
 
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { accountSetState } from 'store/account/actionCreators';
-import { accountInitialState } from 'store/account';
+import { profileSetAccountInfo } from 'store/profile/actionCreators';
 
 import { RequestStatus } from 'types';
 import { authLogout, authSetState, authSetStatus } from '../actionCreators';
 import { authInitialState } from '..';
 
 export function* clearReducer() {
-  yield put(accountSetState(accountInitialState));
+  yield put(profileSetAccountInfo({}));
   yield put(authSetState(authInitialState));
 }
 

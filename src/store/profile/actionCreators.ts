@@ -1,7 +1,12 @@
-import { ProfileState, RequestStatus } from 'types';
+import { ProfileState, RequestStatus, ProfileUpdateData } from 'types';
 import { ProfileActionTypes } from './actionTypes';
 
 export const profileSetState = (payload: Partial<ProfileState>) => ({
+  type: ProfileActionTypes.SetState,
+  payload,
+});
+
+export const profileSetAccountInfo = (payload: Partial<ProfileState['accountInfo']>) => ({
   type: ProfileActionTypes.SetState,
   payload,
 });
@@ -24,4 +29,14 @@ export const profileGetProfile = () => ({
 
 export const profileDeleteWallet = () => ({
   type: ProfileActionTypes.DeleteWallet,
+});
+
+export const profileUpdateProfile = (payload: ProfileUpdateData) => ({
+  type: ProfileActionTypes.UpdateProfile,
+  payload,
+});
+
+export const profileUploadAvatar = (payload: { file: File }) => ({
+  type: ProfileActionTypes.UploadAvatar,
+  payload,
 });

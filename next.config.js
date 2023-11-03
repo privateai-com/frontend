@@ -7,6 +7,16 @@ const nextConfig = {
     config.experiments = { asyncWebAssembly: true };
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'archon-backend.sfxdx.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

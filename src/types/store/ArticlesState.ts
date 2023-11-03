@@ -1,6 +1,6 @@
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import {
-  AccountState,
+  AccountInfo,
   GraphResponseType,
   PartialRecord,
   RequestStatus,
@@ -36,7 +36,7 @@ export type ArticleOwner = {
 export type ArticleAccess = {
   id: number;
   article: Article;
-  requester?: AccountState;
+  requester?: AccountInfo;
   approve: boolean;
   isOwnerViewed?: boolean;
   isRequesterViewed?: boolean;

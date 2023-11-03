@@ -1,14 +1,13 @@
 import cx from 'classnames';
-// import Image from 'next/image';
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { Typography } from 'components';
-
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { profileGetProfile } from 'store/profile/actionCreators';
-
-import { accountSelectors } from 'store/account/selectors';
+import { profileSelectors } from 'store/profile/selectors';
 import styles from './styles.module.scss';
+import { getData } from '../getData';
 
 export const ProfileInfo = () => {
   const dispatch = useDispatch();
@@ -19,29 +18,30 @@ export const ProfileInfo = () => {
 
   const {
     avatarUrl,
+    username,
     fullName,
     country,
     city,
     email,
-    facebookLink,
+    socialLink,
     organization,
     position,
     researchFields,
-  } = useSelector(accountSelectors.getAccount);
+  } = useSelector(profileSelectors.getProp('accountInfo'), shallowEqual);
 
   return (
     <>
       <div className={cx(styles.wrapper, styles.info)}>
         {avatarUrl ? (
-          // <Image
-          //   src={avatarUrl}
-          //   alt="avatar"
-          //   className={styles.info_avatar}
-          //   width={450}
-          //   height={450}
-          // />
-          <div className={styles.no_avatar} />
-
+          <div className={styles.info_avatar}>
+            <Image
+              src={avatarUrl}
+              alt="avatar"
+              className={styles.info_avatar}
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
         ) : (
           <div className={styles.no_avatar} />
         )}
@@ -52,11 +52,11 @@ export const ProfileInfo = () => {
               {' '}
               <span>*</span>
             </Typography>
-            {fullName}
+            {getData(fullName, username)}
           </div>
           <div className={styles.info_item}>
             <Typography type="h4">Location (Country and/or City)</Typography>
-            {city || country ? `${city}, ${country}` : ''}
+            {getData(city, country)}
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ export const ProfileInfo = () => {
         </div>
         <div className={styles.info_item}>
           <Typography type="h4">Social media links</Typography>
-          {facebookLink}
+          {socialLink}
         </div>
       </div>
       <div className={cx(styles.wrapper, styles.info3)}>

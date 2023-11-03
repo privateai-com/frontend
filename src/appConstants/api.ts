@@ -14,6 +14,7 @@ export enum ApiEndpoint {
 
   ProfileAddWallet = '/profile/add-wallet',
   ProfileGet = '/profile',
+  ProfileGetAvatar = '/profile/images/avatars',
   ProfileDeleteWallet = '/profile/delete-wallet',
 
   ArticlesGetArticles = '/articles',
@@ -29,4 +30,7 @@ export enum ApiEndpoint {
   GraphSave = '/graph/save',
 
   RequestsCreate = '/requests/create',
+
+  ProfileUpdateProfile = '/profile/update',
+  profileUploadAvatar = '/profile/upload-avatar',
 }

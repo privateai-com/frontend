@@ -1,9 +1,13 @@
 export { default as createReducer } from './createReducer';
 export { throwApiError } from './throwApiError';
-export { sagaExceptionHandler, getDataFromException } from './sagaExceptionHandler';
+export {
+  sagaExceptionHandler,
+  getDataFromException,
+} from './sagaExceptionHandler';
 export { stringShortcut, stringLongShortcut } from './stringShortcut';
 export { transformBackendErrorToString } from './transformBackendErrorToString';
 export { isWordMatchingSearch } from './isWordsMatching';
+export { getName } from './getName';
 
 export * from './getNetworkName';
 export * from './metamask';

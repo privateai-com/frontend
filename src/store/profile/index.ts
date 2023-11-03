@@ -5,9 +5,14 @@ import { ProfileActionTypes } from './actionTypes';
 import { profileHandlers } from './handlers';
 
 export const profileInitialState: Readonly<ProfileState> = {
+  accountInfo: {
+
+  },
   ui: {
     [ProfileActionTypes.LinkWallet]: RequestStatus.INIT,
     [ProfileActionTypes.DeleteWallet]: RequestStatus.INIT,
+    [ProfileActionTypes.UpdateProfile]: RequestStatus.INIT,
+    [ProfileActionTypes.UploadAvatar]: RequestStatus.INIT,
   },
 };
 
