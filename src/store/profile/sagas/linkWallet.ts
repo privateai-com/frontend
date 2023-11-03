@@ -1,11 +1,10 @@
 import { call, put } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
-import { AccountState, RequestStatus } from 'types';
+import { AccountInfo, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi, signPersonalEvm } from 'api';
-import { accountSetState } from 'store/account/actionCreators';
-import { profileLinkWallet, profileSetStatus } from '../actionCreators';
+import { profileLinkWallet, profileSetStatus, profileSetState } from 'store/profile/actionCreators';
 
 const message = 'Connect Archon!';
 
@@ -19,7 +18,7 @@ export function* profileLinkWalletSaga({
 
     const {
       data,
-    }: { data: AccountState } = yield call(callApi, {
+    }: { data: AccountInfo } = yield call(callApi, {
       method: 'POST',
       endpoint: ApiEndpoint.ProfileAddWallet,
       payload: {
@@ -28,8 +27,10 @@ export function* profileLinkWalletSaga({
       },
     });
 
-    yield put(accountSetState({
-      ...data,
+    yield put(profileSetState({
+      accountInfo: {
+        ...data,
+      },
     }));
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));

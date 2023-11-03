@@ -3,7 +3,7 @@ import { sagaExceptionHandler } from 'utils';
 import { RequestStatus, UserResponse } from 'types';
 import { ApiEndpoint, errorsNotification } from 'appConstants';
 import { signPersonalEvm, callApi } from 'api';
-import { accountSetState } from 'store/account/actionCreators';
+import { profileSetAccountInfo } from 'store/profile/actionCreators';
 import detectEthereumProvider from '@metamask/detect-provider';
 
 import { providers } from 'ethers';
@@ -38,7 +38,7 @@ export function* authloginWalletSaga({
     });
 
     yield put(
-      accountSetState({
+      profileSetAccountInfo({
         ...user,
       }),
     );

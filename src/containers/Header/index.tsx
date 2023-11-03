@@ -9,7 +9,7 @@ import {
 } from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
-import { accountSelectors } from 'store/account/selectors';
+import { profileSelectors } from 'store/profile/selectors';
 
 import { useModal } from 'react-modal-hook';
 import { Notification } from './Notification';
@@ -28,7 +28,8 @@ export const Header = () => {
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const username = useSelector(accountSelectors.getProp('username'));
+  const username = useSelector(profileSelectors.getPropAccountInfo('username'));
+  const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
 
   const onNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
@@ -80,7 +81,7 @@ export const Header = () => {
           </div>
         )}
       </div>
-      <span>{username}</span>
+      <span>{fullName || username}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}

@@ -1,6 +1,7 @@
 import { ProfileState, ActionFn } from 'types';
 import { ProfileActionTypes } from './actionTypes';
 import {
+  profileSetAccountInfo,
   profileSetState,
   profileSetStatus,
 } from './actionCreators';
@@ -28,7 +29,19 @@ const setStatus: ProfileStateActionFn<typeof profileSetStatus> = (
   },
 });
 
+const setAccountInfo: ProfileStateActionFn<typeof profileSetAccountInfo> = (
+  state,
+  { payload },
+) => ({
+  ...state,
+  accountInfo: {
+    ...state.accountInfo,
+    ...payload,
+  },
+});
+
 export const profileHandlers = {
   [ProfileActionTypes.SetState]: setState,
   [ProfileActionTypes.SetStatus]: setStatus,
+  [ProfileActionTypes.SetStateAccountInfo]: setAccountInfo,
 };

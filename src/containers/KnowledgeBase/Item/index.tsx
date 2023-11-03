@@ -5,6 +5,7 @@ import { ScreenWidth } from 'appConstants';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 
 import { useModal } from 'react-modal-hook';
+import { getName } from 'utils';
 import styles from './styles.module.scss';
 
 type StatusProps =
@@ -17,7 +18,8 @@ type StatusProps =
 type ItemProps = {
   name: string;
   field: string;
-  author: string;
+  authorName: string;
+  authorUserName: string;
   core: string[];
   status: StatusProps;
   created: string;
@@ -27,7 +29,8 @@ type ItemProps = {
 
 export const Item: React.FC<ItemProps> = ({
   name,
-  author,
+  authorName,
+  authorUserName,
   field,
   core,
   status,
@@ -51,7 +54,7 @@ export const Item: React.FC<ItemProps> = ({
       case 'Access request pending':
         return styles.pending;
 
-      case 'Access denied': 
+      case 'Access denied':
         return styles.denied;
 
       default:
@@ -102,7 +105,7 @@ export const Item: React.FC<ItemProps> = ({
                 className={styles.item_btn_link}
                 onClick={showRequester}
               >
-                {author}
+                {getName(authorName, authorUserName, 1)}
               </button>
             </div>
             <div className={styles.item_col_block}>
@@ -151,7 +154,7 @@ export const Item: React.FC<ItemProps> = ({
                       className={styles.item_btn_link}
                       onClick={showRequester}
                     >
-                      {author}
+                      {getName(authorName, authorUserName, 1)}
                     </button>
                   </div>
                 </div>
