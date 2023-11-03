@@ -15,6 +15,7 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { Article, RequestStatus } from 'types';
 import { EditItem } from './EditItem';
 import { GraphResponseType } from '../types';
+import { exportToExcel } from './utils';
 
 import styles from './styles.module.scss';
 
@@ -75,6 +76,10 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
       }
     }
   }, [article, articleAccess, dispatch, fieldFile, graphData, nameFile, successCallback]);
+
+  const onDownloadXlsxClick = useCallback(() => {
+    if (article) exportToExcel(graphData, article.title);
+  }, [article, graphData]);
 
   useEffect(() => {
     if (article) {
@@ -190,6 +195,14 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
               currentValue={articleAccess}
               onChange={onChangeAvailabilityClick}
             />
+            <Button
+              theme="secondary"
+              onClick={onDownloadXlsxClick}
+              disabled={!article}
+              className={styles.storageFile__download_xlsx}
+            >
+              Download xlsx
+            </Button>
           </div>
         </div> 
       </div>

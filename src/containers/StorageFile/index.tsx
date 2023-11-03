@@ -25,8 +25,10 @@ export const StorageFile = memo(() => {
     articlesSelectors.getStatus(ArticlesActionTypes.GetOneArticle),
   );
   const initialGraphData = useMemo(
-    () =>
-      ((article && article?.graphDraft) ? article?.graphDraft : []),
+    () => {
+      const graphArr = article?.graphDraft;
+      return (article && graphArr) ? graphArr : [];
+    },
     [article],
   );
 
