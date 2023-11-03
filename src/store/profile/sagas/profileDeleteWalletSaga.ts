@@ -4,8 +4,7 @@ import { sagaExceptionHandler } from 'utils';
 import { RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { accountSetState } from 'store/account/actionCreators';
-import { profileDeleteWallet, profileSetStatus } from '../actionCreators';
+import { profileDeleteWallet, profileSetStatus, profileSetState } from 'store/profile/actionCreators';
 
 export function* profileDeleteWalletSaga({
   type,
@@ -19,8 +18,10 @@ export function* profileDeleteWalletSaga({
     });
 
     yield put(
-      accountSetState({
-        walletAddress: null,
+      profileSetState({
+        accountInfo: {
+          walletAddress: null,
+        },
       }),
     );
 

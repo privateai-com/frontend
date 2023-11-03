@@ -1,9 +1,9 @@
 import { authErrorWords } from 'appConstants';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 import {
-  AccountState,
   PartialRecord,
   RequestStatus,
+  AccountInfo,
 } from 'types';
 
 export interface AuthState {
@@ -36,6 +36,6 @@ export interface RefreshAccessTokensData {
 
 export interface UserResponse {
   data: {
-    user: AccountState;
+    user: AccountInfo;
   } & RefreshAccessTokensData;
 }

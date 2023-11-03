@@ -5,7 +5,7 @@ import {
 } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { accountSetState } from 'store/account/actionCreators';
+import { profileSetAccountInfo } from 'store/profile/actionCreators';
 import { authLogin, authSetState, authSetStatus } from '../actionCreators';
 
 export function* authLoginSaga({
@@ -34,7 +34,7 @@ export function* authLoginSaga({
         password,
       },
     });
-    yield put(accountSetState({
+    yield put(profileSetAccountInfo({
       ...user,
     }));
     yield put(authSetState({

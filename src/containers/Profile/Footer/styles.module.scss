@@ -1,0 +1,57 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.footer {
+  grid-area: footer;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+
+  @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
+    gap: vw(30, 1024);
+    margin-top: vw(40, 1024);
+  }
+
+  @include media-breakpoint-up(xxl) {
+    margin-top: vw(10, 1440);
+    gap: vw(30, 1440);
+  }
+
+  @include media-breakpoint-up(fhd) {
+    margin-top: vw(40);
+    gap: vw(30);
+  }
+
+  &_list {
+    list-style-type: none;
+
+    & > li {
+      display: flex;
+
+      color: $color-grey;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+
+      @include mobile {
+        font-size: 12px;
+      }
+
+      span {
+        color: $color-green;
+        margin-right: 4px;
+      }
+    }
+
+    &_edit {
+      max-width: 804px;
+
+      @include mobile {
+        order: 3;
+      }
+    }
+  }
+
+}

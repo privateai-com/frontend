@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 
-import { accountSelectors } from 'store/account/selectors';
+import { profileSelectors } from 'store/profile/selectors';
 import { authSelectors } from 'store/auth/selectors';
 
 export const useAuth = (): boolean => {
   const { accessToken } = useSelector(authSelectors.getState);
-  const { id } = useSelector(accountSelectors.getAccount);
+  const id = useSelector(profileSelectors.getPropAccountInfo('id'));
 
   return accessToken !== undefined && !!id;
 };

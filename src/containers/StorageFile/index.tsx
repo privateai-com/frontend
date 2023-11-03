@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { accountSelectors } from 'store/account/selectors';
+import { profileSelectors } from 'store/profile/selectors';
 import { UserRole, GraphResponseType } from 'types';
 import { graphDataReal } from 'appConstants';
 import { ButtonBack } from './ButtonBack';
@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 export const StorageFile = () => {
   const [graphData, setGraphData] = useState<GraphResponseType[]>(graphDataReal);
   const [isEdit, setIsEdit] = useState(false);
-  const { role } = useSelector(accountSelectors.getAccount);
+  const role = useSelector(profileSelectors.getPropAccountInfo('role'));
   
   const callback = useCallback((value: GraphResponseType[]) => {
     setGraphData(value);
