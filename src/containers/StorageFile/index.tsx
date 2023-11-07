@@ -22,7 +22,6 @@ export const StorageFile = memo(() => {
   const { articleId } = router.query;
   const article = useSelector(articlesSelectors.getProp('article'));
   const accountInfo = useSelector(profileSelectors.getProp('accountInfo'));
-  const [isOwner, setIsOwner] = useState(false);
   const statusGetOneArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetOneArticle),
   );
@@ -33,6 +32,11 @@ export const StorageFile = memo(() => {
       return (article && graphArr) ? [...graphArr].splice(0, 5) : [];
     },
     [article, isPublishGraph],
+  );
+
+  const isOwner = useMemo(
+    () => accountInfo?.id === article?.owner.id,
+    [accountInfo?.id, article?.owner.id],
   );
 
   const [graphData, setGraphData] = useState<GraphResponseType[]>([]);
@@ -75,10 +79,6 @@ export const StorageFile = memo(() => {
       setIsPublishGraph(true);
     }
   }, [article]);
-
-  useEffect(() => {
-    setIsOwner(accountInfo?.id === article?.owner.id);
-  }, [accountInfo?.id, article?.owner.id]);
 
   return (
     <div className={styles.storageFile__container}>
