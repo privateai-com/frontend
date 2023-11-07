@@ -2,6 +2,7 @@ export const options = {
   interaction: {
     hover: true,
     navigationButtons: true,
+    multiselect: true,
   },
   layout: {
     randomSeed: 6,

@@ -8,7 +8,7 @@ import { GraphResponseType, RequestStatus } from 'types';
 import { articlesGetOneArticle } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-
+import { profileSelectors } from 'store/profile/selectors';
 import { ButtonBack } from './ButtonBack';
 import { FileInfo } from './FileInfo';
 import { FileInfoEdit } from './FileInfoEdit';
@@ -21,15 +21,22 @@ export const StorageFile = memo(() => {
   const router = useRouter();
   const { articleId } = router.query;
   const article = useSelector(articlesSelectors.getProp('article'));
+  const accountInfo = useSelector(profileSelectors.getProp('accountInfo'));
   const statusGetOneArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetOneArticle),
   );
+  const [isPublishGraph, setIsPublishGraph] = useState(false);
   const initialGraphData = useMemo(
     () => {
-      const graphArr = article?.graphDraft;
-      return (article && graphArr) ? graphArr : [];
+      const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
+      return (article && graphArr) ? [...graphArr].splice(0, 5) : [];
     },
-    [article],
+    [article, isPublishGraph],
+  );
+
+  const isOwner = useMemo(
+    () => accountInfo?.id === article?.owner.id,
+    [accountInfo?.id, article?.owner.id],
   );
 
   const [graphData, setGraphData] = useState<GraphResponseType[]>([]);
@@ -38,6 +45,11 @@ export const StorageFile = memo(() => {
   const callback = useCallback((value: GraphResponseType[]) => {
     setGraphData(value);
   }, []);
+
+  const onSaveClick = useCallback(() => {
+    setIsEdit(!isEdit);
+    setIsPublishGraph(false);
+  }, [isEdit]);
 
   const isEditToggle = useCallback(() => {
     setIsEdit(!isEdit);
@@ -55,12 +67,18 @@ export const StorageFile = memo(() => {
   }, [initialGraphData]);
 
   const onRevertToLastSavedClick = useCallback(() => {
-    if (article?.graphDraft) setGraphData(article?.graphDraft);
+    if (article?.graphDraft) {
+      setIsPublishGraph(false);
+      setGraphData(article?.graphDraft);
+    }
   }, [article?.graphDraft]);
 
   const onRevertToLastPublishedClick = useCallback(() => {
-    if (article?.graph && article?.graph.length) setGraphData(article?.graph);
-  }, [article?.graph]);
+    if (article?.graph && article?.graph.length) {
+      setGraphData(article?.graph);
+      setIsPublishGraph(true);
+    }
+  }, [article]);
 
   return (
     <div className={styles.storageFile__container}>
@@ -69,7 +87,7 @@ export const StorageFile = memo(() => {
         <FileInfoEdit
           graphData={graphData}
           // setGraphData={setGraphData}
-          onSave={isEditToggle}
+          onSave={onSaveClick}
           onRevertToLastSaved={onRevertToLastSavedClick}
           onRevertToLastPublished={onRevertToLastPublishedClick}
           {...(article && { article })}
@@ -77,7 +95,7 @@ export const StorageFile = memo(() => {
       ) : (
         <FileInfo
           onEditClick={isEditToggle}
-          isOwner
+          isOwner={isOwner}
           isLoading={statusGetOneArticle === RequestStatus.REQUEST}
           {...(article && { article })}
         />

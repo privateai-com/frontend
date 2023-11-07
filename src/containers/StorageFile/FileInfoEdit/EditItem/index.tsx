@@ -13,9 +13,9 @@ import styles from './styles.module.scss';
 interface EditItemProps {
   className?: string;
   index: number;
-  head: string;
-  type: string;
-  tail: string;
+  subject: string;
+  verb: string;
+  object: string;
   // updateGraphItem: (index: number, updatedItem: GraphResponseType) => void;
   // onDelete: (index: number) => void;
 }
@@ -23,9 +23,9 @@ interface EditItemProps {
 export const EditItem: FC<EditItemProps> = ({
   className,
   index,
-  head,
-  type,
-  tail,
+  subject,
+  verb,
+  object,
   // updateGraphItem,
   // onDelete,
 }) => {
@@ -48,7 +48,7 @@ export const EditItem: FC<EditItemProps> = ({
         <TextInput
           name="subj"
           onChangeValue={handleInputChange}
-          value={head}
+          value={subject}
           classNameContainer={styles.edit_item_input_container}
           classNameInputBox={styles.edit_item_inputBox}
           placeholder="Artificial Intelligence SUBJ"
@@ -57,7 +57,7 @@ export const EditItem: FC<EditItemProps> = ({
         <TextInput
           name="verb"
           onChangeValue={handleInputChange}
-          value={type}
+          value={verb}
           classNameContainer={styles.edit_item_input_container}
           classNameInputBox={styles.edit_item_inputBox}
           placeholder="Analyzes VERB"
@@ -66,7 +66,7 @@ export const EditItem: FC<EditItemProps> = ({
         <TextInput
           name="obj"
           onChangeValue={handleInputChange}
-          value={tail}
+          value={object}
           classNameContainer={styles.edit_item_input_container}
           classNameInputBox={styles.edit_item_inputBox}
           placeholder="Individual genome OBJ"

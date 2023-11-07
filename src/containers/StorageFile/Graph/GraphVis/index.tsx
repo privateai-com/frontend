@@ -12,14 +12,15 @@ import {
 import cx from 'classnames';
 import 'vis-network/styles/vis-network.css';
 
-import { DatasetEdgeType, DatasetNodeType, GraphResponseType } from 'containers/StorageFile/types';
-import { ButtonIcon } from 'components';
+import { DatasetEdgeType, DatasetNodeType } from 'containers/StorageFile/types';
+import { Button, ButtonIcon } from 'components';
 import { closeModalIcon } from 'assets';
+import { GraphResponseType } from 'types';
 import { options } from './constants';
 import { apdateGraphControls } from './hooks';
+import { transformNodesAndEdgesToData } from '../utils';
 
 import styles from './styles.module.scss';
-import { transformNodesAndEdgesToData } from '../utils';
 
 interface GraphVisProps {
   setGraphData: (edges: GraphResponseType[]) => void
@@ -196,6 +197,24 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   };
 
   useEffect(() => {
+    const handleDeleteKeyPress = (event: { key: string; }) => {
+      if (event.key === 'Delete' && networkRef.current && isEdit) {
+        const selectedNodes = networkRef.current.getSelectedNodes();
+        const selectedEdges = networkRef.current.getSelectedEdges();
+        nodes.remove(selectedNodes);
+        edges.remove(selectedEdges);
+        setGraphData(transformNodesAndEdgesToData(nodes, edges));
+      }
+    };
+
+    window.addEventListener('keydown', handleDeleteKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleDeleteKeyPress);
+    };
+  }, [edges, isEdit, nodes, setGraphData]);
+
+  useEffect(() => {
     if (visJsRef.current) {
       apdateGraphControls(visJsRef);
     }
@@ -224,6 +243,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
             }}
             ref={inputRef}
           />
+          <Button className={styles.popup_button_ok} onClick={handleEnterPress}>Ok</Button>
           <ButtonIcon image={closeModalIcon} onClick={onClosePopup} />
         </div>
       </div>

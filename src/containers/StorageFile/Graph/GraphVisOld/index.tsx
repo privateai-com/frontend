@@ -7,9 +7,10 @@ import {
 import cx from 'classnames';
 import 'vis-network/styles/vis-network.css';
 
-import { DatasetEdgeType, DatasetNodeType, GraphResponseType } from 'containers/StorageFile/types';
+import { DatasetEdgeType, DatasetNodeType } from 'containers/StorageFile/types';
 import { ButtonIcon } from 'components';
 import { closeModalIcon } from 'assets';
+import { GraphResponseType } from 'types';
 import { options } from './constants';
 import { apdateGraphControls } from './hooks';
 
@@ -49,12 +50,11 @@ export const GraphVisOld: FC<GraphVisProps> = ({
     const newGraphData = [
       ...graphData,
       {
-        head: 'new',
-        tail: '',
-        type: '',
-        meta: {
-          spans: [[0]],
-        },
+        subject: 'new',
+        verb: '',
+        object: '',
+        uncertainty: 0,
+        comment: '',
       },
     ];
     setGraphData(newGraphData);
