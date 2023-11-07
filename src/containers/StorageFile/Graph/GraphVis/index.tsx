@@ -13,7 +13,7 @@ import cx from 'classnames';
 import 'vis-network/styles/vis-network.css';
 
 import { DatasetEdgeType, DatasetNodeType, GraphResponseType } from 'containers/StorageFile/types';
-import { ButtonIcon } from 'components';
+import { Button, ButtonIcon } from 'components';
 import { closeModalIcon } from 'assets';
 import { options } from './constants';
 import { apdateGraphControls } from './hooks';
@@ -224,6 +224,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
             }}
             ref={inputRef}
           />
+          <Button className={styles.popup_button_ok} onClick={handleEnterPress}>Ok</Button>
           <ButtonIcon image={closeModalIcon} onClick={onClosePopup} />
         </div>
       </div>
