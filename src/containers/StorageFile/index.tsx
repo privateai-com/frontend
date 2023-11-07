@@ -8,7 +8,7 @@ import { GraphResponseType, RequestStatus } from 'types';
 import { articlesGetOneArticle } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-
+import { profileSelectors } from 'store/profile/selectors';
 import { ButtonBack } from './ButtonBack';
 import { FileInfo } from './FileInfo';
 import { FileInfoEdit } from './FileInfoEdit';
@@ -21,6 +21,8 @@ export const StorageFile = memo(() => {
   const router = useRouter();
   const { articleId } = router.query;
   const article = useSelector(articlesSelectors.getProp('article'));
+  const accountInfo = useSelector(profileSelectors.getProp('accountInfo'));
+  const [isOwner, setIsOwner] = useState(false);
   const statusGetOneArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetOneArticle),
   );
@@ -74,6 +76,10 @@ export const StorageFile = memo(() => {
     }
   }, [article]);
 
+  useEffect(() => {
+    setIsOwner(accountInfo?.id === article?.owner.id);
+  }, [accountInfo?.id, article?.owner.id]);
+
   return (
     <div className={styles.storageFile__container}>
       <ButtonBack title="Back" />
@@ -89,7 +95,7 @@ export const StorageFile = memo(() => {
       ) : (
         <FileInfo
           onEditClick={isEditToggle}
-          isOwner
+          isOwner={isOwner}
           isLoading={statusGetOneArticle === RequestStatus.REQUEST}
           {...(article && { article })}
         />
