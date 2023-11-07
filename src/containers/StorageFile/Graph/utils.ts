@@ -8,12 +8,26 @@ import {
 } from 'containers/StorageFile/types';
 import { GraphResponseType } from 'types';
 
+const initial = {
+  nodes: new DataSet(),
+  edges: new DataSet(),
+} as { nodes: DatasetNodeType, edges: DatasetEdgeType };
+
 export const transformDataToNodesAndEdges = (data: GraphResponseType[]) => {
   if (!data || data?.length === 0) {
-    return {
-      nodes: new DataSet(),
-      edges: new DataSet(),
-    } as { nodes: DatasetNodeType, edges: DatasetEdgeType };
+    return initial;
+  }
+
+  const isStructureValid = data.every((obj) => 
+    typeof obj === 'object' &&
+    Object.prototype.hasOwnProperty.call(obj, 'subject') &&
+    Object.prototype.hasOwnProperty.call(obj, 'verb') &&
+    Object.prototype.hasOwnProperty.call(obj, 'object') &&
+    Object.prototype.hasOwnProperty.call(obj, 'uncertainty') &&
+    Object.prototype.hasOwnProperty.call(obj, 'comment'));
+
+  if (!isStructureValid) {
+    return initial;
   }
 
   const nodes = new DataSet<Partial<Record<'id', OptId> & { label: string }>>();
@@ -22,17 +36,17 @@ export const transformDataToNodesAndEdges = (data: GraphResponseType[]) => {
   const edgesData: Record<'id', OptId>[] & Partial<EdgeType>[] = [];
 
   data.forEach((item) => {
-    const headNodeId = item.subject.replace(/\n/g, '');
-    const tailNodeId = item.object.replace(/\n/g, '');
+    const headNodeId = item.subject?.replace(/\n/g, '');
+    const tailNodeId = item.object?.replace(/\n/g, '');
 
     if (!uniqueNodes.has(headNodeId)) {
       uniqueNodes.add(headNodeId);
-      nodes.add({ id: headNodeId, label: item.subject.replace(/\n/g, '') });
+      nodes.add({ id: headNodeId, label: item.subject?.replace(/\n/g, '') });
     }
 
     if (!uniqueNodes.has(tailNodeId)) {
       uniqueNodes.add(tailNodeId);
-      nodes.add({ id: tailNodeId, label: item.object.replace(/\n/g, '') });
+      nodes.add({ id: tailNodeId, label: item.object?.replace(/\n/g, '') });
     }
 
     const edgeKey = `${headNodeId}-${tailNodeId}`;
