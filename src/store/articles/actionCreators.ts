@@ -49,7 +49,7 @@ export const articlesUpdate = (payload: {
   articleId: number;
   title: string;
   field: string;
-  callback: () => void;
+  callback?: () => void;
 }) => ({
   type: ArticlesActionTypes.UpdateArticle,
   payload,

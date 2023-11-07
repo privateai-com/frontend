@@ -24,12 +24,13 @@ export const StorageFile = memo(() => {
   const statusGetOneArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetOneArticle),
   );
+  const [isPublishGraph, setIsPublishGraph] = useState(false);
   const initialGraphData = useMemo(
     () => {
-      const graphArr = article?.graphDraft;
+      const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
       return (article && graphArr) ? graphArr : [];
     },
-    [article],
+    [article, isPublishGraph],
   );
 
   const [graphData, setGraphData] = useState<GraphResponseType[]>([]);
@@ -38,6 +39,11 @@ export const StorageFile = memo(() => {
   const callback = useCallback((value: GraphResponseType[]) => {
     setGraphData(value);
   }, []);
+
+  const onSaveClick = useCallback(() => {
+    setIsEdit(!isEdit);
+    setIsPublishGraph(false);
+  }, [isEdit]);
 
   const isEditToggle = useCallback(() => {
     setIsEdit(!isEdit);
@@ -55,12 +61,18 @@ export const StorageFile = memo(() => {
   }, [initialGraphData]);
 
   const onRevertToLastSavedClick = useCallback(() => {
-    if (article?.graphDraft) setGraphData(article?.graphDraft);
+    if (article?.graphDraft) {
+      setIsPublishGraph(false);
+      setGraphData(article?.graphDraft);
+    }
   }, [article?.graphDraft]);
 
   const onRevertToLastPublishedClick = useCallback(() => {
-    if (article?.graph && article?.graph.length) setGraphData(article?.graph);
-  }, [article?.graph]);
+    if (article?.graph && article?.graph.length) {
+      setGraphData(article?.graph);
+      setIsPublishGraph(true);
+    }
+  }, [article]);
 
   return (
     <div className={styles.storageFile__container}>
@@ -69,7 +81,7 @@ export const StorageFile = memo(() => {
         <FileInfoEdit
           graphData={graphData}
           // setGraphData={setGraphData}
-          onSave={isEditToggle}
+          onSave={onSaveClick}
           onRevertToLastSaved={onRevertToLastSavedClick}
           onRevertToLastPublished={onRevertToLastPublishedClick}
           {...(article && { article })}

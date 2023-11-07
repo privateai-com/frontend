@@ -68,11 +68,15 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
       const { id } = article;
       if (id) {
         const isOpen = articleAccess === 'open';
-        dispatch(articlesChangeAccess({ articleId: id, isOpen }));
-        dispatch(articlesSaveGraph({ articleId: id, data: graphData }));
-        dispatch(articlesUpdate({
-          articleId: id, title: nameFile, field: fieldFile, callback: successCallback,
-        }));
+        if (article.isPublic !== isOpen) {
+          dispatch(articlesChangeAccess({ articleId: id, isOpen }));
+        }
+        if (article.title !== nameFile || article.field !== fieldFile) {
+          dispatch(articlesUpdate({
+            articleId: id, title: nameFile, field: fieldFile,
+          }));
+        }
+        dispatch(articlesSaveGraph({ articleId: id, data: graphData, callback: successCallback }));
       }
     }
   }, [article, articleAccess, dispatch, fieldFile, graphData, nameFile, successCallback]);
