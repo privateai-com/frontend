@@ -196,6 +196,24 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   };
 
   useEffect(() => {
+    const handleDeleteKeyPress = (event: { key: string; }) => {
+      if (event.key === 'Delete' && networkRef.current && isEdit) {
+        const selectedNodes = networkRef.current.getSelectedNodes();
+        const selectedEdges = networkRef.current.getSelectedEdges();
+        nodes.remove(selectedNodes);
+        edges.remove(selectedEdges);
+        setGraphData(transformNodesAndEdgesToData(nodes, edges));
+      }
+    };
+
+    window.addEventListener('keydown', handleDeleteKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleDeleteKeyPress);
+    };
+  }, [edges, isEdit, nodes, setGraphData]);
+
+  useEffect(() => {
     if (visJsRef.current) {
       apdateGraphControls(visJsRef);
     }
