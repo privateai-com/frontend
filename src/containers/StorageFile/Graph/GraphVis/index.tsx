@@ -12,14 +12,15 @@ import {
 import cx from 'classnames';
 import 'vis-network/styles/vis-network.css';
 
-import { DatasetEdgeType, DatasetNodeType, GraphResponseType } from 'containers/StorageFile/types';
+import { DatasetEdgeType, DatasetNodeType } from 'containers/StorageFile/types';
 import { Button, ButtonIcon } from 'components';
 import { closeModalIcon } from 'assets';
+import { GraphResponseType } from 'types';
 import { options } from './constants';
 import { apdateGraphControls } from './hooks';
+import { transformNodesAndEdgesToData } from '../utils';
 
 import styles from './styles.module.scss';
-import { transformNodesAndEdgesToData } from '../utils';
 
 interface GraphVisProps {
   setGraphData: (edges: GraphResponseType[]) => void

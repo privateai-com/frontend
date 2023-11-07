@@ -6,11 +6,12 @@ import {
 } from 'components';
 
 import { getTopEdges } from 'utils';
-import styles from './styles.module.scss';
-import { GraphResponseType } from '../types';
+import { GraphResponseType } from 'types';
 import { GraphVis } from './GraphVis';
 import { transformDataToNodesAndEdges } from './utils';
 import { GraphLoader } from '../Loader';
+
+import styles from './styles.module.scss';
 
 interface GraphProps {
   graphData: GraphResponseType[];

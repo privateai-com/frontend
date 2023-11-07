@@ -1,8 +1,7 @@
 export type GraphResponseType = {
-  head: string;
-  tail: string;
-  type: string;
-  meta: {
-    spans: number[][];
-  };
+  comment: string;
+  object: string;
+  subject: string;
+  uncertainty: number;
+  verb: string;
 };

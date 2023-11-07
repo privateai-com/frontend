@@ -12,9 +12,8 @@ import {
 import { articlesChangeAccess, articlesSaveGraph, articlesUpdate } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { Article, RequestStatus } from 'types';
+import { Article, GraphResponseType, RequestStatus } from 'types';
 import { EditItem } from './EditItem';
-import { GraphResponseType } from '../types';
 import { exportToExcel } from './utils';
 
 import styles from './styles.module.scss';
@@ -166,15 +165,15 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           </div>
           <div className={styles.storageFile__edit} ref={storageFileItemRef}>
             {!!graphData?.length && (
-              graphData.map(({ head, tail, type }, index) => (
+              graphData.map(({ subject, object, verb }, index) => (
                 <EditItem
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   className={styles.storageFile__edit_item}
                   index={index}
-                  head={head}
-                  type={type}
-                  tail={tail}
+                  subject={subject}
+                  verb={verb}
+                  object={object}
                   // updateGraphItem={updateGraphItem}
                   // onDelete={onDelete}
                 />
