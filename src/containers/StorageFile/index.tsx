@@ -29,7 +29,7 @@ export const StorageFile = memo(() => {
   const initialGraphData = useMemo(
     () => {
       const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
-      return (article && graphArr) ? [...graphArr].splice(0, 5) : [];
+      return (article && graphArr) ? graphArr : [];
     },
     [article, isPublishGraph],
   );
