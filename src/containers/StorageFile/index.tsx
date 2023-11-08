@@ -3,6 +3,7 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import cx from 'classnames';
 
 import { GraphResponseType, RequestStatus } from 'types';
 import { articlesGetOneArticle } from 'store/articles/actionCreators';
@@ -26,10 +27,11 @@ export const StorageFile = memo(() => {
     articlesSelectors.getStatus(ArticlesActionTypes.GetOneArticle),
   );
   const [isPublishGraph, setIsPublishGraph] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const initialGraphData = useMemo(
     () => {
       const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
-      return (article && graphArr) ? [...graphArr].splice(0, 5) : [];
+      return (article && graphArr) ? graphArr : [];
     },
     [article, isPublishGraph],
   );
@@ -80,8 +82,15 @@ export const StorageFile = memo(() => {
     }
   }, [article]);
 
+  const onFullScreenClick = useCallback(() => {
+    setIsFullscreen((state) => !state);
+  }, []);
+
   return (
-    <div className={styles.storageFile__container}>
+    <div className={cx(styles.storageFile__container, {
+      [styles.fullScreenGraph]: isFullscreen,
+    })}
+    >
       <ButtonBack title="Back" />
       {isEdit ? (
         <FileInfoEdit
@@ -90,6 +99,8 @@ export const StorageFile = memo(() => {
           onSave={onSaveClick}
           onRevertToLastSaved={onRevertToLastSavedClick}
           onRevertToLastPublished={onRevertToLastPublishedClick}
+          classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
+          classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
           {...(article && { article })}
         />
       ) : (
@@ -97,6 +108,8 @@ export const StorageFile = memo(() => {
           onEditClick={isEditToggle}
           isOwner={isOwner}
           isLoading={statusGetOneArticle === RequestStatus.REQUEST}
+          classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
+          classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
           {...(article && { article })}
         />
       )}
@@ -105,6 +118,7 @@ export const StorageFile = memo(() => {
         setGraphData={callback}
         isEdit={isEdit}
         isLoading={statusGetOneArticle === RequestStatus.REQUEST}
+        onFullScreen={onFullScreenClick}
       />
     </div>
   );

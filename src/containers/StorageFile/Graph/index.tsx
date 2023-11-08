@@ -2,11 +2,13 @@ import { FC, memo } from 'react';
 import { Edge } from 'vis-network';
 
 import {
+  ButtonIcon,
   Typography,
 } from 'components';
 
 import { getTopEdges } from 'utils';
 import { GraphResponseType } from 'types';
+import { fullscreenIcon } from 'assets';
 import { GraphVis } from './GraphVis';
 import { transformDataToNodesAndEdges } from './utils';
 import { GraphLoader } from '../Loader';
@@ -16,12 +18,13 @@ import styles from './styles.module.scss';
 interface GraphProps {
   graphData: GraphResponseType[];
   setGraphData: (edges: GraphResponseType[]) => void;
+  onFullScreen: () => void;
   isEdit: boolean;
   isLoading: boolean;
 }
 
 export const Graph: FC<GraphProps> = memo(({
-  graphData, setGraphData, isEdit, isLoading,
+  graphData, setGraphData, isEdit, isLoading, onFullScreen,
 }) => {
   const { nodes, edges } = transformDataToNodesAndEdges(graphData);
   const edgesCurrent = edges.get().filter(({ to }: Edge) => to !== 0);
@@ -37,6 +40,11 @@ export const Graph: FC<GraphProps> = memo(({
         {/* <Button className={styles.storageFile__data_btn} theme="white">Delete file</Button> */}
       </div>
       <div className={styles.storageFile__wrapper}>
+        <ButtonIcon
+          image={fullscreenIcon}
+          onClick={onFullScreen}
+          className={styles.storageFile__fullscreen}
+        />
         {/* <div className={styles.storageFile__control_buttons}>
           <Button
             className={styles.button}

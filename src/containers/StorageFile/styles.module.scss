@@ -24,4 +24,18 @@
   @include media-breakpoint-up(fhd) {
     column-gap: 40px;
 	}
+
+  &.fullScreenGraph {
+    @include media-breakpoint-up(xxl) {
+      grid-template-areas: 'back back'
+      'data data';
+      grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
+      grid-template-rows: auto auto;
+      column-gap: 0;
+    }
+  }
+}
+
+.isFullscreen {
+  display: none;
 }
