@@ -37,6 +37,7 @@ export { default as arrowDownSquare } from './arrowDownSquare.svg';
 export { default as logoIcon } from './logo.svg';
 export { default as helpCircleIcon } from './helpCircle.svg';
 export { default as xSquareIcon } from './xSquare.svg';
+export { default as fullscreenIcon } from './fullscreenIcon.svg';
 
 export { default as bg1 } from './bg1.svg';
 export { default as bg2 } from './bg2.svg';

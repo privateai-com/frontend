@@ -113,3 +113,14 @@
 		}
 	}
 }
+
+.storageFile__fullscreen {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	display: none;
+
+	@include media-breakpoint-up(xxl) {
+		display: block;
+	}
+}

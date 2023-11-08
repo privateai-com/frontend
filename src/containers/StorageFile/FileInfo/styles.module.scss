@@ -5,6 +5,7 @@
 .storageFile__file {
 	grid-area: info;
 	margin-top: 20px;
+	height: 92%;
 
 	h1 {
 		margin-bottom: 20px;
@@ -33,6 +34,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+	
 
 	@include media-breakpoint-up(lg) {
 		padding: 30px;
@@ -40,10 +42,12 @@
 
 	@include media-breakpoint-up(xl) {
 		padding: 20px;
+		height: 96%;
 	}
 
 	@include media-breakpoint-up(fhd) {
 		padding: 44px 40px;
+		height: 100%;
 	}
 }
 
@@ -78,16 +82,16 @@
 	grid-area: buttons;
 	display: flex;
 	justify-content: space-between;
-	gap: 2px;
-	margin-top: 20px;
+	padding-top: 20px;
 	gap: 30px;
+	margin-top: auto;
 
 	@include media-breakpoint-up(lg) {
-		margin-top: 10px;
+		padding-top: 10px;
 	}
 
 	@include media-breakpoint-up(xxxl) {
-		margin-top: 30px;
+		padding-top: 30px;
 	}
 
 	& > {

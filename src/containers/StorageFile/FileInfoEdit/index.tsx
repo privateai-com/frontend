@@ -2,6 +2,7 @@ import {
   FC, memo, useCallback, useEffect, useRef, useState, 
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import cx from 'classnames';
 
 import {
   Button,
@@ -34,10 +35,18 @@ interface FileInfoProps {
   onRevertToLastSaved: () => void;
   onRevertToLastPublished: () => void;
   article?: Article;
+  classNameFile?: string;
+  classNameButtons?: string;
 }
 
 export const FileInfoEdit: FC<FileInfoProps> = memo(({
-  graphData, onSave, onRevertToLastSaved, onRevertToLastPublished, article,
+  graphData,
+  onSave,
+  onRevertToLastSaved,
+  onRevertToLastPublished,
+  article,
+  classNameFile,
+  classNameButtons,
 }) => {
   const storageFileItemRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -132,7 +141,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
 
   return (
     <>
-      <div className={styles.storageFile__file}>
+      <div className={cx(styles.storageFile__file, classNameFile)}>
         <Typography type="h1">File information</Typography>
         <div className={styles.storageFile__wrapper}>
           <div className={styles.storageFile__item}>
@@ -209,7 +218,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           </div>
         </div> 
       </div>
-      <div className={styles.storageFile__buttons}>
+      <div className={cx(styles.storageFile__buttons, classNameButtons)}>
         <Button
           theme="secondary"
           onClick={onSaveClick}

@@ -5,6 +5,7 @@
 	grid-area: info;
 	margin-top: 20px;
 	margin-bottom: 30px;
+	height: 92%;
 
 	h1 {
 		margin-bottom: 20px;
@@ -56,6 +57,7 @@
 
 	@include media-breakpoint-up(xl) {
 		padding: 20px;
+		height: 94%;
 	}
 
 	@include media-breakpoint-up(fhd) {
@@ -111,6 +113,7 @@
 	margin-top: auto;
 	height: fit-content;
 	row-gap: 10px;
+	padding-top: 10px;
 
 	& > {
 		button {

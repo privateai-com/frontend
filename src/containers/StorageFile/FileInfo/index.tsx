@@ -3,6 +3,7 @@ import {
 } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch } from 'react-redux';
+import cx from 'classnames';
 
 import {
   Button,
@@ -20,10 +21,12 @@ type FileInfoProps = {
   isOwner: boolean;
   isLoading: boolean;
   article?: Article;
+  classNameFile?: string;
+  classNameButtons?: string;
 };
 
 export const FileInfo: FC<FileInfoProps> = memo(({
-  onEditClick, isOwner, isLoading, article,
+  onEditClick, isOwner, isLoading, article, classNameFile, classNameButtons,
 }) => {
   const dispatch = useDispatch();
 
@@ -60,7 +63,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
 
   return (
     <>
-      <div className={styles.storageFile__file}>
+      <div className={cx(styles.storageFile__file, classNameFile)}>
         <Typography type="h1">File information</Typography>
         <div className={styles.storageFile__wrapper}>
           {isLoading && (
@@ -129,7 +132,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           </div>
         </div> 
       </div>
-      <div className={styles.storageFile__buttons}>
+      <div className={cx(styles.storageFile__buttons, classNameButtons)}>
         {!isOwner ? (
           <>
             <Button
