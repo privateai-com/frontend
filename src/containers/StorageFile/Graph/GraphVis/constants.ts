@@ -27,16 +27,17 @@ export const options = {
   width: '100%',
   physics: {
     enabled: true,
-    solver: 'forceAtlas2Based',
-    forceAtlas2Based: {
-      gravitationalConstant: -100,
-      springLength: 180,
-      springConstant: 0.01,
+    barnesHut: {
+      gravitationalConstant: -6000,
+      springConstant: 0.001,
+      springLength: 150,
     },
     minVelocity: 5,
+    maxVelocity: 5,
   },
   nodes: {
     shape: 'dot',
+    // shape: 'custom',
     size: 16,
     color: {
       background: '#fff',
@@ -75,6 +76,38 @@ export const options = {
         maxVisible: 20,
       },
     },
+    // ctxRenderer: ({
+    //   ctx, id, x, y, state: { selected, hover }, style, label,
+    // }) => {
+    //   const r = style.size;
+
+    //   const drawNode = () => {
+    //     ctx.drawSomeNode();
+    //     // ctx.beginPath();
+    //     // ctx.arc(x, y, r, 0, 2 * Math.PI);
+    //     // ctx.save();
+    //     // ctx.fillStyle = 'white';
+    //     // ctx.strokeStyle = '#00DEA3';
+    //     // // ctx.strokeWidth = '2px';
+    //     // ctx.fill();
+
+    //     // ctx.stroke();
+
+    //     // const textWidth = ctx.measureText(label).width;
+    //     // ctx.fillStyle = 'white';
+    //     // ctx.fillRect(x - textWidth / 2 - 5, y + r, textWidth + 10, 20);
+
+    //     // ctx.font = 'normal 16px Montserrat';
+    //     // ctx.fillStyle = 'black';
+    //     // ctx.textAlign = 'center';
+    //     // ctx.fillText(label, x, y + r + 12);
+    //     // ctx.restore();
+    //   };
+    //   return {
+    //     drawNode,
+    //     nodeDimensions: { width: 2 * r, height: 2 * r },
+    //   };
+    // },
   },
   edges: {
     smooth: false,
