@@ -27,13 +27,13 @@ export const options = {
   width: '100%',
   physics: {
     enabled: true,
-    // solver: 'forceAtlas2Based',
-    barnesHut: {
-      gravitationalConstant: -6000,
-      springConstant: 0.001,
-      springLength: 150,
-      // avoidOverlap: 0.01,
+    solver: 'forceAtlas2Based',
+    forceAtlas2Based: {
+      gravitationalConstant: -100,
+      springLength: 180,
+      springConstant: 0.01,
     },
+    minVelocity: 5,
   },
   nodes: {
     shape: 'dot',
@@ -64,6 +64,16 @@ export const options = {
       size: 10,
       x: 0,
       y: 0,
+    },
+    scaling: {
+      min: 10,
+      max: 30,
+      label: {
+        min: 8,
+        max: 30,
+        drawThreshold: 12,
+        maxVisible: 20,
+      },
     },
   },
   edges: {
