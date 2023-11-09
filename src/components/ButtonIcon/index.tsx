@@ -33,6 +33,7 @@ export const ButtonIcon: FC<ButtonIconProps> = memo(({
     )}
     onClick={isDisabled ? () => {} : onClick}
     disabled={isDisabled}
+    type="button"
   >
     <Image
       src={image}

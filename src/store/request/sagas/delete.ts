@@ -5,32 +5,31 @@ import {
   RequestStatus,
 } from 'types';
 import { 
-  requestSetStatus, requestCreate,
+  requestSetStatus, requestDelete, requestGetMyRequests,
 } from 'store/request/actionCreators';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { articlesGetAll } from 'store/articles/actionCreators';
-import { articlesSelectors } from 'store/articles/selectors';
+import { requestSelectors } from '../selectors';
 
-export function* requestCreateSaga({ type, payload }: ReturnType<typeof requestCreate>) {
+export function* requestDeleteSaga({ type, payload }: ReturnType<typeof requestDelete>) {
   try{
     yield put(requestSetStatus({ type, status: RequestStatus.REQUEST }));
 
     yield call(callApi, {
-      method: 'POST',
-      endpoint: ApiEndpoint.RequestsCreate,
+      method: 'DELETE',
+      endpoint: ApiEndpoint.RequestsDelete,
       payload,
     });
     
-    const pagination: Pagination = yield select(articlesSelectors.getProp('pagination'));
+    const pagination: Pagination = yield select(requestSelectors.getProp('pagination'));
     if (pagination) {
-      yield put(articlesGetAll({
+      yield put(requestGetMyRequests({
         ...pagination,
         limit: +pagination.offset + +pagination.limit,
         offset: 0,
       }));
     }
-
+    
     if(payload.callback) payload.callback();
     
     yield put(requestSetStatus({ type, status: RequestStatus.SUCCESS }));

@@ -22,6 +22,7 @@ const Button = memo(
         href,
         isMobileAdaptive,
         isHrefBlank,
+        type,
       }: ButtonProps,
       ref: ButtonRef,
     ) => {
@@ -56,7 +57,7 @@ const Button = memo(
       return (
         <button
           ref={ref}
-          type="button"
+          type={type}
           className={cx(
             styles.button,
             styles[theme],

@@ -2,6 +2,7 @@ export * from './store/MetamaskState';
 export * from './store/AuthState';
 export * from './store/ProfileState';
 export * from './store/ArticlesState';
+export * from './store/RequestState';
 export * from './redux';
 export * from './unwrap';
 export * from './store';

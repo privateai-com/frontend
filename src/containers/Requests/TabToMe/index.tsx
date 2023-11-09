@@ -1,39 +1,36 @@
 import {
   useCallback, useEffect, useMemo, useState, 
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { AdaptivePaginationTable } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
+import { requestSelectors } from 'store/request/selectors';
+import { requestToMe } from 'store/request/actionCreators';
+import { RequestActionTypes } from 'store/request/actionsTypes';
 import { SortingDirection } from 'types';
-import { getTopCoreEntities } from 'utils';
-
-import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { articlesGetMy } from 'store/articles/actionCreators';
-import { articlesSelectors } from 'store/articles/selectors';
-
 import { useColumns } from './columns';
+
 import styles from './styles.module.scss';
 
 const itemsMobile = [
   {
-    title: 'Status',
-    key: 'uploadStatus',
+    title: 'Request date',
+    key: 'date', 
   },
   {
-    title: 'Core entities',
-    key: 'core',
+    title: 'Requester',
+    key: 'requester', 
   },
 ];
 
-export const ArticlesTab = () => {
+export const TabToMe = () => {
   const dispatch = useDispatch();
-
+  
   const [offset, setOffset] = useState(0);
-
+  
   const [selectSortingField, setSelectSortingField] = useState('id');
   const [selectSortingDirection, setSelectSortingDirection] = useState<SortingDirection>('DESC');
-
+  
   const handleToggleDirection = useCallback(() => {
     setOffset(0);
     setSelectSortingDirection(
@@ -45,17 +42,27 @@ export const ArticlesTab = () => {
     setOffset(0);
     setSelectSortingField(field);
   }, []);
-
+  
   const columns = useColumns({
     onChangeSortingField: handleChangeSortField,
     onToggleDirection: handleToggleDirection,
   });
-  
-  const total = useSelector(articlesSelectors.getProp('total'));
-  const articles = useSelector(articlesSelectors.getProp('articles'));
-  const statusGetMyArticles = useSelector(
-    articlesSelectors.getStatus(ArticlesActionTypes.GetMyArticles),
+
+  const requestsToMe = useSelector(requestSelectors.getProp('requestsToMe'));
+  const total = useSelector(requestSelectors.getProp('total'));
+  const statusGetRequestsToMe = useSelector(
+    requestSelectors.getStatus(RequestActionTypes.GetRequestsToMe),
   );
+
+  const content = useMemo(() => requestsToMe.map((item) => ({
+    id: item.id,
+    articleId: item.article.id, 
+    title: item.article.title,
+    date: '13/03/2023',
+    requester: `${item.requester.username} ${item.requester.fullName}`,
+    isOwnerViewed: item.isOwnerViewed, 
+    approve: item.approve,
+  })), [requestsToMe]);
 
   useEffect(() => {
     const payload = {
@@ -64,27 +71,22 @@ export const ArticlesTab = () => {
       sortingDirection: selectSortingDirection,
       sortingField: selectSortingField,
     };
-    dispatch(articlesGetMy(payload));
+    dispatch(requestToMe(payload));
   }, [dispatch, offset, selectSortingDirection, selectSortingField]);
 
   const pagination = useMemo(() => ({
     total,
     changeOffset: setOffset,
-    status: statusGetMyArticles, 
-  }), [statusGetMyArticles, total]);
-
-  const data = useMemo(() => articles.map((item) => ({
-    ...item,
-    core: getTopCoreEntities(item.graph.length > 0 ? item.graph : item.graphDraft) || '-',
-  })), [articles]);
-
+    status: statusGetRequestsToMe, 
+  }), [statusGetRequestsToMe, total]);
+  
   return (
     <AdaptivePaginationTable
       columns={columns}
-      content={data}
+      content={content}
+      itemsMobile={itemsMobile}
       classNameTableContainer={styles.table}
       pagination={pagination}
-      itemsMobile={itemsMobile}
     />
   );
 };

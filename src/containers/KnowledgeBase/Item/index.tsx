@@ -1,18 +1,21 @@
 import { useMemo } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, SelectedText, AccessConfirm } from 'components';
+import {
+  Typography, SelectedText, AccessConfirm, RequestCell, 
+} from 'components';
 import { useScreenWidth } from 'hooks';
-import { ScreenWidth } from 'appConstants';
+import { ScreenWidth, routes } from 'appConstants';
 import { Article, RequestStatus, StatusArticle } from 'types';
 import {
-  getName, getStatusArticle, getTopCoreEntities, stringLongShortcut, 
+  getName, getStatusArticle, getTopCoreEntities, 
 } from 'utils';
 import { requestCreate } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 
+import Link from 'next/link';
 import styles from './styles.module.scss';
 
 const textStatus = {
@@ -122,12 +125,9 @@ export const Item: React.FC<ItemProps> = ({
             </div>
             <div className={styles.item_row_block}>
               <span className={styles.title}>Author: </span>
-              <button
-                className={styles.item_btn_link}
-                onClick={showAccessConfirm}
-              >
-                {getName(fullName, username, 1)}
-              </button>
+              <RequestCell className={styles.item_btn_link}>
+                {getName(fullName, username, 1) ?? ''}
+              </RequestCell>
             </div>
             <div className={styles.item_col_block}>
               <span className={styles.title}>Core entities: </span>
@@ -149,16 +149,18 @@ export const Item: React.FC<ItemProps> = ({
         <div className={styles.item}>
           <div className={styles.item_content_block}>
             <div className={styles.item_first_block}>
-              <Typography
-                className={styles.item_title}
-                type="h4"
-              >
-                <SelectedText
-                  text={title}
-                  searchWord={search}
-                  className={styles.selected}
-                />
-              </Typography>
+              <Link href={`${routes.storage.root}/${id}`}>
+                <Typography
+                  className={styles.item_title}
+                  type="h4"
+                >
+                  <SelectedText
+                    text={title}
+                    searchWord={search}
+                    className={styles.selected}
+                  />
+                </Typography>
+              </Link>
               <div className={styles.item_description_block}>
                 <div className={styles.item_field_author_block}>
                   <div className={styles.item_row_block}>
@@ -171,12 +173,9 @@ export const Item: React.FC<ItemProps> = ({
                   </div>
                   <div className={styles.item_row_block}>
                     <span className={styles.title}>Author: </span>
-                    <button
-                      className={styles.item_btn_link}
-                      onClick={showAccessConfirm}
-                    >
-                      {stringLongShortcut(getName(fullName, username, 1) ?? '-', 8, 4)}
-                    </button>
+                    <RequestCell className={styles.item_btn_link}>
+                      {getName(fullName, username, 1) ?? ''}
+                    </RequestCell>
                   </div>
                 </div>
                 <div className={styles.item_col_block}>
@@ -186,7 +185,12 @@ export const Item: React.FC<ItemProps> = ({
               </div>
             </div>
             <div className={styles.item_second_block}>
-              <span className={getStatusStyle()}>{textStatus[status]}</span>
+              <button 
+                onClick={status === StatusArticle.PermissionNeeded ? showAccessConfirm : () => {}} 
+                className={styles.buttonShowAccess}
+              >
+                <span className={getStatusStyle()}>{textStatus[status]}</span>
+              </button>
               <div className={styles.item_date_block}>
                 <div className={styles.item_created_block}>
                   <span className={styles.title}>Created</span>

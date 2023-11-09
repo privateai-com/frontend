@@ -5,6 +5,9 @@ import { RequestActionTypes } from './actionsTypes';
 import { requestHandlers } from './handlers';
 
 export const requestInitialState: Readonly<RequestState> = {
+  myRequests: [],
+  requestsToMe: [],
+  total: 0,
   ui: {
     [RequestActionTypes.GetData]: RequestStatus.INIT,
   },

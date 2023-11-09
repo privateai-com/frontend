@@ -1,7 +1,7 @@
 import React, {
   FC, ReactNode, memo, useEffect, 
 } from 'react';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
+// import useInfiniteScroll from 'react-infinite-scroll-hook';
 import cx from 'classnames';
 import {
   Column,
@@ -11,6 +11,8 @@ import {
   useRowSelect,
   useTable,
 } from 'react-table';
+import { usePagination } from 'hooks';
+import { RequestStatus } from 'types';
 
 import styles from './styles.module.scss';
 
@@ -34,10 +36,9 @@ interface TableProps {
   expandedChildren?: (row?: object) => ReactNode;
   expandedChildrenTop?: (row?: object) => ReactNode;
   pagination?: {
-    isHasNextPage: boolean;
-    isLoading: boolean;
-    isError: boolean;
-    onLoadMore: () => void;
+    total: number,
+    status?: RequestStatus,
+    changeOffset?: (offset: number) => void,
   }
 }
 
@@ -109,17 +110,12 @@ export const Table: FC<TableProps> = memo(
       }
     }, [expanded, getActiveExpandedRows]);
 
-    const [sentryRef, { rootRef }] = useInfiniteScroll({
-      loading: pagination?.isLoading ?? false,
-      hasNextPage: pagination?.isHasNextPage ?? true,
-      onLoadMore: pagination?.onLoadMore || (() => {}),
-      // When there is an error, we stop infinite loading.
-      // It can be reactivated by setting "error" state as undefined.
-      disabled: pagination?.isError,
-      // `rootMargin` is passed to `IntersectionObserver`.
-      // We can use it to trigger 'onLoadMore' when the sentry comes near to become
-      // visible, instead of becoming fully visible on the screen.
-      rootMargin: '0px 0px 400px 0px',
+    const {
+      rootRef, endElementForScroll,
+    } = usePagination({ 
+      total: pagination?.total ?? 0, 
+      status: pagination?.status, 
+      changeOffset: pagination?.changeOffset,
     });
 
     return (
@@ -178,9 +174,7 @@ export const Table: FC<TableProps> = memo(
               </React.Fragment>
             );
           })}
-          {(pagination?.isLoading || pagination?.isHasNextPage) && (
-          <div ref={sentryRef} />
-          )}
+          {endElementForScroll}
         </tbody>
       </table>
     );

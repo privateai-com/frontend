@@ -105,6 +105,13 @@
   &_second_block {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+
+    .buttonShowAccess {
+      margin-bottom: 40px;
+      text-align: right;
+      width: 250px;
+    }
   }
 
   &_status {
@@ -149,6 +156,8 @@
   &_btn_link {
     text-decoration: underline;
     color: $color-green;
+    display: inline-block;
+    margin-left: 3px;
   }
 }
 

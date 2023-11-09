@@ -30,7 +30,7 @@ export const DeleteBtn = ({ id }: { id: number }) => {
         }}
       />
     ),
-    [statusDelete],
+    [statusDelete, id],
   );
 
   return (
