@@ -1,10 +1,11 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
-import { RequestStatus } from 'types';
+import { AccountInfo, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
 import { profileDeleteWallet, profileSetStatus, profileSetState } from 'store/profile/actionCreators';
+import { profileSelectors } from '../selectors';
 
 export function* profileDeleteWalletSaga({
   type,
@@ -16,10 +17,14 @@ export function* profileDeleteWalletSaga({
       method: 'DELETE',
       endpoint: ApiEndpoint.ProfileDeleteWallet,
     });
-
+    const accountInfo: AccountInfo = yield select(
+      profileSelectors.getProp('accountInfo'),
+    );
+    
     yield put(
       profileSetState({
         accountInfo: {
+          ...accountInfo,
           walletAddress: null,
         },
       }),

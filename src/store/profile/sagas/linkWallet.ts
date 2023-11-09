@@ -1,10 +1,14 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
-import { AccountInfo, RequestStatus } from 'types';
+import {
+  AccountInfo, MetamaskProvider, MetamaskRequestMethod, RequestStatus, 
+} from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi, signPersonalEvm } from 'api';
 import { profileLinkWallet, profileSetStatus, profileSetState } from 'store/profile/actionCreators';
+import detectEthereumProvider from '@metamask/detect-provider';
+import { profileSelectors } from '../selectors';
 
 const message = 'Connect Archon!';
 
@@ -16,9 +20,7 @@ export function* profileLinkWalletSaga({
 
     const signature: string = yield call(signPersonalEvm, message);
 
-    const {
-      data,
-    }: { data: AccountInfo } = yield call(callApi, {
+    yield call(callApi, {
       method: 'POST',
       endpoint: ApiEndpoint.ProfileAddWallet,
       payload: {
@@ -26,12 +28,26 @@ export function* profileLinkWalletSaga({
         signature,
       },
     });
-
-    yield put(profileSetState({
-      accountInfo: {
-        ...data,
-      },
-    }));
+    const metamaskProvider: MetamaskProvider = yield detectEthereumProvider();
+    let address = '';
+    if (metamaskProvider) {
+      const addresses: string[] = yield metamaskProvider.request({
+        method: MetamaskRequestMethod.eth_requestAccounts,
+      });
+      [address] = addresses;
+    }
+    const accountInfo: AccountInfo = yield select(
+      profileSelectors.getProp('accountInfo'),
+    );
+    
+    yield put(
+      profileSetState({
+        accountInfo: {
+          ...accountInfo,
+          walletAddress: address,
+        },
+      }),
+    );
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

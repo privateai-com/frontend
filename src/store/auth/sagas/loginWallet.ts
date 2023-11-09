@@ -7,7 +7,7 @@ import { profileSetAccountInfo } from 'store/profile/actionCreators';
 import detectEthereumProvider from '@metamask/detect-provider';
 
 import { providers } from 'ethers';
-import { authLoginWallet, authSetStatus } from '../actionCreators';
+import { authLoginWallet, authSetState, authSetStatus } from '../actionCreators';
 
 const message = 'Connect Archon!';
 
@@ -27,7 +27,12 @@ export function* authloginWalletSaga({
     const signature: string = yield call(signPersonalEvm, message);
 
     const {
-      data: { user },
+      data: {
+        user,
+        accessToken,
+        refreshToken,
+        timestamp,
+      },
     }: UserResponse = yield call(callApi, {
       method: 'POST',
       endpoint: ApiEndpoint.AuthWalletLogin,
@@ -42,6 +47,11 @@ export function* authloginWalletSaga({
         ...user,
       }),
     );
+    yield put(authSetState({
+      accessToken,
+      refreshToken,
+      timestamp,
+    }));
 
     successCallback();
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
