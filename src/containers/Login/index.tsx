@@ -6,7 +6,7 @@ import { ForgotPassword } from 'containers';
 import { authLogin, authLoginWallet } from 'store/auth/actionCreators';
 import { errorsNotification, routes } from 'appConstants';
 import { AuthErrorTransformResult } from 'types';
-import { SignIn } from './SignIn';
+import { Sign } from './Sign';
 
 import styles from './styles.module.scss';
 
@@ -73,7 +73,7 @@ export const Login = () => {
         />
       )}
       {!isShowForgotPassword && (
-        <SignIn
+        <Sign
           onConfirm={onLogin}
           onRestore={() => setIsShowForgotPassword(true)}
           onConnectWallet={onConnectWallet}

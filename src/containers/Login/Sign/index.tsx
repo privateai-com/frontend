@@ -19,7 +19,7 @@ import { AuthActionTypes } from 'store/auth/actionTypes';
 
 import styles from './styles.module.scss';
 
-interface SignInProps {
+interface SignProps {
   onConfirm: ({ email, password }: { email: string; password: string }) => void;
   onConnectWallet: () => void;
   onRestore: () => void;
@@ -29,7 +29,7 @@ interface SignInProps {
   setEmail: (email: string) => void;
 }
 
-export const SignIn: FC<SignInProps> = ({
+export const Sign: FC<SignProps> = ({
   onConfirm,
   onConnectWallet,
   onRestore,
