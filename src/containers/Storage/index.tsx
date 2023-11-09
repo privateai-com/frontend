@@ -6,7 +6,7 @@ import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import styles from './styles.module.scss';
 import { ArticlesTab } from './ArticlesTab';
-import { RequestedTab } from './RequestedTab';
+import { MyRequests } from '../MyRequests';
 import { UploadButton } from './uploadButton';
 
 enum MyStorageTab {
@@ -51,7 +51,7 @@ export const Storage = () => {
           </Button>
         </div>
       </div>
-      {tab === MyStorageTab.articles ? <ArticlesTab /> : <RequestedTab />}
+      {tab === MyStorageTab.articles ? <ArticlesTab /> : <MyRequests />}
     </div>
   );
 };

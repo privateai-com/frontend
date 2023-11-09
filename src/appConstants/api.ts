@@ -30,6 +30,10 @@ export enum ApiEndpoint {
   GraphSave = '/graph/save',
 
   RequestsCreate = '/requests/create',
+  RequestsAnswer = '/requests/answer',
+  RequestsDelete = '/requests/delete',
+  RequestsMyRequests = '/requests/my-requests',
+  RequestsToMe = '/requests/requests-to-me',
 
   ProfileUpdateProfile = '/profile/update',
   profileUploadAvatar = '/profile/upload-avatar',

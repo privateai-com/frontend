@@ -6,40 +6,39 @@ import { ExpandableMobileItem } from '../ExpandableMobileItem';
 interface ItemProps {
   className?: string;
   name: string;
-  title1: string;
-  state1: string | ReactNode;
-  title2: string;
-  state2: string | ReactNode;
+  items: {
+    title: string | null;
+    state: string | ReactNode;
+    cell?: (value: string | ReactNode) => string | ReactNode;
+  }[],
+  other?: string | ReactNode;
   id: number;
 }
 
 export const MobileTableItem: FC<ItemProps> = ({
   className,
   name,
-  title1,
-  state1,
-  title2,
-  state2,
   id,
+  other,
+  items,
 }) => (
   <ExpandableMobileItem
     className={className}
     name={name}
     id={id}
   >
-    <div className={styles.item_item}>
-      <span>
-        {title1}
-        :
-      </span>
-      {state1}
-    </div>
-    <div className={styles.item_item}>
-      <span>
-        {title2}
-        :
-      </span>
-      {state2}
-    </div>
+    {items.map((item) => (
+      <div className={styles.item_item}>
+        {item.title && (
+          <span>
+            {item.title}
+            :
+          </span>
+        )}
+        {item.cell ? item.cell(item.state) : item.state}
+      </div>
+
+    ))}
+    {other}
   </ExpandableMobileItem>
 );

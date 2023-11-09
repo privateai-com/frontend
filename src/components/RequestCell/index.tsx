@@ -1,15 +1,17 @@
 import { useState, ReactNode } from 'react';
+import { useModal } from 'react-modal-hook';
+import cx from 'classnames';
 
 import { Requester, Loader } from 'components';
-import { useModal } from 'react-modal-hook';
 import styles from './styles.module.scss';
 
 type RequestCellProps = {
   requester?: string;
   children: ReactNode;
+  className?: string;
 };
 
-const RequestCell: React.FC<RequestCellProps> = ({ requester, children }) => {
+const RequestCell: React.FC<RequestCellProps> = ({ requester, children, className = '' }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showRequester, hideRequester] = useModal(
     () => (
@@ -40,7 +42,7 @@ const RequestCell: React.FC<RequestCellProps> = ({ requester, children }) => {
   return (
     <>
       {requester && <span>{requester}</span>}
-      <div className={styles.cell_block_btn}>
+      <div className={cx(styles.cell_block_btn, className)}>
         {!isLoading ? (
           <button
             className={styles.cell_btn_link}

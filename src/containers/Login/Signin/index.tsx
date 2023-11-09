@@ -1,37 +1,38 @@
 import {
-  FC, useCallback, useEffect, useState, 
+  FC, FormEvent, useCallback, useEffect, useState, 
 } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
+import cx from 'classnames';
 
 import {
   AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { walletIcon } from 'assets';
-import { emailValidator, passwordValidator } from 'utils';
 import { routes } from 'appConstants';
+import { RequestStatus } from 'types';
+import { emailValidator, passwordValidator } from 'utils';
+
 import { authSelectors } from 'store/auth/selectors';
 import { AuthActionTypes } from 'store/auth/actionTypes';
-import { RequestStatus } from 'types';
 
-import cx from 'classnames';
 import styles from './styles.module.scss';
 
-interface SigninProps {
+interface SignInProps {
   onConfirm: ({ email, password }: { email: string; password: string }) => void;
   onConnectWallet: () => void;
-  onResotre: () => void;
+  onRestore: () => void;
   loginError: { emailError: string; passwordError: string };
   walletError?: string;
   email: string;
   setEmail: (email: string) => void;
 }
 
-export const Signin: FC<SigninProps> = ({
+export const SignIn: FC<SignInProps> = ({
   onConfirm,
   onConnectWallet,
-  onResotre,
+  onRestore,
   loginError,
   walletError,
   email,
@@ -44,7 +45,8 @@ export const Signin: FC<SigninProps> = ({
 
   const isNotError = !passwordError && !emailError && email && password;
 
-  const onSigninClick = useCallback(() => {
+  const handleSignInClick = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
     const currentEmailError = emailValidator(email);
@@ -86,11 +88,12 @@ export const Signin: FC<SigninProps> = ({
 
   return (
     <AuthWrapper>
-      <div className={styles.signin__container}>
+      <form className={styles.signin__container} onSubmit={handleSignInClick}>
         <Typography type="h4">Sign in</Typography>
         <Button
           className={styles.button_connect}
           onClick={onConnectWallet}
+          type="button"
         >
           Sign in with your wallet
           <Image
@@ -130,14 +133,14 @@ export const Signin: FC<SigninProps> = ({
           })}
         >
           Forgot your password?
-          <button onClick={onResotre}>Restore</button>
+          <button onClick={onRestore} type="button">Restore</button>
         </Typography>
         {errors ? <div className={styles.error}>{errors}</div> : null}
         <Button
-          onClick={onSigninClick}
           className={styles.button}
           disabled={!isNotError}
           isLoading={status === RequestStatus.REQUEST}
+          type="submit"
         >
           Sign in
         </Button>
@@ -148,7 +151,7 @@ export const Signin: FC<SigninProps> = ({
           Do not have an account yet?
           <Link href={routes.registration.root}>Sign up</Link>
         </Typography>
-      </div>
+      </form>
     </AuthWrapper>
   );
 };

@@ -4,18 +4,14 @@ import {
   GraphResponseType,
   PartialRecord,
   RequestStatus,
+  Pagination,
 } from 'types';
 
 export interface ArticlesState {
   articles: Article[];
   article?: Article,
   total: number;
-  pagination?: {
-    limit: number,
-    offset: number,
-    sortingDirection: 'ASC' | 'DESC',
-    sortingField: string,
-  };
+  pagination?: Pagination;
   ui: PartialRecord<ArticlesActionTypes, RequestStatus>;
   upload: Record<string, { 
     id: string,
@@ -61,4 +57,5 @@ export type Article = {
   uploadProgress: number;
   requests: ArticleAccess[];
   status?: string;
+  core: string;
 };

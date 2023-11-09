@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useModal } from 'react-modal-hook';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ItemRowProps } from 'types';
+import { ItemRowProps, RequestStatus } from 'types';
 import {
   ButtonIcon,
   KeyPassword,
@@ -11,11 +12,34 @@ import {
 } from 'components';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { routes } from 'appConstants';
+import { requestDelete } from 'store/request/actionCreators';
+import { RequestActionTypes } from 'store/request/actionsTypes';
+import { requestSelectors } from 'store/request/selectors';
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
 import { getStatusImg, getStatusStyle } from './utils';
 
-export const useColumns = () => {
+export const useColumns = ({
+  onChangeSortingField, onToggleDirection, 
+}: {
+  onChangeSortingField: (field: string) => void,
+  onToggleDirection: () => void,
+}) => {
+  const dispatch = useDispatch();
+  const [selectedId, setSelectedId] = useState(0);
+
+  const statusDelete = useSelector(requestSelectors.getStatus(RequestActionTypes.Delete));
+
+  const handleDeleteRequest = useCallback((requestId: number) => () => {
+    setSelectedId(requestId);
+    dispatch(requestDelete({
+      requestId,
+      callback: () => {
+
+      },
+    }));
+  }, [dispatch]);
+  
   const [showKeyPassword, hideKeyPassword] = useModal(
     () => (
       <KeyPassword
@@ -47,16 +71,19 @@ export const useColumns = () => {
         Header: (
           <TitleWithArrows
             title="File name"
-            onClick={() => {}}
+            onClick={() => {
+              onChangeSortingField('title');
+              onToggleDirection();
+            }}
           />
         ),
-        accessor: 'name',
+        accessor: 'title',
         Cell: ({
           row: {
-            original: { name },
+            original: { title, articleId },
           },
         }: ItemRowProps<RequestedDataType>) =>
-          (name ? <Link href={`${routes.storage.root}/${name}`}>{name}</Link> : '-'),
+          (title ? <Link href={`${routes.storage.root}/${articleId}`}>{title}</Link> : '-'),
       },
       {
         Header: 'Core entities',
@@ -72,7 +99,10 @@ export const useColumns = () => {
         Header: (
           <TitleWithArrows
             title="Owner"
-            onClick={() => {}}
+            onClick={() => {
+              onChangeSortingField('owner');
+              onToggleDirection();
+            }}
           />
         ),
         accessor: 'owner',
@@ -88,17 +118,18 @@ export const useColumns = () => {
         accessor: 'status',
         Cell: ({
           row: {
-            original: { status },
+            original: { status, id },
           },
         }: ItemRowProps<RequestedDataType>) =>
           (status ? (
-            <div className={styles.columns_owner_block}>
+            <div className={styles.ownerBlock}>
               <div className={styles.mock} />
               <div className={getStatusStyle(status, styles)}>{status}</div>
               <ButtonIcon
                 className={styles.columns_img}
                 image={getStatusImg(status)}
-                onClick={() => {}}
+                onClick={handleDeleteRequest(id)}
+                isDisabled={selectedId === id && statusDelete === RequestStatus.REQUEST}
               />
             </div>
           ) : (
@@ -106,6 +137,6 @@ export const useColumns = () => {
           )),
       },
     ],
-    [],
+    [handleDeleteRequest, onChangeSortingField, onToggleDirection, selectedId, statusDelete],
   );
 };

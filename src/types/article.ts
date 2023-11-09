@@ -5,3 +5,23 @@ export enum StatusArticle {
   AccessRequestPending = 'AccessRequestPending',
   AccessDenied = 'AccessDenied',
 }
+
+export type UserInfo = {
+  id: number,
+  username: string,
+  fullName: string 
+};
+
+export type RequestArticle = {
+  id: number,
+  approve: boolean,
+  isOwnerViewed: boolean,
+  isRequesterViewed: boolean,
+  article: {
+    id: number,
+    title: string,
+    field: string,
+    owner: UserInfo
+  },
+  requester: UserInfo
+};

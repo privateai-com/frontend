@@ -1,4 +1,6 @@
-import { FC, useCallback, useState } from 'react';
+import {
+  FC, FormEvent, useCallback, useState, 
+} from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -44,7 +46,8 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
     if (error.fields.password) setPasswordError(error.fields.password);
   }, []);
 
-  const onCreateAccountClick = useCallback(() => {
+  const onCreateAccountClick = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
     const currentEmailError = emailValidator(email);
@@ -104,7 +107,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
 
   return (
     <AuthWrapper>
-      <div className={styles.createAccount__container}>
+      <form className={styles.createAccount__container} onSubmit={onCreateAccountClick}>
         <Typography type="h4">Welcome to PrivateAI app!</Typography>
         <Typography
           type="p"
@@ -136,10 +139,10 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           <div className={styles.error}>{passwordError || emailError}</div>
         ) : null}
         <Button
-          onClick={onCreateAccountClick}
           className={styles.button}
           isLoading={status === RequestStatus.REQUEST}
           disabled={isEmptyInputs}
+          type="submit"
         >
           Create account
         </Button>
@@ -150,7 +153,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           Already have an account?
           <Link href={routes.login.root}>Sign in</Link>
         </Typography>
-      </div>
+      </form>
     </AuthWrapper>
   );
 };

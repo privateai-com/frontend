@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { Column } from 'react-table';
 import cx from 'classnames';
 
@@ -5,38 +6,33 @@ import { Table } from 'components';
 
 import { ScreenWidth } from 'appConstants';
 import { useScreenWidth } from 'hooks';
-import { Article } from 'types';
-import { MobileTable } from './MobileTable';
+import { Article, RequestStatus } from 'types';
+import { MobileTable, type ItemMobile } from './MobileTable';
 import styles from './styles.module.scss';
 
 type AdaptivePaginationTableProps = {
   columns: object[];
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: Article[] | any[];
-  mobileTitle1: string;
-  key1: string;
-  mobileTitle2: string;
-  key2: string;
+  other?: string | ReactNode;
   itemsOnPageQuantity?: number;
   withPagination?: boolean;
   classNameTableContainer?: string;
+  itemsMobile: ItemMobile[];
   pagination?: {
-    isHasNextPage: boolean;
-    isLoading: boolean;
-    isError: boolean;
-    onLoadMore: () => void;
+    total: number,
+    status?: RequestStatus,
+    changeOffset?: (offset: number) => void,
   }
 };
 
 export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = ({
   content,
   columns,
-  mobileTitle1,
-  key1,
-  mobileTitle2,
-  key2,
+  other,
   classNameTableContainer,
   pagination,
+  itemsMobile,
 }) => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
@@ -46,10 +42,8 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
         <MobileTable
           content={content}
           pagination={pagination}
-          mobileTitle1={mobileTitle1}
-          key1={key1}
-          mobileTitle2={mobileTitle2}
-          key2={key2}
+          other={other}
+          itemsMobile={itemsMobile}
         />
       ) : (
         <Table
