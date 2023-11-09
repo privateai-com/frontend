@@ -7,7 +7,8 @@ import {
   DataInterfaceNodes,
   Edge,
   Network,
-  Node, 
+  Node,
+  Position, 
 } from 'vis-network';
 import cx from 'classnames';
 import 'vis-network/styles/vis-network.css';
@@ -127,6 +128,10 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   }), [handleAddEdge, handleAddNode, handleDeleteEdge, handleDeleteNode, handleEditNode, isEdit]);
 
   useEffect(() => {
+    if (networkRef.current != null) {
+      networkRef.current.destroy();
+      networkRef.current = null;
+    }
     networkRef.current = visJsRef.current &&
       new Network(
         visJsRef.current, 
@@ -134,9 +139,8 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         currentOption,
       );
     apdateGraphControls(visJsRef);
-    if (!networkRef.current || !isEdit) return;
 
-    networkRef.current.on('doubleClick', (event) => {
+    const onDoubleClick = (event: { pointer: { canvas: Position; }; }) => {
       if (!networkRef.current) return;
       const canvasPosition = networkRef.current.canvasToDOM(event.pointer.canvas);
       const nodeId = networkRef.current.getNodeAt(canvasPosition);
@@ -162,7 +166,17 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         setEditingNodeId(null);
         setEditingEdgeId(null);
       }
-    });
+    };
+
+    if (networkRef.current) networkRef.current.on('doubleClick', onDoubleClick);
+
+    return () => {
+      if (networkRef.current) {
+        networkRef.current.off('doubleClick', onDoubleClick);
+        networkRef.current.destroy();
+        networkRef.current = null;
+      }
+    };
   }, [currentOption, edges, isEdit, nodes, setGraphData]);
 
   const handleEnterPress = () => {

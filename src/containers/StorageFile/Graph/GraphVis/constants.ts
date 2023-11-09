@@ -27,13 +27,18 @@ export const options = {
   width: '100%',
   physics: {
     enabled: true,
-    barnesHut: {
-      gravitationalConstant: -6000,
-      springConstant: 0.001,
-      springLength: 150,
-    },
+    timestep: 1,
     minVelocity: 5,
     maxVelocity: 5,
+    stabilization: {
+      enabled: true,
+    },
+    barnesHut: {
+      gravitationalConstant: -8000,
+      avoidOverlap: 1,
+      springLength: 200,
+      springConstant: 0.05,
+    },
   },
   nodes: {
     shape: 'dot',
