@@ -7,8 +7,7 @@ export const metamaskSetState = (payload: Partial<MetamaskState>) => ({
   payload,
 });
 
-export const metamaskConnect = (payload: { 
-  network: Network, 
+export const metamaskConnect = (payload: {
   callback?: () => void, 
   callbackError?: () => void,
   callbackNotFoundNetwork?: () => void,

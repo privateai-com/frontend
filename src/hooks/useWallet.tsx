@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { metamaskSelectors } from 'store/metamask/selectors';
 import { metamaskConnect, metamaskDisconnect } from 'store/metamask/actionCreators';
-import { Network } from 'appConstants';
 import { MetamaskStatus } from 'types';
 
 export const useWallet = () => {
@@ -12,9 +11,7 @@ export const useWallet = () => {
   const status = useSelector(metamaskSelectors.getProp('status'));
 
   const onConnectWallet = useCallback(() => {
-    dispatch(metamaskConnect({
-      network: Network.MaticTest,
-    }));
+    dispatch(metamaskConnect({}));
   }, [dispatch]);
 
   const onDisconnectWallet = useCallback(() => {

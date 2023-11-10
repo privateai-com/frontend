@@ -8,10 +8,10 @@ import {
   MetamaskRequestMethod, Web3Event, RequestStatus,
 } from 'types';
 import {
-  notificationText, Network, chains,
+  notificationText,
 } from 'appConstants';
 import {
-  getNetworkName, getMetamaskChainId, sagaExceptionHandler, notification,
+  getMetamaskChainId, sagaExceptionHandler, notification,
 } from 'utils';
 import {
   metamaskSetState, metamaskDisconnect, metamaskSetStatus, metamaskConnect,
@@ -53,14 +53,12 @@ function createEthereumProviderChannel() {
   });
 }
 
-const handlePayload = (payload: { 
-  network: Network, 
+const handlePayload = (payload: {
   callback?: () => void, 
   callbackError?: () => void,
   callbackNotFoundNetwork?: () => void,
 }) => function* ({
   event,
-  id,
   addressesOtherAccount,
 }: { event: Web3Event, addressesOtherAccount: string[], id?: string }) {
   try {
@@ -73,39 +71,39 @@ const handlePayload = (payload: {
         status: MetamaskStatus.LOADING,
       }));
 
-      const network = getNetworkName(id);
-      if (network) {
-        yield put(metamaskSetStatus({
-          type: MetamaskActionTypes.Connect,
-          statusRequest: RequestStatus.SUCCESS,
-        }));
+      // const network = getNetworkName(id);
+      // if (network) {
+      yield put(metamaskSetStatus({
+        type: MetamaskActionTypes.Connect,
+        statusRequest: RequestStatus.SUCCESS,
+      }));
 
-        const addresses: string[] = yield metamaskProvider.request({
-          method: MetamaskRequestMethod.eth_requestAccounts,
-        });
+      const addresses: string[] = yield metamaskProvider.request({
+        method: MetamaskRequestMethod.eth_requestAccounts,
+      });
 
-        yield put(metamaskSetState({
-          status: MetamaskStatus.CONNECTED,
-          network,
-          address: addresses[0],
-        }));
+      yield put(metamaskSetState({
+        status: MetamaskStatus.CONNECTED,
+        // network,
+        address: addresses[0],
+      }));
 
-        if (payload.callback) payload.callback();
+      if (payload.callback) payload.callback();
 
-        notification.destroy();
-      } else {
-        yield put(metamaskSetStatus({
-          type: MetamaskActionTypes.Connect,
-          statusRequest: RequestStatus.ERROR,
-        }));
+      notification.destroy();
+      // } else {
+      //   yield put(metamaskSetStatus({
+      //     type: MetamaskActionTypes.Connect,
+      //     statusRequest: RequestStatus.ERROR,
+      //   }));
 
-        if (payload.callbackNotFoundNetwork) payload.callbackNotFoundNetwork();
+      //   if (payload.callbackNotFoundNetwork) payload.callbackNotFoundNetwork();
 
-        yield put(metamaskSetState({ status: MetamaskStatus.NOT_SUPPORT }));
-        notification.error({
-          message: notificationText.notSupportNetwork,
-        });
-      }
+      //   yield put(metamaskSetState({ status: MetamaskStatus.NOT_SUPPORT }));
+      //   notification.error({
+      //     message: notificationText.notSupportNetwork,
+      //   });
+      // }
     }
 
     if (event === Web3Event.accountsChanged) {
@@ -169,9 +167,8 @@ export function* connectMetamaskSaga({ type, payload }: ReturnType<typeof metama
         return;
       }
       const networkId: string = yield call(getMetamaskChainId);
-      const network: Network | null = getNetworkName(networkId);
 
-      if (network) {
+      if (networkId) {
         const status: MetamaskStatus = yield select(metamaskSelectors.getProp('status'));
         if (status === MetamaskStatus.LOST) {
           return;
@@ -181,7 +178,6 @@ export function* connectMetamaskSaga({ type, payload }: ReturnType<typeof metama
           status: MetamaskStatus.CONNECTED,
           address: addresses[0],
           isLostWallet: false,
-          network,
         }));
 
         if (payload.callback) payload.callback();
@@ -194,7 +190,7 @@ export function* connectMetamaskSaga({ type, payload }: ReturnType<typeof metama
         if (payload.callbackNotFoundNetwork) payload.callbackNotFoundNetwork();
 
         notification.info({
-          message: notificationText.wrongNetwork(chains[payload.network].chainName),
+          message: notificationText.wrongNetwork('Incorrect network'),
         });
         yield put(metamaskSetStatus({ type, statusRequest: RequestStatus.ERROR }));
       }
