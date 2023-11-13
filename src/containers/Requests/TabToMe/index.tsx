@@ -8,6 +8,7 @@ import { requestSelectors } from 'store/request/selectors';
 import { requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { SortingDirection } from 'types';
+import { normalizeUserInfo } from 'utils';
 import { useColumns } from './columns';
 
 import styles from './styles.module.scss';
@@ -56,10 +57,12 @@ export const TabToMe = () => {
 
   const content = useMemo(() => requestsToMe.map((item) => ({
     id: item.id,
-    articleId: item.article.id, 
+    articleId: item.article.id,
+    ownerId: item.article.owner.id,
+    requesterId: item.requester.id,
     title: item.article.title,
     date: '13/03/2023',
-    requester: `${item.requester.username} ${item.requester.fullName}`,
+    requester: normalizeUserInfo(item.requester.fullName, item.requester.username) || `Archonaut#${item.requester.id}`,
     isOwnerViewed: item.isOwnerViewed, 
     approve: item.approve,
   })), [requestsToMe]);

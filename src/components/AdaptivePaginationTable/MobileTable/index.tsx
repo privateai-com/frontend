@@ -2,13 +2,16 @@ import { ReactNode } from 'react';
 import { Article, RequestStatus } from 'types';
 import { usePagination } from 'hooks';
 // import useInfiniteScroll from 'react-infinite-scroll-hook';
-import styles from './styles.module.scss';
+
+import { RequestedDataType } from 'containers/MyRequests/types';
 import { MobileTableItem } from '../MobileTableItem';
+
+import styles from './styles.module.scss';
 
 export type ItemMobile = {
   title: string | null,
   key: string,
-  cell?: (value: string | ReactNode) => string | ReactNode;
+  cell?: (value: ReactNode | RequestedDataType) => string | ReactNode;
 };
 
 type AdaptivePaginationTableProps = {
@@ -58,7 +61,7 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
           other={other}
           items={itemsMobile.map(({ title, key, cell }) => ({
             title,
-            state: content[ind][key] as string, 
+            state: key === 'owner' ? content[ind] : content[ind][key] as string, 
             cell,
           }))}
         />

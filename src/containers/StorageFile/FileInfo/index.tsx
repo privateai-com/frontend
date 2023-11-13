@@ -2,7 +2,7 @@ import {
   FC, memo, useCallback,
 } from 'react';
 import { useModal } from 'react-modal-hook';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 
 import {
@@ -18,13 +18,18 @@ import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestCreate } from 'store/request/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
+import { profileGetProfileUser } from 'store/profile/actionCreators';
+import { profileSelectors } from 'store/profile/selectors';
+import { normalizeUserInfo } from 'utils';
 import { formatDate } from './utils';
 import { FileInformationLoader } from '../Loader';
+
 import styles from './styles.module.scss';
 
 type FileInfoProps = {
   onEditClick: () => void;
   isOwner: boolean;
+  isRequester: boolean;
   isLoading: boolean;
   article?: Article;
   classNameFile?: string;
@@ -32,31 +37,71 @@ type FileInfoProps = {
 };
 
 export const FileInfo: FC<FileInfoProps> = memo(({
-  onEditClick, isOwner, isLoading, article, classNameFile, classNameButtons,
+  onEditClick, isOwner, isLoading, article, classNameFile, classNameButtons, isRequester,
 }) => {
   const dispatch = useDispatch();
   const statusCreate = useSelector(requestSelectors.getStatus(RequestActionTypes.Create));
   const statusPublish = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.PublishArticle),
   );
+  const requester = useSelector(profileSelectors.getProp('requester'), shallowEqual);
 
   const [showRequester, hideRequester] = useModal(
-    () => (
-      <Requester
-        avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
-        name="John Doe"
-        contry="London, UK (GMT +0)"
-        organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
-        position="Head of neurosurgery laboratory"
-        fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
-        socialMedia="https:/facebook.com/profile"
-        onCloseModal={() => {
-          hideRequester();
-        }}
-      />
-    ),
-    [],
+    () => {
+      const {
+        id,
+        avatarUrl,
+        fullName,
+        username,
+        city,
+        country,
+        organization,
+        position,
+        researchFields,
+        socialLink,
+      } = requester;
+      return (
+        <Requester
+          id={id || 0}
+          avatarUrl={avatarUrl || ''}
+          name={normalizeUserInfo(fullName, username) || '-'}
+          contry={normalizeUserInfo(city, country) || '-'}
+          organization={organization || '-'}
+          position={position || '-'}
+          fields={researchFields || '-'}
+          socialMedia={socialLink || '-'}
+          questionFooter="Request access to a file?"
+          confirmButtonLabel="Confirm"
+          cancelButtonLabel="Cancel"
+          onConfirmButton={() => {
+            if (article) {
+              dispatch(requestCreate({
+                articleId: article.id, 
+                callback: hideRequester,
+              }));
+            }
+          }}
+          onCancelButton={hideRequester}
+          onCloseModal={hideRequester}
+          isHideButoons={isRequester}
+        />
+      );
+    },
+    [requester, article, isRequester],
   );
+
+  const successCallback = useCallback(() => {
+    showRequester();
+  }, [showRequester]);
+
+  const onOwnerClick = useCallback(() => {
+    if (article?.owner.id) {
+      dispatch(profileGetProfileUser({
+        profileId: article?.owner.id,
+        successCallback,
+      }));
+    }
+  }, [article?.owner.id, dispatch, successCallback]);
 
   const [showAccessConfirm, hideAccessConfirm] = useModal(
     () => (
@@ -111,7 +156,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           <div className={styles.storageFile__item}>
             Owner: 
             {article?.owner ? (
-              <button onClick={showRequester} className={styles.storageFile__item_button}>
+              <button onClick={onOwnerClick} className={styles.storageFile__item_button}>
                 {article?.owner.fullName ? article?.owner.fullName : `Archonaut #${article?.owner.id}` }
               </button>
             ) : ('-')}
@@ -167,7 +212,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               <Button
                 theme="secondary"
                 onClick={showAccessConfirm}
-                disabled={isLoading}
+                disabled={isLoading || isRequester}
               >
                 Request access
               </Button>
@@ -191,11 +236,11 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               Edit
             </Button>
             <Button
-              disabled={isLoading}
+              disabled={isLoading || article?.isPublic}
               onClick={onPublishClick}
               isLoading={statusPublish === RequestStatus.REQUEST}
             >
-              Publish
+              {article?.isPublic ? 'Published' : 'Publish'} 
             </Button>
           </>
         )}

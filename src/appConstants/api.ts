@@ -14,6 +14,7 @@ export enum ApiEndpoint {
 
   ProfileAddWallet = '/profile/add-wallet',
   ProfileGet = '/profile',
+  ProfileGetUser = '/profile/get-profile',
   ProfileGetAvatar = '/profile/images/avatars',
   ProfileDeleteWallet = '/profile/delete-wallet',
 

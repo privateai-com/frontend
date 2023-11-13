@@ -34,5 +34,6 @@ export interface AccountInfo {
 
 export interface ProfileState {
   accountInfo: AccountInfo,
+  requester: AccountInfo,
   ui: PartialRecord<ProfileActionTypes, RequestStatus>;
 }

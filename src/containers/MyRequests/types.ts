@@ -3,6 +3,7 @@ import { Status } from 'types';
 export interface RequestedDataType {
   id: number;
   articleId: number;
+  ownerId: number;
   title: string;
   date: string;
   requester: string;

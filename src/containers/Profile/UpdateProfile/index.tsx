@@ -20,8 +20,8 @@ import {
   ProfileActionTypes,
 } from 'store/profile/actionTypes';
 import { profileSelectors } from 'store/profile/selectors';
+import { normalizeUserInfo } from 'utils';
 import { Footer } from '../Footer';
-import { getData } from '../getData';
 import styles from './styles.module.scss';
 
 type UpdateProfileProps = {
@@ -55,7 +55,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
   const [avatar, setAvatar] = useState<File | null>();
   const [realName, setRealName] = useState(fullName || '');
   const [username, setUsername] = useState(usernameOld || '');
-  const [location, setLocation] = useState(getData(city, country) || '');
+  const [location, setLocation] = useState(normalizeUserInfo(city, country) || '');
   const [socialMediaLink, setSocialMediaLink] = useState(socialLink || '');
   const [organization, setOrganization] = useState(organizationOld || '');
   const [position, setPosition] = useState(positionRedux || '');

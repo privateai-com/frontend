@@ -7,4 +7,5 @@ export enum ProfileActionTypes {
   DeleteWallet = 'PROFILE.DELETE_WALLET',
   UpdateProfile = 'PROFILE.UPDATE_PROFILE',
   UploadAvatar = 'PROFILE.UPLOAD_AVATAR',
+  GetProfileUser = 'PROFILE.GET_PROFILE_USER',
 }

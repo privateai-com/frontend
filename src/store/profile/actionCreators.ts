@@ -27,6 +27,14 @@ export const profileGetProfile = () => ({
   type: ProfileActionTypes.GetProfile,
 });
 
+export const profileGetProfileUser = (payload: {
+  profileId: number,
+  successCallback: () => void,
+}) => ({
+  type: ProfileActionTypes.GetProfileUser,
+  payload,
+});
+
 export const profileDeleteWallet = () => ({
   type: ProfileActionTypes.DeleteWallet,
 });

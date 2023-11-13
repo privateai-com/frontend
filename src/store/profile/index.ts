@@ -8,6 +8,7 @@ export const profileInitialState: Readonly<ProfileState> = {
   accountInfo: {
 
   },
+  requester: {},
   ui: {
     [ProfileActionTypes.LinkWallet]: RequestStatus.INIT,
     [ProfileActionTypes.DeleteWallet]: RequestStatus.INIT,

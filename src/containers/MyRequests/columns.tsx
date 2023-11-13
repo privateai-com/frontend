@@ -108,10 +108,10 @@ export const useColumns = ({
         accessor: 'owner',
         Cell: ({
           row: {
-            original: { owner },
+            original: { owner, ownerId },
           },
         }: ItemRowProps<RequestedDataType>) =>
-          <RequestCell>{owner}</RequestCell> || '-',
+          <RequestCell isHideButoonsRequester profileId={ownerId}>{owner}</RequestCell> || '-',
       },
       {
         Header: 'Status',
