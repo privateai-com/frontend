@@ -1,61 +1,6 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
-.create_profile__container {
-	position: relative;
-
-	display: grid;
-	grid-template-areas:
-		"head head"
-		"info info2"
-		"info info3"
-		"footer footer";
-	grid-template-columns: 1fr 1.25fr;
-	grid-template-rows: auto auto;
-
-	@include desktop1024 {
-		grid-template-areas:
-			"head"
-			"info"
-			"info2"
-			"info3"
-			"footer";
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr;
-		margin-bottom: 30px;
-	}
-}
-
-.profile__head {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 25px;
-
-	grid-area: head;
-
-	@include desktop1440 {
-		margin-bottom: 15px;
-	}
-
-	@include desktop1024 {
-		margin-bottom: 25px;
-	}
-
-	@include mobile {
-		margin-bottom: 15px;
-	}
-
-	&_button {
-		height: fit-content;
-		width: 100%;
-		max-width: 300px;
-
-		@include desktop1024 {
-			max-width: 220px;
-		}
-	}
-}
-
 .wrapper {
 	position: relative;
 	box-shadow: -10px 56px 140px 0px #8f9bba33;
@@ -64,7 +9,7 @@
 	border-radius: 16px;
 	display: flex;
 	flex-direction: column;
-
+	column-gap: 20px;
 	&:first-child {
 		padding: 40px;
 	}
@@ -99,6 +44,7 @@
 	width: 100%;
 	height: 100%;
 	max-width: 648px;
+	min-width: fit-content;
 
 	@include desktop1440 {
 		max-width: 470px;
@@ -128,9 +74,10 @@
 	&_upload_btn {
 		grid-area: upload;
 		position: relative;
-		border: 1px solid $color-green;
+		border: 1px dashed $color-green;
 		width: 100%;
 		height: 410px;
+
 		border-radius: 40px;
 		margin-bottom: 64px;
 
@@ -143,14 +90,15 @@
 
 		@include desktop1024 {
 			height: 280px;
-			max-width: 410px;
+			height: 100%;
+			width: 100%;
 			margin-bottom: 0;
 			gap: 24px;
 		}
 
 		@include mobile {
 			gap: 10px;
-			height: 100px;
+			height: 100%;
 			border-radius: 16px;
 		}
 
@@ -416,14 +364,5 @@
 		@include mobile {
 			justify-content: space-between;
 		}
-	}
-}
-
-.footer {
-	display: flex;
-	justify-content: space-between;
-
-	@include mobile {
-		flex-direction: column-reverse;
 	}
 }

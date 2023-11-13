@@ -8,10 +8,11 @@ import { passwordValidator } from 'utils';
 import styles from './styles.module.scss';
 
 interface NewPasswordProps {
+  isLoading: boolean;
   onConfirm: (password: string) => void;
 }
 
-export const NewPassword: FC<NewPasswordProps> = ({ onConfirm }) => {
+export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -26,7 +27,7 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm }) => {
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
 
-    const isError = !currentPasswordError && !passwordError && !!password;
+    const isError = currentPasswordError !== '' && passwordError !== '' && password !== '';
 
     if (!isError) {
       onConfirm(password);
@@ -45,7 +46,7 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm }) => {
 
   return (
     <AuthWrapper>
-      <div className={styles.new_password__container}>
+      <form className={styles.new_password__container}>
         <Typography
           type="p"
           className={styles.description}
@@ -71,10 +72,12 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm }) => {
           onClick={onConfirmClick}
           className={styles.button}
           disabled={!isNotError}
+          type="submit"
+          isLoading={isLoading}
         >
           Confirm
         </Button>
-      </div>
+      </form>
     </AuthWrapper>
   );
 };

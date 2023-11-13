@@ -16,6 +16,7 @@ export const Navigation = memo(() => {
   }, []);
   
   if (!isAdaptive) return <Sidebar />;
+  
   return (
     <>
       <button
@@ -26,8 +27,13 @@ export const Navigation = memo(() => {
         <div className={styles.bar} />
         <div className={styles.bar} />
       </button>
-      <Sidebar className={cx({ [styles.showSidebar]: isOpen })} />
-      <button className={cx(styles.overlay, { [styles.show]: isOpen })} onClick={toggleMenu} />
+      <Sidebar 
+        className={cx({ [styles.showSidebar]: isOpen })} 
+      />
+      <button 
+        className={cx(styles.overlay, { [styles.show]: isOpen })} 
+        onClick={toggleMenu} 
+      />
     </>
   );
 });

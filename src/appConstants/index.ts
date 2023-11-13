@@ -20,6 +20,7 @@ export enum ScreenWidth {
   desktop1440 = 1440,
   notebook1024 = 1024,
   mobile = 576,
+  bigMobile = 768,
 }
 
 export const countRowsOnPage = 10;

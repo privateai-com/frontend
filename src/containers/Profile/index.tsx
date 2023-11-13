@@ -12,7 +12,6 @@ import {
   profileDeleteWallet,
   profileLinkWallet,
 } from 'store/profile/actionCreators';
-// import { routes } from 'appConstants';
 import { routes } from 'appConstants';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';

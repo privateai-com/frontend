@@ -36,23 +36,23 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
 }) => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
 
+  if (isMobile) {
+    return(
+      <MobileTable
+        content={content}
+        pagination={pagination}
+        other={other}
+        itemsMobile={itemsMobile}
+      />
+    );
+  } 
+
   return (
-    <div>
-      {isMobile ? (
-        <MobileTable
-          content={content}
-          pagination={pagination}
-          other={other}
-          itemsMobile={itemsMobile}
-        />
-      ) : (
-        <Table
-          columns={columns as unknown as Column<object>[]}
-          data={content}
-          className={cx(styles.table, classNameTableContainer)}
-          pagination={pagination}
-        />
-      )}
-    </div>
+    <Table
+      columns={columns as unknown as Column<object>[]}
+      data={content}
+      className={cx(styles.table, classNameTableContainer)}
+      pagination={pagination}
+    />
   );
 };
