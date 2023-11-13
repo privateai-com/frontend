@@ -1,14 +1,17 @@
 import { FC, useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ConfirmEmail } from 'components';
-import { useDispatch } from 'react-redux';
+import { AuthErrorTransformResult, RequestStatus } from 'types';
+
 import {
   authChangePassword,
   authConfirmCode,
   authSetState,
 } from 'store/auth/actionCreators';
+import { authSelectors } from 'store/auth/selectors';
+import { AuthActionTypes } from 'store/auth/actionTypes';
 
-import { AuthErrorTransformResult } from 'types';
 import { Success } from './Success';
 import { NewPassword } from './NewPassword';
 import { ResetPassword } from './ResetPassword';
@@ -29,6 +32,8 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
   onBack,
   onSuccess,
 }) => {
+  const dispatch = useDispatch();
+
   const [currentStep, setCurrentStep] = useState(
     ForgotPasswordStep.ResetPasswordStep,
   );
@@ -36,8 +41,8 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
 
-  const dispatch = useDispatch();
-
+  const statusChangePassword = useSelector(authSelectors.getStatus(AuthActionTypes.ChangePassword));
+  
   const emailErrorSuccessCallback = () => {
     setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
   };
@@ -86,14 +91,14 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
       dispatch(
         authChangePassword({
           password,
-          successCallback: successHandler,
+          successCallback: () => {
+            setCurrentStep(ForgotPasswordStep.SuccessStep);
+          },
           errorCallback: newPasswordErrorCallback,
         }),
       );
-
-      setCurrentStep(ForgotPasswordStep.SuccessStep);
     },
-    [dispatch, successHandler],
+    [dispatch],
   );
 
   return (
@@ -116,7 +121,10 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
       )}
 
       {currentStep === ForgotPasswordStep.NewPasswordStep && (
-        <NewPassword onConfirm={confirmNewPasswordHandler} />
+        <NewPassword 
+          onConfirm={confirmNewPasswordHandler} 
+          isLoading={statusChangePassword === RequestStatus.REQUEST}
+        />
       )}
 
       {currentStep === ForgotPasswordStep.SuccessStep && (

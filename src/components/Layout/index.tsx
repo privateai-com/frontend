@@ -1,15 +1,14 @@
+import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import cx from 'classnames';
-import Image from 'next/image';
 
-import { bg1, bg2, bg3 } from 'assets';
 import { Navigation } from './Navigation';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  children: React.ReactNode,
-  header?: React.ReactNode,
+  children: ReactNode,
+  header?: ReactNode,
   title?: string,
   meta?: {
     name: string,
@@ -23,13 +22,13 @@ type Props = {
   mainClassName?: string,
 };
 
-const Layout: React.FC<Props> = ({
+export const Layout: FC<Props> = ({
   children,
   title,
   meta,
   link,
-  className,
-  mainClassName,
+  className = '',
+  mainClassName = '',
   header,
 }) => (
   <>
@@ -47,33 +46,16 @@ const Layout: React.FC<Props> = ({
         className, 
       )}
     >
-      <Image
-        src={bg1}
-        alt="bg"
-        className={styles.background}
-      />
-      <Image
-        src={bg2}
-        alt="bg"
-        className={styles.background}
-      />
-      <Image
-        src={bg3}
-        alt="bg"
-        className={styles.background}
-      />
-
       <Navigation />
       {header}
-      <main className={cx(
-        styles.page__main, 
-        mainClassName, 
-      )}
+      <main 
+        className={cx(
+          styles.page__main, 
+          mainClassName, 
+        )}
       >
         {children}
       </main>
     </div>
   </>
 );
-
-export default Layout;

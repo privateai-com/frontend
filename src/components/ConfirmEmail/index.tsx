@@ -60,7 +60,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 
   return (
     <AuthWrapper onClickBack={onBack}>
-      <div className={styles.confirmEmail__container}>
+      <form className={styles.confirmEmail__container}>
         <Typography
           type="p"
           className={styles.description}
@@ -87,10 +87,11 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
         <Button
           onClick={onConfirmClick}
           className={cx(styles.button, { [styles.button_margin]: error })}
+          type="submit"
         >
           Confirm
         </Button>
-      </div>
+      </form>
     </AuthWrapper>
   );
 };

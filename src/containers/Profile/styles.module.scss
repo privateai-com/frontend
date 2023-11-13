@@ -4,7 +4,7 @@
 
 .profile__container {
 	position: relative;
-	height: 100%;
+	// height: 100%;
 
 	display: grid;
 	grid-template-areas:
@@ -15,8 +15,9 @@
 		"footer";
 	grid-template-columns: 1fr;
 	grid-template-rows: repeat(5, min-content);
-	margin-bottom: 30px;
+	// margin-bottom: 30px;
 	justify-content: space-between;
+	column-gap: 20px;
 
 	@include media-breakpoint-up(lg) {
 		grid-template-areas:
@@ -24,18 +25,18 @@
 			"info info2"
 			"info info3"
 			"footer footer";
-		grid-template-columns: vw(300, 1024) vw(400, 1024);
+		grid-template-columns: auto 1fr;
 		grid-template-rows: repeat(4, min-content);
 		margin-bottom: 0;
 	}
 
 	@include media-breakpoint-up(xxl) {
-		grid-template-columns: vw(470, 1440) vw(570, 1440);
+		grid-template-columns: auto 1fr;
 		grid-template-rows: 1fr;
 	}
 
 	@include media-breakpoint-up(fhd) {
-		grid-template-columns: vw(647) vw(863);
+		grid-template-columns: auto 1fr;
 	}
 }
 

@@ -3,23 +3,31 @@
 
 .burger {
   grid-area: sidebar;
+  
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 13px 10px;
   justify-content: space-between;
+
+  padding: 13px 10px;
+
   height: 40px;
   width: 40px;
+  
   background-color: $color-green;
   border-radius: 8px;
-  margin-left: 15px;
 
+  top: 0px;
+  left: 30px;
+  
   @include desktop1024 {
     grid-area: header;
     margin-top: auto;
   }
 
   @include mobile {
+    left: 15px;
+    top: 0px;
     height: 30px;
     width: 30px;
     padding: 9px 7px;

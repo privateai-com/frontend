@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import { FC, cloneElement, memo } from 'react';
 import cx from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,6 +23,8 @@ export const Sidebar: FC<SidebarProps> = memo(({
         src={privateAILogo}
         alt="logo"
         className={styles.sidebar_logo}
+        width={210}
+        height={66}
       />
       <div className={styles.sidebar_list}>
         {navPathName.map(({ href, title, icon }) => (
@@ -33,7 +35,7 @@ export const Sidebar: FC<SidebarProps> = memo(({
               [styles.active]: href === pathname,
             })}
           >
-            {React.cloneElement(icon, {
+            {cloneElement(icon, {
               className: cx(styles.svg, {
                 [styles.active_svg]: href === pathname,
               }),

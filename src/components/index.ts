@@ -22,7 +22,7 @@ export * from './SelectedText';
 export * from './Loader';
 export * from './RequestCell';
 
-export { default as Layout } from './Layout';
+export { Layout } from './Layout';
 export { default as LayoutAuth } from './LayoutAuth';
 export { TextArea } from './TextArea';
 export { DatePicker } from './DatePicker';

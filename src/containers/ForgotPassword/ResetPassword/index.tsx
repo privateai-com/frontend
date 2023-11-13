@@ -51,7 +51,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
 
   return (
     <AuthWrapper onClickBack={onBack}>
-      <div className={styles.reset__container}>
+      <form className={styles.reset__container}>
         <Typography
           type="p"
           className={styles.description}
@@ -70,10 +70,11 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
           className={styles.button}
           disabled={!isNotError}
           isLoading={isLoading}
+          type="submit"
         >
           Confirm
         </Button>
-      </div>
+      </form>
     </AuthWrapper>
   );
 };

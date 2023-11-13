@@ -16,32 +16,32 @@
 
 .header {
 	grid-area: header;
+	
 	display: flex;
 	align-items: center;
 	width: 100%;
-	padding: 0 40px;
-	margin-top: auto;
-	padding: 0 15px 0 60px;
+	height: 40px;
+
+	padding-left: 55px;
+	padding-right: 15px;
+	padding-top: 10px;
 
 	@include desktop1024 {
 		font-size: 30px;
 	}
 
 	@include media-breakpoint-up(sm) {
-		padding: 0 15px 0 110px;
+		height: 60px;
+		padding-left: 110px;
+		padding-right: 30px;
+		padding-top: 20px;
 	}
 
   @include media-breakpoint-up(lg) {
-		padding: 0 vw(30, 1024);
+		padding-left: 40px;
+		padding-right: 40px;
 	}
 
-	@include media-breakpoint-up(xxl) {
-		padding: 0 vw(40, 1440);
-	}
-
-	@include media-breakpoint-up(fhd) {
-		padding: 0 vw(40);
-	}
 
 	& > span {
 		font-size: 16px;
