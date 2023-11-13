@@ -6,8 +6,8 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Typography } from 'components';
 import { profileGetProfile } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
+import { normalizeUserInfo } from 'utils';
 import styles from './styles.module.scss';
-import { getData } from '../getData';
 
 export const ProfileInfo = () => {
   const dispatch = useDispatch();
@@ -52,11 +52,11 @@ export const ProfileInfo = () => {
               {' '}
               <span>*</span>
             </Typography>
-            {getData(fullName, username)}
+            {normalizeUserInfo(fullName, username)}
           </div>
           <div className={styles.info_item}>
             <Typography type="h4">Location (Country and/or City)</Typography>
-            {getData(city, country)}
+            {normalizeUserInfo(city, country)}
           </div>
         </div>
       </div>

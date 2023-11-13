@@ -45,8 +45,7 @@ $desktor-indent: 40px;
 
   &_content_wrapper {
     display: flex;
-    margin-bottom: 30px;
-    border-bottom: 2px solid $color-grey;
+    
     @include mobile {
       flex-direction: column;
       align-items: center;
@@ -54,6 +53,7 @@ $desktor-indent: 40px;
   }
 
   &_image {
+    position: relative;
     margin: 50px 68px 0 0;
     border: 1px solid $color-grey2;
     border-radius: 50%;
@@ -72,19 +72,29 @@ $desktor-indent: 40px;
       width: 99px;
       height: 99px;
     }
+
+    img {
+      border-radius: 100%;
+      background-color: $color-grey2;
+    }
+
+    & > span {
+      background-color: $color-grey2;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      border-radius: 100%;
+    }
   }
 
   &_content {
-    margin-bottom: 30px;
     @include content-max-width(834px, $desktor-indent);
 
     @include desktop1440 {
-      margin-bottom: 20px;
       @include content-max-width(650px, 55px);
     }
 
     @include mobile {
-      margin-bottom: 15px;
       max-width: 100%;
     }
   }
@@ -167,6 +177,19 @@ $desktor-indent: 40px;
 }
 
 .access {
+  &_wrapper {
+    border-top: 2px solid $color-grey;
+    margin-top: 30px;
+    padding-top: 30px;
+
+    @include desktop1440 {
+      margin-top: 20px;
+    }
+
+    @include mobile {
+      margin-top: 15px;
+    }
+  }
   &_title {
     text-align: center;
     font-weight: 700;

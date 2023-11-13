@@ -11,9 +11,11 @@ import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestGetMyRequests } from 'store/request/actionCreators';
 import { SortingDirection } from 'types';
+import { normalizeUserInfo } from 'utils';
 import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
+import { RequestedDataType } from './types';
 
 const itemsMobile = [
   {
@@ -23,19 +25,31 @@ const itemsMobile = [
   {
     title: 'Owner',
     key: 'owner',
-    cell: (value: string | ReactNode): ReactNode => (
-      <RequestCell className={styles.requesterMobile}>{value}</RequestCell>
-    ),
+    cell: (value: RequestedDataType | ReactNode): ReactNode => {
+      if (value && typeof value === 'object') {
+        const { ownerId, owner } = value as RequestedDataType;
+        return (
+          <RequestCell
+            className={styles.requesterMobile}
+            profileId={ownerId}
+            isHideButoonsRequester
+          >
+            {owner}
+          </RequestCell>
+        );
+      }
+      return value;
+    },
   },
   {
     title: null,
     key: 'status',
-    cell: (value: string | ReactNode): ReactNode => (
+    cell: (value: RequestedDataType | ReactNode): ReactNode => (
       <div className={styles.containerStatus}>
         <div>
           <div className={styles.title}>Status:</div>
           <div className={getStatusStyle(value as string, styles)}>
-            {value}
+            {(value && typeof value === 'string') ? value : '-'}
           </div>
         </div>
         <ButtonIcon
@@ -84,9 +98,10 @@ export const MyRequests = () => {
     return {
       id: item.id,
       articleId: item.article.id, 
+      ownerId: item.article.owner.id,
       title: item.article.title,
       core: item.article.field,
-      owner: `${item.article.owner.username} ${item.article.owner.fullName}`,
+      owner: normalizeUserInfo(item.article.owner.fullName, item.article.owner.username) || `Archonaut#${item.article.owner.id}`,
       isOwnerViewed: item.isOwnerViewed, 
       approve: item.approve,
       status,

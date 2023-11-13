@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 
-import { GraphResponseType, RequestStatus } from 'types';
+import { ArticleAccess, GraphResponseType, RequestStatus } from 'types';
 import { articlesGetOneArticle } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
@@ -40,10 +40,25 @@ export const StorageFile = memo(() => {
     () => accountInfo?.id === article?.owner.id,
     [accountInfo?.id, article?.owner.id],
   );
+  const findUserById = useCallback(
+    (idToFind: number) =>
+      article?.requests.find((request: ArticleAccess) => request.requester?.id === idToFind),
+    [article?.requests],
+  );
+  
+  const isRequester: boolean = useMemo(
+    () => {
+      if (accountInfo?.id) {
+        return !!findUserById(accountInfo?.id);
+      }
+      return false;
+    },
+    [accountInfo?.id, findUserById],
+  );
 
   const [graphData, setGraphData] = useState<GraphResponseType[]>([]);
   const [isEdit, setIsEdit] = useState(false);
-  // const { role } = useSelector(accountSelectors.getAccount);
+
   const callback = useCallback((value: GraphResponseType[]) => {
     setGraphData(value);
   }, []);
@@ -107,6 +122,7 @@ export const StorageFile = memo(() => {
         <FileInfo
           onEditClick={isEditToggle}
           isOwner={isOwner}
+          isRequester={isRequester}
           isLoading={statusGetOneArticle === RequestStatus.REQUEST}
           classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
           classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}

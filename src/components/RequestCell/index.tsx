@@ -1,43 +1,82 @@
-import { useState, ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { useModal } from 'react-modal-hook';
 import cx from 'classnames';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { Requester, Loader } from 'components';
+import { profileSelectors } from 'store/profile/selectors';
+import { normalizeUserInfo } from 'utils';
+import { ProfileActionTypes } from 'store/profile/actionTypes';
+import { RequestStatus } from 'types';
+import { profileGetProfileUser } from 'store/profile/actionCreators';
+
 import styles from './styles.module.scss';
 
 type RequestCellProps = {
   requester?: string;
   children: ReactNode;
   className?: string;
+  profileId: number;
+  isHideButoonsRequester?: boolean;
+  onConfirmButton?: () => void;
+  onCancelButton?: () => void;
 };
 
-const RequestCell: React.FC<RequestCellProps> = ({ requester, children, className = '' }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const RequestCell: React.FC<RequestCellProps> = ({
+  requester, children, className = '', profileId, isHideButoonsRequester = false, onConfirmButton, onCancelButton,
+}) => {
+  const dispatch = useDispatch();
+  const requesterUser = useSelector(profileSelectors.getProp('requester'), shallowEqual);
+  const status = useSelector(profileSelectors.getStatus(ProfileActionTypes.GetProfileUser));
+
+  const isLoading = status === RequestStatus.REQUEST;
+
   const [showRequester, hideRequester] = useModal(
-    () => (
-      <Requester
-        avatar="https://www.figma.com/file/bknHsaOyZlzB3FrosPJ7Vx/ARCHON-(Copy)?type=design&node-id=526-4546&mode=design&t=cjGucjlcUhk4ouS0-4"
-        name="John Doe"
-        contry="London, UK (GMT +0)"
-        organization="London Institute of Medical Sciences, Head of neurosurgery laboratory"
-        position="Head of neurosurgery laboratory"
-        fields={'Neurobiology, neurosurgery, neuropathology'.split(', ')}
-        socialMedia="https:/facebook.com/profile"
-        onCloseModal={() => {
-          hideRequester();
-        }}
-      />
-    ),
-    [],
+    () => {
+      const {
+        avatarUrl,
+        fullName,
+        username,
+        city,
+        country,
+        organization,
+        position,
+        researchFields,
+        socialLink,
+      } = requesterUser;
+      
+      return (
+        <Requester
+          id={profileId}
+          avatarUrl={avatarUrl || ''}
+          name={normalizeUserInfo(fullName, username) || '-'}
+          contry={normalizeUserInfo(city, country) || '-'}
+          organization={organization || '-'}
+          position={position || '-'}
+          fields={researchFields || '-'}
+          socialMedia={socialLink || '-'}
+          onConfirmButton={() => { if (onConfirmButton) onConfirmButton(); hideRequester(); }}
+          onCancelButton={() => { if (onCancelButton) onCancelButton(); hideRequester(); }}
+          onCloseModal={hideRequester}
+          isHideButoons={isHideButoonsRequester}
+        />
+      );
+    },
+    [requesterUser, profileId, onConfirmButton, onCancelButton],
   );
 
-  const onHandlerClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      showRequester();
-    }, 1500);
-  };
+  const successCallback = useCallback(() => {
+    showRequester();
+  }, [showRequester]);
+
+  const onOwnerClick = useCallback(() => {
+    if (profileId) {
+      dispatch(profileGetProfileUser({
+        profileId,
+        successCallback,
+      }));
+    }
+  }, [dispatch, profileId, successCallback]);
 
   return (
     <>
@@ -46,7 +85,7 @@ const RequestCell: React.FC<RequestCellProps> = ({ requester, children, classNam
         {!isLoading ? (
           <button
             className={styles.cell_btn_link}
-            onClick={onHandlerClick}
+            onClick={onOwnerClick}
           >
             {children}
           </button>

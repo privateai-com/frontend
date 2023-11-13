@@ -90,11 +90,19 @@ export const useColumns = ({
         accessor: 'requester',
         Cell: ({
           row: {
-            original: { requester },
+            original: {
+              id, requester, approve, requesterId,
+            },
           },
         }: ItemRowProps<RequestsType>) =>
           (requester ? (
-            <RequestCell requester={requester}>
+            <RequestCell
+              requester={requester}
+              profileId={requesterId}
+              onConfirmButton={handleProvide(id)}
+              onCancelButton={handleDecline(id)}
+              isHideButoonsRequester={!!approve}
+            >
               See the profile details
             </RequestCell>
           ) : (

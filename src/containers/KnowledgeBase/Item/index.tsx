@@ -45,6 +45,7 @@ export const Item: React.FC<ItemProps> = ({
     owner: {
       username,
       fullName,
+      id: ownerId,
     },
     createdAt,
     updatedAt,
@@ -124,7 +125,20 @@ export const Item: React.FC<ItemProps> = ({
           </div>
           <div className={styles.item_row_block}>
             <span className={styles.title}>Author: </span>
-            <RequestCell className={styles.item_btn_link}>
+            <RequestCell
+              className={styles.item_btn_link}
+              profileId={ownerId}
+              onConfirmButton={showAccessConfirm}
+              onCancelButton={hideAccessConfirm}
+              isHideButoonsRequester={
+                [
+                  StatusArticle.OpenSource,
+                  StatusArticle.AccessGranted,
+                  StatusArticle.AccessRequestPending,
+                ]
+                  .includes(getStatusArticle(article))
+              }
+            >
               {getName(fullName, username, 1) ?? ''}
             </RequestCell>
           </div>
@@ -175,7 +189,20 @@ export const Item: React.FC<ItemProps> = ({
               </div>
               <div className={styles.item_row_block}>
                 <span className={styles.title}>Author: </span>
-                <RequestCell className={styles.item_btn_link}>
+                <RequestCell
+                  className={styles.item_btn_link}
+                  profileId={ownerId}
+                  onConfirmButton={showAccessConfirm}
+                  onCancelButton={hideAccessConfirm}
+                  isHideButoonsRequester={
+                    [
+                      StatusArticle.OpenSource,
+                      StatusArticle.AccessGranted,
+                      StatusArticle.AccessRequestPending,
+                    ]
+                      .includes(getStatusArticle(article))
+                  }
+                >
                   {getName(fullName, username, 1) ?? ''}
                 </RequestCell>
               </div>
@@ -206,6 +233,5 @@ export const Item: React.FC<ItemProps> = ({
         </div>
       </div>
     </div>
-      
   );
 };
