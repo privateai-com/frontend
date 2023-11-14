@@ -21,6 +21,7 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import { normalizeUserInfo } from 'utils';
+import { useVipUser } from 'hooks';
 import { formatDate } from './utils';
 import { FileInformationLoader } from '../Loader';
 
@@ -45,6 +46,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
     articlesSelectors.getStatus(ArticlesActionTypes.PublishArticle),
   );
   const requester = useSelector(profileSelectors.getProp('requester'), shallowEqual);
+  const isVipUser = useVipUser();
 
   const [showRequester, hideRequester] = useModal(
     () => {
@@ -95,13 +97,13 @@ export const FileInfo: FC<FileInfoProps> = memo(({
   }, [showRequester]);
 
   const onOwnerClick = useCallback(() => {
-    if (article?.owner.id) {
+    if (article?.owner.id && !isVipUser) {
       dispatch(profileGetProfileUser({
         profileId: article?.owner.id,
         successCallback,
       }));
     }
-  }, [article?.owner.id, dispatch, successCallback]);
+  }, [article?.owner.id, dispatch, isVipUser, successCallback]);
 
   const [showAccessConfirm, hideAccessConfirm] = useModal(
     () => (
@@ -212,7 +214,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               <Button
                 theme="secondary"
                 onClick={showAccessConfirm}
-                disabled={isLoading || isRequester}
+                disabled={isLoading || isRequester || isVipUser}
               >
                 Request access
               </Button>
@@ -220,7 +222,9 @@ export const FileInfo: FC<FileInfoProps> = memo(({
             <Button
               disabled={!article?.isPublic}
               href={article?.articleUrl}
-              className={styles.download_button}
+              className={cx(styles.download_button, {
+                [styles.disabled]: isVipUser,
+              })}
               isHrefBlank
             >
               Download

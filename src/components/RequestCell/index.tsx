@@ -20,10 +20,12 @@ type RequestCellProps = {
   isHideButoonsRequester?: boolean;
   onConfirmButton?: () => void;
   onCancelButton?: () => void;
+  isDisabled?: boolean;
 };
 
 const RequestCell: React.FC<RequestCellProps> = ({
-  requester, children, className = '', profileId, isHideButoonsRequester = false, onConfirmButton, onCancelButton,
+  requester, children, className = '', profileId,
+  isHideButoonsRequester = false, onConfirmButton, onCancelButton, isDisabled,
 }) => {
   const dispatch = useDispatch();
   const requesterUser = useSelector(profileSelectors.getProp('requester'), shallowEqual);
@@ -70,13 +72,13 @@ const RequestCell: React.FC<RequestCellProps> = ({
   }, [showRequester]);
 
   const onOwnerClick = useCallback(() => {
-    if (profileId) {
+    if (profileId && !isDisabled) {
       dispatch(profileGetProfileUser({
         profileId,
         successCallback,
       }));
     }
-  }, [dispatch, profileId, successCallback]);
+  }, [dispatch, isDisabled, profileId, successCallback]);
 
   return (
     <>
@@ -86,6 +88,7 @@ const RequestCell: React.FC<RequestCellProps> = ({
           <button
             className={styles.cell_btn_link}
             onClick={onOwnerClick}
+            disabled={isDisabled}
           >
             {children}
           </button>

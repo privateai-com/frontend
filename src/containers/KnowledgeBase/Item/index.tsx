@@ -28,10 +28,12 @@ const textStatus = {
 
 type ItemProps = {
   article: Article;
+  isDisabled?: boolean;
 };
 
 export const Item: React.FC<ItemProps> = ({
   article,
+  isDisabled,
 }) => {
   const dispatch = useDispatch();
   const isMobile = useScreenWidth(ScreenWidth.bigMobile);
@@ -138,6 +140,7 @@ export const Item: React.FC<ItemProps> = ({
                 ]
                   .includes(getStatusArticle(article))
               }
+              isDisabled={isDisabled}
             >
               {getName(fullName, username, 1) ?? ''}
             </RequestCell>
@@ -202,6 +205,7 @@ export const Item: React.FC<ItemProps> = ({
                     ]
                       .includes(getStatusArticle(article))
                   }
+                  isDisabled={isDisabled}
                 >
                   {getName(fullName, username, 1) ?? ''}
                 </RequestCell>
@@ -215,7 +219,9 @@ export const Item: React.FC<ItemProps> = ({
         </div>
         <div className={styles.item_second_block}>
           <button 
-            onClick={status === StatusArticle.PermissionNeeded ? showAccessConfirm : () => {}} 
+            onClick={(status === StatusArticle.PermissionNeeded && !isDisabled)
+              ? showAccessConfirm
+              : () => {}} 
             className={styles.buttonShowAccess}
           >
             <span className={getStatusStyle()}>{textStatus[status]}</span>

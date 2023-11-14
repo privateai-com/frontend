@@ -120,6 +120,11 @@ $btn-height1024: 130px;
         justify-content: space-between;
       }
     }
+
+    &.disabled {
+      background-color: $color-grey;
+      pointer-events: none;
+    }
   }
 
   &_btns {

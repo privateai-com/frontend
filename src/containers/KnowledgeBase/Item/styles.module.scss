@@ -52,6 +52,7 @@
     color: $color-grey;
     margin-bottom: 25px;
     font-size: 32px;
+    overflow-wrap: anywhere;
 
     @include desktop1440 {
       font-size: 24px;

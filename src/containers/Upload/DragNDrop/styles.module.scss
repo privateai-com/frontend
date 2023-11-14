@@ -63,6 +63,10 @@
     @include mobile {
       padding: 10px 15px;
     }
+
+    &.disabled {
+      pointer-events: none;
+    }
   }
 
   &_title,
