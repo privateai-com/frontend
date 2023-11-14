@@ -13,6 +13,7 @@ import {
   profileLinkWallet,
 } from 'store/profile/actionCreators';
 import { routes } from 'appConstants';
+import { useVipUser } from 'hooks';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
 
@@ -21,7 +22,7 @@ import styles from './styles.module.scss';
 export const Profile = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  
+  const isVipUser = useVipUser();
   const [isEditProfile, setIsEditProfile] = useState(false);
   
   const walletAddress = useSelector(profileSelectors.getPropAccountInfo('walletAddress'));
@@ -75,7 +76,7 @@ export const Profile = () => {
       <div className={styles.profile__head}>
         <div className={styles.profile__head_title}>
           <Typography type="h1">My profile</Typography>
-          {!isEditProfile && (
+          {!isEditProfile && !isVipUser && (
             <Button
               className={styles.profile__head_button}
               onClick={() => setIsEditProfile(true)}
@@ -85,32 +86,33 @@ export const Profile = () => {
           )}
         </div>
 
-        <div className={styles.profile__head_auth}>
-          {walletAddress ? (
-            <>
-              {!isEditProfile &&
+        {!isVipUser && (
+          <div className={styles.profile__head_auth}>
+            {walletAddress ? (
+              <>
+                {!isEditProfile &&
                 `Linked wallet: ${stringLongShortcut(walletAddress, 6, 3)}`}
+                <Button
+                  className={styles.profile__head_button}
+                  theme="secondary"
+                  onClick={onDisconnectLinkWalletClick}
+                  isLoading={isDeleteLoading}
+                >
+                  Disconnect wallet
+                </Button>
+              </>
+            ) : (
               <Button
                 className={styles.profile__head_button}
-                theme="secondary"
-                onClick={onDisconnectLinkWalletClick}
-                isLoading={isDeleteLoading}
+                onClick={onLinkWalletClick}
+                isLoading={status === RequestStatus.REQUEST}
               >
-                Disconnect wallet
+                Link your wallet
               </Button>
-            </>
-          ) : (
-            <Button
-              className={styles.profile__head_button}
-              onClick={onLinkWalletClick}
-              isLoading={status === RequestStatus.REQUEST}
-            >
-              Link your wallet
-            </Button>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
-
       {isEditProfile ? (
         <UpdateProfile
           setIsEditProfile={setIsEditProfile}

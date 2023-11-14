@@ -22,6 +22,7 @@
 	a, span {
 		font-weight: 500;
 		font-size: 20px;
+		overflow-wrap: anywhere;
 	}
 }
 
@@ -191,4 +192,9 @@
 
 .download_button {
 	width: 100%;
+
+	&.disabled {
+		background-color: $color-grey;
+		pointer-events: none;
+	}
 }

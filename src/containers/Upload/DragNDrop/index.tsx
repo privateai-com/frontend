@@ -14,9 +14,12 @@ type DragNDropProps = {
   doc: File | null;
   setDoc: (doc: File | null) => void;
   className?: string;
+  isDisabled?: boolean;
 };
 
-export const DragNDrop: FC<DragNDropProps> = ({ doc, setDoc, className }) => {
+export const DragNDrop: FC<DragNDropProps> = ({
+  doc, setDoc, className, isDisabled,
+}) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -60,6 +63,7 @@ export const DragNDrop: FC<DragNDropProps> = ({ doc, setDoc, className }) => {
       htmlFor="upload"
       className={cx(styles.dnd_btn, className, {
         [styles.dragOver]: isDragging,
+        [styles.disabled]: isDisabled,
         doc,
       })}
       onDragOver={onDragPrevent}

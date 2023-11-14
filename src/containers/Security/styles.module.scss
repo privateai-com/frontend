@@ -112,6 +112,10 @@
       font-size: 16px;
       line-height: 20px;
     }
+
+    a {
+      overflow-wrap: anywhere;
+    }
   }
 
   ul {
@@ -130,7 +134,7 @@
       }
       a {
         vertical-align: text-top;
-        word-break: break-all;
+        overflow-wrap: anywhere;
       }
     }
   }

@@ -7,3 +7,4 @@ export { useAutosize } from './useAutosize';
 export { usePageCount } from './usePageCount';
 export { usePagination } from './usePagination';
 export { useWallet } from './useWallet';
+export { useVipUser } from './useVipUser';

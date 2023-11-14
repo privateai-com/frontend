@@ -1,9 +1,10 @@
 import { filesize } from 'filesize';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import cx from 'classnames';
 
 import { Button, Typography } from 'components';
-import { useScreenWidth } from 'hooks';
+import { useScreenWidth, useVipUser } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { RequestStatus } from 'types';
 
@@ -18,6 +19,7 @@ export const Upload = () => {
   const [doc, setDoc] = useState<File | null>(null);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
   const dispatch = useDispatch();
+  const isVipUser = useVipUser();
 
   const upload = useSelector(
     articlesSelectors.getProp('upload'),
@@ -57,6 +59,7 @@ export const Upload = () => {
           <DragNDrop
             doc={doc}
             setDoc={setDoc}
+            isDisabled={isVipUser}
           />
         </div>
         <span className={styles.upload_notice}>
@@ -87,7 +90,9 @@ export const Upload = () => {
             {!isMobile && (
               <label
                 htmlFor="upload"
-                className={styles.upload_btn}
+                className={cx(styles.upload_btn, {
+                  [styles.disabled]: isVipUser,
+                })}
               >
                 Select a file from local directory
                 <input
