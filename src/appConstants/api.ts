@@ -38,4 +38,9 @@ export enum ApiEndpoint {
 
   ProfileUpdateProfile = '/profile/update',
   profileUploadAvatar = '/profile/upload-avatar',
+
+  Notification = '/notifications',
+  NotificationSubscribe = '/notifications/subscribe-sse',
+  NotificationMarkAsView = '/notifications/mark-as-view',
+  
 }

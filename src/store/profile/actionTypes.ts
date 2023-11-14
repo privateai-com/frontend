@@ -8,4 +8,8 @@ export enum ProfileActionTypes {
   UpdateProfile = 'PROFILE.UPDATE_PROFILE',
   UploadAvatar = 'PROFILE.UPLOAD_AVATAR',
   GetProfileUser = 'PROFILE.GET_PROFILE_USER',
+  Notification = 'PROFILE.NOTIFICATION',
+  NotificationSubscribe = 'PROFILE.NOTIFICATION_SUBSCRIBE',
+  NotificationSubscribeUpdate = 'PROFILE.NOTIFICATION_SUBSCRIBE_UPDATE',
+  NotificationMarkAsView = 'PROFILE.NOTIFICATION_MARK_AS_VIEW',
 }

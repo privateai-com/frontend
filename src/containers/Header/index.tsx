@@ -11,7 +11,7 @@ import {
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
 import { profileSelectors } from 'store/profile/selectors';
-import { profileGetProfile } from 'store/profile/actionCreators';
+import { profileNotification, profileGetProfile, profileNotificationMarkAsView } from 'store/profile/actionCreators';
 
 import { Notification } from './Notification';
 
@@ -34,6 +34,7 @@ export const Header = () => {
   
   const username = useSelector(profileSelectors.getPropAccountInfo('username'));
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
+  // const notifications = useSelector(profileSelectors.getProp('notifications'));
 
   const onNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
@@ -49,6 +50,11 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch(profileGetProfile());
+    dispatch(profileNotification());
+  }, [dispatch]);
+
+  const onDeleteNotification = useCallback((requestId: number) => {
+    dispatch(profileNotificationMarkAsView({ requestId }));
   }, [dispatch]);
 
   return (
@@ -105,7 +111,10 @@ export const Header = () => {
         image={logoutIcon}
         onClick={showLogout}
       />
-      <Notification isOpen={isNotificationOpen} />
+      <Notification
+        isOpen={isNotificationOpen}
+        onDeleteNotification={onDeleteNotification}
+      />
     </header>
   );
 };

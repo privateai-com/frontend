@@ -1,5 +1,6 @@
 import { ProfileActionTypes } from 'store/profile/actionTypes';
 import {
+  ArticleOwner,
   PartialRecord,
   RequestStatus,
 } from 'types';
@@ -32,8 +33,23 @@ export interface AccountInfo {
   avatarUrl?: string,
 }
 
+export interface NotificationInfo {
+  approve: boolean;
+  article: {
+    id: number;
+    owner: ArticleOwner;
+  };
+  id: number;
+  isOwnerViewed: boolean;
+  isRequesterViewed: boolean;
+  requester: {
+    id: number;
+  }
+}
+
 export interface ProfileState {
   accountInfo: AccountInfo,
   requester: AccountInfo,
+  notifications: NotificationInfo[],
   ui: PartialRecord<ProfileActionTypes, RequestStatus>;
 }
