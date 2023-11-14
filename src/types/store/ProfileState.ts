@@ -37,6 +37,8 @@ export interface NotificationInfo {
   approve: boolean;
   article: {
     id: number;
+    field: string;
+    title: string;
     owner: ArticleOwner;
   };
   id: number;
@@ -44,6 +46,8 @@ export interface NotificationInfo {
   isRequesterViewed: boolean;
   requester: {
     id: number;
+    fullName: string | null;
+    username: string | null;
   }
 }
 
