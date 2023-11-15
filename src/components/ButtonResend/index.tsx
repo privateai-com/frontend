@@ -5,6 +5,8 @@ import cx from 'classnames';
 
 import styles from './styles.module.scss';
 
+const secondsToWaiting = 60;
+
 interface ButtonResendProps {
   className?: string;
   onClick: () => void;
@@ -14,23 +16,25 @@ export const ButtonResend = memo<ButtonResendProps>(({
   className,
   onClick,
 }) => {
-  const [timer, setTimer] = useState(60);
-  const [disabled, setDisabled] = useState(false);
+  const [timer, setTimer] = useState(secondsToWaiting);
+  const [disabled, setDisabled] = useState(true);
   const intervalRef = useRef<number | null>(null);
 
   const startTimer = useCallback(() => {
     setDisabled(true);
-    let countdown = timer;
+    let countdown = secondsToWaiting;
     intervalRef.current = window.setInterval(() => {
       countdown -= 1;
-      setTimer(countdown);
-      if (countdown === 0) {
+      setTimer((state) => state - 1);
+      if (countdown <= 0) {
         clearInterval(intervalRef.current!); // Очищаем интервал
         intervalRef.current = null;
         setDisabled(false);
+        countdown = secondsToWaiting;
+        setTimer(0);
       }
     }, 1000);
-  }, [timer]);
+  }, []);
 
   useEffect(() => {
     startTimer();
@@ -45,24 +49,21 @@ export const ButtonResend = memo<ButtonResendProps>(({
 
   const handleResendClick = useCallback(() => {
     onClick();
+    setTimer(secondsToWaiting);
     startTimer();
   }, [onClick, startTimer]);
-
-  useEffect(() => {
-    if (timer === 0) {
-      setTimer(60);
-    }
-  }, [timer]);
 
   return (
     <button
       className={cx(styles.buttonResend_container, className)}
       onClick={handleResendClick}
       disabled={disabled}
+      type="button"
+      tabIndex={0}
     >
-      Resend the code (
-      {timer}
-      s)
+      Resend the code 
+      {' '}
+      {timer > 0 && `(${timer}s)` }
     </button>
   );
 });

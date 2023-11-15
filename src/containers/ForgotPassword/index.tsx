@@ -40,6 +40,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
 
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [otpError, setOpError] = useState('');
 
   const statusChangePassword = useSelector(authSelectors.getStatus(AuthActionTypes.ChangePassword));
   
@@ -82,7 +83,8 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
     onSuccess();
   }, [onSuccess]);
 
-  const newPasswordErrorCallback = () => {
+  const newPasswordErrorCallback = (error: AuthErrorTransformResult) => {
+    setOpError(error.fields['code'] ?? error.message);
     setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
   };
 
@@ -117,6 +119,9 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
           email={email}
           onBack={() => setCurrentStep(ForgotPasswordStep.ResetPasswordStep)}
           onConfirm={confirmEmailHandler}
+          onResend={() => resetPasswordHandler(email)}
+          error={otpError}
+          setError={setOpError}
         />
       )}
 

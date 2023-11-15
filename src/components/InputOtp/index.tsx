@@ -12,6 +12,7 @@ type InputOtpProps = {
   classNameLabel?: string;
   classNameInput?: string;
   error?: string | undefined;
+  isError?: boolean;
   onChangeValue: (otp: string) => void;
 };
 
@@ -24,10 +25,16 @@ export const InputOtp = memo<InputOtpProps>(({
   classNameContainer,
   classNameLabel,
   classNameInput,
+  isError,
 }) => (
   <div className={cx(styles.input_otp__container, classNameContainer)}>
     {label !== undefined && (
-      <div className={cx(styles.input_otp__label, classNameLabel)}>
+      <div className={cx(
+        styles.input_otp__label, 
+        classNameLabel, 
+        { [styles.labelError]: isError },
+      )}
+      >
         {label}
       </div>
     )}
@@ -35,6 +42,7 @@ export const InputOtp = memo<InputOtpProps>(({
       containerStyle={cx(styles.input_otp, classNameInput)}
       inputStyle={cx(styles.input_otp__input, {
         [styles.input_otp__input_error]: error,
+        [styles.input_otp__input_error]: isError,
       })}
       value={value}
       onChange={onChangeValue}

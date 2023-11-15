@@ -26,11 +26,14 @@ interface CreateAccountProps {
 
 export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
   const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  
   const status = useSelector(
     authSelectors.getStatus(AuthActionTypes.Registration),
   );
@@ -120,6 +123,10 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           value={email}
           onChangeValue={onEmailChange}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelForm}
+          classNameInput={styles.inputForm}
+          isClearable
+          isError={emailError !== ''}
         />
         <TextInput
           label="Password"
@@ -127,6 +134,9 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           onChangeValue={onPasswordChange}
           isPassword
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelForm}
+          classNameInput={styles.inputForm}
+          isError={passwordError !== ''}
         />
         <TextInput
           label="Confirm password"
@@ -134,6 +144,9 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           onChangeValue={onConfirmPasswordChange}
           isPassword
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelForm}
+          classNameInput={styles.inputForm}
+          isError={passwordError !== ''}
         />
         {passwordError || emailError ? (
           <div className={styles.error}>{passwordError || emailError}</div>

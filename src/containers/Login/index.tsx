@@ -8,18 +8,18 @@ import { errorsNotification, routes } from 'appConstants';
 import { AuthErrorTransformResult } from 'types';
 import { Sign } from './Sign';
 
-import styles from './styles.module.scss';
-
 export const Login = () => {
   const dispatch = useDispatch();
+  
   const [localEmail, setLocalEmail] = useState('');
-
   const [isShowForgotPassword, setIsShowForgotPassword] = useState(false);
+
   const [loginError, setLoginError] = useState({
     emailError: '',
     passwordError: '',
   });
   const [walletError, setWalletError] = useState('');
+
   const router = useRouter();
 
   const successCallback = useCallback(() => {
@@ -65,7 +65,7 @@ export const Login = () => {
   }, [dispatch, successCallback, walletErrorCallback]);
 
   return (
-    <div className={styles.login__container}>
+    <>
       {isShowForgotPassword && (
         <ForgotPassword
           onBack={() => setIsShowForgotPassword(false)}
@@ -83,6 +83,6 @@ export const Login = () => {
           setEmail={setLocalEmail}
         />
       )}
-    </div>
+    </>
   );
 };

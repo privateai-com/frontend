@@ -1,6 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 
-import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
+import { responseExceptionToFormError } from 'utils';
 import { AuthState, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
@@ -36,7 +36,7 @@ export function* authChangePasswordSaga({
     successCallback();
   } catch (e) {
     errorCallback(responseExceptionToFormError(e));
-    sagaExceptionHandler(e);
+    // sagaExceptionHandler(e);
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }
 }

@@ -18,13 +18,17 @@ interface ResetPasswordProps {
   setEmailError: (email: string) => void;
 }
 
+const msgError = `
+Entered email address is not attached to any account. 
+Please check it and try once more.`;
+
 export const ResetPassword: FC<ResetPasswordProps> = ({
   onConfirm,
   onBack,
   emailError,
   setEmailError,
 }) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('chybatron@gmail.com');
   const isLoading =
     useSelector(authSelectors.getStatus(AuthActionTypes.ConfirmCode)) ===
     RequestStatus.REQUEST;
@@ -32,6 +36,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
 
   const onConfirmClick = useCallback(() => {
     const currentEmailError = emailValidator(email);
+
     setEmailError(currentEmailError);
 
     const isNoError = !currentEmailError && !emailError && !!email;
@@ -63,8 +68,13 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
           value={email}
           onChangeValue={onEmailChange}
           classNameContainer={styles.input__container}
-          error={emailError}
+          isError={emailError !== ''}
         />
+        {emailError !== '' && (
+          <div className={styles.error}>
+            {emailError.includes('Email not found!') ? msgError : emailError}
+          </div>
+        )}
         <Button
           onClick={onConfirmClick}
           className={styles.button}

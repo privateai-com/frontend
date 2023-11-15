@@ -3,13 +3,19 @@
 
 .authWrapper_container {
   position: relative;
-  box-shadow: -10px 56px 140px 0px rgba(143, 155, 186, 0.2);
-  border-radius: 16px;
+  
   background-color: $color-white;
+  box-shadow: -10px 56px 140px 0px rgba(143, 155, 186, 0.2);
+  backdrop-filter: blur(9.5px);
+  
+  border-radius: 16px;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   padding: 25px 40px;
+  
   max-width: 650px;
   width: 100%;
 

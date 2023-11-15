@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { sagaExceptionHandler } from 'utils';
+// import { sagaExceptionHandler } from 'utils';
 import { RequestStatus, UserResponse } from 'types';
 import { ApiEndpoint, errorsNotification } from 'appConstants';
 import { signPersonalEvm, callApi } from 'api';
@@ -11,7 +11,7 @@ import { authLoginWallet, authSetState, authSetStatus } from '../actionCreators'
 
 const message = 'Connect Archon!';
 
-export function* authloginWalletSaga({
+export function* authLoginWalletSaga({
   type,
   payload: { successCallback, errorCallback },
 }: ReturnType<typeof authLoginWallet>) {
@@ -57,8 +57,7 @@ export function* authloginWalletSaga({
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
     errorCallback(errorsNotification.walletNotAttachedError);
-
-    sagaExceptionHandler(e);
+    // sagaExceptionHandler(e);
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }
 }

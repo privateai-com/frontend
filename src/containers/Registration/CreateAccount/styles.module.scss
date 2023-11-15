@@ -21,8 +21,11 @@
 	}
 
 	h4 {
-		color: $color-grey;
+		color: $color-grey4;
 		margin-bottom: 45px;
+		font-weight: 700;
+		line-height: 32px; /* 160% */
+		font-size: 20px;
 
 		@include desktop1440 {
 			margin-bottom: 20px;
@@ -40,10 +43,22 @@
 	p {
 		text-align: center;
 	}
+	.labelForm {
+		@include font-size();
+		font-weight: 500;
+	}
+
+	.inputForm {
+		@include font-size();
+		font-weight: 500;
+	}
 }
+
 
 .input__container {
 	margin-bottom: 22px;
+	color: $color-grey4 !important;	
+	font-size: 20px;
 
 	@include desktop1440 {
 		margin-bottom: 8px;
@@ -77,7 +92,7 @@
 
 .description {
 	margin-bottom: 48px;
-
+	font-weight: 500;
 	@include font-size();
 
 	@include desktop1440 {
@@ -120,6 +135,7 @@
 	display: flex;
 	gap: 8px;
 	margin-bottom: 36px;
+	font-weight: 400;
 
 	@include desktop1440 {
 		margin-bottom: 16px;
@@ -137,5 +153,9 @@
 .error {
 	color: $color-red !important;
 	text-align: center;
-	margin-bottom: 20px;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	margin-bottom: 16px;
+	margin-top: -5px;
 }

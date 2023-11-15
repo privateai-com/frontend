@@ -118,6 +118,7 @@ export const Sign: FC<SignProps> = ({
           value={email}
           onChangeValue={onEmailChange}
           classNameContainer={styles.input__container}
+          isError={emailError !== ''}
         />
         <TextInput
           label="Password"
@@ -125,6 +126,7 @@ export const Sign: FC<SignProps> = ({
           onChangeValue={onPasswordChange}
           isPassword
           classNameContainer={styles.input__container}
+          isError={passwordError !== ''}
         />
         <Typography
           type="p"

@@ -30,6 +30,7 @@
 	width: 100%;
 	margin-bottom: 50px;
 	text-align: center;
+	font-weight: 500;
 
 	@include mobile {
 		margin-bottom: 32px;
@@ -38,16 +39,17 @@
 }
 
 .input__container {
-	margin-bottom: 50px;
+	// margin-bottom: 50px;
 
 	@include mobile {
-		margin-bottom: 22px;
+		// margin-bottom: 22px;
 	}
 }
 
 .button {
 	width: 100%;
 	max-width: 280px;
+	margin-top: 20px;
 
 	@include desktop1440 {
 		max-width: 190px;
@@ -66,4 +68,12 @@
 .input__container,
 .button {
 	@include font-size
+}
+
+.error {
+	color: $color-red;
+	margin-top: 7px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 500;
 }

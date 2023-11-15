@@ -52,13 +52,16 @@
 	}
 
 	@include desktop1024 {
-		margin: 56px 0 60px;
+		margin: 56px 0 0px;
 		padding: 12px 40px;
 	}
 
 	@include mobile {
-		margin: 25px 0 34px;
+		margin: 25px 0 0px;
 		padding: 8px 27px;
+
+		width: 165px;
+		height: 30px;
 	}
 
 	&_margin {
@@ -70,33 +73,44 @@
 	}
 }
 
-.otp_container {
-	max-width: 375px;
-	margin-bottom: 15px;
+.containerInputs {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-	@include desktop1440 {
-		max-width: 290px;
-	}
-
-	@include desktop1024 {
-		max-width: 290px;
-	}
+	min-width: 290px;
 
 	@include mobile {
-		max-width: 210px;
-		margin-bottom: 10px;
+		min-width: 210px;
+	}
+
+	.otp_container {
+		max-width: 375px;
+		margin-bottom: 15px;
+	
+		@include desktop1440 {
+			max-width: 290px;
+		}
+	
+		@include desktop1024 {
+			max-width: 290px;
+		}
+	
+		@include mobile {
+			max-width: 210px;
+			margin-bottom: 10px;
+		}
+	}
+	
+	.resender {
+		align-self: flex-start;
 	}
 }
 
-.resender {
-	align-self: flex-start;
-	margin-left: 28px;
-
-	@include desktop1024 {
-		margin-left: 50px;
-	}
-
-	@include mobile {
-		margin-left: 45px;
-	}
+.error {
+	color: $color-error;
+	margin-top: 20px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 500;
 }

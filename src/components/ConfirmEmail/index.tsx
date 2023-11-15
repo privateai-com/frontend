@@ -12,6 +12,8 @@ import cx from 'classnames';
 
 import styles from './styles.module.scss';
 
+const msgError = 'Entered verification code is wrong. Please check it and try one more time.';
+
 interface ConfirmEmailProps {
   email: string;
   error?: string;
@@ -23,14 +25,14 @@ interface ConfirmEmailProps {
 
 export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   email,
-  error,
+  error = '',
   setError,
   onBack,
   onConfirm,
   onResend,
 }) => {
   const [otp, setOtp] = useState('');
-  const [isShowResend, setIsShowResend] = useState(false);
+  const [isShowResend, setIsShowResend] = useState(true);
 
   const isNotError = !error && otp;
 
@@ -69,25 +71,35 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
           <br />
           <strong>{` ${email}`}</strong>
         </Typography>
-        <InputOtp
-          value={otp}
-          onChangeValue={onOtpChange}
-          label="Verification code"
-          error={error}
-          classNameContainer={styles.otp_container}
-        />
 
-        {isShowResend && (
-          <ButtonResend
-            className={styles.resender}
-            onClick={onResendCodeClick}
+        <div className={styles.containerInputs}>
+          <InputOtp
+            value={otp}
+            onChangeValue={onOtpChange}
+            label="Verification code"
+            classNameContainer={styles.otp_container}
+            isError={error !== ''}
           />
+
+          {isShowResend && (
+            <ButtonResend
+              className={styles.resender}
+              onClick={onResendCodeClick}
+            />
+          )}
+        </div>
+
+        {error !== '' && (
+          <div className={styles.error}>
+            {error.includes('Verification code incorrect!') ? msgError : error}
+          </div>
         )}
 
         <Button
           onClick={onConfirmClick}
           className={cx(styles.button, { [styles.button_margin]: error })}
           type="submit"
+          disabled={!isNotError || otp.length < 6}
         >
           Confirm
         </Button>
