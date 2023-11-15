@@ -46,6 +46,8 @@
 
     &_error {
       border: 1px solid $color-red;
+      box-shadow: 0px 6px 16px 0px rgba(0, 222, 163, 0.06);
+      backdrop-filter: blur(7.5px);
     }
   }
 
@@ -60,6 +62,7 @@
 .input_otp__label {
   margin-bottom: 8px;
   color: $color-grey;
+  font-weight: 500;
 
   font-size: 20px;
   line-height: 24px;
@@ -79,4 +82,8 @@
     font-size: 14px;
     line-height: 17px;
   }
+}
+
+.labelError {
+  color: $color-error !important;
 }

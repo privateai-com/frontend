@@ -16,7 +16,7 @@
       display: flex;
       flex-direction: row;
       letter-spacing: 0;
-      color: $color-grey;
+      color: $color-grey4;	
 
       font-size: 20px;
       line-height: 24px;
@@ -82,14 +82,14 @@
     input {
       grid-area: input;
 
-      color: $color-grey;
+      color: $color-grey4;	
       align-items: center;
       width: 100%;
       height: 100%;
 
       border: 0;
       outline: 0;
-      padding: 0px 16px 0px 16px;
+      padding: 0px 15px 0px 15px;
 
       font-size: 20px;
       line-height: 24px;
@@ -156,6 +156,7 @@
       border: 1px solid $color-red;
     }
 
+
     & .search_icon {
       margin-left: 16px;
       width: 24px;
@@ -209,4 +210,16 @@
     }
   } 
   
+}
+
+.errorInput {
+  border: 1px solid $color-error !important;
+}
+
+.errorLabel {
+  color: $color-error !important; 
+}
+
+.errorCross {
+  background-color: $color-error !important;
 }

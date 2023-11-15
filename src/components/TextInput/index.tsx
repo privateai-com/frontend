@@ -44,6 +44,7 @@ type TextInputProps = {
   isTextOnly?: boolean;
   isNumberOnly?: boolean;
   isRequired?: boolean;
+  isError?: boolean;
   tooltipId?: string;
   error?: string | undefined;
   onBlur?: ChangeEventHandler<HTMLInputElement>;
@@ -70,6 +71,7 @@ export const TextInput = memo<TextInputProps>(({
   disabled = false,
   onChangeValue,
   placeholder = '',
+  isError,
   isClearable,
   isNumberOnly,
   isPassword,
@@ -137,7 +139,12 @@ export const TextInput = memo<TextInputProps>(({
           tabIndex={-1}
         >
           {label !== undefined && (
-            <div className={cx(styles.input__label, classNameLabel)}>
+            <div className={cx(
+              styles.input__label, 
+              { [styles.errorLabel]: isError },
+              classNameLabel, 
+            )}
+            >
               {label}
               {isRequired && <span className={styles.required}>*</span>}
             </div>
@@ -150,6 +157,7 @@ export const TextInput = memo<TextInputProps>(({
       <div
         className={cx(styles.input__box, classNameInputBox, {
           [styles.input__box_error]: error,
+          [styles.errorInput]: isError,
         })}
       >
         {isSearch && (
@@ -179,15 +187,19 @@ export const TextInput = memo<TextInputProps>(({
             image={isPasswordVisible ? eyeCrossedIcon : eyeIcon}
             className={cx(styles.input_icon)}
             onClick={onPasswordToggleClick}
+            width={20}
+            height={20}
           />
         )}
         {isClearable && !!value && (
           <button
             className={styles.input_btn_clear}
             onClick={onClearClick}
+            type="button"
+            tabIndex={0}
           >
-            <div className={styles.input_cross} />
-            <div className={styles.input_cross} />
+            <div className={cx(styles.input_cross, { [styles.errorCross]: isError })} />
+            <div className={cx(styles.input_cross, { [styles.errorCross]: isError })} />
           </button>
         )}
         {suffix !== undefined && (

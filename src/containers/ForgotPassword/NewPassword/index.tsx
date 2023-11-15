@@ -14,11 +14,12 @@ interface NewPasswordProps {
 
 export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  
+  const [passwordError, setPasswordError] = useState('');
 
   const isNotError =
-    !passwordError &&
+    passwordError === '' &&
     password &&
     passwordConfirm &&
     password === passwordConfirm;
@@ -27,12 +28,15 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
 
-    const isError = currentPasswordError !== '' && passwordError !== '' && password !== '';
+    const isError = passwordError !== '' 
+      || password === '' 
+      || currentPasswordError !== '' 
+      || password !== passwordConfirm;
 
     if (!isError) {
       onConfirm(password);
     }
-  }, [passwordError, onConfirm, password]);
+  }, [password, passwordError, passwordConfirm, onConfirm]);
 
   const onPasswordChange = useCallback((value: string) => {
     setPasswordError('');
@@ -59,7 +63,7 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
           onChangeValue={onPasswordChange}
           isPassword
           classNameContainer={styles.input__container}
-          error={passwordError}
+          isError={passwordError !== ''}
         />
         <TextInput
           label="Confirm password"
@@ -67,7 +71,13 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
           onChangeValue={onConfirmPasswordChange}
           isPassword
           classNameContainer={styles.input__container}
+          isError={passwordError !== ''}
         />
+        {passwordError !== '' && (
+          <div className={styles.error}>
+            {passwordError}
+          </div>
+        )}
         <Button
           onClick={onConfirmClick}
           className={styles.button}

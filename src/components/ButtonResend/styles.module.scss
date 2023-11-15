@@ -9,4 +9,9 @@
   &:hover {
     opacity: .7;
   }
+  &:disabled {
+    // opacity: 0.3;
+    color: gray;
+    cursor: no-drop;
+  } 
 }
