@@ -1,4 +1,6 @@
-import { FC, useCallback, useState } from 'react';
+import {
+  FC, FormEvent, useCallback, useState, 
+} from 'react';
 
 import {
   AuthWrapper,
@@ -36,7 +38,9 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 
   const isNotError = !error && otp;
 
-  const onConfirmClick = useCallback(() => {
+  const onConfirmClick = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const currentOtpError = otpValidator(otp);
     if (setError) setError(currentOtpError);
     setIsShowResend(true);
@@ -62,7 +66,7 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
 
   return (
     <AuthWrapper onClickBack={onBack}>
-      <form className={styles.confirmEmail__container}>
+      <form className={styles.confirmEmail__container} onSubmit={onConfirmClick}>
         <Typography
           type="p"
           className={styles.description}
@@ -96,7 +100,6 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
         )}
 
         <Button
-          onClick={onConfirmClick}
           className={cx(styles.button, { [styles.button_margin]: error })}
           type="submit"
           disabled={!isNotError || otp.length < 6}
