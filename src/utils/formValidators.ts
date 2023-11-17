@@ -8,7 +8,7 @@ export const passwordValidator = (password: string) => {
     return 'Password min 8 characters';
   }
   if (!new RegExp(passwordRegex).test(password)) {
-    return 'Password incorrect';
+    return 'Your password must be at least 8 characters long, be of mixed case and also contain at least one digit and at least one symbol.';
   }
   return '';
 };

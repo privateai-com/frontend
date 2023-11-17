@@ -28,7 +28,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
   emailError,
   setEmailError,
 }) => {
-  const [email, setEmail] = useState('chybatron@gmail.com');
+  const [email, setEmail] = useState('');
   const isLoading =
     useSelector(authSelectors.getStatus(AuthActionTypes.ConfirmCode)) ===
     RequestStatus.REQUEST;
