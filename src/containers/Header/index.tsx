@@ -11,7 +11,12 @@ import {
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
 import { profileSelectors } from 'store/profile/selectors';
-import { profileNotification, profileGetProfile, profileNotificationMarkAsView } from 'store/profile/actionCreators';
+import {
+  profileNotification,
+  profileGetProfile,
+  profileNotificationMarkAsView,
+  profileNotificationSubscribe,
+} from 'store/profile/actionCreators';
 
 import { Notification } from './Notification';
 
@@ -34,7 +39,8 @@ export const Header = () => {
   
   const username = useSelector(profileSelectors.getPropAccountInfo('username'));
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
-  // const notifications = useSelector(profileSelectors.getProp('notifications'));
+  const userId = useSelector(profileSelectors.getPropAccountInfo('id'));
+  const notifications = useSelector(profileSelectors.getProp('notifications'));
 
   const onNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
@@ -52,6 +58,12 @@ export const Header = () => {
     dispatch(profileGetProfile());
     dispatch(profileNotification());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(profileNotificationSubscribe({ userId }));
+    }
+  }, [dispatch, userId]);
 
   const onDeleteNotification = useCallback((requestId: number) => {
     dispatch(profileNotificationMarkAsView({ requestId }));
@@ -102,7 +114,7 @@ export const Header = () => {
         onClick={onRedirectClick}
       />
       <ButtonIcon
-        className={cx(styles.button, { [styles.active]: true })}
+        className={cx(styles.button, { [styles.active]: !!notifications.length })}
         image={ringIcon}
         onClick={onNotificationClick}
       />
@@ -114,6 +126,7 @@ export const Header = () => {
       <Notification
         isOpen={isNotificationOpen}
         onDeleteNotification={onDeleteNotification}
+        notifications={notifications}
       />
     </header>
   );

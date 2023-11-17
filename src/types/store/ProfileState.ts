@@ -33,15 +33,23 @@ export interface AccountInfo {
   avatarUrl?: string,
 }
 
+export enum NotificationType {
+  GrantAccess = 'Grant access',
+  PendingAccess = 'Pending access',
+  UnknownType = 'Unknown type',
+}
+
+export interface NotificationArticle {
+  id: number;
+  title: string;
+  owner: ArticleOwner;
+}
+
 export interface NotificationInfo {
   approve: boolean;
-  article: {
-    id: number;
-    field: string;
-    title: string;
-    owner: ArticleOwner;
-  };
+  article: NotificationArticle;
   id: number;
+  createdAt: string;
   isOwnerViewed: boolean;
   isRequesterViewed: boolean;
   requester: {
@@ -49,6 +57,7 @@ export interface NotificationInfo {
     fullName: string | null;
     username: string | null;
   }
+  type: NotificationType;
 }
 
 export interface ProfileState {

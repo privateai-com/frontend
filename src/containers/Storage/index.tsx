@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { Button, Typography } from 'components';
-
 import { useScreenWidth } from 'hooks';
-import { ScreenWidth } from 'appConstants';
-import styles from './styles.module.scss';
+import { ScreenWidth, queryTab } from 'appConstants';
 import { ArticlesTab } from './ArticlesTab';
 import { MyRequests } from '../MyRequests';
 import { UploadButton } from './uploadButton';
+
+import styles from './styles.module.scss';
 
 enum MyStorageTab {
   articles,
@@ -17,6 +18,14 @@ enum MyStorageTab {
 export const Storage = () => {
   const [tab, setTab] = useState(MyStorageTab.articles);
   const isMobile = useScreenWidth(ScreenWidth.mobile);
+  const router = useRouter();
+  
+  useEffect(() => {
+    const { storageTab } = router.query;
+    if (typeof storageTab === 'string' && storageTab === queryTab.storageRequestedData) {
+      setTab(MyStorageTab.requested);
+    }
+  }, [router.query]);
 
   return (
     <div className={styles.storage__container}>
