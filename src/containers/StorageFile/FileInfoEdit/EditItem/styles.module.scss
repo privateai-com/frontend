@@ -3,7 +3,11 @@
 
 .edit_item__container {
 	display: flex;
-	gap: 16px;
+	gap: 6px;
+
+	@include media-breakpoint-up(lg) {
+		gap: 16px;
+	}
 
 	span {
 		font-weight: 700;
@@ -16,14 +20,27 @@
 .edit_item_inputs {
 	display: flex;
 	flex-wrap: wrap;
-	row-gap: 15px;
+	row-gap: 8px;
 	column-gap: 22px;
+	width: 100%;
+
+	@include media-breakpoint-up(lg) {
+		row-gap: 15px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		row-gap: 10px;
+	}
 }
 
 .edit_item_input_container {
 	.edit_item_inputBox {
 		border: 1px solid $color-green;
 		height: 40px;
+
+		@include media-breakpoint-up(xl) {
+			height: 30px;
+		}
 	
 		input {
 			border-radius: 8px;
