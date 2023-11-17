@@ -3,12 +3,24 @@
 
 .storageFile__file {
 	grid-area: info;
-	margin-top: 20px;
-	margin-bottom: 30px;
+	margin-top: 10px;
 	height: 92%;
 
+	@include media-breakpoint-up(fhd) {
+		margin-top: 20px;
+	}
+
 	h1 {
-		margin-bottom: 20px;
+		@include adaptive-font-size(18, 32, 32, 32, 38);
+		margin-bottom: 16px;
+
+		@include media-breakpoint-up(md) {
+			margin-bottom: 26px;
+		}
+
+		@include media-breakpoint-up(xl) {
+			margin-bottom: 20px;
+		}
 	}
 }
 
@@ -22,6 +34,20 @@
 
 	&:nth-child(3) {
 		justify-content: space-between;
+	}
+
+	&:nth-child(5) {
+		flex-wrap: wrap;
+		align-items: flex-start;
+
+		@include media-breakpoint-up(md) {
+			flex-wrap: nowrap;
+			margin-top: 16px;
+		}
+
+		@include media-breakpoint-up(xxl) {
+			margin-top: 0;
+		}
 	}
 
 	a, span {
@@ -43,58 +69,78 @@
 
 .storageFile__wrapper {
 	position: relative;
-	padding: 10px 15px;
+	padding: 10px 15px 16px;
 	background-color: $color-white;
 	box-shadow: -10px 56px 140px 0px #8F9BBA33;
 	border-radius: 16px;
 	display: flex;
 	flex-direction: column;
-	gap: 15px;
+	row-gap: 10px;
+	margin-bottom: 30px;
+
+	@include media-breakpoint-up(md) {
+		padding: 16px 30px 20px;
+	}
 
 	@include media-breakpoint-up(lg) {
 		padding: 30px;
 	}
 
 	@include media-breakpoint-up(xl) {
-		padding: 20px;
+		padding: 20px 30px;
+		margin-bottom: 0;
+	}
+
+	@include media-breakpoint-up(xxl) {
 		height: 94%;
 	}
 
 	@include media-breakpoint-up(fhd) {
-		padding: 44px 40px;
+		padding: 44px 40px 20px;
+		row-gap: 24px;
 	}
 }
 
 .storageFile__edit {
 	position: relative;
-	padding: 20px;
+	padding: 8px 15px;
 	border: 1px solid $color-green;
 	border-radius: 16px;
 	max-height: 376px;
 	overflow-y: scroll;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 8px;
 	scroll-behavior: smooth;
 
-	@include media-breakpoint-up(lg) {
+	@include media-breakpoint-up(md) {
 		max-height: 240px;
 	}
 
+	@include media-breakpoint-up(lg) {
+		padding: 20px;
+		gap: 20px;
+	}
+
 	@include media-breakpoint-up(xl) {
-		max-height: 220px;
+		max-height: 300px;
+		padding: 10px;
 	}
 
 	@include media-breakpoint-up(fhd) {
-		max-height: 405px;
+		max-height: 450px;
 	}
 
 	@include greenScrollbar();
 
 	&_item {
 		&:not(:last-of-type) {
-			padding-bottom: 20px;
+			padding-bottom: 8px;
 			border-bottom: 2px solid $color-grey2;
+
+			@include media-breakpoint-up(lg) {
+				padding-bottom: 20px;
+			}
 		}
 	}
 }
@@ -108,32 +154,25 @@
 	grid-area: buttons;
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap;
 	gap: 2px;
 	margin-top: auto;
 	height: fit-content;
 	row-gap: 10px;
-	padding-top: 10px;
+	column-gap: 15px;
+	padding-top: 20px;
+
+	@include media-breakpoint-up(lg) {
+		padding-top: 10px;
+		// flex-wrap: wrap;
+		column-gap: 20px;
+	}
 
 	& > {
 		button {
 			width: 100%;
-			max-width: 105px;
 			white-space: break-spaces;
 			padding: 5px 20px;
 			@include font-20();
-
-			@include media-breakpoint-up(lg) {
-				max-width: 160px;
-			}
-		
-			@include media-breakpoint-up(xl) {
-				max-width: 160px;
-			}
-		
-			@include media-breakpoint-up(fhd) {
-				max-width: 230px;
-			}
 		}
 	}
 }
@@ -150,6 +189,10 @@
 }
 
 .storageFile__download_xlsx {
-	margin-left: auto;
 	padding: 10px;
+	@include font-20();
+
+	@include media-breakpoint-up(md) {
+		margin-left: auto;
+	}
 }
