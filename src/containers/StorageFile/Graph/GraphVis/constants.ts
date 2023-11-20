@@ -71,16 +71,16 @@ export const options = {
       x: 0,
       y: 0,
     },
-    scaling: {
-      min: 10,
-      max: 30,
-      label: {
-        min: 8,
-        max: 30,
-        drawThreshold: 12,
-        maxVisible: 20,
-      },
-    },
+    // scaling: {
+    //   // min: 10,
+    //   // max: 30,
+    //   label: {
+    //     // min: 8,
+    //     // max: 30,
+    //     drawThreshold: 12,
+    //     maxVisible: 20,
+    //   },
+    // },
     // ctxRenderer: ({
     //   ctx, id, x, y, state: { selected, hover }, style, label,
     // }) => {
