@@ -30,6 +30,7 @@ export interface AccountInfo {
   position?: string,
   researchFields?: string,
   avatarUrl?: string,
+  userFilledAllInfo?: boolean,
 }
 
 export interface ProfileState {

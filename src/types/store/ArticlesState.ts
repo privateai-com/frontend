@@ -58,4 +58,5 @@ export type Article = {
   requests: ArticleAccess[];
   status?: string;
   topCoreEntities?: string;
+  isGraphDifferent?: boolean;
 };

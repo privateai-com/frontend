@@ -18,25 +18,17 @@ import { EditItem } from './EditItem';
 import { exportToExcel } from './utils';
 
 import styles from './styles.module.scss';
-
-// const newEdge = {
-//   head: 'New',
-//   tail: '',
-//   type: '',
-//   meta: {
-//     spans: [[]],
-//   },
-// };
+import { DeleteBtn } from '../DeleteBtn';
 
 interface FileInfoProps {
   graphData: GraphResponseType[];
-  // setGraphData: (edges: GraphResponseType[]) => void;
   onSave: () => void;
   onRevertToLastSaved: () => void;
   onRevertToLastPublished: () => void;
   article?: Article;
   classNameFile?: string;
   classNameButtons?: string;
+  isOwner: boolean;
 }
 
 export const FileInfoEdit: FC<FileInfoProps> = memo(({
@@ -47,17 +39,14 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
   article,
   classNameFile,
   classNameButtons,
+  isOwner,
 }) => {
   const storageFileItemRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const statusUpdateArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.UpdateArticle),
   );
-  // const [lastEdgeFields, setLastEdgeFields] = useState({
-  //   head: '',
-  //   type: '',
-  //   tail: '',
-  // });
+
   const [nameFile, setNameFile] = useState('');
   const [fieldFile, setFieldFile] = useState('');
 
@@ -101,48 +90,15 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
     }
   }, [article]);
   
-  // const lastEdgeAvaliable = lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail;
-
-  // const updateGraphItem = (index: number, updatedItem: GraphResponseType) => {
-  //   const updatedGraphItems = [...edges];
-  //   updatedGraphItems[index] = updatedItem;
-  //   setEdges(updatedGraphItems);
-  // };
-
-  // useEffect(() => {
-  //   const lastItem = edges[edges.length - 1];
-  //   if (lastItem) {
-  //     setLastEdgeFields({
-  //       head: lastItem.head,
-  //       type: lastItem.type,
-  //       tail: lastItem.tail,
-  //     });
-  //   }
-  // }, [edges]);
-
-  // const addNewEdgeClick = useCallback(() => {
-  //   if (lastEdgeFields.head && lastEdgeFields.type && lastEdgeFields.tail) {
-  //     setEdges([...edges, newEdge]);
-  //     if (storageFileItemRef.current) {
-  //       setTimeout(() => {
-  //         if (storageFileItemRef.current) {
-  //           storageFileItemRef.current.scrollTop = storageFileItemRef.current.scrollHeight;
-  //         }
-  //       }, 100);
-  //     }
-  //   }
-  // }, [edges, lastEdgeFields.head, lastEdgeFields.tail, lastEdgeFields.type, setEdges]);
-
-  // const onDelete = useCallback((indexToDelete: number) => {
-  //   const updatedGraphItems = [...edges];
-  //   updatedGraphItems.splice(indexToDelete, 1);
-  //   setEdges(updatedGraphItems);
-  // }, [edges, setEdges]);
-
   return (
     <>
       <div className={cx(styles.storageFile__file, classNameFile)}>
-        <Typography type="h1">File information</Typography>
+        <div className={styles.storageFile__data_head}>
+          <Typography type="h1">File information</Typography>
+          {(isOwner && article?.id) && (
+            <DeleteBtn className={styles.storageFile__data_btn} articleId={article?.id} />
+          )}
+        </div>
         <div className={styles.storageFile__wrapper}>
           <div className={styles.storageFile__item}>
             File name:

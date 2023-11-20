@@ -92,6 +92,7 @@ export const articlesGetAll = (
 
 export const articlesGetOneArticle = (payload: {
   articleId: number,
+  errorCallback?: () => void,
 }) => ({
   type: ArticlesActionTypes.GetOneArticle,
   payload,

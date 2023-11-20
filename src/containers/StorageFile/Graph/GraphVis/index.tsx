@@ -81,21 +81,6 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
   }, [edges, nodes, setGraphData]);
 
-  // const handleEditEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
-  //   console.log(data);
-  //   // setEditingNodeId(data.id as string);
-  //   // setShowPopup(true);
-  //   // const inputElement = inputRef.current;
-  //   // if (inputElement) {
-  //   //   inputElement.value = data.label || '';
-  //   //   setTimeout(() => {
-  //   //     inputElement.focus();
-  //   //     inputElement.select();
-  //   //   }, 10);
-  //   // }
-  //   callback(data);
-  // }, []);
-
   const handleDeleteEdge = useCallback((data: Data, callback: (data: Data) => void) => {
     if (Array.isArray(data?.edges) && data.edges.length === 1) {
       const edgeIdToDelete = data.edges[0];
