@@ -34,7 +34,7 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
   pagination,
   itemsMobile,
 }) => {
-  const isMobile = useScreenWidth(ScreenWidth.mobile);
+  const isMobile = useScreenWidth(ScreenWidth.bigMobile);
 
   if (isMobile) {
     return(

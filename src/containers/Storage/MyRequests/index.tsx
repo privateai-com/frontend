@@ -4,8 +4,9 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  AdaptivePaginationTable, ButtonIcon, RequestCell, 
+  AdaptivePaginationTable, ButtonIcon, 
 } from 'components';
+import { RequestCell } from 'containers';
 import { itemsOnPageQuantity } from 'appConstants';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
@@ -32,7 +33,7 @@ const itemsMobile = [
           <RequestCell
             className={styles.requesterMobile}
             profileId={ownerId}
-            isHideButoonsRequester
+            isHideButtonsRequester
           >
             {owner}
           </RequestCell>
@@ -87,20 +88,20 @@ export const MyRequests = () => {
     onToggleDirection: handleToggleDirection,
   });
 
-  const requestsToMe = useSelector(requestSelectors.getProp('myRequests'));
+  const myRequests = useSelector(requestSelectors.getProp('myRequests'));
   const total = useSelector(requestSelectors.getProp('total'));
   const statusGetMyRequests = useSelector(
     requestSelectors.getStatus(RequestActionTypes.GetMyRequests),
   );
 
-  const content = useMemo(() => requestsToMe.map((item) => {
+  const content = useMemo(() => myRequests.map((item) => {
     const status = 'Access request pending';
     return {
       id: item.id,
       articleId: item.article.id, 
       ownerId: item.article.owner.id,
       title: item.article.title,
-      core: item.article.field,
+      core: item.article.topCoreEntities ?? '-',
       owner: normalizeUserInfo(item.article.owner.fullName, item.article.owner.username) || `Archonaut#${item.article.owner.id}`,
       isOwnerViewed: item.isOwnerViewed, 
       approve: item.approve,
@@ -122,7 +123,7 @@ export const MyRequests = () => {
         </div>
       ),
     };
-  }), [requestsToMe]);
+  }), [myRequests]);
 
   useEffect(() => {
     const payload = {
@@ -141,14 +142,12 @@ export const MyRequests = () => {
   }), [statusGetMyRequests, total]);
   
   return (
-    <div>
-      <AdaptivePaginationTable
-        columns={columns}
-        content={content}
-        classNameTableContainer={styles.table}
-        itemsMobile={itemsMobile}
-        pagination={pagination}
-      />
-    </div>
+    <AdaptivePaginationTable
+      columns={columns}
+      content={content}
+      classNameTableContainer={styles.table}
+      itemsMobile={itemsMobile}
+      pagination={pagination}
+    />
   );
 };

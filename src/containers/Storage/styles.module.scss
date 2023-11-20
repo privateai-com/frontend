@@ -26,15 +26,22 @@
 
 .storage__head_buttons {
 	display: flex;
-
+	height: 40px;
 	@include mobile {
 		width: 100%;
 	}
 
+	@include desktop1440 {
+		height: 30px;
+	}
+
 	button {
-		
+		width: 200px;
+		font-size: 20px;
+
 		@include desktop1440 {
 			width: 192.5px;
+			font-size: 16px;
 		}
 
 		@include desktop1024 {
@@ -136,4 +143,5 @@
 
 .secondary {
 	color: $color-grey !important;
+	border: none !important;
 }

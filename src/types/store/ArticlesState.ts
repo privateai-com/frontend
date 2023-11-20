@@ -57,5 +57,5 @@ export type Article = {
   uploadProgress: number;
   requests: ArticleAccess[];
   status?: string;
-  core: string;
+  topCoreEntities?: string;
 };

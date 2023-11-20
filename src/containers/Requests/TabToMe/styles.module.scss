@@ -11,14 +11,6 @@ $border-radius: 8px;
   }
 
   tbody {
-    height: calc(100vh - 332px);
-    table-layout: fixed;
-    display: block;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    @include greenScrollbar();
-
     tr {
       min-height: 73px;
 

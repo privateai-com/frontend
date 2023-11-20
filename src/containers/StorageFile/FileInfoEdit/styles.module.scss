@@ -30,7 +30,7 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	@include font-20();
+	// @include font-20();
 
 	&:nth-child(3) {
 		justify-content: space-between;
@@ -52,7 +52,7 @@
 
 	a, span {
 		font-weight: 500;
-		@include font-20();
+		// @include font-20();
 	}
 }
 
@@ -172,7 +172,19 @@
 			width: 100%;
 			white-space: break-spaces;
 			padding: 5px 20px;
-			@include font-20();
+			// @include font-20();
+
+			@include media-breakpoint-up(lg) {
+				max-width: 160px;
+			}
+		
+			@include media-breakpoint-up(xl) {
+				max-width: 160px;
+			}
+		
+			@include media-breakpoint-up(fhd) {
+				max-width: 230px;
+			}
 		}
 	}
 }

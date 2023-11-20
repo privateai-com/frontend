@@ -3,13 +3,15 @@ import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
 import { AccountInfo, RequestStatus } from 'types';
 import { sagaExceptionHandler } from 'utils';
-import { profileGetProfileUser, profileSetStatus, profileSetState } from 'store/profile/actionCreators';
+import { 
+  profileGetProfileUser, profileSetStateRequester, profileSetStatusRequester,
+} from 'store/profile/actionCreators';
 
 export function* profileGetProfileUserSaga({
-  type, payload,
+  payload,
 }: ReturnType<typeof profileGetProfileUser>) {
   try {
-    yield put(profileSetStatus({ type, status: RequestStatus.REQUEST }));
+    yield put(profileSetStatusRequester({ id: payload.profileId, status: RequestStatus.REQUEST }));
 
     const endpoint = `${ApiEndpoint.ProfileGetUser}?profileId=${payload.profileId}`;
 
@@ -19,17 +21,13 @@ export function* profileGetProfileUserSaga({
     });
 
     if (data) {
-      yield put(profileSetState({
-        requester: {
-          ...data,
-        },
-      }));
+      yield put(profileSetStateRequester(data));
       if (payload.successCallback) payload.successCallback();
     }
     
-    yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
+    yield put(profileSetStatusRequester({ id: payload.profileId, status: RequestStatus.SUCCESS }));
   } catch (e) {
     sagaExceptionHandler(e);
-    yield put(profileSetStatus({ type, status: RequestStatus.ERROR }));
+    yield put(profileSetStatusRequester({ id: payload.profileId, status: RequestStatus.ERROR }));
   }
 }

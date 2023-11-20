@@ -40,36 +40,4 @@ $border-radius: 8px;
       font-size: 18px;
     }
   }
-
-  &_btn_block {
-    display: flex;
-
-    @include mobile {
-      width: 100%;
-    }
-  }
-
-  &_btn_to_me {
-    border-radius: $border-radius 0 0 $border-radius;
-  }
-
-  &_btn_my {
-    border-radius: 0 $border-radius $border-radius 0;
-  }
-
-  &_btn_to_me,
-  &_btn_my {
-    height: 40px;
-    width: 200px;
-    font-weight: 600;
-
-    @include desktop1440 {
-      height: 30px;
-      width: 150px;
-    }
-
-    @include mobile {
-      width: 50%;
-    }
-  }
 }

@@ -2,13 +2,14 @@ import { useMemo } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Typography, SelectedText, AccessConfirm, RequestCell, 
+  Typography, SelectedText, AccessConfirm, 
 } from 'components';
+import { RequestCell } from 'containers';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, routes } from 'appConstants';
 import { Article, RequestStatus, StatusArticle } from 'types';
 import {
-  getName, getStatusArticle, getTopCoreEntities, 
+  getName, getStatusArticle, 
 } from 'utils';
 import { requestCreate } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
@@ -51,16 +52,10 @@ export const Item: React.FC<ItemProps> = ({
     },
     createdAt,
     updatedAt,
-    graph,
-    graphDraft,
+    topCoreEntities,
   } = article;
 
   const search = '';
-
-  const core = useMemo(
-    () => getTopCoreEntities(graph.length > 0 ? graph : graphDraft) || '-', 
-    [graph, graphDraft],
-  );
 
   const status = getStatusArticle(article);
 
@@ -106,6 +101,19 @@ export const Item: React.FC<ItemProps> = ({
     [statusCreate],
   );
 
+  const requester = useMemo(() => (
+    <RequestCell
+      className={styles.item_btn_link}
+      profileId={ownerId}
+      onConfirmButton={showAccessConfirm}
+      onCancelButton={hideAccessConfirm}
+      isHideButtonsRequester
+      isDisabled={isDisabled}
+    >
+      {getName(fullName, username, 1) ?? ''}
+    </RequestCell> 
+  ), [fullName, hideAccessConfirm, isDisabled, ownerId, showAccessConfirm, username]);
+
   if (isMobile) {
     return (
       <ExpandableMobileItem
@@ -120,34 +128,19 @@ export const Item: React.FC<ItemProps> = ({
           <div className={styles.item_row_block}>
             <span className={styles.title}>Field: </span>
             <SelectedText
+              key={`field_mobile_${id}`}
               text={field}
               searchWord={search}
               className={styles.selected}
             />
           </div>
           <div className={styles.item_row_block}>
-            <span className={styles.title}>Author: </span>
-            <RequestCell
-              className={styles.item_btn_link}
-              profileId={ownerId}
-              onConfirmButton={showAccessConfirm}
-              onCancelButton={hideAccessConfirm}
-              isHideButoonsRequester={
-                [
-                  StatusArticle.OpenSource,
-                  StatusArticle.AccessGranted,
-                  StatusArticle.AccessRequestPending,
-                ]
-                  .includes(getStatusArticle(article))
-              }
-              isDisabled={isDisabled}
-            >
-              {getName(fullName, username, 1) ?? ''}
-            </RequestCell>
+            <span className={styles.title}>Owner: </span>
+            {requester}
           </div>
           <div className={styles.item_col_block}>
             <span className={styles.title}>Core entities: </span>
-            <span className={styles.item_core}>{core}</span>
+            <span className={styles.item_core}>{topCoreEntities ?? '-'}</span>
           </div>
           <div className={styles.item_date_block}>
             <div className={styles.item_created_block}>
@@ -174,6 +167,7 @@ export const Item: React.FC<ItemProps> = ({
               type="h4"
             >
               <SelectedText
+                key={`title_${id}`}
                 text={title}
                 searchWord={search}
                 className={styles.selected}
@@ -185,35 +179,20 @@ export const Item: React.FC<ItemProps> = ({
               <div className={styles.item_row_block}>
                 <span className={styles.title}>Field: </span>
                 <SelectedText
+                  key={`field_${id}`}
                   text={field}
                   searchWord={search}
                   className={styles.selected}
                 />
               </div>
               <div className={styles.item_row_block}>
-                <span className={styles.title}>Author: </span>
-                <RequestCell
-                  className={styles.item_btn_link}
-                  profileId={ownerId}
-                  onConfirmButton={showAccessConfirm}
-                  onCancelButton={hideAccessConfirm}
-                  isHideButoonsRequester={
-                    [
-                      StatusArticle.OpenSource,
-                      StatusArticle.AccessGranted,
-                      StatusArticle.AccessRequestPending,
-                    ]
-                      .includes(getStatusArticle(article))
-                  }
-                  isDisabled={isDisabled}
-                >
-                  {getName(fullName, username, 1) ?? ''}
-                </RequestCell>
+                <span className={styles.title}>Owner: </span>
+                {requester}
               </div>
             </div>
             <div className={styles.item_col_block}>
               <span className={styles.title}>Core entities</span>
-              <span className={styles.item_core}>{core}</span>
+              <span className={styles.item_core}>{topCoreEntities ?? '-'}</span>
             </div>
           </div>
         </div>

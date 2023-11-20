@@ -12,7 +12,7 @@
   padding: 0;
   line-height: 46px;
 
-  @include font-38;
+  // @include font-38;
 
   @include desktop1440 {
     line-height: 39px;
@@ -33,7 +33,7 @@
   padding: 0;
   line-height: 39px;
 
-  @include font-32;
+  // @include font-32;
 
   @include desktop1440 {
     line-height: 29px;
@@ -54,7 +54,7 @@
   margin: 0;
   padding: 0;
 
-  @include font-24;
+  // @include font-24;
 
   @include desktop1440 {
     line-height: 36px;
@@ -71,12 +71,12 @@
     family: $montserrat;
     weight: 700;
   }
-  line-height: 32px;
+  // line-height: 32px;
   margin: 0;
   padding: 0;
   color: $color-black;
 
-  @include font-20;
+  // @include font-20;
 
   @include desktop1440 {
     line-height: 20px;
