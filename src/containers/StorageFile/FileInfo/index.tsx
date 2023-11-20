@@ -20,10 +20,12 @@ import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
-import { normalizeUserInfo } from 'utils';
+import { normalizeUserInfo, notification } from 'utils';
 import { useVipUser } from 'hooks';
+import { errorsNotification } from 'appConstants';
 import { formatDate } from './utils';
 import { FileInformationLoader } from '../Loader';
+import { DeleteBtn } from '../DeleteBtn';
 
 import styles from './styles.module.scss';
 
@@ -32,13 +34,15 @@ type FileInfoProps = {
   isOwner: boolean;
   isRequester: boolean;
   isLoading: boolean;
+  isUserRequiredFieldsFilled: boolean;
   article?: Article;
   classNameFile?: string;
   classNameButtons?: string;
 };
 
 export const FileInfo: FC<FileInfoProps> = memo(({
-  onEditClick, isOwner, isLoading, article, classNameFile, classNameButtons, isRequester,
+  onEditClick, isOwner, isLoading, article, classNameFile,
+  classNameButtons, isRequester, isUserRequiredFieldsFilled,
 }) => {
   const dispatch = useDispatch();
   const statusCreate = useSelector(requestSelectors.getStatus(RequestActionTypes.Create));
@@ -131,18 +135,27 @@ export const FileInfo: FC<FileInfoProps> = memo(({
   );
 
   const onPublishClick = useCallback(() => {
+    if (!isUserRequiredFieldsFilled) {
+      notification.info({ message: errorsNotification.profileNotFilled });
+      return;
+    }
     if (article) {
       const { id } = article;
       if (id) {
         dispatch(articlesPublish({ articleId: id, isPublished: true, callback: () => {} }));
       }
     }
-  }, [article, dispatch]);
+  }, [article, dispatch, isUserRequiredFieldsFilled]);
 
   return (
     <>
       <div className={cx(styles.storageFile__file, classNameFile)}>
-        <Typography type="h1">File information</Typography>
+        <div className={styles.storageFile__file_head}>
+          <Typography type="h1">File information</Typography>
+          {(isOwner && article?.id) && (
+            <DeleteBtn className={styles.storageFile__data_btn} articleId={article?.id} />
+          )}
+        </div>
         <div className={styles.storageFile__wrapper}>
           {isLoading && (
             <FileInformationLoader />
@@ -243,7 +256,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               Edit
             </Button>
             <Button
-              disabled={isLoading || article?.isPublic}
+              disabled={isLoading || !article?.isGraphDifferent}
               onClick={onPublishClick}
               isLoading={statusPublish === RequestStatus.REQUEST}
             >

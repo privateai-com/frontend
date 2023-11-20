@@ -11,9 +11,10 @@ import { RequestStatus } from 'types';
 import { articlesCreate } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import styles from './styles.module.scss';
 import { DragNDrop } from './DragNDrop';
 import { Item } from './Item';
+
+import styles from './styles.module.scss';
 
 export const Upload = () => {
   const [doc, setDoc] = useState<File | null>(null);

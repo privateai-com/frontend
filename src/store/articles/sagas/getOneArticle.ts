@@ -27,6 +27,7 @@ export function* articlesGetOneArticleSaga({
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
     sagaExceptionHandler(e);
+    if (payload.errorCallback) payload.errorCallback();
     yield put(articlesSetStatus({ type, status: RequestStatus.ERROR }));
   }
 }

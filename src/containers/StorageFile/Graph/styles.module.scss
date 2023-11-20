@@ -28,7 +28,16 @@
 .storageFile__data_btn {
 	width: 100%;
 	height: fit-content;
-	max-width: 300px;
+	display: none;
+	max-width: 160px;
+	
+	@include media-breakpoint-up(xxl) {
+		display: block;
+	}
+
+	@include media-breakpoint-up(fhd) {
+		max-width: 300px;
+	}
 }
 
 .storageFile__wrapper {

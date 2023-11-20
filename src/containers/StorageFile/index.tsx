@@ -10,6 +10,8 @@ import { articlesGetOneArticle } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { profileSelectors } from 'store/profile/selectors';
+import { errorsNotification, routes } from 'appConstants';
+import { notification } from 'utils';
 import { ButtonBack } from './ButtonBack';
 import { FileInfo } from './FileInfo';
 import { FileInfoEdit } from './FileInfoEdit';
@@ -28,6 +30,7 @@ export const StorageFile = memo(() => {
   );
   const [isPublishGraph, setIsPublishGraph] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+
   const initialGraphData = useMemo(
     () => {
       const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
@@ -64,20 +67,33 @@ export const StorageFile = memo(() => {
   }, []);
 
   const onSaveClick = useCallback(() => {
-    setIsEdit(!isEdit);
+    setIsEdit((state) => !state);
     setIsPublishGraph(false);
-  }, [isEdit]);
+  }, []);
 
   const isEditToggle = useCallback(() => {
-    setIsEdit(!isEdit);
-  }, [isEdit]);
+    if (!accountInfo?.userFilledAllInfo) {
+      notification.info({ message: errorsNotification.profileNotFilled });
+      return;
+    }
+    setIsEdit((state) => !state);
+  }, [accountInfo?.userFilledAllInfo]);
+
+  const getOneArticleErrorCallback = useCallback(() => {
+    router.push(routes.storage.root);
+  }, [router]);
 
   useEffect(() => {
     if (articleId) {
       const number = Number(articleId);
-      if (number) dispatch(articlesGetOneArticle({ articleId: number }));
+      if (number) {
+        dispatch(articlesGetOneArticle({
+          articleId: number,
+          errorCallback: getOneArticleErrorCallback,
+        }));
+      }
     }
-  }, [articleId, dispatch]);
+  }, [articleId, dispatch, getOneArticleErrorCallback]);
 
   useEffect(() => {
     if (initialGraphData.length) setGraphData(initialGraphData);
@@ -110,7 +126,7 @@ export const StorageFile = memo(() => {
       {isEdit ? (
         <FileInfoEdit
           graphData={graphData}
-          // setGraphData={setGraphData}
+          isOwner={isOwner}
           onSave={onSaveClick}
           onRevertToLastSaved={onRevertToLastSavedClick}
           onRevertToLastPublished={onRevertToLastPublishedClick}
@@ -126,6 +142,7 @@ export const StorageFile = memo(() => {
           isLoading={statusGetOneArticle === RequestStatus.REQUEST}
           classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
           classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
+          isUserRequiredFieldsFilled={!!accountInfo?.userFilledAllInfo}
           {...(article && { article })}
         />
       )}
@@ -135,6 +152,9 @@ export const StorageFile = memo(() => {
         isEdit={isEdit}
         isLoading={statusGetOneArticle === RequestStatus.REQUEST}
         onFullScreen={onFullScreenClick}
+        articleId={Number(articleId)}
+        isOwner={isOwner}
+        topCoreEntities={article?.topCoreEntities || '-'}
       />
     </div>
   );
