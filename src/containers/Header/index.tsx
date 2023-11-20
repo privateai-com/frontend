@@ -73,6 +73,8 @@ export const Header = () => {
                   key={i}
                 >
                   <SelectedText
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={`result_${i}`}
                     text={result}
                     searchWord={search}
                     className={styles.selected}

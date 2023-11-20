@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AdaptivePaginationTable } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
 import { SortingDirection } from 'types';
-import { getTopCoreEntities } from 'utils';
 
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesGetMy } from 'store/articles/actionCreators';
@@ -73,15 +72,10 @@ export const ArticlesTab = () => {
     status: statusGetMyArticles, 
   }), [statusGetMyArticles, total]);
 
-  const data = useMemo(() => articles.map((item) => ({
-    ...item,
-    core: getTopCoreEntities(item.graph.length > 0 ? item.graph : item.graphDraft) || '-',
-  })), [articles]);
-
   return (
     <AdaptivePaginationTable
       columns={columns}
-      content={data}
+      content={articles}
       classNameTableContainer={styles.table}
       pagination={pagination}
       itemsMobile={itemsMobile}

@@ -15,6 +15,9 @@ export const profileInitialState: Readonly<ProfileState> = {
     [ProfileActionTypes.UpdateProfile]: RequestStatus.INIT,
     [ProfileActionTypes.UploadAvatar]: RequestStatus.INIT,
   },
+  statusRequester: {
+
+  },
 };
 
 export default createReducer(profileInitialState, profileHandlers);

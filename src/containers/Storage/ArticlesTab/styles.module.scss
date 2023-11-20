@@ -44,13 +44,6 @@
   }
 
   tbody {
-    height: calc(100vh - 246px);
-    table-layout: fixed;
-    display: block;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    @include greenScrollbar();
 	}
 
 	thead, tbody {

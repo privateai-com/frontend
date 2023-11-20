@@ -4,10 +4,11 @@ import { Button, Typography } from 'components';
 
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
-import styles from './styles.module.scss';
 import { ArticlesTab } from './ArticlesTab';
-import { MyRequests } from '../MyRequests';
+import { MyRequests } from './MyRequests';
 import { UploadButton } from './uploadButton';
+
+import styles from './styles.module.scss';
 
 enum MyStorageTab {
   articles,

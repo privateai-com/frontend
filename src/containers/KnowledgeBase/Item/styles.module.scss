@@ -11,7 +11,7 @@
     width: 24px;
     background: url($url) no-repeat;
 
-    @include mobile {
+    @include tablet {
       left: -18px;
       top: 0px;
       background-size: 14px;
@@ -53,18 +53,19 @@
     margin-bottom: 25px;
     font-size: 32px;
     overflow-wrap: anywhere;
+    text-overflow: ellipsis;
 
     @include desktop1440 {
       font-size: 24px;
     }
 
-    @include mobile {
+    @include tablet {
       color: $color-black !important;
     }
   }
 
   &_row_block {
-    @include mobile {
+    @include tablet {
       color: $color-grey;
       margin-bottom: 15px;
 
@@ -123,7 +124,7 @@
     display: flex;
     text-wrap: nowrap;
 
-    @include mobile {
+    @include tablet {
       justify-content: space-between;
       color: $color-grey;
     }
@@ -136,7 +137,7 @@
   }
 
   &_col_block {
-    @include mobile {
+    @include tablet {
       color: $color-grey;
       margin-bottom: 15px;
     }
@@ -164,8 +165,10 @@
 
 .title {
   font-weight: 700;
-
-  @include mobile {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  
+  @include tablet {
     color: $color-black;
   }
 }

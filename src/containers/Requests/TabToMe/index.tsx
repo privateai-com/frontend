@@ -8,7 +8,7 @@ import { requestSelectors } from 'store/request/selectors';
 import { requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { SortingDirection } from 'types';
-import { normalizeUserInfo } from 'utils';
+import { formatDate, normalizeUserInfo } from 'utils';
 import { useColumns } from './columns';
 
 import styles from './styles.module.scss';
@@ -61,7 +61,7 @@ export const TabToMe = () => {
     ownerId: item.article.owner.id,
     requesterId: item.requester.id,
     title: item.article.title,
-    date: '13/03/2023',
+    date: formatDate(new Date(item.createdAt)),
     requester: normalizeUserInfo(item.requester.fullName, item.requester.username) || `Archonaut#${item.requester.id}`,
     isOwnerViewed: item.isOwnerViewed, 
     approve: item.approve,

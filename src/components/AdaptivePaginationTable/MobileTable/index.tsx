@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
 import { Article, RequestStatus } from 'types';
 import { usePagination } from 'hooks';
-// import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import { RequestedDataType } from 'containers/MyRequests/types';
+import { RequestedDataType } from 'containers/Storage/MyRequests/types';
 import { MobileTableItem } from '../MobileTableItem';
 
 import styles from './styles.module.scss';
@@ -32,14 +31,6 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
   other,
   itemsMobile,
 }) => {
-  // const [sentryRef, { rootRef }] = useInfiniteScroll({
-  //   loading: pagination?.isLoading ?? false,
-  //   hasNextPage: pagination?.isHasNextPage ?? true,
-  //   onLoadMore: pagination?.onLoadMore || (() => {}),
-  //   disabled: pagination?.isError,
-  //   rootMargin: '0px 0px 40px 0px',
-  // });
-
   const {
     rootRef, endElementForScroll,
   } = usePagination({ 

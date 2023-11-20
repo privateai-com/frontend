@@ -1,5 +1,5 @@
 import { ArticlesTab } from './ArticlesTab';
-import { MyRequests } from '../MyRequests';
+import { MyRequests } from './MyRequests';
 
 export const storageTabs = [
   {

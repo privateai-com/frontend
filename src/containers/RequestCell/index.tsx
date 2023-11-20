@@ -6,7 +6,6 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Requester, Loader } from 'components';
 import { profileSelectors } from 'store/profile/selectors';
 import { normalizeUserInfo } from 'utils';
-import { ProfileActionTypes } from 'store/profile/actionTypes';
 import { RequestStatus } from 'types';
 import { profileGetProfileUser } from 'store/profile/actionCreators';
 
@@ -17,7 +16,7 @@ type RequestCellProps = {
   children: ReactNode;
   className?: string;
   profileId: number;
-  isHideButoonsRequester?: boolean;
+  isHideButtonsRequester?: boolean;
   onConfirmButton?: () => void;
   onCancelButton?: () => void;
   isDisabled?: boolean;
@@ -25,11 +24,11 @@ type RequestCellProps = {
 
 const RequestCell: React.FC<RequestCellProps> = ({
   requester, children, className = '', profileId,
-  isHideButoonsRequester = false, onConfirmButton, onCancelButton, isDisabled,
+  isHideButtonsRequester = false, onConfirmButton, onCancelButton, isDisabled,
 }) => {
   const dispatch = useDispatch();
-  const requesterUser = useSelector(profileSelectors.getProp('requester'), shallowEqual);
-  const status = useSelector(profileSelectors.getStatus(ProfileActionTypes.GetProfileUser));
+  const requesterUser = useSelector(profileSelectors.getPropRequester(profileId), shallowEqual);
+  const status = useSelector(profileSelectors.getStatusRequester(profileId));
 
   const isLoading = status === RequestStatus.REQUEST;
 
@@ -50,9 +49,10 @@ const RequestCell: React.FC<RequestCellProps> = ({
       return (
         <Requester
           id={profileId}
+          title="Owner"
           avatarUrl={avatarUrl || ''}
           name={normalizeUserInfo(fullName, username) || '-'}
-          contry={normalizeUserInfo(city, country) || '-'}
+          country={normalizeUserInfo(city, country) || '-'}
           organization={organization || '-'}
           position={position || '-'}
           fields={researchFields || '-'}
@@ -60,7 +60,7 @@ const RequestCell: React.FC<RequestCellProps> = ({
           onConfirmButton={() => { if (onConfirmButton) onConfirmButton(); hideRequester(); }}
           onCancelButton={() => { if (onCancelButton) onCancelButton(); hideRequester(); }}
           onCloseModal={hideRequester}
-          isHideButoons={isHideButoonsRequester}
+          isHideButtons={isHideButtonsRequester}
         />
       );
     },
@@ -93,7 +93,7 @@ const RequestCell: React.FC<RequestCellProps> = ({
             {children}
           </button>
         ) : (
-          <Loader />
+          <Loader className={styles.loader} />
         )}
       </div>
     </>

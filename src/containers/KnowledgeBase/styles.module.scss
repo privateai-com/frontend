@@ -6,15 +6,8 @@
   height: 100%;
 
   &_header {
-    // margin-bottom: 25px;
-
-    @include tablet1024 {
-      // margin-bottom: 30px;
-    }
-
-    @include mobile {
-      // margin: 15px 0;
-    }
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &_title {
@@ -50,7 +43,7 @@
 }
 
 .items {
-  height: calc(100% - 61px);
+  height: calc(100% - 1px);
   padding: 20px;
   background-color: $color-white;
   box-shadow: -10px 56px 140px 0px #8f9bba33;
@@ -61,7 +54,6 @@
   }
 
   @include mobile {
-    height: calc(100% - 47px);
     padding: 8px 0;
   }
 
@@ -77,14 +69,11 @@
     position: absolute;
     padding: 20px;
     overflow-y: scroll;
+    @include greenScrollbar();
 
-    @include greenScrollbar;
-
-    @include mobile {
-      height: 100%;
+    @include tablet {
       padding: 0;
-
-      @include hideScrollbar;
+      overflow-x: hidden;
     }
   }
 }

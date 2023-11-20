@@ -5,9 +5,10 @@ import styles from './styles.module.scss';
 
 type RequesterProps = {
   id: number;
+  title?: string;
   avatarUrl: string;
   name: string;
-  contry: string;
+  country: string;
   organization: string;
   position: string;
   fields: string;
@@ -18,14 +19,15 @@ type RequesterProps = {
   cancelButtonLabel?: string;
   onCancelButton?: () => void;
   onCloseModal: () => void;
-  isHideButoons?: boolean;
+  isHideButtons?: boolean;
 };
 
 const Requester: React.FC<RequesterProps> = ({
   id,
+  title = 'Requester',
   avatarUrl,
   name,
-  contry,
+  country,
   organization,
   position,
   fields,
@@ -36,7 +38,7 @@ const Requester: React.FC<RequesterProps> = ({
   cancelButtonLabel = 'Decline access',
   onCancelButton,
   onCloseModal,
-  isHideButoons = false,
+  isHideButtons = false,
 }) => {
   const blocks = [
     {
@@ -63,7 +65,7 @@ const Requester: React.FC<RequesterProps> = ({
           type="h3"
           className={styles.requester_title}
         >
-          Requester
+          {title}
         </Typography>
         <div className={styles.requester_content_wrapper}>
           <div className={styles.requester_image}>
@@ -85,7 +87,7 @@ const Requester: React.FC<RequesterProps> = ({
             >
               {name || `Archonaut#${id}`}
             </Typography>
-            <span className={styles.requester_country}>{contry}</span>
+            <span className={styles.requester_country}>{country}</span>
             {blocks.map((block) => (
               <div
                 className={styles.block_wrapper}
@@ -108,7 +110,7 @@ const Requester: React.FC<RequesterProps> = ({
             </div>
           </div>
         </div>
-        {!isHideButoons && (
+        {!isHideButtons && (
           <div className={styles.access_wrapper}>
             <div className={styles.access_title}>
               {questionFooter}

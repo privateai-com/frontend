@@ -152,15 +152,7 @@
 			width: 100%;
 			text-wrap: wrap;
 			height: fit-content;
-			@include font-20();
-
-			@include media-breakpoint-up(xxl) {
-				padding: 12px;
-			}
-
-			@include media-breakpoint-up(fhd) {
-				padding: 15px 20px;
-			}
+			// @include font-20();
 		}
 	}
 }

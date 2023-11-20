@@ -45,7 +45,10 @@ export const FileInfo: FC<FileInfoProps> = memo(({
   const statusPublish = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.PublishArticle),
   );
-  const requester = useSelector(profileSelectors.getProp('requester'), shallowEqual);
+  const requester = useSelector(
+    profileSelectors.getPropRequester(article?.owner.id ?? 0), 
+    shallowEqual,
+  );
   const isVipUser = useVipUser();
 
   const [showRequester, hideRequester] = useModal(
@@ -67,7 +70,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           id={id || 0}
           avatarUrl={avatarUrl || ''}
           name={normalizeUserInfo(fullName, username) || '-'}
-          contry={normalizeUserInfo(city, country) || '-'}
+          country={normalizeUserInfo(city, country) || '-'}
           organization={organization || '-'}
           position={position || '-'}
           fields={researchFields || '-'}
@@ -85,7 +88,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           }}
           onCancelButton={hideRequester}
           onCloseModal={hideRequester}
-          isHideButoons={isRequester}
+          isHideButtons={isRequester}
         />
       );
     },

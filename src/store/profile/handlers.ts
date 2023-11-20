@@ -3,7 +3,9 @@ import { ProfileActionTypes } from './actionTypes';
 import {
   profileSetAccountInfo,
   profileSetState,
+  profileSetStateRequester,
   profileSetStatus,
+  profileSetStatusRequester,
 } from './actionCreators';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,8 +42,34 @@ const setAccountInfo: ProfileStateActionFn<typeof profileSetAccountInfo> = (
   },
 });
 
+const setStateRequester: ProfileStateActionFn<typeof profileSetStateRequester> = (
+  state,
+  { payload },
+) => ({
+  ...state,
+  requester: {
+    ...state.requester,
+    [payload.id ?? 0]: {
+      ...payload,
+    },
+  },
+});
+
+const setStatusRequester: ProfileStateActionFn<typeof profileSetStatusRequester> = (
+  state,
+  { payload },
+) => ({
+  ...state,
+  statusRequester: {
+    ...state.statusRequester,
+    [payload.id]: payload.status,
+  },
+});
+
 export const profileHandlers = {
   [ProfileActionTypes.SetState]: setState,
   [ProfileActionTypes.SetStatus]: setStatus,
   [ProfileActionTypes.SetStateAccountInfo]: setAccountInfo,
+  [ProfileActionTypes.SetStateRequester]: setStateRequester,
+  [ProfileActionTypes.SetStatusRequester]: setStatusRequester,
 };

@@ -75,9 +75,9 @@ export const useColumns = ({
         accessor: 'core',
         Cell: ({
           row: {
-            original: { core },
+            original: { topCoreEntities },
           },
-        }: ItemRowProps<Article>) => core,
+        }: ItemRowProps<Article>) => topCoreEntities ?? '-',
       },
       {
         Header: (

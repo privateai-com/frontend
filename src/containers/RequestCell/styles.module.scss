@@ -7,8 +7,16 @@
   }
 
   &_block_btn {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
+}
+
+.loader {
+  position: absolute;
+  text-align: center;
+  top: -25px;
+  left: 0px;
 }
