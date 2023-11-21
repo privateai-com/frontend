@@ -1,14 +1,10 @@
 export type ProfileUpdateData = {
   username: string;
-  phone: string;
-  socialLink: string;
+  socialLink?: string;
   organization: string;
-  scientificTitle: string;
   position: string;
   researchFields: string;
   fullName: string;
-  country: string;
-  city: string;
-  timeZone: string;
+  country?: string;
   callback?: () => void;
 };

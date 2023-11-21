@@ -1,0 +1,43 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.modal {
+  width: 650px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  .text {
+    text-align: center;
+    max-width: 523px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    color: #747474;
+  }
+
+  .description {
+    text-align: center;
+    max-width: 523px;
+
+  }
+
+  .buttons {
+    display: flex;
+    width: 100%;
+    gap: 21px; 
+
+    .confirm {
+      width: 100%;
+      font-weight: 600;
+    }
+    .cancel {
+      width: 100%;
+      font-weight: 600;
+    }
+  }
+}
