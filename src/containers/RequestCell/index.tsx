@@ -14,7 +14,9 @@ import styles from './styles.module.scss';
 type RequestCellProps = {
   requester?: string;
   children: ReactNode;
+  titleModal?: string;
   className?: string;
+  classNameRequester?: string;
   profileId: number;
   isHideButtonsRequester?: boolean;
   onConfirmButton?: () => void;
@@ -23,8 +25,9 @@ type RequestCellProps = {
 };
 
 const RequestCell: React.FC<RequestCellProps> = ({
-  requester, children, className = '', profileId,
+  requester, children, className = '', profileId, classNameRequester = '',
   isHideButtonsRequester = false, onConfirmButton, onCancelButton, isDisabled,
+  titleModal = 'Requester',
 }) => {
   const dispatch = useDispatch();
   const requesterUser = useSelector(profileSelectors.getPropRequester(profileId), shallowEqual);
@@ -49,7 +52,7 @@ const RequestCell: React.FC<RequestCellProps> = ({
       return (
         <Requester
           id={profileId}
-          title="Owner"
+          title={titleModal}
           avatarUrl={avatarUrl || ''}
           name={normalizeUserInfo(fullName, username) || '-'}
           country={normalizeUserInfo(city, country) || '-'}
@@ -82,7 +85,7 @@ const RequestCell: React.FC<RequestCellProps> = ({
 
   return (
     <>
-      {requester && <span>{requester}</span>}
+      {requester && <span className={classNameRequester}>{requester}</span>}
       <div className={cx(styles.cell_block_btn, className)}>
         {!isLoading ? (
           <button

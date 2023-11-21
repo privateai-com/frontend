@@ -10,19 +10,20 @@
   border-radius: 16px;
   box-shadow: -10px 56px 140px 0px #8F9BBA33;
   color: $color-grey;
-
+  padding: 0 0 20px;
+  
   thead {
     color: $color-grey4;
     height: 58px;
-
+    
     @include desktop1440 {
       height: 38px;
     }
 
-    tr {
-      border-radius: 16px 16px 0px 0px;
-      box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25); 
-    }
+    padding-left: 20px;
+    padding-right: 40px;
+    border-radius: 16px 16px 0px 0px;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25); 
     
     th {
       border-bottom: none !important;
@@ -41,13 +42,13 @@
         font-size: 16px;
       }
     }
+
     th:not(:last-child)::after {
       content: " ";
       position: absolute;
       border-right: 2px #CCC solid;
       top: 12px;
       right: 0;
-      width: 2px;
       height: 34px;
       margin-top: auto;
       margin-bottom: auto;
@@ -62,7 +63,6 @@
   tbody {
     height: calc(100vh - 248px - 15px);
 
-    table-layout: fixed;
     display: block;
     overflow-y: auto;
     overflow-x: hidden;
@@ -71,7 +71,7 @@
     margin-top: 20px;
     margin-right: 20px;
 
-    padding: 0 0px;
+    padding: 0 20px;
 
 		@include media-breakpoint-up(lg) {
       height: calc(100vh - 248px - 40px);
@@ -90,6 +90,8 @@
 
     td {
       padding: 0px 0px;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
       &.td_clear {
         padding: 0 !important;
@@ -143,8 +145,6 @@
   tr {
     text-align: left;
     min-height: 88px;
-    padding: 0 20px;
-    // border: 1px solid red;
 
     @include desktop1440 {
       min-height: 62px;

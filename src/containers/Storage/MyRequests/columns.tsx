@@ -112,7 +112,7 @@ export const useColumns = ({
             original: { owner, ownerId },
           },
         }: ItemRowProps<RequestedDataType>) =>
-          <RequestCell isHideButtonsRequester profileId={ownerId}>{owner}</RequestCell> || '-',
+          <RequestCell isHideButtonsRequester profileId={ownerId} titleModal="Owner">{owner}</RequestCell> || '-',
       },
       {
         Header: 'Status',

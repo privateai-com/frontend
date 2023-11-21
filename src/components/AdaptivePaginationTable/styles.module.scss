@@ -2,7 +2,7 @@
 @import "assets/styles/_mixins.scss";
 
 .table {
-	padding: 0 0 20px;
+	// padding: 0 0 20px;
 
 	thead {
 		th {
@@ -24,11 +24,11 @@
 		position: relative;
 
 		td {
-			padding: 16px 42px;
+			padding: 16px 0px;
 			line-height: 24px;
 
 			@include desktop1024 {
-				padding: 6px 16px;
+				padding: 6px 0px;
 			}
 
 			a {
@@ -45,15 +45,25 @@
 			}
 
 			&:nth-child(3) {
-				width: 430px;
+				// width: 430px;
 
 				@include desktop1660 {
 					width: auto;
 				}
 			}
 
+
+			&:last-child {
+				// display: flex;
+				text-align: center;
+
+				width: auto;
+				@include desktop1660 {
+				}
+			}
+
 			&:last-of-type {
-				padding: 16px 42px;
+				padding: 16px 0px;
 
 				@include desktop1024 {
 					padding: 16px;

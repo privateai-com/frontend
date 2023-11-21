@@ -105,6 +105,7 @@ export const Item: React.FC<ItemProps> = ({
     <RequestCell
       className={styles.item_btn_link}
       profileId={ownerId}
+      titleModal="Owner"
       onConfirmButton={showAccessConfirm}
       onCancelButton={hideAccessConfirm}
       isHideButtonsRequester

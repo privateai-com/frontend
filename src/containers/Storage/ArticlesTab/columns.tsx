@@ -28,6 +28,7 @@ export const useColumns = ({
             }}
           />
         ),
+        // width: '20vw',
         accessor: 'title',
         Cell: ({
           row: {
@@ -107,6 +108,8 @@ export const useColumns = ({
       {
         Header: () => null,
         accessor: 'delete',
+        width: '50px',
+        minWidth: '50px',
         Cell: ({
           row: {
             original: { id },

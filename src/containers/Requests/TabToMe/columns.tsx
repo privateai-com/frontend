@@ -53,6 +53,7 @@ export const useColumns = ({
               onToggleDirection();
             }}
           />),
+        width: '22vw',
         accessor: 'name',
         Cell: ({
           row: {
@@ -60,7 +61,9 @@ export const useColumns = ({
           },
         }: ItemRowProps<RequestsType>) =>
           (title ? (
-            <Link href={`${routes.storage.root}/${articleId}`}>{title}</Link>
+            <Link href={`${routes.storage.root}/${articleId}`}>
+              {title}
+            </Link>
           ) : (
             '-'
           )),
@@ -74,6 +77,7 @@ export const useColumns = ({
           }}
         />,
         accessor: 'date',
+        // width: '187px',
         Cell: ({
           row: {
             original: { date },
@@ -113,6 +117,7 @@ export const useColumns = ({
       {
         Header: 'Access action',
         accessor: 'id',
+        width: '15vw',
         Cell: ({
           row: {
             original: { id, isOwnerViewed, approve },
