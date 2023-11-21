@@ -5,6 +5,7 @@ import {
   Data,
   DataInterfaceEdges,
   DataInterfaceNodes,
+  DataSet,
   Edge,
   Network,
   Node,
@@ -23,6 +24,15 @@ import { transformNodesAndEdgesToData } from '../utils';
 
 import styles from './styles.module.scss';
 
+interface ExtendedNetwork extends Network {
+  body: {
+    data: {
+      nodes: DataSet<Node>;
+      edges: DataSet<Edge>;
+    };
+  };
+}
+
 interface GraphVisProps {
   setGraphData: (edges: GraphResponseType[]) => void
   nodes: DatasetNodeType,
@@ -38,7 +48,8 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
   const [editingEdgeId, setEditingEdgeId] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
-  const networkRef = useRef<Network | null>(null);
+  const networkRef = useRef<ExtendedNetwork | null>(null);
+  const [newNodeIdToDelete, setNewNodeIdToDelete] = useState<string | null>(null);
 
   const handleAddNode = useCallback((data: Node, callback: (data: Node) => void) => {
     const newNode: Node = {
@@ -55,6 +66,8 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         inputElement.select();
       }, 10);
     }
+
+    setNewNodeIdToDelete(newNode.id as string);
     callback(newNode);
   }, [nodes]);
 
@@ -122,7 +135,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         visJsRef.current, 
         { nodes: nodes as DataInterfaceNodes, edges: edges as DataInterfaceEdges },
         currentOption,
-      );
+      ) as ExtendedNetwork;
     apdateGraphControls(visJsRef);
 
     const onDoubleClick = (event: { pointer: { canvas: Position; }; }) => {
@@ -196,20 +209,25 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   };
 
   useEffect(() => {
-    const handleDeleteKeyPress = (event: { key: string; }) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Delete' && networkRef.current && isEdit) {
         const selectedNodes = networkRef.current.getSelectedNodes();
         const selectedEdges = networkRef.current.getSelectedEdges();
-        nodes.remove(selectedNodes);
-        edges.remove(selectedEdges);
+        if (selectedNodes.length > 0) {
+          nodes.remove(selectedNodes);
+        }
+        if (selectedEdges.length > 0) {
+          edges.remove(selectedEdges);
+        }
         setGraphData(transformNodesAndEdgesToData(nodes, edges));
+        setShowPopup(false); 
       }
     };
-
-    window.addEventListener('keydown', handleDeleteKeyPress);
-
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
     return () => {
-      window.removeEventListener('keydown', handleDeleteKeyPress);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [edges, isEdit, nodes, setGraphData]);
 
@@ -219,10 +237,21 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     }
   }, []);
 
+  const handleDeleteNewNode = useCallback(() => {
+    if (newNodeIdToDelete) {
+      const nodeToRemove = networkRef.current?.body.data.nodes.get(newNodeIdToDelete);
+      if (nodeToRemove) {
+        networkRef.current?.body.data.nodes.remove(newNodeIdToDelete);
+        setNewNodeIdToDelete(null);
+      }
+    }
+  }, [newNodeIdToDelete]);
+
   const onClosePopup = useCallback(() => {
+    handleDeleteNewNode();
     setShowPopup(false);
     setEditingNodeId(null);
-  }, []);
+  }, [handleDeleteNewNode]);
 
   return (
     <div className={styles.visContainer}>

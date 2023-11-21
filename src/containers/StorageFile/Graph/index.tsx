@@ -1,5 +1,6 @@
 import { FC, memo } from 'react';
 import { Edge } from 'vis-network';
+import { Tooltip } from 'react-tooltip';
 
 import {
   ButtonIcon,
@@ -71,7 +72,16 @@ export const Graph: FC<GraphProps> = memo(({
           </div>
           <div className={styles.graph_info__item}>
             <p>Core Entities</p>
-            <span>{topCoreEntities}</span>
+            <span data-tooltip-id={topCoreEntities}>{topCoreEntities}</span>
+            <Tooltip
+              id={topCoreEntities}
+              place="top"
+              className={styles.tooltip}
+              noArrow
+              offset={-10}
+            >
+              {topCoreEntities}
+            </Tooltip>
           </div>
         </div>
       </div>
