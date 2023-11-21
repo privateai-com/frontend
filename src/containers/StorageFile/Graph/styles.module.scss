@@ -154,9 +154,13 @@
 			}
 
 			span {
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis; 
+				@include media-breakpoint-up(xxl) {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+				}
 			}
 		}
 	}
@@ -170,5 +174,26 @@
 
 	@include media-breakpoint-up(xxl) {
 		display: block;
+	}
+}
+
+.tooltip {
+	display: none;
+	background-color: $color-white !important;
+	padding: 15px !important;
+	border-radius: 8px !important;
+	border: 1px solid $color-grey2 !important;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+	color: $color-black !important;
+
+	z-index: 2;
+
+	@include media-breakpoint-up(xxl) {
+		display: block;
+		max-width: 170px;
+	}
+ 
+	@include media-breakpoint-up(fhd) {
+		max-width: 300px;
 	}
 }
