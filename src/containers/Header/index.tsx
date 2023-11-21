@@ -34,7 +34,6 @@ export const Header = () => {
   
   const username = useSelector(profileSelectors.getPropAccountInfo('username'));
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
-  const avatarUrl = useSelector(profileSelectors.getPropAccountInfo('avatarUrl'));
 
   const onNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
@@ -95,7 +94,7 @@ export const Header = () => {
       <span>{fullName || username}</span>
       <ButtonIcon
         className={styles.button}
-        image={avatarUrl ?? userIcon}
+        image={userIcon}
         onClick={onRedirectClick}
         width={30}
         height={30}
