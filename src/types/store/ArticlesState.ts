@@ -59,4 +59,6 @@ export type Article = {
   status?: string;
   topCoreEntities?: string;
   isGraphDifferent?: boolean;
+  usersAmount?: number;
+  fileSize?: number;
 };

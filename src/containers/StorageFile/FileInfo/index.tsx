@@ -23,7 +23,7 @@ import { profileSelectors } from 'store/profile/selectors';
 import { normalizeUserInfo, notification } from 'utils';
 import { useVipUser } from 'hooks';
 import { errorsNotification } from 'appConstants';
-import { formatDate } from './utils';
+import { convertToBytesString, formatDate } from './utils';
 import { FileInformationLoader } from '../Loader';
 import { DeleteBtn } from '../DeleteBtn';
 
@@ -200,7 +200,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               </div>
               <div className={styles.storageFile__item_date_item}>
                 Data Size
-                <span>0 MB</span>
+                <span>{convertToBytesString(article?.fileSize || 0)}</span>
               </div>
             </div>
             {!isOwner ? (
@@ -216,7 +216,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                 </div>
                 <div className={styles.storageFile__item_info}>
                   Shared with
-                  <span>0 users</span>
+                  <span>{`${article?.usersAmount || 0} users`}</span>
                 </div>
               </>
             )}
