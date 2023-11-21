@@ -12,15 +12,21 @@
   padding: 0;
   line-height: 46px;
 
-  // @include font-38;
+  font-size: 38px;
 
   @include desktop1440 {
+		font-size: 32px;
     line-height: 39px;
 	}
 
-  @include mobile {
+	@include desktop1024 {
+		font-size: 24px;
+	}
+
+	@include mobile {
+		font-size: 18px;
     line-height: 22px;
-  }
+	}
 }
 
 .h2 {
@@ -35,13 +41,22 @@
 
   // @include font-32;
 
+  font-size: 32px;
+
   @include desktop1440 {
+		font-size: 24px;
+    line-height: 24px;
+	}
+
+	@include desktop1024 {
+		font-size: 16px;
     line-height: 29px;
 	}
 
-  @include mobile {
+	@include mobile {
+		font-size: 14px;
     line-height: 17px;
-  }
+	}
 }
 
 .h3 {
@@ -77,6 +92,7 @@
   color: $color-black;
 
   // @include font-20;
+  
 
   @include desktop1440 {
     line-height: 20px;

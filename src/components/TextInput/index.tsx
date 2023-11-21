@@ -62,7 +62,7 @@ export const TextInput = memo<TextInputProps>(({
   labelRight,
   suffix,
   classNameInput,
-  classNameLabel,
+  classNameLabel = '',
   classNameContainer,
   classNameInputBox,
   classNameSuffix,
@@ -141,8 +141,8 @@ export const TextInput = memo<TextInputProps>(({
           {label !== undefined && (
             <div className={cx(
               styles.input__label, 
+              { [classNameLabel]: !isError }, 
               { [styles.errorLabel]: isError },
-              classNameLabel, 
             )}
             >
               {label}

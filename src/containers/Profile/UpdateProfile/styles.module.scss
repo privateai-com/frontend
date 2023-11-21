@@ -10,6 +10,7 @@
 	display: flex;
 	flex-direction: column;
 	column-gap: 20px;
+
 	&:first-child {
 		padding: 40px;
 	}
@@ -364,5 +365,32 @@
 		@include mobile {
 			justify-content: space-between;
 		}
+	}
+}
+
+.labelInput {
+	color: #747474 !important;
+}
+
+.avatar {
+	position: relative;
+	width: 450px;
+	height: 450px;
+	border-radius: 100%;
+	border: 1px solid $color-grey2;
+
+	@include desktop1440 {
+		width: vw(300, 1440);
+		height: vw(300, 1440);
+	}
+
+	@include desktop1024 {
+		width: 250px;
+		height: 250px;
+	}
+
+	@include mobile {
+		width: 100px;
+		height: 100px;
 	}
 }

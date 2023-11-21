@@ -34,6 +34,7 @@ export const Header = () => {
   
   const username = useSelector(profileSelectors.getPropAccountInfo('username'));
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
+  const avatarUrl = useSelector(profileSelectors.getPropAccountInfo('avatarUrl'));
 
   const onNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
@@ -94,8 +95,10 @@ export const Header = () => {
       <span>{fullName || username}</span>
       <ButtonIcon
         className={styles.button}
-        image={userIcon}
+        image={avatarUrl ?? userIcon}
         onClick={onRedirectClick}
+        width={30}
+        height={30}
       />
       <ButtonIcon
         className={cx(styles.button, { [styles.active]: true })}

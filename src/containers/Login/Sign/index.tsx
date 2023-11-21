@@ -3,47 +3,67 @@ import {
 } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 
 import {
   AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { walletIcon } from 'assets';
-import { routes } from 'appConstants';
-import { RequestStatus } from 'types';
+import { errorsNotification, routes } from 'appConstants';
+import { AuthErrorTransformResult, RequestStatus } from 'types';
+import { useRouter } from 'next/router';
 import { emailValidator, passwordValidator } from 'utils';
 
+import { authLogin, authLoginWallet } from 'store/auth/actionCreators';
 import { authSelectors } from 'store/auth/selectors';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 
 import styles from './styles.module.scss';
 
 interface SignProps {
-  onConfirm: ({ email, password }: { email: string; password: string }) => void;
-  onConnectWallet: () => void;
   onRestore: () => void;
-  loginError: { emailError: string; passwordError: string };
-  walletError?: string;
   email: string;
   setEmail: (email: string) => void;
 }
 
 export const Sign: FC<SignProps> = ({
-  onConfirm,
-  onConnectWallet,
   onRestore,
-  loginError,
-  walletError,
   email,
   setEmail,
 }) => {
+  const dispatch = useDispatch();
+  
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const status = useSelector(authSelectors.getStatus(AuthActionTypes.Login));
+  const [loginError, setLoginError] = useState({
+    emailError: '',
+    passwordError: '',
+  });
+  const [walletError, setWalletError] = useState('');
 
+  const status = useSelector(authSelectors.getStatus(AuthActionTypes.Login));
+  const statusConnect = useSelector(authSelectors.getStatus(AuthActionTypes.LoginWallet));
+  
   const isNotError = !passwordError && !emailError && email && password;
+  
+  const router = useRouter();
+
+  const successCallback = useCallback(() => {
+    router.push(routes.profile.root);
+  }, [router]);
+
+  const errorCallback = useCallback(
+    (error: AuthErrorTransformResult) =>
+      setLoginError({
+        emailError: email
+          ? error.fields.email || ''
+          : errorsNotification.authError,
+        passwordError: error.fields.password || '',
+      }),
+    [email],
+  );
 
   const handleSignInClick = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,9 +81,16 @@ export const Sign: FC<SignProps> = ({
       password;
 
     if (isNoErrors) {
-      onConfirm({ email, password });
+      dispatch(
+        authLogin({
+          email,
+          password,
+          successCallback,
+          errorCallback,
+        }),
+      );
     }
-  }, [email, emailError, onConfirm, password, passwordError]);
+  }, [dispatch, email, emailError, errorCallback, password, passwordError, successCallback]);
 
   const onEmailChange = useCallback(
     (value: string) => {
@@ -86,6 +113,19 @@ export const Sign: FC<SignProps> = ({
 
   const errors = passwordError || emailError || walletError;
 
+  const walletErrorCallback = useCallback((e: string) => {
+    setWalletError(e);
+  }, []);
+
+  const onConnectWallet = useCallback(() => {
+    dispatch(
+      authLoginWallet({
+        successCallback,
+        errorCallback: walletErrorCallback,
+      }),
+    );
+  }, [dispatch, successCallback, walletErrorCallback]);
+
   return (
     <AuthWrapper>
       <form className={styles.signin__container} onSubmit={handleSignInClick}>
@@ -94,6 +134,7 @@ export const Sign: FC<SignProps> = ({
           className={styles.button_connect}
           onClick={onConnectWallet}
           type="button"
+          isLoading={statusConnect === RequestStatus.REQUEST}
         >
           Sign in with your wallet
           <Image
