@@ -209,20 +209,25 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   };
 
   useEffect(() => {
-    const handleDeleteKeyPress = (event: { key: string; }) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Delete' && networkRef.current && isEdit) {
         const selectedNodes = networkRef.current.getSelectedNodes();
         const selectedEdges = networkRef.current.getSelectedEdges();
-        nodes.remove(selectedNodes);
-        edges.remove(selectedEdges);
+        if (selectedNodes.length > 0) {
+          nodes.remove(selectedNodes);
+        }
+        if (selectedEdges.length > 0) {
+          edges.remove(selectedEdges);
+        }
         setGraphData(transformNodesAndEdgesToData(nodes, edges));
+        setShowPopup(false); 
       }
     };
-
-    window.addEventListener('keydown', handleDeleteKeyPress);
-
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
     return () => {
-      window.removeEventListener('keydown', handleDeleteKeyPress);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [edges, isEdit, nodes, setGraphData]);
 
