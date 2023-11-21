@@ -20,3 +20,4 @@ export * from './apiError';
 export * from './responseExceptionToFormError';
 export * from './getStatusArticle';
 export * from './normalizeUserInfo';
+export * from './convertTitleFile';

@@ -127,7 +127,11 @@ export const Table: FC<TableProps> = memo(
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
+                <th 
+                  {...column.getHeaderProps({
+                    style: { minWidth: column.minWidth, width: column.width },
+                  })}
+                >
                   {column.render('Header') as ReactNode}
                 </th>
               ))}
@@ -145,7 +149,12 @@ export const Table: FC<TableProps> = memo(
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => (
                     <td
-                      {...cell.getCellProps()}
+                      {...cell.getCellProps({
+                        style: {
+                          minWidth: cell.column.minWidth,
+                          width: cell.column.width,
+                        },
+                      })}
                       className={cx(tdOpenClassName, {
                         [styles.td_open]: row.isExpanded,
                       })}
