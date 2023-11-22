@@ -173,36 +173,40 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
         >
-          <p>
-            {avatar ? (
+          {avatar ? (
+            <Image
+              src={URL.createObjectURL(avatar)}
+              alt="avatar"
+              className={styles.avatar}
+              width={350}
+              height={350}
+                // fill
+              style={{ objectFit: 'cover' }}
+            /> 
+          ) : (
+            <p>
+              {isSmallDesktop
+                ? 'Tap to upload your profile picture'
+                : 'Upload your profile picture'}
+              <span>*</span>
+            </p>
+          )}
+          {!avatar && (
+            <>
               <Image
-                src={URL.createObjectURL(avatar)}
-                alt="avatar"
-                className={styles.avatar}
-                fill
-                style={{ objectFit: 'cover' }}
-              /> 
-            ) : (
-              <>
-                {isSmallDesktop
-                  ? 'Tap to upload your profile picture'
-                  : 'Upload your profile picture'}
-                <span>*</span>
-              </>
-            )}
-          </p>
-          <Image
-            src={uploadIcon}
-            alt="icon"
-            className={styles.info_upload_img}
-          />
-          <input
-            type="file"
-            id="upload"
-            onChange={onUploadClick}
-            className={styles.info_upload_input}
-            accept="image/png, image/jpg, image/jpeg"
-          />
+                src={uploadIcon}
+                alt="icon"
+                className={styles.info_upload_img}
+              />
+              <input
+                type="file"
+                id="upload"
+                onChange={onUploadClick}
+                className={styles.info_upload_input}
+                accept="image/png, image/jpg, image/jpeg"
+              />
+            </>
+          )}
         </label>
         <TextInput
           label="Real name"

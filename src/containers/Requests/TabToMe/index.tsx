@@ -12,7 +12,7 @@ import { requestSelectors } from 'store/request/selectors';
 import { requestAnswer, requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { SortingDirection } from 'types';
-import { convertTitleFile, formatDate, normalizeUserInfo } from 'utils';
+import { convertTitleFile, formatDate, getName, normalizeUserInfo } from 'utils';
 import { useColumns } from './columns';
 
 import styles from './styles.module.scss';
@@ -62,7 +62,7 @@ export const TabToMe = () => {
     requesterId: item.requester.id,
     title: convertTitleFile(item.article.title),
     date: formatDate(new Date(item.createdAt)),
-    requester: normalizeUserInfo(item.requester.fullName, item.requester.username) || `Archonaut#${item.requester.id}`,
+    requester: getName(item.requester.fullName, item.requester.username, item.requester.id),
     isOwnerViewed: item.isOwnerViewed, 
     approve: item.approve,
   })), [requestsToMe]);
