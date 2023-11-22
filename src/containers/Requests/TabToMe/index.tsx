@@ -12,7 +12,7 @@ import { requestSelectors } from 'store/request/selectors';
 import { requestAnswer, requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { SortingDirection } from 'types';
-import { convertTitleFile, formatDate, getName, normalizeUserInfo } from 'utils';
+import { convertTitleFile, formatDate, getName } from 'utils';
 import { useColumns } from './columns';
 
 import styles from './styles.module.scss';
