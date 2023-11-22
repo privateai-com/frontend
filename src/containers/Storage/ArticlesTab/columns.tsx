@@ -6,7 +6,6 @@ import { Article, ItemRowProps } from 'types';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { DeleteBtn } from './DeleteBtn';
 import { ChangeAvailability } from './ChangeAvailability';
-import { ArticlesType } from './types';
 
 import styles from './styles.module.scss';
 
@@ -51,6 +50,8 @@ export const useColumns = ({
             }}
           />
         ),
+        width: '90px',
+        minWidth: '90px',
         accessor: 'status',
         Cell: ({
           row: {
@@ -91,31 +92,23 @@ export const useColumns = ({
           />
         ),
         accessor: 'availability',
+        width: '120px',
+        minWidth: '120px',
         Cell: ({
           row: {
             original: { isPublic, id },
           },
         }: ItemRowProps<Article>) =>
-          (id ? (
-            <ChangeAvailability
-              id={Number(id)}
-              isPublic={isPublic}
-            />
-          ) : (
-            '-'
-          )),
-      },
-      {
-        Header: () => null,
-        accessor: 'delete',
-        width: '50px',
-        minWidth: '50px',
-        Cell: ({
-          row: {
-            original: { id },
-          },
-        }: ItemRowProps<ArticlesType>) =>
-          (id ? <DeleteBtn id={Number(id)} /> : ''),
+          (
+            <div className={styles.availability} key={`div-${id}-${isPublic}`}>
+              <ChangeAvailability
+                key={`ChangeAvailability-${id}-${isPublic}`}
+                id={Number(id)}
+                isPublic={isPublic}
+              />
+              <DeleteBtn id={Number(id)} />
+            </div>
+          ),
       },
     ],
     [onChangeSortingField, onToggleDirection],

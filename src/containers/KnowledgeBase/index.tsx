@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Typography } from 'components';
@@ -14,6 +14,16 @@ import styles from './styles.module.scss';
 export const KnowledgeBase: React.FC = () => {
   const dispatch = useDispatch();
   const isVipUser = useVipUser();
+
+  const [offset, setOffset] = useState(0);
+  
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
+
   const total = useSelector(articlesSelectors.getProp('total'));
   const articles = useSelector(articlesSelectors.getProp('articles'));
   const statusGetArticles = useSelector(
@@ -21,8 +31,10 @@ export const KnowledgeBase: React.FC = () => {
   );
   
   const {
-    rootRef, endElementForScroll, offset,
-  } = usePagination({ total, status: statusGetArticles });
+    rootRef, endElementForScroll,
+  } = usePagination({
+    total, status: statusGetArticles, offset, increaseOffset, 
+  });
 
   useEffect(() => {
     const payload = {

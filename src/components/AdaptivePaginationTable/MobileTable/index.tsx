@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Article, RequestStatus } from 'types';
+import { Article, PaginationForHook } from 'types';
 import { usePagination } from 'hooks';
 
 import { RequestedDataType } from 'containers/Storage/MyRequests/types';
@@ -18,11 +18,7 @@ type AdaptivePaginationTableProps = {
   content: Article[] | any[];
   other?: string | ReactNode;
   itemsMobile: ItemMobile[];
-  pagination?: {
-    total: number,
-    status?: RequestStatus,
-    changeOffset?: (offset: number) => void,
-  }
+  pagination?: PaginationForHook
 };
 
 export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
@@ -34,9 +30,10 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
   const {
     rootRef, endElementForScroll,
   } = usePagination({ 
+    offset: pagination?.offset ?? 0, 
     total: pagination?.total ?? 0, 
     status: pagination?.status, 
-    changeOffset: pagination?.changeOffset,
+    increaseOffset: pagination ? pagination.increaseOffset : () => {},
   });
   
   return (

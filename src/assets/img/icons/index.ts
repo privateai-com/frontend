@@ -50,3 +50,4 @@ export { default as SecurityIcon } from './SecurityIcon';
 export { default as StorageIcon } from './StorageIcon';
 export { default as UploadActivityIcon } from './UploadActivityIcon';
 export { default as chevronArrowIcons } from './chevronArrowsIcon.svg';
+export { default as plusIcon } from './plus.svg';
