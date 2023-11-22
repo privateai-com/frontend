@@ -6,7 +6,7 @@ import { Table } from 'components';
 
 import { ScreenWidth } from 'appConstants';
 import { useScreenWidth } from 'hooks';
-import { Article, RequestStatus } from 'types';
+import { Article, PaginationForHook } from 'types';
 import { MobileTable, type ItemMobile } from './MobileTable';
 import styles from './styles.module.scss';
 
@@ -19,11 +19,7 @@ type AdaptivePaginationTableProps = {
   withPagination?: boolean;
   classNameTableContainer?: string;
   itemsMobile: ItemMobile[];
-  pagination?: {
-    total: number,
-    status?: RequestStatus,
-    changeOffset?: (offset: number) => void,
-  }
+  pagination?: PaginationForHook
 };
 
 export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = ({

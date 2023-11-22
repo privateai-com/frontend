@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AdaptivePaginationTable } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
+import { convertTitleFile } from 'utils';
 import { SortingDirection } from 'types';
 
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
@@ -21,7 +22,7 @@ const itemsMobile = [
   },
   {
     title: 'Core entities',
-    key: 'core',
+    key: 'topCoreEntities',
   },
 ];
 
@@ -29,6 +30,13 @@ export const ArticlesTab = () => {
   const dispatch = useDispatch();
 
   const [offset, setOffset] = useState(0);
+
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
 
   const [selectSortingField, setSelectSortingField] = useState('id');
   const [selectSortingDirection, setSelectSortingDirection] = useState<SortingDirection>('DESC');
@@ -56,6 +64,11 @@ export const ArticlesTab = () => {
     articlesSelectors.getStatus(ArticlesActionTypes.GetMyArticles),
   );
 
+  const data = useMemo(() => articles.map((item) => ({
+    ...item,
+    title: convertTitleFile(item.title, 15),
+  })), [articles]);
+
   useEffect(() => {
     const payload = {
       limit: itemsOnPageQuantity,
@@ -68,14 +81,15 @@ export const ArticlesTab = () => {
 
   const pagination = useMemo(() => ({
     total,
-    changeOffset: setOffset,
+    increaseOffset,
     status: statusGetMyArticles, 
-  }), [statusGetMyArticles, total]);
+    offset,
+  }), [increaseOffset, offset, statusGetMyArticles, total]);
 
   return (
     <AdaptivePaginationTable
       columns={columns}
-      content={articles}
+      content={data}
       classNameTableContainer={styles.table}
       pagination={pagination}
       itemsMobile={itemsMobile}

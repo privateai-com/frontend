@@ -12,7 +12,7 @@ import {
   useTable,
 } from 'react-table';
 import { usePagination } from 'hooks';
-import { RequestStatus } from 'types';
+import { PaginationForHook } from 'types';
 
 import styles from './styles.module.scss';
 
@@ -35,11 +35,7 @@ interface TableProps {
   getActiveExpandedRows?: (args0: { selectedIndexRow: number | null }) => void;
   expandedChildren?: (row?: object) => ReactNode;
   expandedChildrenTop?: (row?: object) => ReactNode;
-  pagination?: {
-    total: number,
-    status?: RequestStatus,
-    changeOffset?: (offset: number) => void,
-  }
+  pagination?: PaginationForHook
 }
 
 export const Table: FC<TableProps> = memo(
@@ -115,7 +111,8 @@ export const Table: FC<TableProps> = memo(
     } = usePagination({ 
       total: pagination?.total ?? 0, 
       status: pagination?.status, 
-      changeOffset: pagination?.changeOffset,
+      offset: pagination?.offset ?? 0,
+      increaseOffset: pagination ? pagination.increaseOffset : () => {},
     });
 
     return (

@@ -22,6 +22,13 @@ export const TabToMe = () => {
   
   const [offset, setOffset] = useState(0);
   
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
+  
   const [selectSortingField, setSelectSortingField] = useState('id');
   const [selectSortingDirection, setSelectSortingDirection] = useState<SortingDirection>('DESC');
   
@@ -72,9 +79,10 @@ export const TabToMe = () => {
 
   const pagination = useMemo(() => ({
     total,
-    changeOffset: setOffset,
+    increaseOffset,
     status: statusGetRequestsToMe, 
-  }), [statusGetRequestsToMe, total]);
+    offset,
+  }), [increaseOffset, offset, statusGetRequestsToMe, total]);
   
   const itemsMobile = useMemo(() => {
     const handleDeclineMobile = (requestId: number) => () => {

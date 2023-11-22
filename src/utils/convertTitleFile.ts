@@ -1,7 +1,7 @@
 import { stringLongShortcut } from 'utils';
 
-export const convertTitleFile = (title: string): string => {
+export const convertTitleFile = (title: string, limit: number = 20): string => {
   if (title.includes(' ')) return title;
-  if (title.length > 25) return stringLongShortcut(title, 20, 4); 
+  if (title.length > limit + 4) return stringLongShortcut(title, limit, 4); 
   return title;
 };

@@ -115,7 +115,15 @@ export const useColumns = ({
           <RequestCell isHideButtonsRequester profileId={ownerId} titleModal="Owner">{owner}</RequestCell> || '-',
       },
       {
-        Header: 'Status',
+        Header: (
+          <TitleWithArrows
+            title="Status"
+            onClick={() => {
+              onChangeSortingField('approve');
+              onToggleDirection();
+            }}
+          />
+        ),
         accessor: 'status',
         Cell: ({
           row: {
@@ -129,7 +137,7 @@ export const useColumns = ({
               <ButtonIcon
                 className={styles.columns_img}
                 image={getStatusImg(status)}
-                onClick={handleDeleteRequest(id)}
+                onClick={status === 'Access granted' ? () => {} : handleDeleteRequest(id)}
                 isDisabled={selectedId === id && statusDelete === RequestStatus.REQUEST}
               />
             </div>

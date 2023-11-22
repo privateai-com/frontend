@@ -12,7 +12,7 @@ import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestGetMyRequests } from 'store/request/actionCreators';
 import { SortingDirection } from 'types';
-import { normalizeUserInfo } from 'utils';
+import { convertTitleFile, normalizeUserInfo } from 'utils';
 import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
@@ -69,6 +69,13 @@ export const MyRequests = () => {
   
   const [offset, setOffset] = useState(0);
   
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
+
   const [selectSortingField, setSelectSortingField] = useState('id');
   const [selectSortingDirection, setSelectSortingDirection] = useState<SortingDirection>('DESC');
   
@@ -96,12 +103,20 @@ export const MyRequests = () => {
   );
 
   const content = useMemo(() => myRequests.map((item) => {
-    const status = 'Access request pending';
+    function getStatus() {
+      if(item.isOwnerViewed) {
+        if (item.approve === true) return 'Access granted'; 
+        if (item.approve === null) return 'Access request pending'; 
+        if (item.approve === false) return 'Access denied'; 
+      }
+      return 'Access request pending';
+    }
+    const status = getStatus();
     return {
       id: item.id,
       articleId: item.article.id, 
       ownerId: item.article.owner.id,
-      title: item.article.title,
+      title: convertTitleFile(item.article.title, 15),
       core: item.article.topCoreEntities ?? '-',
       owner: normalizeUserInfo(item.article.owner.fullName, item.article.owner.username) || `Archonaut#${item.article.owner.id}`,
       isOwnerViewed: item.isOwnerViewed, 
@@ -138,9 +153,10 @@ export const MyRequests = () => {
 
   const pagination = useMemo(() => ({
     total,
-    changeOffset: setOffset,
+    increaseOffset,
     status: statusGetMyRequests, 
-  }), [statusGetMyRequests, total]);
+    offset,
+  }), [increaseOffset, offset, statusGetMyRequests, total]);
   
   return (
     <AdaptivePaginationTable
