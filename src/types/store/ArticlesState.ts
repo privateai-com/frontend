@@ -62,3 +62,13 @@ export type Article = {
   usersAmount?: number;
   fileSize?: number;
 };
+
+export enum SocketUploadArticleEvent {
+  GET_UPLOAD_STATUS = 'uploadStatusUpdate',
+}
+
+export type EmitedSocketUploadEvent = {
+  event: SocketUploadArticleEvent;
+  articleId: number;
+  uploadProgress: number;
+};

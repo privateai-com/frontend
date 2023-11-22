@@ -17,4 +17,6 @@ export enum ArticlesActionTypes {
   PublishArticle = 'ARTICLES.PUBLISH_ARTICLE',
   
   SaveGraph = 'ARTICLES.SAVE_GRAPH',
+
+  GetArticleUploadStatus = 'ARTICLES.GET_ARTICLE_UPLOAD_STATUS',
 }

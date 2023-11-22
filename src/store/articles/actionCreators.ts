@@ -109,3 +109,7 @@ export const articlesGetMy = (
   type: ArticlesActionTypes.GetMyArticles,
   payload,
 });
+
+export const articlesGetUploadStatus = () => ({
+  type: ArticlesActionTypes.GetArticleUploadStatus,
+});
