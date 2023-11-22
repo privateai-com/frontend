@@ -5,7 +5,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { Requester, Loader } from 'components';
 import { profileSelectors } from 'store/profile/selectors';
-import { normalizeUserInfo } from 'utils';
+import { getName, normalizeUserInfo } from 'utils';
 import { RequestStatus } from 'types';
 import { profileGetProfileUser } from 'store/profile/actionCreators';
 
@@ -54,7 +54,7 @@ const RequestCell: React.FC<RequestCellProps> = ({
           id={profileId}
           title={titleModal}
           avatarUrl={avatarUrl || ''}
-          name={normalizeUserInfo(fullName, username) || '-'}
+          name={getName(fullName, username, profileId)}
           country={normalizeUserInfo(city, country) || '-'}
           organization={organization || '-'}
           position={position || '-'}
