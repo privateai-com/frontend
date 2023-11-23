@@ -68,3 +68,12 @@ export interface ProfileState {
   ui: PartialRecord<ProfileActionTypes, RequestStatus>;
   statusRequester: Record<number, RequestStatus>;
 }
+
+export enum SocketNotificationEvent {
+  NEW_NOTIFICATION = 'newNotification',
+}
+
+export type EmitedSocketNotificationEvent = {
+  event: SocketNotificationEvent;
+  data: [NotificationInfo[], number];
+};

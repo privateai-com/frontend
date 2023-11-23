@@ -1,5 +1,7 @@
 import { filesize } from 'filesize';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  useCallback, useEffect, useMemo, useState, 
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 
