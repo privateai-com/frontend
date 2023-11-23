@@ -12,7 +12,7 @@ type ItemProps = {
   name: string;
   weight: string;
   timeToUploaded: number;
-  idArticle?: string;
+  idArticle?: number;
   percents: number;
 };
 

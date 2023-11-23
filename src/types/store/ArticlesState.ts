@@ -7,20 +7,24 @@ import {
   Pagination,
 } from 'types';
 
+export interface ArticleUpload {
+  [key: string]: {
+    id: string;
+    status: RequestStatus;
+    fileName: string;
+    size: number;
+    percentUpload: number;
+    idArticle?: number;
+  };
+}
+
 export interface ArticlesState {
   articles: Article[];
   article?: Article,
   total: number;
   pagination?: Pagination;
   ui: PartialRecord<ArticlesActionTypes, RequestStatus>;
-  upload: Record<string, { 
-    id: string,
-    status: RequestStatus, 
-    fileName: string, 
-    size: number,
-    percentUpload: number,
-    idArticle?: string,
-  }>;
+  upload: ArticleUpload;
 }
 
 export type ArticleOwner = {
@@ -61,4 +65,14 @@ export type Article = {
   isGraphDifferent?: boolean;
   usersAmount?: number;
   fileSize?: number;
+};
+
+export enum SocketUploadArticleEvent {
+  GET_UPLOAD_STATUS = 'uploadStatusUpdate',
+}
+
+export type EmitedSocketUploadEvent = {
+  event: SocketUploadArticleEvent;
+  articleId: number;
+  uploadProgress: number;
 };

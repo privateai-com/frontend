@@ -9,6 +9,7 @@ import { articlesGetOneArticleSaga } from './getOneArticle';
 import { articlesPublishSaga } from './publish';
 import { articlesUpdateSaga } from './update';
 import { articlesSaveGraphSaga } from './saveGraph';
+import { articlesSocketUploadStatusSaga } from './uploadStatusArticle';
 
 export default function* articlesSaga() {
   yield takeEvery(ArticlesActionTypes.CreateArticle, articlesCreateSaga);
@@ -26,4 +27,5 @@ export default function* articlesSaga() {
   yield takeLatest(ArticlesActionTypes.PublishArticle, articlesPublishSaga);
   yield takeLatest(ArticlesActionTypes.UpdateArticle, articlesUpdateSaga);
   yield takeLatest(ArticlesActionTypes.SaveGraph, articlesSaveGraphSaga);
+  yield takeEvery(ArticlesActionTypes.GetArticleUploadStatus, articlesSocketUploadStatusSaga);
 }

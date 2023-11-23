@@ -46,7 +46,7 @@ export function* articlesCreateSaga({
     const res: {
       data: {
         data: {
-          id: string,
+          id: number,
         }
       }
     } = yield call(callApi, {
