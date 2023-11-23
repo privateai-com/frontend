@@ -5,8 +5,8 @@ import {
   PrivateKeyImage,
   PrivateKeyMobImage,
   PrivateKeyTabletImage,
-  SharedKeyImage,
-  SharedKeyMobImage,
+  // SharedKeyImage,
+  // SharedKeyMobImage,
   SymmetricEncryptionImage,
 } from 'assets';
 import Image, { StaticImageData } from 'next/image';
@@ -185,19 +185,19 @@ const Security = () => {
                   <li>
                     <a
                       target="_blank"
-                      href="https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography"
+                      href="https://www.techslang.com/definition/what-is-symmetric-encryption/"
                       rel="noreferrer"
                     >
-                      https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography
+                      https://www.techslang.com/definition/what-is-symmetric-encryption/
                     </a>
                   </li>
                   <li>
                     <a
                       target="_blank"
-                      href="https://en.wikipedia.org/wiki/Public-key_cryptography"
+                      href="https://en.wikipedia.org/wiki/Symmetric-key_algorithm"
                       rel="noreferrer"
                     >
-                      https://en.wikipedia.org/wiki/Public-key_cryptography
+                      https://en.wikipedia.org/wiki/Symmetric-key_algorithm
                     </a>
                   </li>
                 </ul>
@@ -230,43 +230,43 @@ const Security = () => {
               decrypting the data, only the intended recipient who possesses 
               the corresponding private key can decrypt and access the information.
             </div>
-            <div className={styles.main_block_halfed}>
-              <div className={styles.main_text}>
-                To provide an example, let’s assume that Bob wants to send a
-                private message to Alice.
-                <br />
-                To do that, he should take Alice’s public key, encode the
-                message with it and send it to Alice via an insecure channel. A
-                message can be intercepted, but no one can decrypt the data
-                besides Alice, because she is the only one who possesses the
-                private key. So her only necessity is to keep the private key
-                and not share it with anybody.
-                <br />
-                <br />
-                Those, who want to dig into details about the asymmetric
-                encryption, can check the reference:
-                <ul className={styles.main_link_list}>
-                  <li>
-                    <a
-                      target="_blank"
-                      href="https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography"
-                      rel="noreferrer"
-                    >
-                      https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      target="_blank"
-                      href="https://en.wikipedia.org/wiki/Public-key_cryptography"
-                      rel="noreferrer"
-                    >
-                      https://en.wikipedia.org/wiki/Public-key_cryptography
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className={styles.main_img_block}>
+            {/* <div className={styles.main_block_halfed}> */}
+            <div className={styles.main_text}>
+              To provide an example, let’s assume that Bob wants to send a
+              private message to Alice.
+              <br />
+              To do that, he should take Alice’s public key, encode the
+              message with it and send it to Alice via an insecure channel. A
+              message can be intercepted, but no one can decrypt the data
+              besides Alice, because she is the only one who possesses the
+              private key. So her only necessity is to keep the private key
+              and not share it with anybody.
+              <br />
+              <br />
+              Those, who want to dig into details about the asymmetric
+              encryption, can check the reference:
+              <ul className={styles.main_link_list}>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography"
+                    rel="noreferrer"
+                  >
+                    https://www.techtarget.com/searchsecurity/definition/asymmetric-cryptography
+                  </a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://en.wikipedia.org/wiki/Public-key_cryptography"
+                    rel="noreferrer"
+                  >
+                    https://en.wikipedia.org/wiki/Public-key_cryptography
+                  </a>
+                </li>
+              </ul>
+              {/* </div> */}
+              {/* <div className={styles.main_img_block}>
                 <Image
                   src={getImage(
                     SharedKeyImage,
@@ -275,8 +275,9 @@ const Security = () => {
                   )}
                   alt="Shared Key"
                 />
-              </div>
+              </div> */}
             </div>
+            <br />
             <div className={styles.main_block_halfed}>
               <div className={styles.main_text}>
                 Furthermore, the asymmetric protocols help to avoid one of the

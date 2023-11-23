@@ -4,6 +4,7 @@ import { requestGetDataSaga } from './getData';
 import { requestCreateSaga } from './create';
 import { requestAnswerSaga } from './answer';
 import { requestDeleteSaga } from './delete';
+import { requestDownloadSaga } from './download';
 import { requestGetMyRequestsSaga } from './getMyRequests';
 import { requestGetRequestsToMeSaga } from './getRequestsToMe';
 
@@ -12,6 +13,7 @@ export default function* requestSaga() {
   yield takeLeading(RequestActionTypes.Create, requestCreateSaga);
   yield takeLeading(RequestActionTypes.Answer, requestAnswerSaga);
   yield takeLeading(RequestActionTypes.Delete, requestDeleteSaga);
+  yield takeLeading(RequestActionTypes.Download, requestDownloadSaga);
   
   yield takeLeading(RequestActionTypes.GetMyRequests, requestGetMyRequestsSaga);
   yield takeLeading(RequestActionTypes.GetRequestsToMe, requestGetRequestsToMeSaga);
