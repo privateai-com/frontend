@@ -1,6 +1,7 @@
 import {
   call,
   put,
+  select,
   spawn,
   takeLatest,
 } from 'redux-saga/effects';
@@ -9,18 +10,32 @@ import { EventChannel, eventChannel } from 'redux-saga';
 
 import { socketConnect } from 'api';
 import { sagaExceptionHandler } from 'utils';
-import { EmitedSocketNotificationEvent, NotificationInfo, SocketNotificationEvent } from 'types';
+import {
+  AccountInfo,
+  EmitedSocketNotificationEvent,
+  NotificationInfo,
+  SocketNotificationEvent,
+} from 'types';
 import { profileSetState } from '../actionCreators';
+import { profileSelectors } from '../selectors';
 
 let socket: Socket;
 
 function* handleSocketEvents(eventData: { data: [NotificationInfo[], number] }) {
   try {
     const { data } = eventData;
+    const id: AccountInfo['id'] = yield select(
+      profileSelectors.getPropAccountInfo('id'),
+    );
 
-    yield put(profileSetState({
-      notifications: data[0] || [], 
-    }));
+    // fixed backend
+    const notifications =
+      data[0].filter(({
+        requester, article, isOwnerViewed, isRequesterViewed, 
+      }) =>
+        (requester.id === id && !isRequesterViewed) || (article.owner.id === id && !isOwnerViewed));
+
+    yield put(profileSetState({ notifications }));
   } catch (err) {
     sagaExceptionHandler(err);
   }

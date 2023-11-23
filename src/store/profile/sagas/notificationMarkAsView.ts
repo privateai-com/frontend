@@ -2,7 +2,11 @@ import { call, put } from 'redux-saga/effects';
 import { ApiEndpoint } from 'appConstants';
 import { RequestStatus } from 'types';
 import { sagaExceptionHandler } from 'utils';
-import { profileSetStatus, profileNotificationMarkAsView } from 'store/profile/actionCreators';
+import {
+  profileSetStatus,
+  profileNotificationMarkAsView,
+  profileNotification,
+} from 'store/profile/actionCreators';
 import { callApi } from 'api';
 
 export function* profileNotificationMarkAsViewSaga({
@@ -16,6 +20,8 @@ export function* profileNotificationMarkAsViewSaga({
       endpoint: ApiEndpoint.NotificationMarkAsView,
       payload,
     });
+
+    yield put(profileNotification());
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

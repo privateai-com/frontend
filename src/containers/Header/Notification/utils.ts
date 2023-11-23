@@ -29,9 +29,9 @@ export const generateNotificationText = (
 ): string => {
   switch (type) {
     case NotificationType.GrantAccess:
-      return `New access request for "${article.title}" document`;
-    case NotificationType.PendingAccess:
       return `Access granted for "${article.title}" document`;
+    case NotificationType.PendingAccess:
+      return `New access request for "${article.title}" document`;
     default:
       return article.title;
   }

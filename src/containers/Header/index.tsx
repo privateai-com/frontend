@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import cx from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -18,6 +20,7 @@ import {
   profileNotificationSubscribe,
 } from 'store/profile/actionCreators';
 
+import { useOnClickOutside } from 'hooks';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -36,6 +39,8 @@ export const Header = () => {
 
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const ref = useOnClickOutside<HTMLDivElement>(() => setIsNotificationOpen(false), buttonRef);
   
   const username = useSelector(profileSelectors.getPropAccountInfo('username'));
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
@@ -43,7 +48,7 @@ export const Header = () => {
   const notifications = useSelector(profileSelectors.getProp('notifications'));
 
   const onNotificationClick = () => {
-    setIsNotificationOpen(!isNotificationOpen);
+    setIsNotificationOpen((prevState) => !prevState);
   };
 
   const [showLogout, hideLogout] = useModal(() => (
@@ -121,6 +126,7 @@ export const Header = () => {
         className={cx(styles.button, { [styles.active]: !!notifications.length })}
         image={ringIcon}
         onClick={onNotificationClick}
+        ref={buttonRef}
       />
       <ButtonIcon
         className={styles.button}
@@ -128,6 +134,7 @@ export const Header = () => {
         onClick={showLogout}
       />
       <Notification
+        ref={ref}
         isOpen={isNotificationOpen}
         onDeleteNotification={onDeleteNotification}
         notifications={notifications}

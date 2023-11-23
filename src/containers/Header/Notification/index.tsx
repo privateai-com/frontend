@@ -1,4 +1,6 @@
-import { memo } from 'react';
+import {
+  DetailedHTMLProps, HTMLAttributes, PropsWithChildren, forwardRef,
+} from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
 import Image from 'next/image';
@@ -11,14 +13,19 @@ import { generateNotificationText, timeAgo } from './utils';
 
 import styles from './styles.module.scss';
 
-type NotificationProps = {
+type NotificationProps = PropsWithChildren<
+DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   isOpen: boolean;
   onDeleteNotification: (requestId: number) => void;
   notifications: NotificationInfo[];
-};
+}
+>;
 
-const Notification = memo(({ isOpen, onDeleteNotification, notifications }: NotificationProps) => (
-  <div className={cx(styles.notification_container, { [styles.show]: isOpen })}>
+const Notification = forwardRef<HTMLDivElement, NotificationProps>((
+  { isOpen, onDeleteNotification, notifications }: NotificationProps,
+  ref,
+) => (
+  <div className={cx(styles.notification_container, { [styles.show]: isOpen })} ref={ref}>
     <div className={styles.notification_content}>
       {notifications.map(({
         id, createdAt, article, type,

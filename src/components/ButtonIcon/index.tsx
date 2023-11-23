@@ -1,9 +1,9 @@
-import { memo, MouseEvent, FC } from 'react';
+import { MouseEvent, forwardRef } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 import styles from './styles.module.scss';
 
-type ButtonIconProps = {
+interface ButtonIconProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: (event?: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   isDisabled?: boolean;
@@ -11,9 +11,10 @@ type ButtonIconProps = {
   width?: number;
   height?:number;
   image: string;
-};
+}
 
-export const ButtonIcon: FC<ButtonIconProps> = memo(({
+export const ButtonIcon =
+forwardRef<HTMLButtonElement, ButtonIconProps>(({
   onClick,
   className = '',
   isDisabled = false,
@@ -21,7 +22,7 @@ export const ButtonIcon: FC<ButtonIconProps> = memo(({
   image,
   width,
   height,
-}) => (
+}, ref) => (
   <button
     className={cx(
       styles.button_icon__container,
@@ -34,6 +35,7 @@ export const ButtonIcon: FC<ButtonIconProps> = memo(({
     onClick={isDisabled ? () => {} : onClick}
     disabled={isDisabled}
     type="button"
+    ref={ref}
   >
     <Image
       src={image}
