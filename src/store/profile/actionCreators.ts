@@ -9,7 +9,7 @@ export const profileSetState = (payload: Partial<ProfileState>) => ({
 });
 
 export const profileSetAccountInfo = (payload: Partial<ProfileState['accountInfo']>) => ({
-  type: ProfileActionTypes.SetState,
+  type: ProfileActionTypes.SetStateAccountInfo,
   payload,
 });
 

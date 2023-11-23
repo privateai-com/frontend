@@ -12,7 +12,7 @@ import {
 import { RequestCell } from 'containers';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { routes } from 'appConstants';
-import { requestDelete } from 'store/request/actionCreators';
+import { requestDelete, requestDownload } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestedDataType } from './types';
@@ -28,16 +28,22 @@ export const useColumns = ({
 }) => {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(0);
+  const [selectedArticleId, setSelectedArticleId] = useState(0);
 
   const statusDelete = useSelector(requestSelectors.getStatus(RequestActionTypes.Delete));
+  const statusDownload = useSelector(requestSelectors.getStatus(RequestActionTypes.Download));
 
   const handleDeleteRequest = useCallback((requestId: number) => () => {
     setSelectedId(requestId);
     dispatch(requestDelete({
       requestId,
-      callback: () => {
+    }));
+  }, [dispatch]);
 
-      },
+  const handleDownloadRequest = useCallback((articleId: number) => () => {
+    setSelectedArticleId(articleId);
+    dispatch(requestDownload({
+      articleId,
     }));
   }, [dispatch]);
   
@@ -127,7 +133,7 @@ export const useColumns = ({
         accessor: 'status',
         Cell: ({
           row: {
-            original: { status, id },
+            original: { status, id, articleId },
           },
         }: ItemRowProps<RequestedDataType>) =>
           (status ? (
@@ -137,8 +143,13 @@ export const useColumns = ({
               <ButtonIcon
                 className={styles.columns_img}
                 image={getStatusImg(status)}
-                onClick={status === 'Access granted' ? () => {} : handleDeleteRequest(id)}
-                isDisabled={selectedId === id && statusDelete === RequestStatus.REQUEST}
+                onClick={status === 'Access granted' 
+                  ? handleDownloadRequest(articleId) 
+                  : handleDeleteRequest(id)}
+                isDisabled={
+                  (selectedId === id && statusDelete === RequestStatus.REQUEST)
+                  || (selectedArticleId === articleId && statusDownload === RequestStatus.REQUEST)
+                }
               />
             </div>
           ) : (
@@ -146,6 +157,7 @@ export const useColumns = ({
           )),
       },
     ],
-    [handleDeleteRequest, onChangeSortingField, onToggleDirection, selectedId, statusDelete],
+    [handleDeleteRequest, handleDownloadRequest, onChangeSortingField, 
+      onToggleDirection, selectedArticleId, selectedId, statusDelete, statusDownload],
   );
 };

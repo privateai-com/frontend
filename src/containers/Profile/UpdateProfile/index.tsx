@@ -75,7 +75,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
 
   const [avatar, setAvatar] = useState<File | null>();
   const [realName, setRealName] = useState(fullName || '');
-  const [username, setUsername] = useState(usernameOld || '');
+  const [username, setUsername] = useState(usernameOld ?? '');
   const [location, setLocation] = useState(normalizeUserInfo(city, country) || '');
   const [socialMediaLink, setSocialMediaLink] = useState(socialLink || '');
   const [organization, setOrganization] = useState(organizationOld || '');
@@ -89,9 +89,45 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     error: z.ZodFormattedError<z.infer<typeof UserSchema>, string> | null 
   }>({ success: true, error: null });
 
+  const saveData = useCallback(() => {
+    if (avatar) {
+      dispatch(
+        profileUploadAvatar({
+          file: avatar,
+        }),
+      );
+    }
+
+    const data = {
+      username: username === '' ? `Archonaut#${id}` : username,
+      socialLink: socialMediaLink,
+      organization,
+      researchFields,
+      fullName: realName,
+      position,
+      country: location,
+    };
+
+    dispatch(
+      profileUpdateProfile({
+        ...data,
+        callback: () => {
+          setIsEditProfile(false);
+        },
+      }),
+    );
+  }, [avatar, dispatch, id, location, organization, position, realName, 
+    researchFields, setIsEditProfile, socialMediaLink, username]);
+
   const [showEditProfileConfirm, hideEditProfileConfirm] = useModal(() => (
-    <EditProfileConfirm onCloseModal={hideEditProfileConfirm} onConfirm={() => {}} />
-  ));
+    <EditProfileConfirm 
+      onCloseModal={hideEditProfileConfirm}
+      isLoading={statusUpdate === RequestStatus.REQUEST}
+      onConfirm={() => {
+        saveData();
+      }} 
+    />
+  ), [statusUpdate, saveData]);
 
   function checkFile(file: File[] | FileList | null) {
     if (file && !imageRegexp.test(file[0]?.name.toLowerCase())) {
@@ -124,33 +160,12 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     });
 
     if (res.success) {
-      if (avatar) {
-        dispatch(
-          profileUploadAvatar({
-            file: avatar,
-          }),
-        );
-      }
-  
-      dispatch(
-        profileUpdateProfile({
-          username,
-          socialLink: socialMediaLink,
-          organization,
-          researchFields,
-          fullName: realName,
-          position,
-          country: location,
-          callback: () => {
-            setIsEditProfile(false);
-          },
-        }),
-      );
+      saveData();
     } else {
       showEditProfileConfirm();
     }
-  }, [avatar, username, socialMediaLink, organization, researchFields, 
-    realName, position, location, dispatch, setIsEditProfile, showEditProfileConfirm]);
+  }, [avatar, username, socialMediaLink, organization, researchFields, realName, position, 
+    location, saveData, showEditProfileConfirm]);
 
   const handleDrop = useCallback((e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
