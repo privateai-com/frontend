@@ -6,11 +6,12 @@ import cx from 'classnames';
 import { Button, Typography } from 'components';
 import { usePagination, useScreenWidth, useVipUser } from 'hooks';
 import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
-import { RequestStatus } from 'types';
+import { Article, RequestStatus } from 'types';
 
 import { articlesCreate, articlesGetMy, articlesGetUploadStatus } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
+import { useLocalStorage } from 'utils';
 import { DragNDrop } from './DragNDrop';
 import { Item } from './Item';
 
@@ -27,9 +28,9 @@ export const Upload = () => {
   const statusGetMyArticles = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetMyArticles),
   );
-  // const upload = useSelector(
-  //   articlesSelectors.getProp('upload'),
-  // );
+  const upload = useSelector(
+    articlesSelectors.getProp('upload'),
+  );
   const status = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.CreateArticle),
   );
@@ -61,6 +62,47 @@ export const Upload = () => {
   //   .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
 
   const timeToUploaded = (size: number) => size / 1_000_000 / 60;
+
+  // fixed backend
+  const {
+    dataStorage,
+    addItemStorage,
+    getItemByIdStorage,
+  } = useLocalStorage('articles');
+  
+  const updatedArticles = useMemo(() => (
+    articles.map((article: Article) => {
+      if (!dataStorage) return article;
+      const storageItem = dataStorage.find((storage: { id: number }) => storage.id === article.id);
+    
+      if (storageItem && (!article.fileSize || !article.title)) {
+        return {
+          ...article,
+          fileSize: storageItem.fileSize,
+          title: storageItem.title,
+        };
+      }
+    
+      return article;
+    })
+  ), [articles, dataStorage]);
+
+  useEffect(() => {
+    if (upload && Object.values(upload).length > 0) {
+      const { idArticle, size, fileName } = Object.values(upload)[0];
+      if (upload && idArticle) {
+        const isArticleStorage = !getItemByIdStorage(idArticle);
+        if (isArticleStorage) {
+          addItemStorage({
+            id: idArticle,
+            fileSize: size,
+            title: fileName,
+          });
+        }
+      }
+    }
+  }, [addItemStorage, dispatch, getItemByIdStorage, upload]);
+  // ----
 
   useEffect(() => {
     dispatch(articlesGetUploadStatus());
@@ -146,7 +188,7 @@ export const Upload = () => {
           <div className={styles.statuses_items}>
             <div className={styles.statuses_wrapper}>
               <div className={styles.statuses_content} ref={rootRef}>
-                {articles.map(({
+                {updatedArticles.map(({
                   id, title, uploadProgress, fileSize, 
                 }) => (
                   <Item

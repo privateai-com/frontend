@@ -7,20 +7,24 @@ import {
   Pagination,
 } from 'types';
 
+export interface ArticleUpload {
+  [key: string]: {
+    id: string;
+    status: RequestStatus;
+    fileName: string;
+    size: number;
+    percentUpload: number;
+    idArticle?: number;
+  };
+}
+
 export interface ArticlesState {
   articles: Article[];
   article?: Article,
   total: number;
   pagination?: Pagination;
   ui: PartialRecord<ArticlesActionTypes, RequestStatus>;
-  upload: Record<string, { 
-    id: string,
-    status: RequestStatus, 
-    fileName: string, 
-    size: number,
-    percentUpload: number,
-    idArticle?: string,
-  }>;
+  upload: ArticleUpload;
 }
 
 export type ArticleOwner = {

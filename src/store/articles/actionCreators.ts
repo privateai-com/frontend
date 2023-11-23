@@ -22,7 +22,7 @@ export const articlesSetStatusUpload = (payload: {
   size?: number;
   percentUpload?: number;
   status?: RequestStatus;
-  idArticle?: string,
+  idArticle?: number,
 }) => ({
   type: ArticlesActionTypes.SetStatusUpload,
   payload,
