@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import cx from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -11,8 +13,14 @@ import {
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
 import { profileSelectors } from 'store/profile/selectors';
-import { profileGetProfile } from 'store/profile/actionCreators';
+import {
+  profileNotification,
+  profileGetProfile,
+  profileNotificationMarkAsView,
+  profileNotificationSubscribe,
+} from 'store/profile/actionCreators';
 
+import { useOnClickOutside } from 'hooks';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -31,12 +39,16 @@ export const Header = () => {
 
   const [search, setSearch] = useState('');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const ref = useOnClickOutside<HTMLDivElement>(() => setIsNotificationOpen(false), buttonRef);
   
   const username = useSelector(profileSelectors.getPropAccountInfo('username'));
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
+  const userId = useSelector(profileSelectors.getPropAccountInfo('id'));
+  const notifications = useSelector(profileSelectors.getProp('notifications'));
 
   const onNotificationClick = () => {
-    setIsNotificationOpen(!isNotificationOpen);
+    setIsNotificationOpen((prevState) => !prevState);
   };
 
   const [showLogout, hideLogout] = useModal(() => (
@@ -49,6 +61,17 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch(profileGetProfile());
+    dispatch(profileNotification());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(profileNotificationSubscribe({ userId }));
+    }
+  }, [dispatch, userId]);
+
+  const onDeleteNotification = useCallback((requestId: number) => {
+    dispatch(profileNotificationMarkAsView({ requestId }));
   }, [dispatch]);
 
   return (
@@ -100,16 +123,22 @@ export const Header = () => {
         height={30}
       />
       <ButtonIcon
-        className={cx(styles.button, { [styles.active]: true })}
+        className={cx(styles.button, { [styles.active]: !!notifications.length })}
         image={ringIcon}
         onClick={onNotificationClick}
+        ref={buttonRef}
       />
       <ButtonIcon
         className={styles.button}
         image={logoutIcon}
         onClick={showLogout}
       />
-      <Notification isOpen={isNotificationOpen} />
+      <Notification
+        ref={ref}
+        isOpen={isNotificationOpen}
+        onDeleteNotification={onDeleteNotification}
+        notifications={notifications}
+      />
     </header>
   );
 };

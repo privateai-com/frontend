@@ -9,11 +9,14 @@ export const profileInitialState: Readonly<ProfileState> = {
 
   },
   requester: {},
+  notifications: [],
   ui: {
     [ProfileActionTypes.LinkWallet]: RequestStatus.INIT,
     [ProfileActionTypes.DeleteWallet]: RequestStatus.INIT,
     [ProfileActionTypes.UpdateProfile]: RequestStatus.INIT,
     [ProfileActionTypes.UploadAvatar]: RequestStatus.INIT,
+    [ProfileActionTypes.Notification]: RequestStatus.INIT,
+    [ProfileActionTypes.NotificationMarkAsView]: RequestStatus.INIT,
   },
   statusRequester: {
 

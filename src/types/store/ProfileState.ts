@@ -1,5 +1,6 @@
 import { ProfileActionTypes } from 'store/profile/actionTypes';
 import {
+  ArticleOwner,
   PartialRecord,
   RequestStatus,
 } from 'types';
@@ -33,9 +34,46 @@ export interface AccountInfo {
   userFilledAllInfo?: boolean,
 }
 
+export enum NotificationType {
+  GrantAccess = 'Grant access',
+  PendingAccess = 'Pending access',
+  UnknownType = 'Unknown type',
+}
+
+export interface NotificationArticle {
+  id: number;
+  title: string;
+  owner: ArticleOwner;
+}
+
+export interface NotificationInfo {
+  approve: boolean;
+  article: NotificationArticle;
+  id: number;
+  createdAt: string;
+  isOwnerViewed: boolean;
+  isRequesterViewed: boolean;
+  requester: {
+    id: number;
+    fullName: string | null;
+    username: string | null;
+  }
+  type: NotificationType;
+}
+
 export interface ProfileState {
   accountInfo: AccountInfo,
+  notifications: NotificationInfo[],
   requester: Record<number, AccountInfo>;
   ui: PartialRecord<ProfileActionTypes, RequestStatus>;
   statusRequester: Record<number, RequestStatus>;
 }
+
+export enum SocketNotificationEvent {
+  NEW_NOTIFICATION = 'newNotification',
+}
+
+export type EmitedSocketNotificationEvent = {
+  event: SocketNotificationEvent;
+  data: [NotificationInfo[], number];
+};

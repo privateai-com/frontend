@@ -63,3 +63,17 @@ export const profileUploadAvatar = (payload: { file: File }) => ({
   type: ProfileActionTypes.UploadAvatar,
   payload,
 });
+
+export const profileNotification = () => ({
+  type: ProfileActionTypes.Notification,
+});
+
+export const profileNotificationSubscribe = (payload: { userId: number }) => ({
+  type: ProfileActionTypes.NotificationSubscribe,
+  payload,
+});
+
+export const profileNotificationMarkAsView = (payload: { requestId: number; }) => ({
+  type: ProfileActionTypes.NotificationMarkAsView,
+  payload,
+});

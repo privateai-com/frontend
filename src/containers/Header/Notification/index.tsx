@@ -1,53 +1,60 @@
-import { memo } from 'react';
+import {
+  DetailedHTMLProps, HTMLAttributes, PropsWithChildren, forwardRef,
+} from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
 import Image from 'next/image';
+
 import { arrowIcon, closeModalIcon } from 'assets';
-import { routes } from 'appConstants';
+import { queryTab, routes } from 'appConstants';
 import { ButtonIcon } from 'components';
+import { NotificationInfo, NotificationType } from 'types';
+import { generateNotificationText, timeAgo } from './utils';
+
 import styles from './styles.module.scss';
 
-type NotificationProps = {
+type NotificationProps = PropsWithChildren<
+DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   isOpen: boolean;
-};
+  onDeleteNotification: (requestId: number) => void;
+  notifications: NotificationInfo[];
+}
+>;
 
-const items = [
-  {
-    text: 'New access request for “Genome Editing” document.',
-    time: '~ 5 min ago',
-  },
-  {
-    text: 'Access granted for “Advancements in Biomedical Research Exploring New Frontiers ...” document.',
-    time: '~ 1 day ago',
-  },
-];
-
-const Notification = memo(({ isOpen }: NotificationProps) => (
-  <div className={cx(styles.notification_container, { [styles.show]: isOpen })}>
+const Notification = forwardRef<HTMLDivElement, NotificationProps>((
+  { isOpen, onDeleteNotification, notifications }: NotificationProps,
+  ref,
+) => (
+  <div className={cx(styles.notification_container, { [styles.show]: isOpen })} ref={ref}>
     <div className={styles.notification_content}>
-      {items.map(({ text, time }) => (
+      {notifications.map(({
+        id, createdAt, article, type,
+      }) => (
         <div
           className={styles.item_container}
-          key={text}
+          key={id}
         >
           <div className={styles.item_block}>
-            <div className={styles.item_time}>{time}</div>
+            <div className={styles.item_time}>{timeAgo(createdAt)}</div>
             <ButtonIcon
               className={styles.item_close}
-              onClick={() => {}}
+              onClick={() => onDeleteNotification(id)}
               image={closeModalIcon}
               height={14}
               width={14}
             />
           </div>
           <Link
-            href={`${routes.requests.root}`}
+            href={type === NotificationType.PendingAccess
+              ? `${routes.requests.root}`
+              : `${routes.storage.root}?storageTab=${queryTab.storageRequestedData}`}
             className={styles.item_content}
+            onClick={() => onDeleteNotification(id)}
           >
-            {text}
+            {generateNotificationText(type, article)}
             <Image
               src={arrowIcon}
-              alt={text}
+              alt="next"
               width={25}
             />
           </Link>

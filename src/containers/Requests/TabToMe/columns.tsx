@@ -120,11 +120,11 @@ export const useColumns = ({
         width: '15vw',
         Cell: ({
           row: {
-            original: { id, isOwnerViewed, approve },
+            original: { id, approve },
           },
         }: ItemRowProps<RequestsType>) =>
           // eslint-disable-next-line no-nested-ternary
-          (!isOwnerViewed ? (
+          (approve === null ? (
             <div className={styles.table_block_btn}>
               <Button 
                 className={styles.table_provide}
