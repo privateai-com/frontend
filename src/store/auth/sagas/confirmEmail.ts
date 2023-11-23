@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 
-import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
+import { responseExceptionToFormError } from 'utils';
 import {
   RequestStatus, UserResponse,
 } from 'types';
@@ -44,11 +44,11 @@ export function* authConfirmEmailSaga({
       refreshToken,
       timestamp,
     }));
-    yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
     successCallback();
+    yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
     errorCallback(responseExceptionToFormError(e));
-    sagaExceptionHandler(e);
+    // sagaExceptionHandler(e);
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }
 }

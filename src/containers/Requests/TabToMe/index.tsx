@@ -1,33 +1,33 @@
+/* eslint-disable react/no-unstable-nested-components */
 import {
+  ReactNode,
   useCallback, useEffect, useMemo, useState, 
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AdaptivePaginationTable } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
+import { RequestCell } from 'containers/RequestCell';
+import { RequestedDataType } from 'containers/Storage/MyRequests/types';
 import { requestSelectors } from 'store/request/selectors';
-import { requestToMe } from 'store/request/actionCreators';
+import { requestAnswer, requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { SortingDirection } from 'types';
-import { normalizeUserInfo } from 'utils';
+import { convertTitleFile, formatDate, getName } from 'utils';
 import { useColumns } from './columns';
 
 import styles from './styles.module.scss';
-
-const itemsMobile = [
-  {
-    title: 'Request date',
-    key: 'date', 
-  },
-  {
-    title: 'Requester',
-    key: 'requester', 
-  },
-];
 
 export const TabToMe = () => {
   const dispatch = useDispatch();
   
   const [offset, setOffset] = useState(0);
+  
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
   
   const [selectSortingField, setSelectSortingField] = useState('id');
   const [selectSortingDirection, setSelectSortingDirection] = useState<SortingDirection>('DESC');
@@ -60,9 +60,9 @@ export const TabToMe = () => {
     articleId: item.article.id,
     ownerId: item.article.owner.id,
     requesterId: item.requester.id,
-    title: item.article.title,
-    date: '13/03/2023',
-    requester: normalizeUserInfo(item.requester.fullName, item.requester.username) || `Archonaut#${item.requester.id}`,
+    title: convertTitleFile(item.article.title),
+    date: formatDate(new Date(item.createdAt)),
+    requester: getName(item.requester.fullName, item.requester.username, item.requester.id),
     isOwnerViewed: item.isOwnerViewed, 
     approve: item.approve,
   })), [requestsToMe]);
@@ -79,9 +79,58 @@ export const TabToMe = () => {
 
   const pagination = useMemo(() => ({
     total,
-    changeOffset: setOffset,
+    increaseOffset,
     status: statusGetRequestsToMe, 
-  }), [statusGetRequestsToMe, total]);
+    offset,
+  }), [increaseOffset, offset, statusGetRequestsToMe, total]);
+  
+  const itemsMobile = useMemo(() => {
+    const handleDeclineMobile = (requestId: number) => () => {
+      dispatch(requestAnswer({
+        requestId,
+        isApprove: false,
+      }));
+    };
+  
+    const handleProvideMobile = (requestId: number) => () => {
+      dispatch(requestAnswer({
+        requestId,
+        isApprove: true,
+      }));
+    };
+
+    return [
+      {
+        title: 'Request date',
+        key: 'date', 
+      },
+      {
+        title: 'Requester',
+        key: 'owner', 
+        cell: (value: RequestedDataType | ReactNode): ReactNode => {
+          if (value && typeof value === 'object') {
+            const { 
+              ownerId, requester, approve, id,
+            } = value as RequestedDataType;
+            return (
+              <RequestCell
+                className={styles.requesterMobile}
+                classNameRequester={styles.requesterMobile}
+                profileId={ownerId}
+                requester={requester}
+                onConfirmButton={handleProvideMobile(id)}
+                onCancelButton={handleDeclineMobile(id)}
+                isHideButtonsRequester={!!approve}
+              >
+                See the profile details
+              </RequestCell>
+            );
+          }
+          return value;
+        },
+      },
+    ];
+  }, [dispatch]);
   
   return (
     <AdaptivePaginationTable

@@ -91,6 +91,8 @@ export const Header = () => {
                   key={i}
                 >
                   <SelectedText
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={`result_${i}`}
                     text={result}
                     searchWord={search}
                     className={styles.selected}
@@ -112,6 +114,8 @@ export const Header = () => {
         className={styles.button}
         image={userIcon}
         onClick={onRedirectClick}
+        width={30}
+        height={30}
       />
       <ButtonIcon
         className={cx(styles.button, { [styles.active]: !!notifications.length })}

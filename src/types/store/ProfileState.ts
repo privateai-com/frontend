@@ -31,6 +31,7 @@ export interface AccountInfo {
   position?: string,
   researchFields?: string,
   avatarUrl?: string,
+  userFilledAllInfo?: boolean,
 }
 
 export enum NotificationType {
@@ -62,7 +63,8 @@ export interface NotificationInfo {
 
 export interface ProfileState {
   accountInfo: AccountInfo,
-  requester: AccountInfo,
   notifications: NotificationInfo[],
+  requester: Record<number, AccountInfo>;
   ui: PartialRecord<ProfileActionTypes, RequestStatus>;
+  statusRequester: Record<number, RequestStatus>;
 }

@@ -11,3 +11,10 @@ export const formatDate = (inputDate: string): string => {
   
   return `${day} ${month} ${year}`;
 };
+
+export const convertToBytesString = (num: number): string => {
+  if (num >= 1) {
+    return `${num.toFixed(2)} MB`;
+  } 
+  return `${(num * 1024).toFixed(2)} KB`;
+};

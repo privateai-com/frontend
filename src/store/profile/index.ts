@@ -18,6 +18,9 @@ export const profileInitialState: Readonly<ProfileState> = {
     [ProfileActionTypes.Notification]: RequestStatus.INIT,
     [ProfileActionTypes.NotificationMarkAsView]: RequestStatus.INIT,
   },
+  statusRequester: {
+
+  },
 };
 
 export default createReducer(profileInitialState, profileHandlers);

@@ -1,16 +1,20 @@
 import React, {
   ChangeEvent, DragEvent, useCallback, useState, 
 } from 'react';
+import { z } from 'zod';
 import { toast } from 'react-toastify';
 import cx from 'classnames';
 import Image from 'next/image';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { ScreenWidth, imageRegexp } from 'appConstants';
-import { Button, TextInput, Typography } from 'components';
+import {
+  Button, TextInput, Typography, EditProfileConfirm, 
+} from 'components';
 import { uploadIcon } from 'assets';
 import { useScreenWidth } from 'hooks';
 import { RequestStatus } from 'types';
+import { useModal } from 'react-modal-hook';
 
 import {
   profileUpdateProfile,
@@ -23,6 +27,23 @@ import { profileSelectors } from 'store/profile/selectors';
 import { normalizeUserInfo } from 'utils';
 import { Footer } from '../Footer';
 import styles from './styles.module.scss';
+
+const UserSchema = z.object({
+  file: z.custom<File>(),
+  username: z.string(),
+  fullName: z.string().nonempty(),
+  socialLink: z.string().url().or(z.literal('')),
+  organization: z.string().nonempty(),
+  researchFields: z.string().nonempty(),
+  position: z.string().nonempty(),
+  country: z.string().optional().nullable().or(z.literal('')),
+}).required({
+  fullName: true,
+  file: true,
+  organization: true,
+  researchFields: true,
+  position: true,
+});
 
 type UpdateProfileProps = {
   isEditProfile: boolean;
@@ -63,6 +84,14 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     researchFieldsOld || '',
   );
   const [isDragging, setIsDragging] = useState(false);
+  const [validation, setValidation] = useState<{ 
+    success: boolean, 
+    error: z.ZodFormattedError<z.infer<typeof UserSchema>, string> | null 
+  }>({ success: true, error: null });
+
+  const [showEditProfileConfirm, hideEditProfileConfirm] = useModal(() => (
+    <EditProfileConfirm onCloseModal={hideEditProfileConfirm} onConfirm={() => {}} />
+  ));
 
   function checkFile(file: File[] | FileList | null) {
     if (file && !imageRegexp.test(file[0]?.name.toLowerCase())) {
@@ -78,34 +107,50 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
   }, []);
 
   const onSaveClick = useCallback(() => {
-    if (avatar) {
+    const data = {
+      file: avatar,
+      username,
+      socialLink: socialMediaLink,
+      organization,
+      researchFields,
+      fullName: realName,
+      position,
+      country: location,
+    };
+    const res = UserSchema.safeParse(data);
+    setValidation({
+      success: res.success,
+      error: !res.success ? res.error.format() : null,
+    });
+
+    if (res.success) {
+      if (avatar) {
+        dispatch(
+          profileUploadAvatar({
+            file: avatar,
+          }),
+        );
+      }
+  
       dispatch(
-        profileUploadAvatar({
-          file: avatar,
+        profileUpdateProfile({
+          username,
+          socialLink: socialMediaLink,
+          organization,
+          researchFields,
+          fullName: realName,
+          position,
+          country: location,
+          callback: () => {
+            setIsEditProfile(false);
+          },
         }),
       );
+    } else {
+      showEditProfileConfirm();
     }
-
-    dispatch(
-      profileUpdateProfile({
-        city: '',
-        username,
-        socialLink: socialMediaLink,
-        organization,
-        researchFields,
-        fullName: realName,
-        phone: '',
-        scientificTitle: '',
-        position,
-        country: location,
-        timeZone: '',
-        callback: () => {
-          setIsEditProfile(false);
-        },
-      }),
-    );
-  }, [avatar, dispatch, location, username, socialMediaLink, 
-    organization, researchFields, realName, position, setIsEditProfile]);
+  }, [avatar, username, socialMediaLink, organization, researchFields, 
+    realName, position, location, dispatch, setIsEditProfile, showEditProfileConfirm]);
 
   const handleDrop = useCallback((e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
@@ -114,12 +159,6 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     const file = e.dataTransfer.files;
     checkFile(file);
   }, []);
-
-  const isDisabled = !realName ||
-    !email ||
-    !position ||
-    !researchFields ||
-    !organization;
 
   return (
     <>
@@ -134,43 +173,56 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
         >
-          <p>
-            {avatar ? (
-              'Uploaded'
-            ) : (
-              <>
-                {isSmallDesktop
-                  ? 'Tap to upload your profile picture'
-                  : 'Upload your profile picture'}
-                <span>*</span>
-              </>
-            )}
-          </p>
-          <Image
-            src={uploadIcon}
-            alt="icon"
-            className={styles.info_upload_img}
-          />
-          <input
-            type="file"
-            id="upload"
-            onChange={onUploadClick}
-            className={styles.info_upload_input}
-            accept="image/png, image/jpg, image/jpeg"
-          />
+          {avatar ? (
+            <Image
+              src={URL.createObjectURL(avatar)}
+              alt="avatar"
+              className={styles.avatar}
+              width={350}
+              height={350}
+                // fill
+              style={{ objectFit: 'cover' }}
+            /> 
+          ) : (
+            <p>
+              {isSmallDesktop
+                ? 'Tap to upload your profile picture'
+                : 'Upload your profile picture'}
+              <span>*</span>
+            </p>
+          )}
+          {!avatar && (
+            <>
+              <Image
+                src={uploadIcon}
+                alt="icon"
+                className={styles.info_upload_img}
+              />
+              <input
+                type="file"
+                id="upload"
+                onChange={onUploadClick}
+                className={styles.info_upload_input}
+                accept="image/png, image/jpg, image/jpeg"
+              />
+            </>
+          )}
         </label>
         <TextInput
           label="Real name"
           value={realName}
           onChangeValue={setRealName}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelInput}
           isRequired
+          isError={validation?.error ? !!validation?.error['fullName'] : false}
         />
         <TextInput
           label="User name"
           value={username}
           onChangeValue={setUsername}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelInput}
           placeholder={username || `Archonaut#${id}`}
         />
         <TextInput
@@ -178,6 +230,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           value={location}
           onChangeValue={setLocation}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelInput}
           placeholder="e.g., London, UK"
         />
       </div>
@@ -195,30 +248,39 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           value={socialMediaLink}
           onChangeValue={setSocialMediaLink}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelInput}
+          isError={validation?.error ? !!validation?.error['socialLink'] : false}
         />
       </div>
       <div className={cx(styles.wrapper, styles.info3)}>
         <Typography type="h2">Field of activity</Typography>
         <TextInput
           label="Organisation/Institute"
+          placeholder="e.g., London Institute of Medical Sciences"
           value={organization}
           onChangeValue={setOrganization}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelInput}
           isRequired
+          isError={validation?.error ? !!validation?.error['organization'] : false}
         />
         <TextInput
           label="Position"
           value={position}
           onChangeValue={setPosition}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelInput}
           isRequired
+          isError={validation?.error ? !!validation?.error['position'] : false}
         />
         <TextInput
           label="Research fields"
           value={researchFields}
           onChangeValue={setResearchFields}
           classNameContainer={styles.input__container}
+          classNameLabel={styles.labelInput}
           isRequired
+          isError={validation?.error ? !!validation?.error['researchFields'] : false}
         />
       </div>
       <div className={styles.footer}>
@@ -235,7 +297,6 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
             className={styles.button}
             onClick={onSaveClick}
             isLoading={statusUpdate === RequestStatus.REQUEST}
-            disabled={isDisabled}
           >
             Save
           </Button>

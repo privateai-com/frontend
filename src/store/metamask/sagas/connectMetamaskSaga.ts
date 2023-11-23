@@ -11,7 +11,7 @@ import {
   notificationText,
 } from 'appConstants';
 import {
-  getMetamaskChainId, sagaExceptionHandler, notification,
+  getMetamaskChainId, sagaExceptionHandler, notification, getDataFromException,
 } from 'utils';
 import {
   metamaskSetState, metamaskDisconnect, metamaskSetStatus, metamaskConnect,
@@ -195,11 +195,12 @@ export function* connectMetamaskSaga({ type, payload }: ReturnType<typeof metama
         yield put(metamaskSetStatus({ type, statusRequest: RequestStatus.ERROR }));
       }
     }
+    return;
   } catch (err) {
     yield put(metamaskSetStatus({ type, statusRequest: RequestStatus.ERROR }));
     yield put(metamaskSetState({
       status: MetamaskStatus.NOT_AVAILABLE,
     }));
-    sagaExceptionHandler(err);
+    sagaExceptionHandler(err ? getDataFromException(err) : 'Error metamask');
   }
 }

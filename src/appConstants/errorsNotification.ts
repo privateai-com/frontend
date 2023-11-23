@@ -7,4 +7,5 @@ export const errorsNotification = {
     'An account with entered email address already exists. Please enter another email or sign in.',
   authError:
     'You have entered a wrong email address and/or password. Please check them and try one more time.',
+  profileNotFilled: 'Please fill in all required fields in profile',
 };

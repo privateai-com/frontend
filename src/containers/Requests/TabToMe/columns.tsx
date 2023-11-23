@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 
-import { Button, RequestCell } from 'components';
+import { Button } from 'components';
+import { RequestCell } from 'containers';
 import { ItemRowProps, RequestStatus } from 'types';
 import { routes } from 'appConstants';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
@@ -48,10 +49,11 @@ export const useColumns = ({
           <TitleWithArrows
             title="File name"
             onClick={() => {
-              onChangeSortingField('title');
+              onChangeSortingField('article.title');
               onToggleDirection();
             }}
           />),
+        width: '22vw',
         accessor: 'name',
         Cell: ({
           row: {
@@ -59,7 +61,9 @@ export const useColumns = ({
           },
         }: ItemRowProps<RequestsType>) =>
           (title ? (
-            <Link href={`${routes.storage.root}/${articleId}`}>{title}</Link>
+            <Link href={`${routes.storage.root}/${articleId}`}>
+              {title}
+            </Link>
           ) : (
             '-'
           )),
@@ -68,11 +72,12 @@ export const useColumns = ({
         Header: <TitleWithArrows
           title="Request date"
           onClick={() => {
-            onChangeSortingField('date');
+            onChangeSortingField('createdAt');
             onToggleDirection();
           }}
         />,
         accessor: 'date',
+        // width: '187px',
         Cell: ({
           row: {
             original: { date },
@@ -83,7 +88,7 @@ export const useColumns = ({
         Header: <TitleWithArrows
           title="Requester"
           onClick={() => {
-            onChangeSortingField('requester');
+            onChangeSortingField('requester.id');
             onToggleDirection();
           }}
         />,
@@ -101,7 +106,7 @@ export const useColumns = ({
               profileId={requesterId}
               onConfirmButton={handleProvide(id)}
               onCancelButton={handleDecline(id)}
-              isHideButoonsRequester={!!approve}
+              isHideButtonsRequester={!!approve}
             >
               See the profile details
             </RequestCell>
@@ -112,6 +117,7 @@ export const useColumns = ({
       {
         Header: 'Access action',
         accessor: 'id',
+        width: '15vw',
         Cell: ({
           row: {
             original: { id, isOwnerViewed, approve },

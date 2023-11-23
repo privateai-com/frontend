@@ -22,7 +22,7 @@ export const articlesSetStatusUpload = (payload: {
   size?: number;
   percentUpload?: number;
   status?: RequestStatus;
-  idArticle?: string,
+  idArticle?: number,
 }) => ({
   type: ArticlesActionTypes.SetStatusUpload,
   payload,
@@ -92,6 +92,7 @@ export const articlesGetAll = (
 
 export const articlesGetOneArticle = (payload: {
   articleId: number,
+  errorCallback?: () => void,
 }) => ({
   type: ArticlesActionTypes.GetOneArticle,
   payload,
@@ -107,4 +108,8 @@ export const articlesGetMy = (
 ) => ({
   type: ArticlesActionTypes.GetMyArticles,
   payload,
+});
+
+export const articlesGetUploadStatus = () => ({
+  type: ArticlesActionTypes.GetArticleUploadStatus,
 });

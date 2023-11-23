@@ -27,6 +27,7 @@ export enum ApiEndpoint {
   ArticlesGetMyArticles = '/articles/my-articles',
   ArticlesMyRequestedArticles = '/articles/my-requested-articles',
   ArticlesPublishArticle = '/articles/publish',
+  ArticlesUploadStatus = '/uploadStatusUpdate',
   
   GraphSave = '/graph/save',
 

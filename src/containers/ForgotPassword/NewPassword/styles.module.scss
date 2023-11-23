@@ -28,7 +28,7 @@
 
 .description {
 	width: 100%;
-	margin-bottom: 50px;
+	margin-bottom: 31px;
 	text-align: center;
 
 	@include mobile {
@@ -38,11 +38,7 @@
 }
 
 .input__container {
-	margin-bottom: 24px;
-
-	&:nth-child(3) {
-		margin-bottom: 34px;
-	}
+	margin-top: 24px;
 
 	@include mobile {
 		margin-bottom: 10px;
@@ -52,6 +48,7 @@
 .button {
 	width: 100%;
 	max-width: 280px;
+	margin-top: 11px;
 
 	@include desktop1440 {
 		max-width: 190px;
@@ -69,4 +66,12 @@
 .button,
 .description {
 	@include font-size;
+}
+
+.error {
+	color: $color-error;
+	margin-top: 7px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 500;
 }

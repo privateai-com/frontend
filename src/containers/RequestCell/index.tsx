@@ -5,8 +5,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { Requester, Loader } from 'components';
 import { profileSelectors } from 'store/profile/selectors';
-import { normalizeUserInfo } from 'utils';
-import { ProfileActionTypes } from 'store/profile/actionTypes';
+import { getName, normalizeUserInfo } from 'utils';
 import { RequestStatus } from 'types';
 import { profileGetProfileUser } from 'store/profile/actionCreators';
 
@@ -15,19 +14,24 @@ import styles from './styles.module.scss';
 type RequestCellProps = {
   requester?: string;
   children: ReactNode;
+  titleModal?: string;
   className?: string;
+  classNameRequester?: string;
   profileId: number;
-  isHideButoonsRequester?: boolean;
+  isHideButtonsRequester?: boolean;
   onConfirmButton?: () => void;
   onCancelButton?: () => void;
+  isDisabled?: boolean;
 };
 
 const RequestCell: React.FC<RequestCellProps> = ({
-  requester, children, className = '', profileId, isHideButoonsRequester = false, onConfirmButton, onCancelButton,
+  requester, children, className = '', profileId, classNameRequester = '',
+  isHideButtonsRequester = false, onConfirmButton, onCancelButton, isDisabled,
+  titleModal = 'Requester',
 }) => {
   const dispatch = useDispatch();
-  const requesterUser = useSelector(profileSelectors.getProp('requester'), shallowEqual);
-  const status = useSelector(profileSelectors.getStatus(ProfileActionTypes.GetProfileUser));
+  const requesterUser = useSelector(profileSelectors.getPropRequester(profileId), shallowEqual);
+  const status = useSelector(profileSelectors.getStatusRequester(profileId));
 
   const isLoading = status === RequestStatus.REQUEST;
 
@@ -48,9 +52,10 @@ const RequestCell: React.FC<RequestCellProps> = ({
       return (
         <Requester
           id={profileId}
+          title={titleModal}
           avatarUrl={avatarUrl || ''}
-          name={normalizeUserInfo(fullName, username) || '-'}
-          contry={normalizeUserInfo(city, country) || '-'}
+          name={getName(fullName, username, profileId)}
+          country={normalizeUserInfo(city, country) || '-'}
           organization={organization || '-'}
           position={position || '-'}
           fields={researchFields || '-'}
@@ -58,7 +63,7 @@ const RequestCell: React.FC<RequestCellProps> = ({
           onConfirmButton={() => { if (onConfirmButton) onConfirmButton(); hideRequester(); }}
           onCancelButton={() => { if (onCancelButton) onCancelButton(); hideRequester(); }}
           onCloseModal={hideRequester}
-          isHideButoons={isHideButoonsRequester}
+          isHideButtons={isHideButtonsRequester}
         />
       );
     },
@@ -70,27 +75,28 @@ const RequestCell: React.FC<RequestCellProps> = ({
   }, [showRequester]);
 
   const onOwnerClick = useCallback(() => {
-    if (profileId) {
+    if (profileId && !isDisabled) {
       dispatch(profileGetProfileUser({
         profileId,
         successCallback,
       }));
     }
-  }, [dispatch, profileId, successCallback]);
+  }, [dispatch, isDisabled, profileId, successCallback]);
 
   return (
     <>
-      {requester && <span>{requester}</span>}
+      {requester && <span className={classNameRequester}>{requester}</span>}
       <div className={cx(styles.cell_block_btn, className)}>
         {!isLoading ? (
           <button
             className={styles.cell_btn_link}
             onClick={onOwnerClick}
+            disabled={isDisabled}
           >
             {children}
           </button>
         ) : (
-          <Loader />
+          <Loader className={styles.loader} />
         )}
       </div>
     </>

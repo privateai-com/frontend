@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { responseExceptionToFormError, sagaExceptionHandler } from 'utils';
+import { responseExceptionToFormError } from 'utils';
 import {
   RequestStatus, UserResponse,
 } from 'types';
@@ -45,7 +45,7 @@ export function* authLoginSaga({
     successCallback();
     yield put(authSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
-    sagaExceptionHandler(e);
+    // sagaExceptionHandler(e);
     errorCallback(responseExceptionToFormError(e));
     yield put(authSetStatus({ type, status: RequestStatus.ERROR }));
   }

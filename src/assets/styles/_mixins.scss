@@ -124,12 +124,12 @@
 	&::-webkit-scrollbar {
 		width: 8px;
 	}
-
+	
 	&::-webkit-scrollbar-track {
 		border-radius: 4px;
-		background-color: $color-grey2;
+		background-color: #EEE;
 	}
-
+	
 	&::-webkit-scrollbar-thumb {
 		border-radius: 4px;
 		background-color: $color-green;

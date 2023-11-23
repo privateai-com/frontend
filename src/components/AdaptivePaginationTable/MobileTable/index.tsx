@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
-import { Article, RequestStatus } from 'types';
+import { Article, PaginationForHook } from 'types';
 import { usePagination } from 'hooks';
-// import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import { RequestedDataType } from 'containers/MyRequests/types';
+import { RequestedDataType } from 'containers/Storage/MyRequests/types';
 import { MobileTableItem } from '../MobileTableItem';
 
 import styles from './styles.module.scss';
@@ -19,11 +18,7 @@ type AdaptivePaginationTableProps = {
   content: Article[] | any[];
   other?: string | ReactNode;
   itemsMobile: ItemMobile[];
-  pagination?: {
-    total: number,
-    status?: RequestStatus,
-    changeOffset?: (offset: number) => void,
-  }
+  pagination?: PaginationForHook
 };
 
 export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
@@ -32,20 +27,13 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
   other,
   itemsMobile,
 }) => {
-  // const [sentryRef, { rootRef }] = useInfiniteScroll({
-  //   loading: pagination?.isLoading ?? false,
-  //   hasNextPage: pagination?.isHasNextPage ?? true,
-  //   onLoadMore: pagination?.onLoadMore || (() => {}),
-  //   disabled: pagination?.isError,
-  //   rootMargin: '0px 0px 40px 0px',
-  // });
-
   const {
     rootRef, endElementForScroll,
   } = usePagination({ 
+    offset: pagination?.offset ?? 0, 
     total: pagination?.total ?? 0, 
     status: pagination?.status, 
-    changeOffset: pagination?.changeOffset,
+    increaseOffset: pagination ? pagination.increaseOffset : () => {},
   });
   
   return (

@@ -38,6 +38,7 @@ export const ButtonIcon: FC<ButtonIconProps> = memo(({
     <Image
       src={image}
       alt="button icon"
+      priority 
       width={width}
       height={height}
     />

@@ -4,14 +4,15 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  AdaptivePaginationTable, ButtonIcon, RequestCell, 
+  AdaptivePaginationTable, ButtonIcon, 
 } from 'components';
+import { RequestCell } from 'containers';
 import { itemsOnPageQuantity } from 'appConstants';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestGetMyRequests } from 'store/request/actionCreators';
 import { SortingDirection } from 'types';
-import { normalizeUserInfo } from 'utils';
+import { convertTitleFile, normalizeUserInfo } from 'utils';
 import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
@@ -32,7 +33,8 @@ const itemsMobile = [
           <RequestCell
             className={styles.requesterMobile}
             profileId={ownerId}
-            isHideButoonsRequester
+            titleModal="Owner"
+            isHideButtonsRequester
           >
             {owner}
           </RequestCell>
@@ -67,6 +69,13 @@ export const MyRequests = () => {
   
   const [offset, setOffset] = useState(0);
   
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
+
   const [selectSortingField, setSelectSortingField] = useState('id');
   const [selectSortingDirection, setSelectSortingDirection] = useState<SortingDirection>('DESC');
   
@@ -87,20 +96,28 @@ export const MyRequests = () => {
     onToggleDirection: handleToggleDirection,
   });
 
-  const requestsToMe = useSelector(requestSelectors.getProp('myRequests'));
+  const myRequests = useSelector(requestSelectors.getProp('myRequests'));
   const total = useSelector(requestSelectors.getProp('total'));
   const statusGetMyRequests = useSelector(
     requestSelectors.getStatus(RequestActionTypes.GetMyRequests),
   );
 
-  const content = useMemo(() => requestsToMe.map((item) => {
-    const status = 'Access request pending';
+  const content = useMemo(() => myRequests.map((item) => {
+    function getStatus() {
+      if(item.isOwnerViewed) {
+        if (item.approve === true) return 'Access granted'; 
+        if (item.approve === null) return 'Access request pending'; 
+        if (item.approve === false) return 'Access denied'; 
+      }
+      return 'Access request pending';
+    }
+    const status = getStatus();
     return {
       id: item.id,
       articleId: item.article.id, 
       ownerId: item.article.owner.id,
-      title: item.article.title,
-      core: item.article.field,
+      title: convertTitleFile(item.article.title, 15),
+      core: item.article.topCoreEntities ?? '-',
       owner: normalizeUserInfo(item.article.owner.fullName, item.article.owner.username) || `Archonaut#${item.article.owner.id}`,
       isOwnerViewed: item.isOwnerViewed, 
       approve: item.approve,
@@ -122,7 +139,7 @@ export const MyRequests = () => {
         </div>
       ),
     };
-  }), [requestsToMe]);
+  }), [myRequests]);
 
   useEffect(() => {
     const payload = {
@@ -136,19 +153,18 @@ export const MyRequests = () => {
 
   const pagination = useMemo(() => ({
     total,
-    changeOffset: setOffset,
+    increaseOffset,
     status: statusGetMyRequests, 
-  }), [statusGetMyRequests, total]);
+    offset,
+  }), [increaseOffset, offset, statusGetMyRequests, total]);
   
   return (
-    <div>
-      <AdaptivePaginationTable
-        columns={columns}
-        content={content}
-        classNameTableContainer={styles.table}
-        itemsMobile={itemsMobile}
-        pagination={pagination}
-      />
-    </div>
+    <AdaptivePaginationTable
+      columns={columns}
+      content={content}
+      classNameTableContainer={styles.table}
+      itemsMobile={itemsMobile}
+      pagination={pagination}
+    />
   );
 };

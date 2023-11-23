@@ -1,24 +1,33 @@
-import { useScreenWidth } from 'hooks';
-import { ScreenWidth, docRegex } from 'appConstants';
 import {
   ChangeEvent, DragEvent, useCallback, useState, FC, 
 } from 'react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
-import { documentTextIcon1, uploadIcon } from 'assets';
 import cx from 'classnames';
+import { useSelector } from 'react-redux';
+
+import { documentTextIcon1, uploadIcon } from 'assets';
 import { Typography } from 'components';
+import { notification } from 'utils';
+import { useScreenWidth } from 'hooks';
+import { ScreenWidth, docRegex, errorsNotification } from 'appConstants';
+import { profileSelectors } from 'store/profile/selectors';
+
 import styles from './styles.module.scss';
 
 type DragNDropProps = {
   doc: File | null;
   setDoc: (doc: File | null) => void;
   className?: string;
+  isDisabled?: boolean;
 };
 
-export const DragNDrop: FC<DragNDropProps> = ({ doc, setDoc, className }) => {
+export const DragNDrop: FC<DragNDropProps> = ({
+  doc, setDoc, className, isDisabled,
+}) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [isDragging, setIsDragging] = useState(false);
+  const userFilledAllInfo = useSelector(profileSelectors.getPropAccountInfo('userFilledAllInfo'));
 
   const checkFile = useCallback(
     (file: File[] | FileList | null) => {
@@ -26,9 +35,14 @@ export const DragNDrop: FC<DragNDropProps> = ({ doc, setDoc, className }) => {
         toast.error('Only TXT, DOCX and PDF.');
         return setDoc(null);
       }
+      if (!userFilledAllInfo) {
+        notification.info({ message: errorsNotification.profileNotFilled });
+        return;
+      }
+      
       setDoc(file ? file[0] : null);
     },
-    [setDoc],
+    [userFilledAllInfo, setDoc],
   );
 
   const onUploadClick = useCallback(
@@ -60,6 +74,7 @@ export const DragNDrop: FC<DragNDropProps> = ({ doc, setDoc, className }) => {
       htmlFor="upload"
       className={cx(styles.dnd_btn, className, {
         [styles.dragOver]: isDragging,
+        [styles.disabled]: isDisabled,
         doc,
       })}
       onDragOver={onDragPrevent}

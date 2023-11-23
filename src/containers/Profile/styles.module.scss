@@ -42,7 +42,7 @@
 
 .profile__head {
 	grid-area: head;
-
+	
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 1fr 1fr;
@@ -59,12 +59,12 @@
 	}
 
 	@include media-breakpoint-up(xxl) {
-		grid-template-columns: vw(470, 1440) vw(570, 1440);
+		grid-template-columns: 1fr 1fr;
 		margin-bottom: 15px;
 	}
 
 	@include media-breakpoint-up(fhd) {
-		grid-template-columns: vw(647) vw(863);
+		grid-template-columns: 1fr 1fr;
 		margin-bottom: 25px;
 	}
 

@@ -36,7 +36,7 @@ export const options = {
     barnesHut: {
       gravitationalConstant: -8000,
       avoidOverlap: 1,
-      springLength: 200,
+      springLength: 300,
       springConstant: 0.05,
     },
   },
@@ -44,6 +44,7 @@ export const options = {
     shape: 'dot',
     // shape: 'custom',
     size: 16,
+    // size: 40,
     color: {
       background: '#fff',
       border: '#00DEA3',
@@ -71,16 +72,16 @@ export const options = {
       x: 0,
       y: 0,
     },
-    scaling: {
-      min: 10,
-      max: 30,
-      label: {
-        min: 8,
-        max: 30,
-        drawThreshold: 12,
-        maxVisible: 20,
-      },
-    },
+    // scaling: {
+    //   // min: 10,
+    //   // max: 30,
+    //   label: {
+    //     // min: 8,
+    //     // max: 30,
+    //     drawThreshold: 12,
+    //     maxVisible: 20,
+    //   },
+    // },
     // ctxRenderer: ({
     //   ctx, id, x, y, state: { selected, hover }, style, label,
     // }) => {

@@ -1,4 +1,6 @@
-import { ProfileState, RequestStatus, ProfileUpdateData } from 'types';
+import {
+  ProfileState, RequestStatus, ProfileUpdateData, AccountInfo, 
+} from 'types';
 import { ProfileActionTypes } from './actionTypes';
 
 export const profileSetState = (payload: Partial<ProfileState>) => ({
@@ -8,6 +10,19 @@ export const profileSetState = (payload: Partial<ProfileState>) => ({
 
 export const profileSetAccountInfo = (payload: Partial<ProfileState['accountInfo']>) => ({
   type: ProfileActionTypes.SetState,
+  payload,
+});
+
+export const profileSetStateRequester = (payload: AccountInfo) => ({
+  type: ProfileActionTypes.SetStateRequester,
+  payload,
+});
+
+export const profileSetStatusRequester = (payload: {
+  id: number;
+  status: RequestStatus;
+}) => ({
+  type: ProfileActionTypes.SetStatusRequester,
   payload,
 });
 

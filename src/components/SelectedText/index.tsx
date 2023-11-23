@@ -14,10 +14,10 @@ export const SelectedText: React.FC<SelectedTextProps> = ({
   <span>
     {text.split(' ').map((word) =>
       (isWordMatchingSearch(word, searchWord) ? (
-        <>
-          <span className={className}>{word}</span>
+        <span className={className} key={word}>
+          {word} 
           {' '}
-        </>
+        </span>
       ) : (
         `${word} `
       )))}

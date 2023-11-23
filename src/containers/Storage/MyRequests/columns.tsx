@@ -7,17 +7,18 @@ import { ItemRowProps, RequestStatus } from 'types';
 import {
   ButtonIcon,
   KeyPassword,
-  RequestCell,
   SetKeyPassword,
 } from 'components';
+import { RequestCell } from 'containers';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { routes } from 'appConstants';
 import { requestDelete } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
-import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
 import { getStatusImg, getStatusStyle } from './utils';
+
+import styles from './styles.module.scss';
 
 export const useColumns = ({
   onChangeSortingField, onToggleDirection, 
@@ -72,7 +73,7 @@ export const useColumns = ({
           <TitleWithArrows
             title="File name"
             onClick={() => {
-              onChangeSortingField('title');
+              onChangeSortingField('article.title');
               onToggleDirection();
             }}
           />
@@ -100,7 +101,7 @@ export const useColumns = ({
           <TitleWithArrows
             title="Owner"
             onClick={() => {
-              onChangeSortingField('owner');
+              onChangeSortingField('owner.id');
               onToggleDirection();
             }}
           />
@@ -111,10 +112,18 @@ export const useColumns = ({
             original: { owner, ownerId },
           },
         }: ItemRowProps<RequestedDataType>) =>
-          <RequestCell isHideButoonsRequester profileId={ownerId}>{owner}</RequestCell> || '-',
+          <RequestCell isHideButtonsRequester profileId={ownerId} titleModal="Owner">{owner}</RequestCell> || '-',
       },
       {
-        Header: 'Status',
+        Header: (
+          <TitleWithArrows
+            title="Status"
+            onClick={() => {
+              onChangeSortingField('approve');
+              onToggleDirection();
+            }}
+          />
+        ),
         accessor: 'status',
         Cell: ({
           row: {
@@ -128,7 +137,7 @@ export const useColumns = ({
               <ButtonIcon
                 className={styles.columns_img}
                 image={getStatusImg(status)}
-                onClick={handleDeleteRequest(id)}
+                onClick={status === 'Access granted' ? () => {} : handleDeleteRequest(id)}
                 isDisabled={selectedId === id && statusDelete === RequestStatus.REQUEST}
               />
             </div>

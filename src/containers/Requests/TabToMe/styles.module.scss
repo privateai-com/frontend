@@ -11,14 +11,6 @@ $border-radius: 8px;
   }
 
   tbody {
-    height: calc(100vh - 332px);
-    table-layout: fixed;
-    display: block;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    @include greenScrollbar();
-
     tr {
       min-height: 73px;
 
@@ -32,16 +24,16 @@ $border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 15px;
+
+    @include desktop1280 {
+      flex-direction: column;
+    }
   }
 
   &_provide {
-    margin-right: 15px;
     background-color: $color-green;
     color: #fff;
-
-    @include desktop1440 {
-      margin-right: 10px;
-    }
   }
 
   &_decline {
@@ -60,4 +52,12 @@ $border-radius: 8px;
       width: 90px;
     }
   }
+}
+
+.requesterMobile {
+  color: #747474 !important;
+  font-weight: 500 !important;
+  text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
 }

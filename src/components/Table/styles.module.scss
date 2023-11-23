@@ -3,26 +3,95 @@
 
 .table {
   width: 100%;
-  border-spacing: 0 4px;
+  border-spacing: 0 0px;
   border-collapse: separate;
   background-color: $color-white;
   padding: 0;
   border-radius: 16px;
   box-shadow: -10px 56px 140px 0px #8F9BBA33;
   color: $color-grey;
-
+  padding: 0 0 20px;
+  
   thead {
     color: $color-grey4;
+    height: 58px;
+    
+    @include desktop1440 {
+      height: 38px;
+    }
 
+    padding-left: 20px;
+    padding-right: 40px;
+    border-radius: 16px 16px 0px 0px;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25); 
+    
     th {
-      border-bottom: 2px solid $color-grey2;
-      padding: 16px 0;
+      border-bottom: none !important;
+      padding: 12px 0px !important;
+      line-height: 10px;
+      border-right: none !important;
+      position: relative;
+      font-weight: 600;
+      font-size: 20px;
+
+      @include desktop1440 {
+        font-size: 16px;
+      }
+    
+      @include desktop1024 {
+        font-size: 16px;
+      }
+    }
+
+    th:not(:last-child)::after {
+      content: " ";
+      position: absolute;
+      border-right: 2px #CCC solid;
+      top: 12px;
+      right: 0;
+      height: 34px;
+      margin-top: auto;
+      margin-bottom: auto;
+
+
+      @include desktop1440 {
+        height: 25px;
+      }
     }
   }
 
   tbody {
+    height: calc(100vh - 248px - 15px);
+
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include greenScrollbar();
+    margin-top: 20px;
+    margin-right: 20px;
+
+    padding: 0 20px;
+
+		@include media-breakpoint-up(lg) {
+      height: calc(100vh - 248px - 40px);
+			padding: 0 10px;
+		}
+
+		@include media-breakpoint-up(xl) {
+      height: calc(100vh - 248px - 30px);
+			padding: 0 20px;
+		}
+
+		@include media-breakpoint-up(xxl) {
+			padding: 0 20px;
+      height: calc(100vh - 248px - 60px);
+		}
+
     td {
-      padding: 20px 0;
+      padding: 0px 0px;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
       &.td_clear {
         padding: 0 !important;
@@ -49,7 +118,7 @@
 
   th, td {
     text-align: center;
-    @include font-20();
+    // @include font-20();
   }
 
   th {
@@ -75,5 +144,10 @@
 
   tr {
     text-align: left;
+    min-height: 88px;
+
+    @include desktop1440 {
+      min-height: 62px;
+    }
   }
 }

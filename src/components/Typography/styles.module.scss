@@ -12,15 +12,21 @@
   padding: 0;
   line-height: 46px;
 
-  @include font-38;
+  font-size: 38px;
 
   @include desktop1440 {
+		font-size: 32px;
     line-height: 39px;
 	}
 
-  @include mobile {
+	@include desktop1024 {
+		font-size: 24px;
+	}
+
+	@include mobile {
+		font-size: 18px;
     line-height: 22px;
-  }
+	}
 }
 
 .h2 {
@@ -33,15 +39,24 @@
   padding: 0;
   line-height: 39px;
 
-  @include font-32;
+  // @include font-32;
+
+  font-size: 32px;
 
   @include desktop1440 {
+		font-size: 24px;
+    line-height: 24px;
+	}
+
+	@include desktop1024 {
+		font-size: 16px;
     line-height: 29px;
 	}
 
-  @include mobile {
+	@include mobile {
+		font-size: 14px;
     line-height: 17px;
-  }
+	}
 }
 
 .h3 {
@@ -54,7 +69,7 @@
   margin: 0;
   padding: 0;
 
-  @include font-24;
+  // @include font-24;
 
   @include desktop1440 {
     line-height: 36px;
@@ -71,12 +86,13 @@
     family: $montserrat;
     weight: 700;
   }
-  line-height: 32px;
+  // line-height: 32px;
   margin: 0;
   padding: 0;
   color: $color-black;
 
-  @include font-20;
+  // @include font-20;
+  
 
   @include desktop1440 {
     line-height: 20px;

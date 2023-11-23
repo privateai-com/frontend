@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 import { Button, Typography } from 'components';
 import { useScreenWidth } from 'hooks';
-import { ScreenWidth, queryTab } from 'appConstants';
+import { ScreenWidth, routes, queryTab } from 'appConstants';
+import { plusIcon } from 'assets';
 import { ArticlesTab } from './ArticlesTab';
-import { MyRequests } from '../MyRequests';
+import { MyRequests } from './MyRequests';
 import { UploadButton } from './uploadButton';
 
 import styles from './styles.module.scss';
@@ -17,7 +19,7 @@ enum MyStorageTab {
 
 export const Storage = () => {
   const [tab, setTab] = useState(MyStorageTab.articles);
-  const isMobile = useScreenWidth(ScreenWidth.mobile);
+  const isMobile = useScreenWidth(ScreenWidth.notebook1024);
   const router = useRouter();
   
   useEffect(() => {
@@ -59,6 +61,24 @@ export const Storage = () => {
             Requested data
           </Button>
         </div>
+        {!isMobile && (
+          <Button
+            className={styles.buttonUpload}
+            href={routes.uploadActivity.root}
+            theme="primary"
+          >
+            <Image 
+              src={plusIcon} 
+              alt="icon plus" 
+              width={20} 
+              height={20} 
+              className={styles.icon} 
+            /> 
+            <span className={styles.buttonTitle}>
+              Upload new file
+            </span>
+          </Button>
+        )}
       </div>
       {tab === MyStorageTab.articles ? <ArticlesTab /> : <MyRequests />}
     </div>

@@ -22,7 +22,8 @@
 	}
 
 	h4 {
-		color: $color-grey;
+		color: $color-grey4;
+		font-weight: 700;
 		margin-bottom: 38px;
 
 		@include desktop1440 {
@@ -162,4 +163,7 @@
 .error {
 	color: $color-red;
 	margin-bottom: 20px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 500;
 }

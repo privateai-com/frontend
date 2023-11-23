@@ -21,7 +21,9 @@ export type RequestArticle = {
     id: number,
     title: string,
     field: string,
-    owner: UserInfo
+    owner: UserInfo,
+    topCoreEntities?: string,
   },
-  requester: UserInfo
+  requester: UserInfo,
+  createdAt: string,
 };
