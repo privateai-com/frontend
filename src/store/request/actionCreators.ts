@@ -43,6 +43,14 @@ export const requestDelete = (payload: {
   payload,
 });
 
+export const requestDownload = (payload: {
+  articleId: number,
+  callback?: () => void,
+}) => ({
+  type: RequestActionTypes.Download,
+  payload,
+});
+
 export const requestGetMyRequests = (payload: {
   limit: number;
   offset: number;

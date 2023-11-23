@@ -52,7 +52,7 @@ export const Storage = () => {
             Requested data
           </Button>
         </div>
-        {!isMobile && (
+        {!isMobile && tab === MyStorageTab.articles && (
           <Button
             className={styles.buttonUpload}
             href={routes.uploadActivity.root}

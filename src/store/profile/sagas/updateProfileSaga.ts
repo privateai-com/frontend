@@ -14,7 +14,7 @@ export function* profileUpdateProfileSaga({
   try {
     yield put(profileSetStatus({ type, status: RequestStatus.REQUEST }));
 
-    const data: AccountInfo = yield call(callApi, {
+    const { data }: { data: AccountInfo } = yield call(callApi, {
       method: 'PUT',
       endpoint: ApiEndpoint.ProfileUpdateProfile,
       payload,
