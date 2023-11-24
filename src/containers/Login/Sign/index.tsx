@@ -4,16 +4,17 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import cx from 'classnames';
 
 import {
   AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { walletIcon } from 'assets';
-import { errorsNotification, routes } from 'appConstants';
+import { ScreenWidth, errorsNotification, routes } from 'appConstants';
 import { AuthErrorTransformResult, RequestStatus } from 'types';
-import { useRouter } from 'next/router';
 import { emailValidator, passwordValidator } from 'utils';
+import { useScreenWidth } from 'hooks';
 
 import { authLogin, authLoginWallet } from 'store/auth/actionCreators';
 import { authSelectors } from 'store/auth/selectors';
@@ -33,6 +34,7 @@ export const Sign: FC<SignProps> = ({
   setEmail,
 }) => {
   const dispatch = useDispatch();
+  const isMobile = useScreenWidth(ScreenWidth.notebook1024); 
   
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -135,6 +137,7 @@ export const Sign: FC<SignProps> = ({
           onClick={onConnectWallet}
           type="button"
           isLoading={statusConnect === RequestStatus.REQUEST}
+          disabled={isMobile}
         >
           Sign in with your wallet
           <Image

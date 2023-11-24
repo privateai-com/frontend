@@ -8,6 +8,7 @@ import { profileGetProfile } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import { normalizeUserInfo } from 'utils';
 import styles from './styles.module.scss';
+import { Footer } from '../Footer';
 
 export const ProfileInfo = () => {
   const dispatch = useDispatch();
@@ -32,23 +33,25 @@ export const ProfileInfo = () => {
   return (
     <>
       <div className={cx(styles.wrapper, styles.info)}>
-        {avatarUrl ? (
-          <div className={styles.info_avatar}>
-            <Image
-              src={avatarUrl}
-              alt="avatar"
-              className={styles.info_avatar}
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-        ) : (
-          <div className={styles.no_avatar} />
-        )}
+        <div className={styles.containerAvatar}>
+          {avatarUrl && avatarUrl !== '' ? (
+            <div className={styles.info_avatar}>
+              <Image
+                src={avatarUrl}
+                alt=""
+                className={styles.info_avatar}
+                fill
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+          ) : (
+            <div className={styles.no_avatar} />
+          )}
+        </div>
         <div className={styles.info_wrapper}>
           <div className={styles.info_item}>
             <Typography type="h4">
-              Username/name 
+              User name/Real name 
               {' '}
               <span>*</span>
             </Typography>
@@ -61,7 +64,7 @@ export const ProfileInfo = () => {
         </div>
       </div>
       <div className={cx(styles.wrapper, styles.info2)}>
-        <Typography type="h2">Contact information</Typography>
+        <Typography type="h2" className={styles.subTitle}>Contact information</Typography>
         <div className={styles.info_item}>
           <Typography type="h4">
             Email address 
@@ -71,12 +74,12 @@ export const ProfileInfo = () => {
           {email}
         </div>
         <div className={styles.info_item}>
-          <Typography type="h4">Social media links</Typography>
+          <Typography type="h4">Social media</Typography>
           {socialLink}
         </div>
       </div>
       <div className={cx(styles.wrapper, styles.info3)}>
-        <Typography type="h2">Field of activity</Typography>
+        <Typography type="h2" className={styles.subTitle}>Field of activity</Typography>
         <div className={styles.info_item}>
           <Typography type="h4">
             Organisation/Institute 
@@ -102,6 +105,7 @@ export const ProfileInfo = () => {
           {researchFields}
         </div>
       </div>
+      <Footer isEditProfile={false} className={styles.footer} />
     </>
   );
 };

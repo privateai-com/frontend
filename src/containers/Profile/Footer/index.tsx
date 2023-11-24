@@ -3,11 +3,12 @@ import cx from 'classnames';
 import styles from './styles.module.scss';
 
 type FooterProps = {
+  className?: string;
   isEditProfile: boolean;
 };
 
-export const Footer: React.FC<FooterProps> = ({ isEditProfile }) => (
-  <div className={styles.footer}>
+export const Footer: React.FC<FooterProps> = ({ isEditProfile, className = '' }) => (
+  <div className={cx(styles.footer, className)}>
     <ul
       className={cx(styles.footer_list, {
         [styles.footer_list_edit]: isEditProfile,

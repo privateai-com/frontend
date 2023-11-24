@@ -3,6 +3,10 @@
 
 .modal {
   width: 650px;
+
+  @media screen and (max-width: 712px) {
+    width: calc(100% - 50px);
+	}
 }
 
 .body {

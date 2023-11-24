@@ -112,9 +112,26 @@
     }
 
     ::placeholder {
-      font-size: 14px;
-      line-height: 18px;
       color: $color-grey;
+
+      font-size: 20px;
+      line-height: normal;
+      font-weight: 500;
+
+      @include desktop1440 {
+        font-size: 16px;
+        line-height: normal;
+      }
+    
+      @include desktop1024 {
+        font-size: 18px;
+        line-height: normal;
+      }
+    
+      @include mobile {
+        font-size: 14px;
+        line-height: normal;
+      }
     }
 
     .input_icon {

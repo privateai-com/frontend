@@ -47,10 +47,12 @@
 	grid-template-columns: 1fr;
 	grid-template-rows: 1fr 1fr;
 	margin-bottom: 15px;
-	row-gap: 10px;
+	gap: 20px;
 
 	@include media-breakpoint-up(sm) {
 		grid-template-columns: auto auto;
+		grid-template-rows: 1fr;
+		margin-bottom: 25px;
 	}
 
 	@include media-breakpoint-up(lg) {
@@ -72,14 +74,16 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		max-width: 648px;
+		max-width: 522px;
 
+		
 		@include desktop1440 {
-			max-width: 470px;
+			max-width: vw(380, 1440);
 		}
 
 		@include desktop1024 {
 			max-width: 100%;
+			width: 100%;
 		}
 	}
 
@@ -109,8 +113,10 @@
 		@include mobile {
 			font-size: 12px;
 			line-height: 14px;
-			justify-content: space-between;
 			width: 100%;
+
+			align-self: flex-end;
+			justify-self: flex-end;
 		}
 	}
 
@@ -130,5 +136,13 @@
 		@include mobile {
 			max-width: 150px;
 		}
+	}
+}
+
+.title {
+	min-width: fit-content;
+	padding-right: 5px;
+	@include desktop1024 {
+		font-size: 32px !important;
 	}
 }
