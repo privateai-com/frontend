@@ -12,8 +12,8 @@ import {
   profileDeleteWallet,
   profileLinkWallet,
 } from 'store/profile/actionCreators';
-import { routes } from 'appConstants';
-import { useVipUser } from 'hooks';
+import { ScreenWidth, routes } from 'appConstants';
+import { useScreenWidth, useVipUser } from 'hooks';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
 
@@ -23,6 +23,8 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const isVipUser = useVipUser();
+  const isMobile = useScreenWidth(ScreenWidth.notebook1024);
+  
   const [isEditProfile, setIsEditProfile] = useState(false);
   
   const walletAddress = useSelector(profileSelectors.getPropAccountInfo('walletAddress'));
@@ -75,7 +77,7 @@ export const Profile = () => {
     <div className={styles.profile__container}>
       <div className={styles.profile__head}>
         <div className={styles.profile__head_title}>
-          <Typography type="h1">My profile</Typography>
+          <Typography type="h1" className={styles.title}>My profile</Typography>
           {!isEditProfile && !isVipUser && (
             <Button
               className={styles.profile__head_button}
@@ -106,6 +108,7 @@ export const Profile = () => {
                 className={styles.profile__head_button}
                 onClick={onLinkWalletClick}
                 isLoading={status === RequestStatus.REQUEST}
+                disabled={isMobile}
               >
                 Link your wallet
               </Button>

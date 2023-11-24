@@ -25,7 +25,19 @@ $margin-horizontal-mobile: 15px;
     visibility: hidden;
     transform: translateX(100%);
     transition: all 0.5s;
-    overflow: hidden;
+    // overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    @include greenScrollbar;
+
+    &::-webkit-scrollbar {
+      width: 16px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset -8px 0 0 #EEE;
+    }
 
     @include desktop1440 {
       width: 550px;
@@ -48,12 +60,21 @@ $margin-horizontal-mobile: 15px;
     // }
   }
 
-  &_content {
-    height: 100%;
+  &_wrapper {
+    position: relative;
     overflow-y: scroll;
-    padding-right: 20px;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
 
     @include greenScrollbar;
+  }
+
+  &_content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding-right: 20px;
 
     @include desktop1440 {
       padding-right: 15px;
@@ -75,7 +96,7 @@ $margin-horizontal-mobile: 15px;
       padding-top: 7px;
     }
     &:last-of-type {
-      padding-bottom: 7px;
+      padding-bottom: 15px;
       border-bottom: none;
     }
   }
@@ -97,8 +118,17 @@ $margin-horizontal-mobile: 15px;
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
-    color: $color-grey4;
-    font-size: 20px;
+    color: $color-black;
     overflow: hidden;
+    word-break: break-all;
+    font-size: 14px;
+
+    @include media-breakpoint-up(xxl) {
+      font-size: 16px;
+    }
+
+    @include media-breakpoint-up(xxxl) {
+      font-size: 20px;
+    }
   }
 }

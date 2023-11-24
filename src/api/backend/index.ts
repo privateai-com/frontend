@@ -17,12 +17,10 @@ import { getDataFromException, ApiError } from 'utils';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 import { store } from 'store/configureStore';
 
-import { ApiEndpoint } from 'appConstants';
+import { ApiEndpoint, apiBaseUrl } from 'appConstants';
 import { authInitialState } from 'store/auth';
 
 export * from './getApiQueries';
-
-const baseURL = process.env.NEXT_PUBLIC_API_URL as string;
 
 let isAccessTokensUpdating = false;
 
@@ -30,7 +28,7 @@ function* updateAccessTokens() {
   isAccessTokensUpdating = true;
   let updatePayload: UpdatePayload = { isSuccessfull: false };
   try {
-    const url = `${baseURL}${ApiEndpoint.AuthRefreshToken}`;
+    const url = `${apiBaseUrl}${ApiEndpoint.AuthRefreshToken}`;
 
     const refreshTokenCurrent: string = yield select(
       authSelectors.getProp('refreshToken'),
@@ -121,7 +119,7 @@ export function* callApi(options: {
 
   yield call(waitForFreshAccessToken);
 
-  const url = `${baseURL}${endpoint}`;
+  const url = `${apiBaseUrl}${endpoint}`;
 
   let body;
 

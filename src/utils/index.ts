@@ -21,3 +21,4 @@ export * from './responseExceptionToFormError';
 export * from './getStatusArticle';
 export * from './normalizeUserInfo';
 export * from './convertTitleFile';
+export * from './downloadUrlFile';

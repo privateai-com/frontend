@@ -6,6 +6,7 @@ export enum RequestActionTypes {
   Create = 'REQUEST.CREATE',
   Answer = 'REQUEST.ANSWER',
   Delete = 'REQUEST.DELETE',
+  Download = 'REQUEST.DOWNLOAD',
 
   GetMyRequests = 'REQUEST.GET_MY_REQUESTS',
   GetRequestsToMe = 'REQUEST.GET_REQUESTS_TO_ME',

@@ -9,7 +9,7 @@ export const profileSetState = (payload: Partial<ProfileState>) => ({
 });
 
 export const profileSetAccountInfo = (payload: Partial<ProfileState['accountInfo']>) => ({
-  type: ProfileActionTypes.SetState,
+  type: ProfileActionTypes.SetStateAccountInfo,
   payload,
 });
 
@@ -61,5 +61,19 @@ export const profileUpdateProfile = (payload: ProfileUpdateData) => ({
 
 export const profileUploadAvatar = (payload: { file: File }) => ({
   type: ProfileActionTypes.UploadAvatar,
+  payload,
+});
+
+export const profileNotification = () => ({
+  type: ProfileActionTypes.Notification,
+});
+
+export const profileNotificationSubscribe = (payload: { userId: number }) => ({
+  type: ProfileActionTypes.NotificationSubscribe,
+  payload,
+});
+
+export const profileNotificationMarkAsView = (payload: { requestId: number; }) => ({
+  type: ProfileActionTypes.NotificationMarkAsView,
   payload,
 });

@@ -17,6 +17,7 @@ import { Article, RequestStatus, UploadFileStatus } from 'types';
 
 import { articlesCreate, articlesGetMy, articlesGetUploadStatus } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
+import { profileSelectors } from 'store/profile/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { DragNDrop } from './DragNDrop';
 import { Item } from './Item';
@@ -25,11 +26,20 @@ import { defaultArticle } from './constants';
 import styles from './styles.module.scss';
 
 export const Upload = () => {
-  const [doc, setDoc] = useState<File | null>(null);
-  const isMobile = useScreenWidth(ScreenWidth.mobile);
   const dispatch = useDispatch();
   const isVipUser = useVipUser();
+  const isMobile = useScreenWidth(ScreenWidth.mobile);
+
+  const [doc, setDoc] = useState<File | null>(null);
   const [offset, setOffset] = useState(0);
+
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
+
   const total = useSelector(articlesSelectors.getProp('total'));
   const articles = useSelector(articlesSelectors.getProp('articles'));
   const statusGetMyArticles = useSelector(
@@ -38,17 +48,13 @@ export const Upload = () => {
   const upload = useSelector(
     articlesSelectors.getProp('upload'),
   );
+  const userFilledAllInfo = useSelector(
+    profileSelectors.getPropAccountInfo('userFilledAllInfo'),
+  );
   const statusCreateArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.CreateArticle),
   );
   const isLoading = statusCreateArticle === RequestStatus.REQUEST;
-
-  const increaseOffset = useCallback(() => {
-    setOffset((value) => {
-      const newValue = value + 1;
-      return newValue;
-    });
-  }, []);
   
   const queryParams = useMemo(() => ({
     limit: itemsOnPageQuantity,
@@ -153,11 +159,13 @@ export const Upload = () => {
   const {
     rootRef, endElementForScroll,
   } = usePagination({ 
+    offset,
     total, 
     status: statusGetMyArticles, 
     increaseOffset,
-    offset,
   });
+
+  const isDisabledUploadFile = isVipUser || !userFilledAllInfo;
 
   return (
     <div className={styles.upload}>
@@ -172,7 +180,7 @@ export const Upload = () => {
           <DragNDrop
             doc={doc}
             setDoc={setDoc}
-            isDisabled={isVipUser}
+            isDisabled={isDisabledUploadFile}
           />
         </div>
         <span className={styles.upload_notice}>
@@ -204,7 +212,7 @@ export const Upload = () => {
               <label
                 htmlFor="upload"
                 className={cx(styles.upload_btn, {
-                  [styles.disabled]: isVipUser,
+                  [styles.disabled]: isDisabledUploadFile,
                 })}
               >
                 Select a file from local directory
@@ -212,6 +220,7 @@ export const Upload = () => {
                   type="file"
                   id="upload"
                   className={styles.upload_input}
+                  disabled={isDisabledUploadFile}
                 />
               </label>
             )}

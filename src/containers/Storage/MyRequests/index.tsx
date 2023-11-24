@@ -12,7 +12,7 @@ import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestGetMyRequests } from 'store/request/actionCreators';
 import { SortingDirection } from 'types';
-import { convertTitleFile, normalizeUserInfo } from 'utils';
+import { convertTitleFile, getName } from 'utils';
 import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
@@ -118,7 +118,11 @@ export const MyRequests = () => {
       ownerId: item.article.owner.id,
       title: convertTitleFile(item.article.title, 15),
       core: item.article.topCoreEntities ?? '-',
-      owner: normalizeUserInfo(item.article.owner.fullName, item.article.owner.username) || `Archonaut#${item.article.owner.id}`,
+      owner: getName(
+        item.article.owner.fullName, 
+        item.article.owner.username, 
+        item.article.owner.id,
+      ),
       isOwnerViewed: item.isOwnerViewed, 
       approve: item.approve,
       status,

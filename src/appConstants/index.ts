@@ -7,6 +7,7 @@ export * from './wallets';
 export * from './regex';
 export * from './errorsNotification';
 export * from './graphData';
+export * from './tabs';
 
 export const decimalPlaces = 6;
 export const decimalPlacesForFee = 8;
