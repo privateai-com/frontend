@@ -21,6 +21,29 @@
 	}
 };
 
+@mixin adaptive-font-size-static($mobile, $tablet, $desktopXL, $desktopXXL, $desktopFHD) {
+	font-size: #{$mobile}px;
+
+	@media (min-width: #{map-get($breakpoints, md)}) {
+		font-size: #{$tablet}px;
+	}
+
+	@media (min-width: #{map-get($breakpoints, lg)}) {
+		// font-size: calc(#{$desktopXL / $mobile}vw);
+		font-size: #{$desktopXL}px;
+	}
+
+	@media (min-width: #{map-get($breakpoints, xxl)}) {
+		// font-size: calc(#{$desktopXXL / 1440 * 100}vw);
+		font-size: #{$desktopXXL}px;
+	}
+
+	@media (min-width: #{map-get($breakpoints, fhd)}) {
+		// font-size: calc(#{$desktopFHD / 1920 * 100 / 2}vw + #{$desktopFHD / 1080 * 100 / 2}vh);
+		font-size: #{$desktopFHD}px;
+	}
+};
+
 @mixin font-38 {
 	@include adaptive-font-size(18, 24, 32, 32, 38);
 }

@@ -30,7 +30,7 @@ import styles from './styles.module.scss';
 
 const UserSchema = z.object({
   file: z.custom<File>(),
-  username: z.string(),
+  username: z.string().nullable(),
   fullName: z.string().nonempty(),
   socialLink: z.string().url().or(z.literal('')),
   organization: z.string().nonempty(),
@@ -99,7 +99,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     }
 
     const data = {
-      username: username === '' ? `Archonaut#${id}` : username,
+      username: usernameOld !== username ? username : undefined,
       socialLink: socialMediaLink,
       organization,
       researchFields,
@@ -116,8 +116,8 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
         },
       }),
     );
-  }, [avatar, dispatch, id, location, organization, position, realName, 
-    researchFields, setIsEditProfile, socialMediaLink, username]);
+  }, [avatar, dispatch, location, organization, position, 
+    realName, researchFields, setIsEditProfile, socialMediaLink, username, usernameOld]);
 
   const [showEditProfileConfirm, hideEditProfileConfirm] = useModal(() => (
     <EditProfileConfirm 
@@ -145,7 +145,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
   const onSaveClick = useCallback(() => {
     const data = {
       file: avatar,
-      username,
+      username: usernameOld !== username ? username : null,
       socialLink: socialMediaLink,
       organization,
       researchFields,
@@ -164,8 +164,8 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     } else {
       showEditProfileConfirm();
     }
-  }, [avatar, username, socialMediaLink, organization, researchFields, realName, position, 
-    location, saveData, showEditProfileConfirm]);
+  }, [avatar, usernameOld, username, socialMediaLink, organization, 
+    researchFields, realName, position, location, saveData, showEditProfileConfirm]);
 
   const handleDrop = useCallback((e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
@@ -259,7 +259,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           <div>{email}</div>
         </div>
         <TextInput
-          label="Social media links"
+          label="Social media"
           value={socialMediaLink}
           onChangeValue={setSocialMediaLink}
           classNameContainer={styles.input__container}

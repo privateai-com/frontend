@@ -74,7 +74,8 @@
 		max-width: 100%;
 		margin-bottom: 30px;
 		flex-direction: row;
-		align-items: flex-start;
+		align-items: center;
+		justify-content: center;
 	}
 
 	@include mobile {
@@ -88,7 +89,9 @@
 
 	@include media-breakpoint-up(sm) {
 		// padding: vw(45, 768) vw(20, 768) vw(20, 768) vw(120, 768);
-		gap: vw(125, 768);
+		// gap: vw(125, 768);
+		gap: 35px;
+
 	}
 
 	@include media-breakpoint-up(lg) {
@@ -181,17 +184,17 @@
 
 	width: 100%;
 
-	@include adaptive-font-size(16, 18, 20, 20, 24);
+	@include adaptive-font-size-static(16, 20, 20, 20, 24);
 
 	h4 {
 		color: $color-grey;
 		font-weight: 500;
 		margin-bottom: 12px;
 
-		@include adaptive-font-size(14, 16, 18, 20, 20);
+		@include adaptive-font-size-static(14, 18, 18, 20, 20);
 
 		@include desktop1024 {
-			margin-bottom: 25px;
+			margin-bottom: 16px;
 		}
 
 		@include mobile {
@@ -216,4 +219,26 @@
 	@include mobile {
 		min-width: 100px;
 	}
+}
+
+.footer {
+	margin-top: 31px;
+}
+
+.containerAvatar {
+	@include media-breakpoint-up(sm) {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.subTitle {
+	@include desktop1024 {
+		font-size: 24px;
+	}	
+	@include mobile {
+		font-size: 14px;
+	}	
 }
