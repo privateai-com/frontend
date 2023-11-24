@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { arrowIcon, closeModalIcon } from 'assets';
 import { queryTab, routes } from 'appConstants';
 import { ButtonIcon } from 'components';
-import { NotificationInfo, NotificationType } from 'types';
+import { NotificationInfo } from 'types';
 import { generateNotificationText, timeAgo } from './utils';
 
 import styles from './styles.module.scss';
@@ -18,17 +18,20 @@ DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   isOpen: boolean;
   onDeleteNotification: (requestId: number) => void;
   notifications: NotificationInfo[];
+  userId: number;
 }
 >;
 
 const Notification = forwardRef<HTMLDivElement, NotificationProps>((
-  { isOpen, onDeleteNotification, notifications }: NotificationProps,
+  {
+    isOpen, onDeleteNotification, notifications, userId,
+  }: NotificationProps,
   ref,
 ) => (
   <div className={cx(styles.notification_container, { [styles.show]: isOpen })} ref={ref}>
     <div className={styles.notification_content}>
       {notifications.map(({
-        id, createdAt, article, type,
+        id, createdAt, article, type, approve, requester,
       }) => (
         <div
           className={styles.item_container}
@@ -40,18 +43,18 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>((
               className={styles.item_close}
               onClick={() => onDeleteNotification(id)}
               image={closeModalIcon}
-              height={14}
-              width={14}
+              height={12}
+              width={12}
             />
           </div>
           <Link
-            href={type === NotificationType.PendingAccess
+            href={(requester.id !== userId)
               ? `${routes.requests.root}`
               : `${routes.storage.root}?storageTab=${queryTab.storageRequestedData}`}
             className={styles.item_content}
             onClick={() => onDeleteNotification(id)}
           >
-            {generateNotificationText(type, article)}
+            {generateNotificationText(type, article, approve)}
             <Image
               src={arrowIcon}
               alt="next"

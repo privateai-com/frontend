@@ -133,12 +133,15 @@ export const Header = () => {
         image={logoutIcon}
         onClick={showLogout}
       />
-      <Notification
-        ref={ref}
-        isOpen={isNotificationOpen}
-        onDeleteNotification={onDeleteNotification}
-        notifications={notifications}
-      />
+      {userId && (
+        <Notification
+          ref={ref}
+          userId={userId}
+          isOpen={isNotificationOpen}
+          onDeleteNotification={onDeleteNotification}
+          notifications={notifications}
+        />
+      )}
     </header>
   );
 };

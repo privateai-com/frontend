@@ -26,12 +26,17 @@ export const timeAgo = (createdAt: string): string => {
 export const generateNotificationText = (
   type: NotificationType,
   article: NotificationArticle,
+  approve: boolean | null,
 ): string => {
   switch (type) {
     case NotificationType.GrantAccess:
-      return `Access granted for "${article.title}" document`;
+      return approve
+        ? `Access granted for "${article.title}" document`
+        : `Access denied for "${article.title}" document`;
     case NotificationType.PendingAccess:
-      return `New access request for "${article.title}" document`;
+      return approve || approve === null
+        ? `Access approval pending for "${article.title}" document`
+        : `Access request denied for "${article.title}" document`;
     default:
       return article.title;
   }

@@ -118,8 +118,17 @@ $margin-horizontal-mobile: 15px;
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
-    color: $color-grey4;
-    font-size: 20px;
+    color: $color-black;
     overflow: hidden;
+    word-break: break-all;
+    font-size: 14px;
+
+    @include media-breakpoint-up(xxl) {
+      font-size: 16px;
+    }
+
+    @include media-breakpoint-up(xxxl) {
+      font-size: 20px;
+    }
   }
 }
