@@ -1,26 +1,44 @@
 import { CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import cx from 'classnames';
+
 import { ScreenWidth, routes } from 'appConstants';
 import { circleCheckIcon, documentTextIcon1 } from 'assets';
 import { stringLongShortcut } from 'utils';
-import cx from 'classnames';
 import { useScreenWidth } from 'hooks';
+import { UploadFileStatus } from 'types';
+
 import styles from './styles.module.scss';
+
+type StatusLabelsType = {
+  [key in UploadFileStatus]: string;
+};
+
+const statusLabels: StatusLabelsType = {
+  [UploadFileStatus.COMPLETE]: 'Complete',
+  [UploadFileStatus.PUBLISHED]: 'Complete',
+  [UploadFileStatus.CREATED]: 'Uploading',
+  [UploadFileStatus.PROCESSING]: 'Processing',
+  [UploadFileStatus.UPLOADED]: 'Uploaded',
+};
 
 type ItemProps = {
   name: string;
   weight: string;
   timeToUploaded: number;
+  // timeToProcessing: number;
   idArticle?: number;
   percents: number;
+  status: UploadFileStatus;
 };
 
 export const Item: React.FC<ItemProps> = ({ 
-  name, weight, percents, timeToUploaded,
+  name, weight, percents, timeToUploaded, status,
 }) => {
   const isLoaded = percents === 100;
   const isMobile = useScreenWidth(ScreenWidth.mobile);
+  const statusText = statusLabels[status];
 
   const getStatusBarWidthStyle: CSSProperties = {
     width: `${percents}%`,
@@ -45,7 +63,9 @@ export const Item: React.FC<ItemProps> = ({
         <div className={styles.item_status_bar}>
           <div
             className={cx(styles.item_status_bar_fill, {
-              [styles.item_status_bar_full]: isLoaded,
+              [styles.item_status_bar_full]: status === UploadFileStatus.COMPLETE ||
+                status === UploadFileStatus.PUBLISHED,
+              [styles.item_status_bar_uploading]: isLoaded && status === UploadFileStatus.CREATED,
             })}
             style={getStatusBarWidthStyle}
           />
@@ -55,13 +75,28 @@ export const Item: React.FC<ItemProps> = ({
           %
         </span>
         <div className={styles.item_status}>
-          {isLoaded ? (
+          {!isMobile && statusText && (
+            <div>
+              <span>{statusText}</span>
+            </div>
+          )}
+
+          {/* {(status === UploadFileStatus.COMPLETE || status === UploadFileStatus.PUBLISHED) && (
+            <div>{!isMobile && <span>Complete</span>}</div>
+          )}
+          {status === UploadFileStatus.CREATED && (
+            <div>{!isMobile && <span>Uploading</span>}</div>
+          )}
+          {status === UploadFileStatus.PROCESSING && (
+            <div>{!isMobile && <span>Processing</span>}</div>
+          )} */}
+          {/* {isLoaded ? (
             <div>{!isMobile && <span>Complete</span>}</div>
           ) : (
             <div>{!isMobile && <span>Processing</span>}</div>
-          )}
+          )} */}
         </div>
-        {isLoaded ? (
+        {status === UploadFileStatus.COMPLETE || status === UploadFileStatus.PUBLISHED ? (
           <div className={styles.item_indication_block}>
             <Image
               className={styles.item_complete}

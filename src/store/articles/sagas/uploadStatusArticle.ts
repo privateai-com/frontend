@@ -10,7 +10,12 @@ import { EventChannel, eventChannel } from 'redux-saga';
 
 import { socketConnect } from 'api';
 import { sagaExceptionHandler } from 'utils';
-import { ArticlesState, EmitedSocketUploadEvent, SocketUploadArticleEvent } from 'types';
+import {
+  ArticlesState,
+  EmitedSocketUploadEvent,
+  SocketUploadArticleEvent,
+  UploadFileStatus,
+} from 'types';
 import { articlesSelectors } from '../selectors';
 import { articlesSetState } from '../actionCreators';
 
@@ -32,7 +37,8 @@ function* handleSocketEvents(eventData: { articleId: number; uploadProgress: num
           return {
             ...article,
             uploadProgress: uploadProgress === 99 ? 100 : uploadProgress,
-            uploadStatus: uploadProgress === 99 ? 'complete' : 'processing',
+            uploadStatus: uploadProgress === 99 ?
+              UploadFileStatus.COMPLETE : UploadFileStatus.PROCESSING,
           };
         }
         return article;

@@ -5,6 +5,7 @@ import {
   PartialRecord,
   RequestStatus,
   Pagination,
+  UploadFileStatus,
 } from 'types';
 
 export interface ArticleUpload {
@@ -57,7 +58,7 @@ export type Article = {
   additionalData: {};
   isPublic: boolean;
   downloads: number;
-  uploadStatus: string;
+  uploadStatus: UploadFileStatus;
   uploadProgress: number;
   requests: ArticleAccess[];
   status?: string;

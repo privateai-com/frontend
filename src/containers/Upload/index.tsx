@@ -1,19 +1,26 @@
 import { filesize } from 'filesize';
-import { useEffect, useMemo, useState } from 'react';
+import {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 
 import { Button, Typography } from 'components';
-import { usePagination, useScreenWidth, useVipUser } from 'hooks';
+import {
+  useLocalStorage,
+  usePagination,
+  useScreenWidth,
+  useVipUser,
+} from 'hooks';
 import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
-import { Article, RequestStatus } from 'types';
+import { Article, RequestStatus, UploadFileStatus } from 'types';
 
 import { articlesCreate, articlesGetMy, articlesGetUploadStatus } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { useLocalStorage } from 'utils';
 import { DragNDrop } from './DragNDrop';
 import { Item } from './Item';
+import { defaultArticle } from './constants';
 
 import styles from './styles.module.scss';
 
@@ -31,10 +38,17 @@ export const Upload = () => {
   const upload = useSelector(
     articlesSelectors.getProp('upload'),
   );
-  const status = useSelector(
+  const statusCreateArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.CreateArticle),
   );
-  const isLoading = status === RequestStatus.REQUEST;
+  const isLoading = statusCreateArticle === RequestStatus.REQUEST;
+
+  const increaseOffset = useCallback(() => {
+    setOffset((value) => {
+      const newValue = value + 1;
+      return newValue;
+    });
+  }, []);
   
   const queryParams = useMemo(() => ({
     limit: itemsOnPageQuantity,
@@ -69,23 +83,47 @@ export const Upload = () => {
     addItemStorage,
     getItemByIdStorage,
   } = useLocalStorage('articles');
-  
-  const updatedArticles = useMemo(() => (
-    articles.map((article: Article) => {
-      if (!dataStorage) return article;
-      const storageItem = dataStorage.find((storage: { id: number }) => storage.id === article.id);
+
+  const [currentArticles, setCurrentArticles] = useState<Article[]>([]);
+  const [uploadArticles, setUploadArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    if (upload) {
+      setUploadArticles(() => (Object.values(upload)
+        .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
+        .map((uploadData) => ({
+          ...defaultArticle,
+          id: uploadData.idArticle || Number(uploadData.id),
+          title: uploadData.fileName,
+          uploadProgress: uploadData.percentUpload,
+          fileSize: uploadData.size,
+          status: uploadData.status,
+        }))));
+    }
+  }, [upload]);
+
+  useEffect(() => {
+    const newUploadArticles = uploadArticles.filter((uploadArticle) =>
+      !articles.some((article) => article.id === uploadArticle.id));
     
-      if (storageItem && (!article.fileSize || !article.title)) {
-        return {
-          ...article,
-          fileSize: storageItem.fileSize,
-          title: storageItem.title,
-        };
-      }
-    
-      return article;
-    })
-  ), [articles, dataStorage]);
+    setCurrentArticles(
+      [...newUploadArticles, ...articles].map((article: Article) => {
+        if (!dataStorage) return article;
+        const storageItem =
+          dataStorage.find((storage: { id: number }) => storage.id === article.id);
+      
+        if (storageItem && (!article.fileSize || !article.title)) {
+          return {
+            ...article,
+            fileSize: storageItem.fileSize,
+            title: storageItem.title,
+          };
+        }
+      
+        return article;
+      }),
+    );
+  }, [articles, dataStorage, uploadArticles]);
 
   useEffect(() => {
     if (upload && Object.values(upload).length > 0) {
@@ -117,7 +155,8 @@ export const Upload = () => {
   } = usePagination({ 
     total, 
     status: statusGetMyArticles, 
-    changeOffset: setOffset,
+    increaseOffset,
+    offset,
   });
 
   return (
@@ -188,16 +227,19 @@ export const Upload = () => {
           <div className={styles.statuses_items}>
             <div className={styles.statuses_wrapper}>
               <div className={styles.statuses_content} ref={rootRef}>
-                {updatedArticles.map(({
-                  id, title, uploadProgress, fileSize, 
+                {currentArticles.map(({
+                  id, title, uploadProgress, fileSize, uploadStatus,
                 }) => (
                   <Item
                     key={id}
                     name={title}
-                    percents={uploadProgress}
+                    percents={uploadStatus === UploadFileStatus.CREATED
+                      ? Math.round(Math.min((timeToUploaded(fileSize || 0) / 2) * 100, 100))
+                      : uploadProgress}
                     weight={filesize(fileSize || 0, { standard: 'jedec' })}
                     idArticle={id}
-                    timeToUploaded={timeToUploaded(fileSize || 0)}
+                    timeToUploaded={Math.round(timeToUploaded(fileSize || 0))}
+                    status={uploadStatus}
                   />
                 ))}
                 {endElementForScroll}

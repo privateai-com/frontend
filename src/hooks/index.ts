@@ -8,3 +8,4 @@ export { usePageCount } from './usePageCount';
 export { usePagination } from './usePagination';
 export { useWallet } from './useWallet';
 export { useVipUser } from './useVipUser';
+export { useLocalStorage } from './useLocalStorage';

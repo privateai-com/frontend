@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
 export const useLocalStorage = (key: string) => {
   const [data, setData] = useState<any>(null);
 
-  const saveData = (newData: any) => {
+  const saveData = useCallback((newData: any) => {
     localStorage.setItem(key, JSON.stringify(newData));
     setData(newData);
-  };
+  }, [key]);
 
-  const addItem = (item: any) => {
+  const addItem = useCallback((item: any) => {
     const storedData = localStorage.getItem(item.id);
     let newData = [];
     if (storedData) {
@@ -18,24 +18,24 @@ export const useLocalStorage = (key: string) => {
     }
     newData.push(item);
     saveData(newData);
-  };
+  }, [saveData]);
 
-  const removeItemById = (id: string) => {
+  const removeItemById = useCallback((id: string) => {
     const storedData = localStorage.getItem(key);
     if (storedData) {
       const newData = JSON.parse(storedData).filter((item: any) => item.id !== id);
       saveData(newData);
     }
-  };
+  }, [key, saveData]);
 
-  const getItemById = (id: number) => {
+  const getItemById = useCallback((id: number) => {
     const storedData = localStorage.getItem(key);
     if (storedData) {
       const item = JSON.parse(storedData).find((item: any) => item.id === id);
       return item;
     }
     return null;
-  };
+  }, [key]);
 
   useEffect(() => {
     const storedData = localStorage.getItem(key);

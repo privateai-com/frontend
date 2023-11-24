@@ -1,16 +1,23 @@
 import { call, put } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
-import { RequestStatus } from 'types';
+import { RequestStatus, UploadFileStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
 import { store } from 'store/configureStore';
 import { articlesCreate, articlesSetStatusUpload } from '../actionCreators';
 
+function generateNumericId(): number {
+  const idFile = crypto.randomUUID();
+  const parts = idFile.split('-');
+  const numericId = parseInt(parts[0] + parts[1], 16);
+  return numericId;
+}
+
 export function* articlesCreateSaga({
   payload,
 }: ReturnType<typeof articlesCreate>) {
-  const idFile = crypto.randomUUID(); 
+  const idFile = generateNumericId(); 
   try {
     yield put(articlesSetStatusUpload({ 
       id: idFile, 
@@ -18,6 +25,7 @@ export function* articlesCreateSaga({
       percentUpload: 0,
       fileName: payload.file.name,
       size: payload.file.size,
+      uploadStatus: UploadFileStatus.CREATED,
     }));
 
     const formData = new FormData();
@@ -70,8 +78,9 @@ export function* articlesCreateSaga({
     yield put(articlesSetStatusUpload({ 
       id: idFile, 
       status: RequestStatus.SUCCESS,
-      percentUpload: 100,
-      idArticle: res.data.data.id, 
+      // percentUpload: 100,
+      idArticle: res.data.data.id,
+      uploadStatus: UploadFileStatus.PROCESSING,
     }));  
   } catch (e) {
     sagaExceptionHandler(e);

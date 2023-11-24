@@ -1,5 +1,5 @@
 import {
-  RequestStatus, ArticlesState, SortingDirection, GraphResponseType, 
+  RequestStatus, ArticlesState, SortingDirection, GraphResponseType, UploadFileStatus, 
 } from 'types';
 import { ArticlesActionTypes } from './actionTypes';
 
@@ -17,12 +17,13 @@ export const articlesSetStatus = (payload: {
 });
 
 export const articlesSetStatusUpload = (payload: {
-  id: string;
+  id: number;
   fileName?: string;
   size?: number;
   percentUpload?: number;
   status?: RequestStatus;
   idArticle?: number,
+  uploadStatus?: UploadFileStatus,
 }) => ({
   type: ArticlesActionTypes.SetStatusUpload,
   payload,

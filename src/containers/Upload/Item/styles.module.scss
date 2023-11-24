@@ -75,6 +75,10 @@
       background-color: $color-green;
     }
 
+    &_uploading {
+      background-color: $color-yellow;
+    }
+
     @include desktop1440 {
       margin-right: 10px;
     }
