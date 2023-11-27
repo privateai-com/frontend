@@ -107,7 +107,7 @@ export const useColumns = ({
           <TitleWithArrows
             title="Owner"
             onClick={() => {
-              onChangeSortingField('owner.id');
+              onChangeSortingField('owner.username');
               onToggleDirection();
             }}
           />

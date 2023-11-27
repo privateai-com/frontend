@@ -23,12 +23,12 @@ export function* articlesGetMySaga({
       endpoint: ApiEndpoint.ArticlesGetMyArticles + getApiQueries(payload),
     });
     
-    const articles: ArticlesState['articles'] = payload.offset !== 0 ? yield select(
-      articlesSelectors.getProp('articles'),
+    const articles: ArticlesState['myArticles'] = payload.offset !== 0 ? yield select(
+      articlesSelectors.getProp('myArticles'),
     ) : [];
     
     yield put(articlesSetState({ 
-      articles: [...articles, ...data[0]],
+      myArticles: [...articles, ...data[0]],
       total: data[1], 
       pagination: payload,
     }));
