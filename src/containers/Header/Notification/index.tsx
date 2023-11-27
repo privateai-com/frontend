@@ -31,7 +31,7 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>((
   <div className={cx(styles.notification_container, { [styles.show]: isOpen })} ref={ref}>
     <div className={styles.notification_content}>
       {notifications.map(({
-        id, createdAt, article, type, approve, requester,
+        id, createdAt, article, type, requester,
       }) => (
         <div
           className={styles.item_container}
@@ -54,7 +54,7 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>((
             className={styles.item_content}
             onClick={() => onDeleteNotification(id)}
           >
-            {generateNotificationText(type, article, approve)}
+            {generateNotificationText(type, article)}
             <Image
               src={arrowIcon}
               alt="next"

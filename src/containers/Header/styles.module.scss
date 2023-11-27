@@ -208,3 +208,11 @@
 .selected {
 	background-color: $color-yellow;
 }
+
+.username {
+	@include tablet {
+		max-width: 115px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+}

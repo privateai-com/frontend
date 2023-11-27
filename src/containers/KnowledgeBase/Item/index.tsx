@@ -7,9 +7,9 @@ import {
 import { RequestCell } from 'containers';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth, routes } from 'appConstants';
-import { Article, RequestStatus, StatusArticle } from 'types';
+import { Article, RequestStatus, StatusAccessArticle } from 'types';
 import {
-  getName, getStatusArticle, 
+  getName, getStatusAccessArticle, 
 } from 'utils';
 import { requestCreate } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
@@ -20,11 +20,11 @@ import Link from 'next/link';
 import styles from './styles.module.scss';
 
 const textStatus = {
-  [StatusArticle.OpenSource]: 'Open sourced', 
-  [StatusArticle.AccessGranted]: 'Access granted', 
-  [StatusArticle.PermissionNeeded]: 'Permission needed', 
-  [StatusArticle.AccessRequestPending]: 'Access request pending', 
-  [StatusArticle.AccessDenied]: 'Access denied', 
+  [StatusAccessArticle.OpenSource]: 'Open sourced', 
+  [StatusAccessArticle.AccessGranted]: 'Access granted', 
+  [StatusAccessArticle.PermissionNeeded]: 'Permission needed', 
+  [StatusAccessArticle.AccessRequestPending]: 'Access request pending', 
+  [StatusAccessArticle.AccessDenied]: 'Access denied', 
 };
 
 type ItemProps = {
@@ -57,23 +57,23 @@ export const Item: React.FC<ItemProps> = ({
 
   const search = '';
 
-  const status = getStatusArticle(article);
+  const status = getStatusAccessArticle(article);
 
   const getStatusStyle = () => {
     switch (status) {
-      case StatusArticle.OpenSource:
+      case StatusAccessArticle.OpenSource:
         return styles.open;
 
-      case StatusArticle.AccessGranted:
+      case StatusAccessArticle.AccessGranted:
         return styles.granted;
 
-      case StatusArticle.PermissionNeeded:
+      case StatusAccessArticle.PermissionNeeded:
         return styles.permission_needed;
 
-      case StatusArticle.AccessRequestPending:
+      case StatusAccessArticle.AccessRequestPending:
         return styles.pending;
 
-      case StatusArticle.AccessDenied:
+      case StatusAccessArticle.AccessDenied:
         return styles.denied;
 
       default:
@@ -199,7 +199,7 @@ export const Item: React.FC<ItemProps> = ({
         </div>
         <div className={styles.item_second_block}>
           <button 
-            onClick={(status === StatusArticle.PermissionNeeded && !isDisabled)
+            onClick={(status === StatusAccessArticle.PermissionNeeded && !isDisabled)
               ? showAccessConfirm
               : () => {}} 
             className={styles.buttonShowAccess}

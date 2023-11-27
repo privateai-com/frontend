@@ -18,6 +18,7 @@ export * from './format';
 export * from './formValidators';
 export * from './apiError';
 export * from './responseExceptionToFormError';
+export * from './getStatusAccessArticle';
 export * from './getStatusArticle';
 export * from './normalizeUserInfo';
 export * from './convertTitleFile';

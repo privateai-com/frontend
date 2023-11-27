@@ -52,6 +52,7 @@
 .sidebar_link {
   position: relative;
   display: flex;
+  align-items: center;
   gap: 12px;
   text-decoration: none;
   color: $color-black;
@@ -91,7 +92,7 @@
       height: 8px;
       background-color: $color-green;
       position: absolute;
-      top: 0;
+      top: 2px;
       right: -44px;
       transform: translate(-50%, 75%);
       border-radius: 100%;
@@ -110,6 +111,7 @@
     }
 
     .active_svg {
+      
       path {
         stroke: $color-green;
       }

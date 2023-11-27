@@ -65,9 +65,7 @@ export const Header = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(profileNotificationSubscribe({ userId }));
-    }
+    dispatch(profileNotificationSubscribe());
   }, [dispatch, userId]);
 
   const onDeleteNotification = useCallback((requestId: number) => {
@@ -114,7 +112,7 @@ export const Header = () => {
           </div>
         )}
       </div>
-      <span>{fullName || username}</span>
+      <span className={styles.username}>{fullName || username}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}

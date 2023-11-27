@@ -53,7 +53,7 @@ export const Sign: FC<SignProps> = ({
   const router = useRouter();
 
   const successCallback = useCallback(() => {
-    router.push(routes.profile.root);
+    router.push(routes.knowledge.root);
   }, [router]);
 
   const errorCallback = useCallback(
