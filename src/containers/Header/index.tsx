@@ -109,7 +109,7 @@ export const Header = () => {
           </div>
         )}
       </div>
-      <span>{fullName || username}</span>
+      <span className={styles.username}>{fullName || username}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}

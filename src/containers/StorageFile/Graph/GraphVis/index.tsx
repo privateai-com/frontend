@@ -49,7 +49,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   const [editingEdgeId, setEditingEdgeId] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const networkRef = useRef<ExtendedNetwork | null>(null);
-  const [newNodeIdToDelete, setNewNodeIdToDelete] = useState<string | null>(null);
+  const [shouldDeleteNode, setShouldDeleteNode] = useState(false);
 
   const handleAddNode = useCallback((data: Node, callback: (data: Node) => void) => {
     const newNode: Node = {
@@ -67,7 +67,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
       }, 10);
     }
 
-    setNewNodeIdToDelete(newNode.id as string);
+    setShouldDeleteNode(true);
     callback(newNode);
   }, [nodes]);
 
@@ -82,6 +82,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         inputElement.select();
       }, 10);
     }
+    setShouldDeleteNode(inputRef.current?.value.trim() === '');
     callback(data);
   }, []);
 
@@ -90,7 +91,19 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     const nodeTo = nodes.get(data.to);
     const nodeFrom = nodes.get(data.from);
     if (!nodeTo || !nodeFrom) return;
-    callback(data);
+    const inputElement = inputRef.current;
+    if (inputElement) {
+      inputElement.value = data.label || '';
+      setTimeout(() => {
+        inputElement.focus();
+        inputElement.select();
+      }, 10);
+    }
+
+    const newEdgeId = (edges.length + 1).toString();
+    setEditingEdgeId(newEdgeId);
+    callback({ ...data, id: newEdgeId });
+    setShowPopup(true);
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
   }, [edges, nodes, setGraphData]);
 
@@ -156,7 +169,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         setShowPopup(true);
         const edge = edges.get(edgeId);
         if (edge && inputRef.current) {
-          inputRef.current.value = edge.label;
+          inputRef.current.value = edge.label ?? '';
           inputRef.current.focus();
         }
       } else {
@@ -181,26 +194,36 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     if (editingNodeId !== null) {
       const updatedNode = nodes.get(editingNodeId);
       if (updatedNode && inputRef.current) {
-        updatedNode.label = inputRef.current.value;
-        nodes.update(updatedNode);
+        if (inputRef.current.value.trim() === '') {
+          setShouldDeleteNode(true);
+        } else {
+          updatedNode.label = inputRef.current.value;
+          nodes.update(updatedNode);
+        }
       }
       setEditingNodeId(null);
     }
-    if (editingEdgeId !== null) {
+
+    if (editingEdgeId !== null || editingEdgeId !== undefined) {
       const currentEdges = edges.get();
-      const updatedEdge = edges.get(editingEdgeId);
+      const updatedEdge = edges.get(editingEdgeId as string);
       if (updatedEdge && currentEdges) {
-        currentEdges.forEach((edge) => {
-          if (edge.id === updatedEdge.id && inputRef.current) {
-            const newEdge = { ...edge };
-            newEdge.label = inputRef.current.value;
-            const index = currentEdges.findIndex((e) => e.id === updatedEdge.id);
-            if (index !== -1) {
-              currentEdges[index] = newEdge;
+        const newLabel = inputRef.current?.value.trim();
+        if (newLabel) {
+          currentEdges.forEach((edge) => {
+            if (edge.id === updatedEdge.id) {
+              const newEdge = { ...edge };
+              newEdge.label = newLabel;
+              const index = currentEdges.findIndex((e) => e.id === updatedEdge.id);
+              if (index !== -1) {
+                currentEdges[index] = newEdge;
+              }
             }
-          }
-        });
-        edges.update(currentEdges);
+          });
+          edges.update(currentEdges);
+        } else {
+          edges.remove(editingEdgeId as string);
+        }
       }
       setEditingEdgeId(null);
     }
@@ -220,7 +243,8 @@ export const GraphVis: FC<GraphVisProps> = memo(({
           edges.remove(selectedEdges);
         }
         setGraphData(transformNodesAndEdgesToData(nodes, edges));
-        setShowPopup(false); 
+        setShowPopup(false);
+        networkRef.current.unselectAll();
       }
     };
   
@@ -237,21 +261,27 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     }
   }, []);
 
-  const handleDeleteNewNode = useCallback(() => {
-    if (newNodeIdToDelete) {
-      const nodeToRemove = networkRef.current?.body.data.nodes.get(newNodeIdToDelete);
-      if (nodeToRemove) {
-        networkRef.current?.body.data.nodes.remove(newNodeIdToDelete);
-        setNewNodeIdToDelete(null);
+  const onClosePopup = useCallback(() => {
+    if (shouldDeleteNode) {
+      nodes.remove(editingNodeId as string);
+    }
+  
+    if (editingEdgeId !== null) {
+      const updatedEdge = edges.get(editingEdgeId);
+      if (updatedEdge) {
+        const newLabel = inputRef.current?.value.trim();
+        if (!newLabel) {
+          edges.remove(editingEdgeId);
+          setGraphData(transformNodesAndEdgesToData(nodes, edges));
+        }
       }
     }
-  }, [newNodeIdToDelete]);
-
-  const onClosePopup = useCallback(() => {
-    handleDeleteNewNode();
+  
     setShowPopup(false);
     setEditingNodeId(null);
-  }, [handleDeleteNewNode]);
+    setEditingEdgeId(null);
+    setShouldDeleteNode(false);
+  }, [shouldDeleteNode, editingEdgeId, nodes, editingNodeId, edges, setGraphData]);
 
   return (
     <div className={styles.visContainer}>

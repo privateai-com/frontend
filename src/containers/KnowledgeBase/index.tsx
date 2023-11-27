@@ -25,7 +25,7 @@ export const KnowledgeBase: React.FC = () => {
   }, []);
 
   const total = useSelector(articlesSelectors.getProp('total'));
-  const articles = useSelector(articlesSelectors.getProp('articles'));
+  const articles = useSelector(articlesSelectors.getProp('articlesAll'));
   const statusGetArticles = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetArticles),
   );

@@ -59,7 +59,7 @@ export const ArticlesTab = () => {
   });
   
   const total = useSelector(articlesSelectors.getProp('total'));
-  const articles = useSelector(articlesSelectors.getProp('articles'));
+  const articles = useSelector(articlesSelectors.getProp('myArticles'));
   const statusGetMyArticles = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetMyArticles),
   );

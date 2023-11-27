@@ -1,4 +1,4 @@
-export enum StatusArticle {
+export enum StatusAccessArticle {
   OpenSource = 'OpenSource',
   AccessGranted = 'AccessGranted',
   PermissionNeeded = 'PermissionNeeded',
