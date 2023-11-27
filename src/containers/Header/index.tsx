@@ -62,11 +62,8 @@ export const Header = () => {
   useEffect(() => {
     dispatch(profileGetProfile());
     dispatch(profileNotification());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(profileNotificationSubscribe());
-  }, [dispatch, userId]);
+  }, [dispatch]);
 
   const onDeleteNotification = useCallback((requestId: number) => {
     dispatch(profileNotificationMarkAsView({ requestId }));

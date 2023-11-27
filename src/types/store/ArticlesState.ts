@@ -70,6 +70,7 @@ export type Article = {
 
 export enum SocketUploadArticleEvent {
   GET_UPLOAD_STATUS = 'uploadStatusUpdate',
+  SERVER_ERROR = 'ServerError',
 }
 
 export type EmitedSocketUploadEvent = {

@@ -33,26 +33,28 @@ function createUploadChannel() {
       emit(JSON.parse(data));
     };
 
+    const errorHandler = (error: unknown) => {
+      sagaExceptionHandler(error);
+    };
+
     socket.on(SocketNotificationEvent.NEW_NOTIFICATION, emitedData);
+    socket.on(SocketNotificationEvent.SERVER_ERROR, errorHandler);
 
     return () => {
       socket.off(SocketNotificationEvent.NEW_NOTIFICATION, emitedData);
+      socket.off(SocketNotificationEvent.SERVER_ERROR, errorHandler);
     };
   });
 }
 
 function* watchChannel() {
-  try {
-    const channel: EventChannel<EmitedSocketNotificationEvent> = yield call(createUploadChannel);
-    yield takeLatest(channel, handleSocketEvents);
-  } catch (error) {
-    sagaExceptionHandler(error);
-  }
+  const channel: EventChannel<EmitedSocketNotificationEvent> = yield call(createUploadChannel);
+  yield takeLatest(channel, handleSocketEvents);
 }
 
 export function* profileNotificationSocketSaga() {
   try {
-    if (!socket) {
+    if (!socket || !socket.connected) {
       socket = yield call(socketConnect);
     }
     yield spawn(watchChannel);

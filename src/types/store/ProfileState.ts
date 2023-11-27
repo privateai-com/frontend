@@ -75,6 +75,7 @@ export interface ProfileState {
 
 export enum SocketNotificationEvent {
   NEW_NOTIFICATION = 'newNotification',
+  SERVER_ERROR = 'ServerError',
 }
 
 export type EmitedSocketNotificationEvent = {
