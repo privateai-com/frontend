@@ -37,6 +37,10 @@ export interface AccountInfo {
 export enum NotificationType {
   GrantAccess = 'Grant access',
   PendingAccess = 'Pending access',
+  YouGrantedAccess = 'You granted access',
+  YouRejectedAccess = 'You rejected access',
+  AccessWasGranted = 'Access was granted',
+  AccessWasRejected = 'Access was rejected',
   UnknownType = 'Unknown type',
 }
 

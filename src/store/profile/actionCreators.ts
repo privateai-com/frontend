@@ -68,9 +68,8 @@ export const profileNotification = () => ({
   type: ProfileActionTypes.Notification,
 });
 
-export const profileNotificationSubscribe = (payload: { userId: number }) => ({
+export const profileNotificationSubscribe = () => ({
   type: ProfileActionTypes.NotificationSubscribe,
-  payload,
 });
 
 export const profileNotificationMarkAsView = (payload: { requestId: number; }) => ({

@@ -65,9 +65,7 @@ export const Header = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(profileNotificationSubscribe({ userId }));
-    }
+    dispatch(profileNotificationSubscribe());
   }, [dispatch, userId]);
 
   const onDeleteNotification = useCallback((requestId: number) => {
