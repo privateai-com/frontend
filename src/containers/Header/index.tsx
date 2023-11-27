@@ -62,8 +62,13 @@ export const Header = () => {
   useEffect(() => {
     dispatch(profileGetProfile());
     dispatch(profileNotification());
-    dispatch(profileNotificationSubscribe());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(profileNotificationSubscribe());
+    }
+  }, [dispatch, userId]);
 
   const onDeleteNotification = useCallback((requestId: number) => {
     dispatch(profileNotificationMarkAsView({ requestId }));
@@ -109,7 +114,7 @@ export const Header = () => {
           </div>
         )}
       </div>
-      <span className={styles.username}>{fullName || username}</span>
+      <span>{fullName || username}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}
