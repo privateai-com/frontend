@@ -7,6 +7,7 @@ import {
   NodeType,
 } from 'containers/StorageFile/types';
 import { GraphResponseType } from 'types';
+import { checkGraphStructureValid } from 'utils';
 
 const initial = {
   nodes: new DataSet(),
@@ -55,13 +56,7 @@ export const transformDataToNodesAndEdges =
       return initial;
     }
 
-    const isStructureValid = data.every((obj) => 
-      typeof obj === 'object' &&
-    Object.prototype.hasOwnProperty.call(obj, 'subject') &&
-    Object.prototype.hasOwnProperty.call(obj, 'verb') &&
-    Object.prototype.hasOwnProperty.call(obj, 'object') &&
-    Object.prototype.hasOwnProperty.call(obj, 'uncertainty') &&
-    Object.prototype.hasOwnProperty.call(obj, 'comment'));
+    const isStructureValid = checkGraphStructureValid(data);
 
     if (!isStructureValid) {
       return initial;

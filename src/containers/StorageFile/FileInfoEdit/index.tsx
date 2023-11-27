@@ -14,6 +14,7 @@ import { articlesChangeAccess, articlesSaveGraph, articlesUpdate } from 'store/a
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { Article, GraphResponseType, RequestStatus } from 'types';
+import { notification } from 'utils';
 import { EditItem } from './EditItem';
 import { exportToExcel } from './utils';
 
@@ -64,6 +65,14 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
     if (article) {
       const { id } = article;
       if (id) {
+        const isFieldsNotEmpty = (edge: GraphResponseType) =>
+          edge.subject !== '' && edge.object !== '' && edge.verb !== '';
+        const allEdgesFieldsFilled = graphData.every(isFieldsNotEmpty);
+        if (!allEdgesFieldsFilled) {
+          notification.info({ message: 'Node has no edges' });
+          return;
+        }
+
         const isOpen = articleAccess === 'open';
         if (article.isPublic !== isOpen) {
           dispatch(articlesChangeAccess({ articleId: id, isOpen }));
