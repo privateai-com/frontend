@@ -20,7 +20,8 @@ export interface ArticleUpload {
 }
 
 export interface ArticlesState {
-  articles: Article[];
+  articlesAll: Article[];
+  myArticles: Article[];
   article?: Article,
   total: number;
   pagination?: Pagination;

@@ -28,12 +28,12 @@ export function* articlesGetAllSaga({
       }),
     });
     
-    const articles: ArticlesState['articles'] = payload.offset !== 0 ? yield select(
-      articlesSelectors.getProp('articles'),
+    const articles: ArticlesState['articlesAll'] = payload.offset !== 0 ? yield select(
+      articlesSelectors.getProp('articlesAll'),
     ) : [];
 
     yield put(articlesSetState({ 
-      articles: [...articles, ...data[0]],
+      articlesAll: [...articles, ...data[0]],
       total: data[1], 
       pagination: {
         ...payload,
