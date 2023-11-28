@@ -1,5 +1,5 @@
 import {
-  FC, memo, useCallback,
+  FC, memo, useCallback, useState,
 } from 'react';
 import { useModal } from 'react-modal-hook';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -54,6 +54,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
     shallowEqual,
   );
   const isVipUser = useVipUser();
+  const [isDisabledRequest, setIsDisabledRequest] = useState(false);
 
   const [showRequester, hideRequester] = useModal(
     () => {
@@ -87,7 +88,10 @@ export const FileInfo: FC<FileInfoProps> = memo(({
             if (article) {
               dispatch(requestCreate({
                 articleId: article.id, 
-                callback: hideRequester,
+                callback: () => {
+                  hideRequester();
+                  setIsDisabledRequest(true);
+                },
               }));
             }
           }}
@@ -132,7 +136,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
         }}
       />
     ),
-    [statusCreate],
+    [article, statusCreate],
   );
 
   const onPublishClick = useCallback(() => {
@@ -231,7 +235,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               <Button
                 theme="secondary"
                 onClick={showAccessConfirm}
-                disabled={isLoading || isRequester || isVipUser}
+                disabled={isLoading || isRequester || isVipUser || isDisabledRequest}
               >
                 Request access
               </Button>
