@@ -6,7 +6,7 @@ $btn-height1440: 80px;
 $btn-height1024: 130px;
 
 @mixin height($height1, $height2, $height3) {
-  height: calc($height1 - (($btn-height1920 + 30px) / 2));
+  height: calc($height1 - (($btn-height1920 + 80px) / 2));
 
   @include desktop1440 {
     height: calc($height2 - (($btn-height1440 + 30px) / 2));
@@ -82,6 +82,10 @@ $btn-height1024: 130px;
   &_notice {
     margin: 0 auto 30px;
 
+    @media screen and (min-width: 1440px) {
+      margin-bottom: 20px;
+    }
+
     @include desktop1440 {
       margin-bottom: 15px;
     }
@@ -91,6 +95,12 @@ $btn-height1024: 130px;
     }
 
     @include mobile {
+      margin-bottom: 15px;
+    }
+  }
+
+  &_notice {
+    @media screen and (min-width: 1440px) {
       margin-bottom: 15px;
     }
   }
@@ -159,7 +169,12 @@ $btn-height1024: 130px;
   padding: 30px 45px;
   background-color: $color-white;
   border-radius: 16px;
-  @include height(61%, 55%, 65%);
+  // @include height(61%, 50vh, 65%);
+  height: calc(100vh - 490px);
+
+  @media screen and (min-width: 1440px) {
+    height: calc(100vh - 580px);
+	}
 
   @include desktop1440 {
     padding: 20px 30px;
@@ -171,6 +186,7 @@ $btn-height1024: 130px;
 
   @include mobile {
     padding: 10px 15px;
+    height: calc(100vh - 460px);
   }
 
   &_wrapper {

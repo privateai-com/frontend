@@ -46,13 +46,13 @@ const UserSchema = z.object({
 });
 
 type UpdateProfileProps = {
-  isEditProfile: boolean;
-  setIsEditProfile: (value: boolean) => void;
+  callbackLater: () => void;
+  callbackSuccess: () => void;
 };
 
 export const UpdateProfile: React.FC<UpdateProfileProps> = ({
-  isEditProfile,
-  setIsEditProfile,
+  callbackLater,
+  callbackSuccess,
 }) => {
   const dispatch = useDispatch();
   
@@ -99,7 +99,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     }
 
     const data = {
-      username: usernameOld !== username ? username : undefined,
+      username: username !== '' ? username : undefined,
       socialLink: socialMediaLink,
       organization,
       researchFields,
@@ -111,13 +111,11 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     dispatch(
       profileUpdateProfile({
         ...data,
-        callback: () => {
-          setIsEditProfile(false);
-        },
+        callback: callbackSuccess,
       }),
     );
-  }, [avatar, dispatch, location, organization, position, 
-    realName, researchFields, setIsEditProfile, socialMediaLink, username, usernameOld]);
+  }, [avatar, callbackSuccess, dispatch, location, organization, position, 
+    realName, researchFields, socialMediaLink, username]);
 
   const [showEditProfileConfirm, hideEditProfileConfirm] = useModal(() => (
     <EditProfileConfirm 
@@ -299,12 +297,12 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
         />
       </div>
       <div className={styles.footer}>
-        <Footer isEditProfile={isEditProfile} />
+        <Footer isEditProfile />
         <div className={styles.button_block}>
           <Button
             theme="secondary"
             className={styles.button}
-            onClick={() => setIsEditProfile(false)}
+            onClick={callbackLater}
           >
             Fill in later
           </Button>

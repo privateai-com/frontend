@@ -26,6 +26,7 @@ export const Profile = () => {
   const isMobile = useScreenWidth(ScreenWidth.notebook1024);
   
   const [isEditProfile, setIsEditProfile] = useState(false);
+  const [isFirstEdit, setIsFirstEdit] = useState(false);
   
   const walletAddress = useSelector(profileSelectors.getPropAccountInfo('walletAddress'));
   const status = useSelector(
@@ -55,11 +56,12 @@ export const Profile = () => {
   );
 
   useEffect(() => {
-    const { showModal } = router.query;
+    const { editProfile } = router.query;
 
-    if (showModal === 'true') {
+    if (editProfile === 'true') {
       router.replace(router.pathname, undefined, { shallow: true });
-      showSuccess();
+      setIsFirstEdit(true);
+      setIsEditProfile(true);
     }
   }, [router, router.query, showSuccess]);
 
@@ -70,6 +72,14 @@ export const Profile = () => {
   const onDisconnectLinkWalletClick = useCallback(() => {
     dispatch(profileDeleteWallet());
   }, [dispatch]);
+
+  const handleShoModalSuccess = useCallback(() => {
+    setIsEditProfile(false);
+    if (isFirstEdit) {
+      showSuccess();
+      setIsFirstEdit(false);
+    }
+  }, [isFirstEdit, showSuccess]);
 
   const isDeleteLoading = statusDeleteWallet === RequestStatus.REQUEST;
 
@@ -118,8 +128,8 @@ export const Profile = () => {
       </div>
       {isEditProfile ? (
         <UpdateProfile
-          setIsEditProfile={setIsEditProfile}
-          isEditProfile={isEditProfile}
+          callbackLater={handleShoModalSuccess}
+          callbackSuccess={handleShoModalSuccess}
         />
       ) : (
         <ProfileInfo />
