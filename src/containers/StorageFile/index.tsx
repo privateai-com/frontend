@@ -122,7 +122,7 @@ export const StorageFile = memo(() => {
       [styles.fullScreenGraph]: isFullscreen,
     })}
     >
-      <ButtonBack title="Back" />
+      <ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} />
       {isEdit ? (
         <FileInfoEdit
           graphData={graphData}
