@@ -72,6 +72,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
       return (
         <Requester
           id={id || 0}
+          title="Owner"
           avatarUrl={avatarUrl || ''}
           name={normalizeUserInfo(fullName, username) || '-'}
           country={normalizeUserInfo(city, country) || '-'}
