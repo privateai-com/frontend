@@ -91,7 +91,7 @@
 		@include desktop1440 {
 			max-width: 290px;
 		}
-	
+
 		@include desktop1024 {
 			max-width: 290px;
 		}
@@ -99,6 +99,10 @@
 		@include mobile {
 			max-width: 210px;
 			margin-bottom: 10px;
+		}
+
+		@media screen and (min-width: 1440px) {
+			width: 375px;
 		}
 	}
 	
