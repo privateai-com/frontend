@@ -29,15 +29,22 @@ export const options = {
     enabled: true,
     timestep: 1,
     minVelocity: 5,
-    maxVelocity: 5,
-    stabilization: {
-      enabled: true,
-    },
-    barnesHut: {
-      gravitationalConstant: -8000,
-      avoidOverlap: 1,
+    // maxVelocity: 5,
+    // stabilization: {
+    //   enabled: true,
+    // },
+    // barnesHut: {
+    //   gravitationalConstant: -8000,
+    //   avoidOverlap: 1,
+    //   springLength: 300,
+    //   springConstant: 0.05,
+    // },
+    solver: 'forceAtlas2Based',
+    forceAtlas2Based: {
+      gravitationalConstant: -1000,
       springLength: 300,
-      springConstant: 0.05,
+      springConstant: 0.02,
+      avoidOverlap: 1,
     },
   },
   nodes: {
@@ -78,10 +85,28 @@ export const options = {
     //   label: {
     //     // min: 8,
     //     // max: 30,
-    //     drawThreshold: 12,
-    //     maxVisible: 20,
+    //     // drawThreshold: 12,
+    //     // maxVisible: 10,
     //   },
     // },
+    scaling: {
+      min: 0,
+      max: 60,
+      label: {
+        enabled: true,
+        min: 0,
+        max: 800,
+        maxVisible: 800,
+        // drawThreshold: 5,
+      },
+      // customScalingFunction(min, max, total, value) {
+      //   if (max === min) {
+      //     return 0.5;
+      //   } 
+      //   const scale = 1 / (max - min);
+      //   return Math.max(0, (value - min) * scale);
+      // },
+    },
     // ctxRenderer: ({
     //   ctx, id, x, y, state: { selected, hover }, style, label,
     // }) => {
