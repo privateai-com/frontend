@@ -22,7 +22,7 @@ export const Registration = () => {
   const successCallback = useCallback(() => {
     router.push({
       pathname: routes.profile.root,
-      query: { showModal: 'true' },
+      query: { editProfile: 'true' },
     });
   }, [router]);
 
