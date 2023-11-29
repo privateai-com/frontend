@@ -55,7 +55,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   const getNodesLabelWithoutEdges = useCallback(() => {
     if (networkRef.current) {
       const nodesWithoutEdges: string[] = [];
-      const allNodes = nodes.get(); // Получаем идентификаторы всех узлов
+      const allNodes = nodes.get();
 
       allNodes.forEach((node) => {
         const connectedEdges = (networkRef.current as ExtendedNetwork).getConnectedEdges(node.id);
