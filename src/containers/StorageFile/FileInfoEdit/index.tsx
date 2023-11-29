@@ -23,24 +23,26 @@ import { DeleteBtn } from '../DeleteBtn';
 
 interface FileInfoProps {
   graphData: GraphResponseType[];
-  onSave: () => void;
+  onSaveSuccess: () => void;
   onRevertToLastSaved: () => void;
   onRevertToLastPublished: () => void;
   article?: Article;
   classNameFile?: string;
   classNameButtons?: string;
   isOwner: boolean;
+  nodesLabelWithoutEdges: string[];
 }
 
 export const FileInfoEdit: FC<FileInfoProps> = memo(({
   graphData,
-  onSave,
+  onSaveSuccess,
   onRevertToLastSaved,
   onRevertToLastPublished,
   article,
   classNameFile,
   classNameButtons,
   isOwner,
+  nodesLabelWithoutEdges,
 }) => {
   const storageFileItemRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -58,16 +60,23 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
   }, []);
 
   const successCallback = useCallback(() => {
-    onSave();
-  }, [onSave]);
+    onSaveSuccess();
+  }, [onSaveSuccess]);
 
   const onSaveClick = useCallback(() => {
     if (article) {
       const { id } = article;
       if (id) {
+        if (nodesLabelWithoutEdges.length > 0) {
+          const message = `Nodes without edges: ${nodesLabelWithoutEdges.join(', ')}`;
+          notification.info({ message });
+          return;
+        }
+
         const isFieldsNotEmpty = (edge: GraphResponseType) =>
           edge.subject !== '' && edge.object !== '' && edge.verb !== '';
         const allEdgesFieldsFilled = graphData.every(isFieldsNotEmpty);
+
         if (!allEdgesFieldsFilled) {
           notification.info({ message: 'Node has no edges' });
           return;
@@ -85,7 +94,10 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
         dispatch(articlesSaveGraph({ articleId: id, data: graphData, callback: successCallback }));
       }
     }
-  }, [article, articleAccess, dispatch, fieldFile, graphData, nameFile, successCallback]);
+  }, [
+    article, articleAccess, dispatch, fieldFile, graphData,
+    nameFile, nodesLabelWithoutEdges, successCallback,
+  ]);
 
   const onDownloadXlsxClick = useCallback(() => {
     if (article) exportToExcel(graphData, article.title);

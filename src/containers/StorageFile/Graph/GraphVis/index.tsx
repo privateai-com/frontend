@@ -38,10 +38,11 @@ interface GraphVisProps {
   nodes: DatasetNodeType,
   edges: DatasetEdgeType,
   isEdit: boolean,
+  setNodesLabelWithoutEdges: (args0: string[]) => void,
 }
 
 export const GraphVis: FC<GraphVisProps> = memo(({
-  nodes, edges, isEdit, setGraphData,
+  nodes, edges, isEdit, setGraphData, setNodesLabelWithoutEdges,
 }) => {
   const visJsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -50,6 +51,22 @@ export const GraphVis: FC<GraphVisProps> = memo(({
   const [showPopup, setShowPopup] = useState(false);
   const networkRef = useRef<ExtendedNetwork | null>(null);
   const [shouldDeleteNode, setShouldDeleteNode] = useState(false);
+
+  const getNodesLabelWithoutEdges = useCallback(() => {
+    if (networkRef.current) {
+      const nodesWithoutEdges: string[] = [];
+      const allNodes = nodes.get(); // Получаем идентификаторы всех узлов
+
+      allNodes.forEach((node) => {
+        const connectedEdges = (networkRef.current as ExtendedNetwork).getConnectedEdges(node.id);
+
+        if (connectedEdges.length === 0) {
+          nodesWithoutEdges.push(node.label);
+        }
+      });
+      setNodesLabelWithoutEdges(nodesWithoutEdges);
+    }
+  }, [nodes, setNodesLabelWithoutEdges]);
 
   const handleAddNode = useCallback((data: Node, callback: (data: Node) => void) => {
     const newNode: Node = {
@@ -105,7 +122,8 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     callback({ ...data, id: newEdgeId });
     setShowPopup(true);
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
-  }, [edges, nodes, setGraphData]);
+    getNodesLabelWithoutEdges();
+  }, [edges, getNodesLabelWithoutEdges, nodes, setGraphData]);
 
   const handleDeleteEdge = useCallback((data: Data, callback: (data: Data) => void) => {
     if (Array.isArray(data?.edges) && data.edges.length === 1) {
@@ -117,13 +135,15 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     }
     callback(data);
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
-  }, [edges, nodes, setGraphData]);
+    getNodesLabelWithoutEdges();
+  }, [edges, getNodesLabelWithoutEdges, nodes, setGraphData]);
 
   const handleDeleteNode = useCallback((data: Data, callback: (data: Data) => void) => {
     if (!Array.isArray(data?.nodes)) return;
     callback(data);
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
-  }, [edges, nodes, setGraphData]);
+    getNodesLabelWithoutEdges();
+  }, [edges, getNodesLabelWithoutEdges, nodes, setGraphData]);
 
   const currentOption = useMemo(() => ({
     ...options,
@@ -228,6 +248,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
       setEditingEdgeId(null);
     }
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
+    getNodesLabelWithoutEdges();
     setShowPopup(false);
   };
 
@@ -243,6 +264,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
           edges.remove(selectedEdges);
         }
         setGraphData(transformNodesAndEdgesToData(nodes, edges));
+        getNodesLabelWithoutEdges();
         setShowPopup(false);
         networkRef.current.unselectAll();
       }
@@ -253,7 +275,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [edges, isEdit, nodes, setGraphData]);
+  }, [edges, getNodesLabelWithoutEdges, isEdit, nodes, setGraphData]);
 
   useEffect(() => {
     if (visJsRef.current) {
@@ -282,6 +304,23 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     setEditingEdgeId(null);
     setShouldDeleteNode(false);
   }, [shouldDeleteNode, editingEdgeId, nodes, editingNodeId, edges, setGraphData]);
+
+  // useEffect(() => {
+  //   if (networkRef.current) {
+  //     const nodesWithoutEdges: string[] = [];
+  //     const allNodes = nodes.getIds(); // Получаем идентификаторы всех узлов
+
+  //     allNodes.forEach((nodeId) => {
+  //       const connectedEdges = networkRef.current.getConnectedEdges(nodeId);
+
+  //       if (connectedEdges.length === 0) {
+  //         nodesWithoutEdges.push(nodeId as string);
+  //       }
+  //     });
+  //     console.log({ nodesWithoutEdges })
+  //     setNodesLabelWithoutEdges(nodesWithoutEdges);
+  //   }
+  // }, [nodes, setNodesLabelWithoutEdges]);
 
   return (
     <div className={styles.visContainer}>

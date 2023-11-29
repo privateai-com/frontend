@@ -30,6 +30,7 @@ export const StorageFile = memo(() => {
   );
   const [isPublishGraph, setIsPublishGraph] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [nodesLabelWithoutEdges, setNodesLabelWithoutEdges] = useState<string[]>([]);
 
   const initialGraphData = useMemo(
     () => {
@@ -66,7 +67,7 @@ export const StorageFile = memo(() => {
     setGraphData(value);
   }, []);
 
-  const onSaveClick = useCallback(() => {
+  const onSaveSuccess = useCallback(() => {
     setIsEdit((state) => !state);
     setIsPublishGraph(false);
   }, []);
@@ -127,11 +128,12 @@ export const StorageFile = memo(() => {
         <FileInfoEdit
           graphData={graphData}
           isOwner={isOwner}
-          onSave={onSaveClick}
+          onSaveSuccess={onSaveSuccess}
           onRevertToLastSaved={onRevertToLastSavedClick}
           onRevertToLastPublished={onRevertToLastPublishedClick}
           classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
           classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
+          nodesLabelWithoutEdges={nodesLabelWithoutEdges}
           {...(article && { article })}
         />
       ) : (
@@ -155,6 +157,7 @@ export const StorageFile = memo(() => {
         articleId={Number(articleId)}
         isOwner={isOwner}
         topCoreEntities={article?.topCoreEntities || '-'}
+        setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
       />
     </div>
   );

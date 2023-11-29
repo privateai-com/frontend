@@ -20,6 +20,7 @@ interface GraphProps {
   graphData: GraphResponseType[];
   setGraphData: (edges: GraphResponseType[]) => void;
   onFullScreen: () => void;
+  setNodesLabelWithoutEdges: (args0: string[]) => void;
   isEdit: boolean;
   isLoading: boolean;
   articleId: number;
@@ -30,6 +31,7 @@ interface GraphProps {
 export const Graph: FC<GraphProps> = memo(({
   graphData, setGraphData, isEdit, isLoading,
   onFullScreen, articleId, isOwner, topCoreEntities,
+  setNodesLabelWithoutEdges,
 }) => {
   const { nodes, edges } = transformDataToNodesAndEdges(graphData);
   const edgesCurrent = edges.get().filter(({ to }: Edge) => to !== 0);
@@ -58,6 +60,7 @@ export const Graph: FC<GraphProps> = memo(({
           nodes={nodes}
           edges={edges}
           isEdit={isEdit}
+          setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
         />
 
         <Typography type="h2">Data highlights:</Typography>
