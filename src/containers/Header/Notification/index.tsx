@@ -54,7 +54,7 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>((
             className={styles.item_content}
             onClick={() => onDeleteNotification(id)}
           >
-            {generateNotificationText(type, article)}
+            {generateNotificationText(type, article, userId === article.owner.id)}
             <Image
               src={arrowIcon}
               alt="next"

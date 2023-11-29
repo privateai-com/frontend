@@ -40,6 +40,7 @@
   &_content_block {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
   }
 
   &_first_block {
@@ -77,6 +78,7 @@
 
   &_description_block {
     display: flex;
+    gap: 10px;
   }
 
   &_core {
@@ -219,6 +221,7 @@
 }
 
 .denied {
+  cursor: not-allowed;
   color: $color-black;
   @include icon("../../../assets/img/icons/denied.svg");
 }

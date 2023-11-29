@@ -14,7 +14,7 @@
 	gap: 34px;
 	margin-bottom: 20px;
 
-	@media screen and (max-width: 1118px) {
+	@media screen and (max-width: 1218px) {
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 20px;
@@ -25,7 +25,7 @@
 	display: flex;
 	height: 40px;	
 
-	@media screen and (max-width: 1118px) {
+	@media screen and (max-width: 1218px) {
 		width: 100%;
 	}
 
@@ -118,22 +118,22 @@
 
 .storage__title_block {
 	width: auto;
+	// min-width: fit-content;
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-
-	@media screen and (max-width: 1118px) {
+	@media screen and (max-width: 1218px) {
 		width: 100%;
-	}
+	}	
 }
 
 .storage__title {
 	font-size: 38px;
-
+	min-width: fit-content;
 	@include desktop1440 {
 		font-size: 32px;
 	}
-
+	
 	@include mobile {
 		font-size: 18px;
 	}
@@ -147,35 +147,50 @@
 .buttonUpload {
 	position: relative;
 	width: 300px;
-	justify-content: flex-start;
+	
+	display: flex;
+	justify-content: center;
 	justify-self: flex-end;
 	margin-left: auto;
 	height: 50px;
 	align-items: center;
 	padding: 8px 15px;
 
+	border-radius: 8px;
+	background: #00DEA3;
+
+	/* Tab */
+	box-shadow: 0px 6px 16px 0px rgba(0, 222, 163, 0.06);
+	backdrop-filter: blur(7.5px);
+
 	@include desktop1440 {
+		min-width: 190px;
 		width: 190px;
 		height: 40px;
 	}
 
 	.icon {
-		margin-right: 30px;
+		position: absolute;
+		// margin-right: 30px;
+		left: 15px;
 		@include desktop1440 {
-			margin-right: 8px;
+			// left: 8px;
+			// margin-right: 8px;
 		}
 	}
 	
 	.buttonTitle {
-		position: absolute;
-		top: 15px;
+		// position: absolute;
+		// top: 15px;
 
+		color:  #FFF;
 		font-size: 20px;
 		font-style: normal;
 		font-weight: 600;
 
 		@include desktop1440 {
-			top: 10px;
+			// top: 10px;
+			padding-left: 16px;
 			font-size: 16px;
 		}
 	}
@@ -183,7 +198,7 @@
 	@include desktop1024 {
 		display: none;
 	}
-	@media screen and (max-width: 1118px) {
+	@media screen and (max-width: 1218px) {
 		position: absolute;
 		right: 0px;
 	}

@@ -1,8 +1,6 @@
 export const isWordMatchingSearch = (word: string, search: string) => {
-  const wordWithoutLastLetter = word.slice(0, -1);
-  
-  return (
-    word.toLowerCase() === search.toLowerCase() ||
-    wordWithoutLastLetter.toLowerCase() === search.toLowerCase()
-  );
+  if (word.length > 0 && search.length > 0) {
+    return word.toLowerCase().includes(search.toLowerCase());
+  }
+  return false;
 };

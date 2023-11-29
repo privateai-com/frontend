@@ -64,7 +64,7 @@ const itemsMobile = [
   },
 ];
 
-export const MyRequests = () => {
+export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
   const dispatch = useDispatch();
   
   const [offset, setOffset] = useState(0);
@@ -169,6 +169,8 @@ export const MyRequests = () => {
       classNameTableContainer={styles.table}
       itemsMobile={itemsMobile}
       pagination={pagination}
+      isMobile={isMobile}
+      classNameMobile={styles.tableMobile}
     />
   );
 };

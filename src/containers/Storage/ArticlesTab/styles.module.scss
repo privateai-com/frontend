@@ -36,6 +36,13 @@
 	justify-content: center;
 }
 
+.tableMobile {
+	height: calc(100vh - 229px);	
+  @include mobile {
+    height: calc(100vh - 172px);	
+  }
+}
+
 .table {
 	thead, tbody tr {
     display: table;
@@ -44,6 +51,17 @@
   }
 
   tbody {
+		@include desktop1024 {
+      height: calc(100vh - 248px - 64px);
+			padding: 0 10px;
+		}
+
+		@media screen and (max-width: 1218px) {
+			height: calc(100vh - 248px - 78px);
+		}
+		@media screen and (min-width: 1218px)  and (max-width: 1400px)  {
+			height: calc(100vh - 248px - 28px);
+		}
 	}
 
 	thead, tbody {

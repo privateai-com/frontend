@@ -64,6 +64,31 @@
 	@include adaptive-font-size(12, 14, 16, 16, 20);
 }
 
-@mixin font-16 {
-	@include adaptive-font-size(12, 14, 14, 14, 16);
+//// -static
+/// 
+@mixin font-static-16 {
+	@include adaptive-font-size-static(12, 14, 14, 14, 16);
+}
+@mixin font-static-38 {
+	@include adaptive-font-size-static(18, 24, 32, 32, 38);
+}
+
+@mixin font-static-32 {
+	@include adaptive-font-size-static(14, 16, 24, 24, 32);
+}
+
+@mixin font-static-24 {
+	@include adaptive-font-size-static(14, 16, 24, 24, 24);
+}
+
+@mixin font-static-20 {
+	@include adaptive-font-size-static(14, 16, 18, 16, 20);
+}
+
+@mixin font-static-20-p {
+	@include adaptive-font-size-static(12, 14, 16, 16, 20);
+}
+
+@mixin font-static-16 {
+	@include adaptive-font-size-static(12, 14, 14, 14, 16);
 }

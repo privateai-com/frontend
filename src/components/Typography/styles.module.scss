@@ -39,7 +39,7 @@
   padding: 0;
   line-height: 39px;
 
-  // @include font-32;
+  @include font-static-32;
 
   font-size: 32px;
 
@@ -69,7 +69,7 @@
   margin: 0;
   padding: 0;
 
-  // @include font-24;
+  @include font-static-24;
 
   @include desktop1440 {
     line-height: 36px;
@@ -91,9 +91,8 @@
   padding: 0;
   color: $color-black;
 
-  // @include font-20;
+  @include font-static-20;
   
-
   @include desktop1440 {
     line-height: 20px;
 	}

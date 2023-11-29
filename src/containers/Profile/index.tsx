@@ -128,7 +128,7 @@ export const Profile = () => {
       </div>
       {isEditProfile ? (
         <UpdateProfile
-          callbackLater={handleShoModalSuccess}
+          callbackLater={onClickBrowse}
           callbackSuccess={handleShoModalSuccess}
         />
       ) : (

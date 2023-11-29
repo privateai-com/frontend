@@ -5,12 +5,13 @@ import {
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AdaptivePaginationTable } from 'components';
-import { itemsOnPageQuantity } from 'appConstants';
+import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { RequestCell } from 'containers/RequestCell';
 import { RequestedDataType } from 'containers/Storage/MyRequests/types';
 import { requestSelectors } from 'store/request/selectors';
 import { requestAnswer, requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
+import { useScreenWidth } from 'hooks';
 import { SortingDirection } from 'types';
 import { convertTitleFile, formatDate, getName } from 'utils';
 import { useColumns } from './columns';
@@ -19,6 +20,7 @@ import styles from './styles.module.scss';
 
 export const TabToMe = () => {
   const dispatch = useDispatch();
+  const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
   
   const [offset, setOffset] = useState(0);
   
@@ -139,6 +141,7 @@ export const TabToMe = () => {
       itemsMobile={itemsMobile}
       classNameTableContainer={styles.table}
       pagination={pagination}
+      isMobile={isMobile}
     />
   );
 };
