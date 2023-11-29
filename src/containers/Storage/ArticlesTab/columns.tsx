@@ -93,8 +93,8 @@ export const useColumns = ({
           />
         ),
         accessor: 'availability',
-        width: '120px',
-        minWidth: '120px',
+        width: '130px',
+        minWidth: '130px',
         Cell: ({
           row: {
             original: { isPublic, id },

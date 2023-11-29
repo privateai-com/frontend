@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import cx from 'classnames';
 import { Article, PaginationForHook } from 'types';
 import { usePagination } from 'hooks';
 
@@ -18,7 +19,8 @@ type AdaptivePaginationTableProps = {
   content: Article[] | any[];
   other?: string | ReactNode;
   itemsMobile: ItemMobile[];
-  pagination?: PaginationForHook
+  pagination?: PaginationForHook;
+  className?: string;
 };
 
 export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
@@ -26,6 +28,7 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
   pagination,
   other,
   itemsMobile,
+  className,
 }) => {
   const {
     rootRef, endElementForScroll,
@@ -38,7 +41,7 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
   
   return (
     <div
-      className={styles.table_mobile}
+      className={cx(styles.table_mobile, className)}
       ref={rootRef}
     >
       {content.map((iter, ind) => (

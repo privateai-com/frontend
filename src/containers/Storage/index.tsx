@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import cx from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -20,6 +22,7 @@ enum MyStorageTab {
 export const Storage = () => {
   const [tab, setTab] = useState(MyStorageTab.articles);
   const isMobile = useScreenWidth(ScreenWidth.notebook1024);
+  const isBigMobile = useScreenWidth(ScreenWidth.bigMobile);
   const router = useRouter();
   
   useEffect(() => {
@@ -31,17 +34,20 @@ export const Storage = () => {
 
   return (
     <div className={styles.storage__container}>
-      <div className={styles.storage__head}>
-        <div className={styles.storage__title_block}>
+      <div className={cx(styles.storage__head)}>
+        <div className={cx(
+          styles.storage__title_block,
+        )}
+        >
           <Typography
-            className={styles.storage__title}
+            className={cx(styles.storage__title)}
             type="h1"
           >
             My storage
           </Typography>
-          {isMobile && <UploadButton />}
+          {isMobile && tab === MyStorageTab.articles && <UploadButton />}
         </div>
-        <div className={styles.storage__head_buttons}>
+        <div className={cx(styles.storage__head_buttons)}>
           <Button
             className={
               tab === MyStorageTab.articles ? undefined : styles.secondary
@@ -62,10 +68,10 @@ export const Storage = () => {
           </Button>
         </div>
         {!isMobile && tab === MyStorageTab.articles && (
-          <Button
+          <Link
             className={styles.buttonUpload}
             href={routes.uploadActivity.root}
-            theme="primary"
+            type="button"
           >
             <Image 
               src={plusIcon} 
@@ -77,10 +83,12 @@ export const Storage = () => {
             <span className={styles.buttonTitle}>
               Upload new file
             </span>
-          </Button>
+          </Link>
         )}
       </div>
-      {tab === MyStorageTab.articles ? <ArticlesTab /> : <MyRequests />}
+      {tab === MyStorageTab.articles 
+        ? <ArticlesTab isMobile={isBigMobile} /> 
+        : <MyRequests isMobile={isBigMobile} />}
     </div>
   );
 };

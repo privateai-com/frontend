@@ -26,17 +26,18 @@ export const timeAgo = (createdAt: string): string => {
 export const generateNotificationText = (
   type: NotificationType,
   article: NotificationArticle,
+  isOwner: boolean,
 ): string => {
   switch (type) {
     case NotificationType.YouGrantedAccess:
     case NotificationType.AccessWasGranted:
-      return `Access granted for "${article.title}" document`;
+      return `Access was granted for "${article.title}" document`;
     case NotificationType.GrantAccess:
     case NotificationType.PendingAccess:
-      return `New access request for "${article.title}" document.`;
+      return `${isOwner ? 'New access request' : 'Pending access'} for "${article.title}" document.`;
     case NotificationType.YouRejectedAccess:
     case NotificationType.AccessWasRejected:
-      return `Access denied for "${article.title}" document`;
+      return `Access was rejected for "${article.title}" document`;
     default:
       return article.title;
   }

@@ -105,6 +105,7 @@ export const articlesGetMy = (
     offset: number;
     sortingField: string;
     sortingDirection: SortingDirection;
+    doneStatus?:boolean;
   },
 ) => ({
   type: ArticlesActionTypes.GetMyArticles,

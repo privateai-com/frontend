@@ -26,7 +26,7 @@ const itemsMobile = [
   },
 ];
 
-export const ArticlesTab = () => {
+export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
   const dispatch = useDispatch();
 
   const [offset, setOffset] = useState(0);
@@ -75,6 +75,7 @@ export const ArticlesTab = () => {
       offset: offset * itemsOnPageQuantity,
       sortingDirection: selectSortingDirection,
       sortingField: selectSortingField,
+      doneStatus: true,
     };
     dispatch(articlesGetMy(payload));
   }, [dispatch, offset, selectSortingDirection, selectSortingField]);
@@ -93,6 +94,8 @@ export const ArticlesTab = () => {
       classNameTableContainer={styles.table}
       pagination={pagination}
       itemsMobile={itemsMobile}
+      isMobile={isMobile}
+      classNameMobile={styles.tableMobile}
     />
   );
 };

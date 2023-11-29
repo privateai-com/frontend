@@ -4,8 +4,6 @@ import cx from 'classnames';
 
 import { Table } from 'components';
 
-import { ScreenWidth } from 'appConstants';
-import { useScreenWidth } from 'hooks';
 import { Article, PaginationForHook } from 'types';
 import { MobileTable, type ItemMobile } from './MobileTable';
 import styles from './styles.module.scss';
@@ -17,9 +15,11 @@ type AdaptivePaginationTableProps = {
   other?: string | ReactNode;
   itemsOnPageQuantity?: number;
   withPagination?: boolean;
+  isMobile: boolean;
   classNameTableContainer?: string;
   itemsMobile: ItemMobile[];
-  pagination?: PaginationForHook
+  pagination?: PaginationForHook;
+  classNameMobile?: string;
 };
 
 export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = ({
@@ -29,9 +29,9 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
   classNameTableContainer,
   pagination,
   itemsMobile,
+  isMobile,
+  classNameMobile,
 }) => {
-  const isMobile = useScreenWidth(ScreenWidth.bigMobile);
-
   if (isMobile) {
     return(
       <MobileTable
@@ -39,6 +39,7 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
         pagination={pagination}
         other={other}
         itemsMobile={itemsMobile}
+        className={classNameMobile}
       />
     );
   } 
