@@ -18,6 +18,7 @@ import { DatasetEdgeType, DatasetNodeType } from 'containers/StorageFile/types';
 import { Button, ButtonIcon } from 'components';
 import { closeModalIcon } from 'assets';
 import { GraphResponseType } from 'types';
+import { notification } from 'utils';
 import { options } from './constants';
 import { apdateGraphControls } from './hooks';
 import { transformNodesAndEdgesToData } from '../utils';
@@ -214,10 +215,18 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     if (editingNodeId !== null) {
       const updatedNode = nodes.get(editingNodeId);
       if (updatedNode && inputRef.current) {
-        if (inputRef.current.value.trim() === '') {
+        const newLabel = inputRef.current.value.trim();
+        const existingNode = nodes.get({
+          filter: (node) => node.label === newLabel && node.id !== editingNodeId,
+        });
+
+        if (existingNode.length > 0) {
+          notification.info({ message: `Node with label "${newLabel}" already exists` });
+          return;
+        } if (newLabel === '') {
           setShouldDeleteNode(true);
         } else {
-          updatedNode.label = inputRef.current.value;
+          updatedNode.label = newLabel;
           nodes.update(updatedNode);
         }
       }
