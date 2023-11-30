@@ -55,6 +55,18 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
 
   const [articleAccess, setArticleAccess] = useState('closed' as 'open' | 'closed');
 
+  const isOpen = articleAccess === 'open';
+  const isDisabledSave =
+    !article ||
+    !!article.isPublic !== isOpen ||
+    article.title !== nameFile ||
+    article.field !== fieldFile ||
+    article?.graphDraft !== graphData;
+
+  const isDisabledRevertToLastSave = !article || article?.graphDraft !== graphData;
+  const isDisabledRevertToLastPublished = !article ||
+    (article?.graph.length && article?.graph !== graphData);
+
   const onChangeAvailabilityClick = useCallback((e: 'open' | 'closed') => {
     setArticleAccess(e);
   }, []);
@@ -82,7 +94,6 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           return;
         }
 
-        const isOpen = articleAccess === 'open';
         if (article.isPublic !== isOpen) {
           dispatch(articlesChangeAccess({ articleId: id, isOpen }));
         }
@@ -95,7 +106,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
       }
     }
   }, [
-    article, articleAccess, dispatch, fieldFile, graphData,
+    article, dispatch, fieldFile, graphData, isOpen,
     nameFile, nodesLabelWithoutEdges, successCallback,
   ]);
 
@@ -200,20 +211,20 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           theme="secondary"
           onClick={onSaveClick}
           isLoading={statusUpdateArticle === RequestStatus.REQUEST}
-          disabled={!article}
+          disabled={!isDisabledSave}
         >
           Save changes
         </Button>
         <Button
           theme="secondary"
           onClick={onRevertToLastSaved}
-          disabled={!article}
+          disabled={!isDisabledRevertToLastSave}
         >
           Revert to last saved
         </Button>
         <Button
           onClick={onRevertToLastPublished}
-          disabled={!article}
+          disabled={!isDisabledRevertToLastPublished}
         >
           Revert to last published
         </Button>

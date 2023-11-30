@@ -1,46 +1,37 @@
-import React, {
-  FC, memo, useCallback, useEffect, useMemo, useRef, useState,
-} from 'react';
-import cx from 'classnames';
-import 'vis-network/styles/vis-network.css';
-
 import {
-  DatasetEdgeType, DatasetNodeType, ExtendedNetwork,
-} from 'containers/StorageFile/types';
-import { Button, ButtonIcon } from 'components';
-import { closeModalIcon } from 'assets';
-import { GraphResponseType } from 'types';
+  RefObject, useCallback, useEffect, useMemo, useRef, useState,
+} from 'react';
 import {
   Data,
   DataInterfaceEdges,
   DataInterfaceNodes,
   Edge,
-  Node,
   Network,
+  Node,
   Position,
 } from 'vis-network';
+import { GraphResponseType } from 'types';
 import { notification } from 'utils';
-import { transformNodesAndEdgesToData } from '../utils';
-import { options } from './constants';
-import { apdateGraphControls } from './hooks';
+import { DatasetEdgeType, DatasetNodeType, ExtendedNetwork } from './types';
+import { transformNodesAndEdgesToData } from './Graph/utils';
+import { options } from './Graph/GraphVis/constants';
 
-import styles from './styles.module.scss';
-
-interface GraphVisProps {
-  setGraphData: (edges: GraphResponseType[]) => void
-  nodes: DatasetNodeType,
-  edges: DatasetEdgeType,
-  isEdit: boolean,
+interface GraphControlsProps {
+  // network: ExtendedNetwork | null;
+  nodes: DatasetNodeType;
+  edges: DatasetEdgeType;
   setNodesLabelWithoutEdges: (args0: string[]) => void,
+  inputRef: RefObject<HTMLInputElement>;
+  graphRef: RefObject<HTMLDivElement>;
+  setGraphData: (edges: GraphResponseType[]) => void;
+  isEdit: boolean;
 }
 
-export const GraphVis: FC<GraphVisProps> = memo(({
-  nodes, edges, isEdit, setGraphData, setNodesLabelWithoutEdges,
-}) => {
-  const graphRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+export const useGraphControls = ({
+  nodes, edges, setNodesLabelWithoutEdges,
+  inputRef, setGraphData, isEdit, graphRef,
+}: GraphControlsProps) => {
   const networkRef = useRef<ExtendedNetwork | null>(null);
-
   const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
   const [editingEdgeId, setEditingEdgeId] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -70,7 +61,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     };
     setEditingNodeId(newNode.id as string);
     setShowPopup(true);
-    const inputElement = inputRef.current;
+    const inputElement = inputRef?.current;
     if (inputElement) {
       inputElement.value = newNode.label || '';
       setTimeout(() => {
@@ -81,7 +72,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
 
     setShouldDeleteNode(true);
     callback(newNode);
-  }, [nodes]);
+  }, [inputRef, nodes.length]);
 
   const handleEditNode = useCallback((data: Node, callback: (data: Node) => void) => {
     setEditingNodeId(data.id as string);
@@ -96,7 +87,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     }
     setShouldDeleteNode(inputRef.current?.value.trim() === '');
     callback(data);
-  }, []);
+  }, [inputRef]);
 
   const handleAddEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
     if (!data.to || !data.from) return;
@@ -118,7 +109,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     setShowPopup(true);
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
     getNodesLabelWithoutEdges();
-  }, [edges, getNodesLabelWithoutEdges, nodes, setGraphData]);
+  }, [edges, getNodesLabelWithoutEdges, inputRef, nodes, setGraphData]);
 
   const handleDeleteEdge = useCallback((data: Data, callback: (data: Data) => void) => {
     if (Array.isArray(data?.edges) && data.edges.length === 1) {
@@ -140,42 +131,20 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     getNodesLabelWithoutEdges();
   }, [edges, getNodesLabelWithoutEdges, nodes, setGraphData]);
 
-  const currentOption = useMemo(() => ({
-    ...options,
-    manipulation: {
-      enabled: isEdit,
-      initiallyActive: isEdit,
-      addNode: handleAddNode,
-      editNode: handleEditNode,
-      addEdge: handleAddEdge,
-      deleteNode: handleDeleteNode,
-      deleteEdge: handleDeleteEdge,
-    }, 
-  }), [handleAddEdge, handleAddNode, handleDeleteEdge, handleDeleteNode, handleEditNode, isEdit]);
-
   useEffect(() => {
-    if (networkRef.current != null) {
-      networkRef.current.destroy();
-      networkRef.current = null;
-    }
-    networkRef.current = graphRef.current &&
-      new Network(
-        graphRef.current, 
-        { nodes: nodes as DataInterfaceNodes, edges: edges as DataInterfaceEdges },
-        currentOption,
-      ) as ExtendedNetwork;
-    apdateGraphControls(graphRef);
-
+    const network = networkRef.current;
+    
     const onDoubleClick = (event: { pointer: { canvas: Position; }; }) => {
-      if (!networkRef.current) return;
-      const canvasPosition = networkRef.current.canvasToDOM(event.pointer.canvas);
-      const nodeId = networkRef.current.getNodeAt(canvasPosition);
-      const edgeId = networkRef.current.getEdgeAt(canvasPosition);
+      if (!network) return;
+      const canvasPosition = network.canvasToDOM(event.pointer.canvas);
+      const nodeId = network.getNodeAt(canvasPosition);
+      const edgeId = network.getEdgeAt(canvasPosition);
       if (nodeId !== undefined) {
         setEditingNodeId(nodeId as string);
         setShowPopup(true);
         const node = nodes.get(nodeId);
         if (node && inputRef.current) {
+          // eslint-disable-next-line no-param-reassign
           inputRef.current.value = node.label;
           inputRef.current.focus();
         }
@@ -184,6 +153,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         setShowPopup(true);
         const edge = edges.get(edgeId);
         if (edge && inputRef.current) {
+          // eslint-disable-next-line no-param-reassign
           inputRef.current.value = edge.label ?? '';
           inputRef.current.focus();
         }
@@ -194,18 +164,18 @@ export const GraphVis: FC<GraphVisProps> = memo(({
       }
     };
 
-    if (networkRef.current) networkRef.current.on('doubleClick', onDoubleClick);
+    if (network) network.on('doubleClick', onDoubleClick);
 
     return () => {
-      if (networkRef.current) {
-        networkRef.current.off('doubleClick', onDoubleClick);
-        networkRef.current.destroy();
-        networkRef.current = null;
+      if (network) {
+        network.off('doubleClick', onDoubleClick);
+        network.destroy();
+        // network = null;
       }
     };
-  }, [currentOption, edges, isEdit, nodes, setGraphData]);
+  }, [edges, inputRef, nodes, setGraphData]);
 
-  const handleEnterPress = () => {
+  const handleEnterPress = useCallback(() => {
     if (editingNodeId !== null) {
       const updatedNode = nodes.get(editingNodeId);
       if (updatedNode && inputRef.current) {
@@ -253,13 +223,17 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     setGraphData(transformNodesAndEdgesToData(nodes, edges));
     getNodesLabelWithoutEdges();
     setShowPopup(false);
-  };
+  }, [
+    edges, editingEdgeId, editingNodeId, getNodesLabelWithoutEdges,
+    inputRef, nodes, setGraphData]);
 
   useEffect(() => {
+    const network = networkRef.current;
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Delete' && networkRef.current && isEdit) {
-        const selectedNodes = networkRef.current.getSelectedNodes();
-        const selectedEdges = networkRef.current.getSelectedEdges();
+      if (event.key === 'Delete' && network && isEdit) {
+        const selectedNodes = network.getSelectedNodes();
+        const selectedEdges = network.getSelectedEdges();
         if (selectedNodes.length > 0) {
           nodes.remove(selectedNodes);
         }
@@ -269,7 +243,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         setGraphData(transformNodesAndEdgesToData(nodes, edges));
         getNodesLabelWithoutEdges();
         setShowPopup(false);
-        networkRef.current.unselectAll();
+        network.unselectAll();
       }
     };
   
@@ -280,11 +254,11 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     };
   }, [edges, getNodesLabelWithoutEdges, isEdit, nodes, setGraphData]);
 
-  useEffect(() => {
-    if (graphRef) {
-      apdateGraphControls(graphRef);
-    }
-  }, [graphRef]);
+  // useEffect(() => {
+  //   if (visJsGraphRef) {
+  //     apdateGraphControls(visJsGraphRef);
+  //   }
+  // }, [visJsGraphRef]);
 
   const onClosePopup = useCallback(() => {
     if (shouldDeleteNode) {
@@ -306,48 +280,38 @@ export const GraphVis: FC<GraphVisProps> = memo(({
     setEditingNodeId(null);
     setEditingEdgeId(null);
     setShouldDeleteNode(false);
-  }, [shouldDeleteNode, editingEdgeId, nodes, editingNodeId, edges, setGraphData]);
+  }, [shouldDeleteNode, editingEdgeId, nodes, editingNodeId, edges, inputRef, setGraphData]);
+
+  const currentOption = useMemo(() => ({
+    ...options,
+    manipulation: {
+      enabled: isEdit,
+      initiallyActive: isEdit,
+      addNode: handleAddNode,
+      editNode: handleEditNode,
+      addEdge: handleAddEdge,
+      deleteNode: handleDeleteNode,
+      deleteEdge: handleDeleteEdge,
+    }, 
+  }), [handleAddEdge, handleAddNode, handleDeleteEdge, handleDeleteNode, handleEditNode, isEdit]);
 
   useEffect(() => {
-    const network = networkRef.current;
-    if (network) {
-      const nodesWithoutEdges: string[] = [];
-      const allNodes = nodes.getIds(); // Получаем идентификаторы всех узлов
-
-      allNodes.forEach((nodeId) => {
-        const connectedEdges = network.getConnectedEdges(nodeId);
-
-        if (connectedEdges.length === 0) {
-          nodesWithoutEdges.push(nodeId as string);
-        }
-      });
-
-      setNodesLabelWithoutEdges(nodesWithoutEdges);
+    if (networkRef.current != null) {
+      networkRef.current.destroy();
+      networkRef.current = null;
     }
-  }, [nodes, setNodesLabelWithoutEdges]);
+    networkRef.current = graphRef.current &&
+      new Network(
+        graphRef.current, 
+        { nodes: nodes as DataInterfaceNodes, edges: edges as DataInterfaceEdges },
+        currentOption,
+      ) as ExtendedNetwork;
+    // apdateGraphControls(visJsGraphRef);
+  }, [currentOption, edges, graphRef, nodes]);
 
-  return (
-    <div className={styles.visContainer}>
-      <div className={styles.visWrapper} ref={graphRef} />
-      <div
-        className={cx(styles.popup, {
-          [styles.show]: showPopup,
-        })}
-      >
-        <div className={styles.popup_container}>
-          <input
-            type="text"
-            onKeyUp={(event) => {
-              if (event.key === 'Enter') {
-                handleEnterPress();
-              }
-            }}
-            ref={inputRef}
-          />
-          <Button className={styles.popup_button_ok} onClick={handleEnterPress}>Ok</Button>
-          <ButtonIcon image={closeModalIcon} onClick={onClosePopup} />
-        </div>
-      </div>
-    </div>
-  );
-});
+  return {
+    showPopup,
+    handleEnterPress,
+    onClosePopup,
+  };
+};

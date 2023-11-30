@@ -1,5 +1,5 @@
 import {
-  memo, useCallback, useEffect, useMemo, useState, 
+  memo, useCallback, useEffect, useMemo, useRef, useState, 
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -32,6 +32,14 @@ export const StorageFile = memo(() => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [nodesLabelWithoutEdges, setNodesLabelWithoutEdges] = useState<string[]>([]);
 
+  const [graphData, setGraphData] = useState<GraphResponseType[]>([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const currentGraphData = useRef<GraphResponseType[]>([]);
+
+  const setCurrentGraphData = useCallback((value: GraphResponseType[]) => {
+    setGraphData(value);
+  }, []);
+
   const initialGraphData = useMemo(
     () => {
       const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
@@ -59,13 +67,6 @@ export const StorageFile = memo(() => {
     },
     [accountInfo?.id, findUserById],
   );
-
-  const [graphData, setGraphData] = useState<GraphResponseType[]>([]);
-  const [isEdit, setIsEdit] = useState(false);
-
-  const callback = useCallback((value: GraphResponseType[]) => {
-    setGraphData(value);
-  }, []);
 
   const onSaveSuccess = useCallback(() => {
     setIsEdit((state) => !state);
@@ -97,22 +98,27 @@ export const StorageFile = memo(() => {
   }, [articleId, dispatch, getOneArticleErrorCallback]);
 
   useEffect(() => {
-    if (initialGraphData.length) setGraphData(initialGraphData);
-  }, [initialGraphData]);
+    if (initialGraphData.length) {
+      setGraphData(initialGraphData);
+      currentGraphData.current = initialGraphData;
+    }
+  }, [initialGraphData, setGraphData]);
 
   const onRevertToLastSavedClick = useCallback(() => {
     if (article?.graphDraft) {
       setIsPublishGraph(false);
       setGraphData(article?.graphDraft);
+      currentGraphData.current = article?.graphDraft;
     }
   }, [article?.graphDraft]);
 
   const onRevertToLastPublishedClick = useCallback(() => {
     if (article?.graph && article?.graph.length) {
       setGraphData(article?.graph);
+      currentGraphData.current = article?.graph;
       setIsPublishGraph(true);
     }
-  }, [article]);
+  }, [article?.graph]);
 
   const onFullScreenClick = useCallback(() => {
     setIsFullscreen((state) => !state);
@@ -149,8 +155,8 @@ export const StorageFile = memo(() => {
         />
       )}
       <Graph
-        graphData={initialGraphData}
-        setGraphData={callback}
+        graphData={currentGraphData.current || graphData}
+        setGraphData={setCurrentGraphData}
         isEdit={isEdit}
         isLoading={statusGetOneArticle === RequestStatus.REQUEST}
         onFullScreen={onFullScreenClick}

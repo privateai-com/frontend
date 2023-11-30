@@ -29,8 +29,8 @@ interface GraphProps {
 }
 
 export const Graph: FC<GraphProps> = memo(({
-  graphData, setGraphData, isEdit, isLoading,
-  onFullScreen, articleId, isOwner, topCoreEntities,
+  graphData, setGraphData, isEdit,
+  isLoading, onFullScreen, articleId, isOwner, topCoreEntities,
   setNodesLabelWithoutEdges,
 }) => {
   const { nodes, edges } = transformDataToNodesAndEdges(graphData);
