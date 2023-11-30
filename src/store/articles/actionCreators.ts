@@ -85,6 +85,7 @@ export const articlesGetAll = (
   payload: {
     limit: number;
     offset: number;
+    search?: string | string[]; 
   },
 ) => ({
   type: ArticlesActionTypes.GetArticles,
@@ -114,4 +115,15 @@ export const articlesGetMy = (
 
 export const articlesGetUploadStatus = () => ({
   type: ArticlesActionTypes.GetArticleUploadStatus,
+});
+
+export const articlesSearch = (
+  payload: {
+    limit: number;
+    offset: number;
+    search?: string | string[]; 
+  },
+) => ({
+  type: ArticlesActionTypes.SearchArticles,
+  payload,
 });

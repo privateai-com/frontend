@@ -5,6 +5,7 @@ export type Pagination = {
   offset: number,
   sortingDirection: 'ASC' | 'DESC',
   sortingField: string,
+  search?: string,
 };
 
 export type PaginationForHook = {

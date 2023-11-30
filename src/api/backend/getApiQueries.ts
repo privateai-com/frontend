@@ -4,10 +4,12 @@ export const getApiQueries = (payload: {
   sortingField: string;
   sortingDirection: 'ASC' | 'DESC';
   searchField?: string;
+  search?: string | string[];
   doneStatus?: boolean;
 }) => {
   const {
     limit, offset, sortingField, sortingDirection, searchField, doneStatus, 
+    search,
   } = payload;
   return `?${new URLSearchParams({
     limit: `${limit}`,
@@ -15,6 +17,7 @@ export const getApiQueries = (payload: {
     sortingField,
     sortingDirection,
     searchField: searchField ?? '',
+    search: search as string ?? '',
     doneStatus: doneStatus ? 'true' : 'false',
   }).toString()}`;
 };
