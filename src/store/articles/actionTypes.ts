@@ -6,6 +6,7 @@ export enum ArticlesActionTypes {
   GetOneArticle = 'ARTICLES.GET_ONE_ARTICLE',
   GetArticles = 'ARTICLES.GET_ARTICLES',
   GetMyArticles = 'ARTICLES.GET_MY_ARTICLES',
+  SearchArticles = 'ARTICLES.SEARCH_ARTICLES',
 
   GetMyRequestedArticles = 'ARTICLES.GET_MY_REQUESTED_ARTICLES',
 

@@ -19,6 +19,7 @@ export enum ApiEndpoint {
   ProfileDeleteWallet = '/profile/delete-wallet',
 
   ArticlesGetArticles = '/articles',
+  ArticlesSearch = '/articles/search-articles',
   ArticlesGetOneArticle = '/articles/article',
   ArticlesChangeArticleAccess = '/articles/access',
   ArticlesDeleteArticle = '/articles/delete',

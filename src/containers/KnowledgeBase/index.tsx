@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import { Typography } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
 import { usePagination, useVipUser } from 'hooks';
 
-import { articlesGetAll } from 'store/articles/actionCreators';
+import { articlesGetAll, articlesSearch } from 'store/articles/actionCreators';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import { Item } from './Item';
@@ -13,6 +14,9 @@ import styles from './styles.module.scss';
 
 export const KnowledgeBase: React.FC = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { search } = router.query;
+
   const isVipUser = useVipUser();
 
   const [offset, setOffset] = useState(0);
@@ -25,6 +29,7 @@ export const KnowledgeBase: React.FC = () => {
   }, []);
 
   const total = useSelector(articlesSelectors.getProp('total'));
+  const pagination = useSelector(articlesSelectors.getProp('pagination'));
   const articles = useSelector(articlesSelectors.getProp('articlesAll'));
   const statusGetArticles = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetArticles),
@@ -36,13 +41,24 @@ export const KnowledgeBase: React.FC = () => {
     total, status: statusGetArticles, offset, increaseOffset, 
   });
 
+  const isNewSearch = pagination?.search !== search;
+
+  useEffect(() => {
+    if (isNewSearch && search && search.length > 0) setOffset(0);
+  }, [isNewSearch, search]);
+
   useEffect(() => {
     const payload = {
       limit: itemsOnPageQuantity,
-      offset: offset * itemsOnPageQuantity,
+      offset: isNewSearch ? 0 : offset * itemsOnPageQuantity,
+      search,
     };
-    dispatch(articlesGetAll(payload));
-  }, [dispatch, offset]);
+    if (search && search.length > 0) {
+      dispatch(articlesSearch(payload));
+    } else {
+      dispatch(articlesGetAll(payload));
+    }
+  }, [dispatch, isNewSearch, offset, search]);
 
   return (
     <div className={styles.knowledge}>
@@ -62,6 +78,7 @@ export const KnowledgeBase: React.FC = () => {
                 key={item.id} 
                 article={item}
                 isDisabled={isVipUser}
+                search={search as string}
               />
             ))}
             {endElementForScroll}

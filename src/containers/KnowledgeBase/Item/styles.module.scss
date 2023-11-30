@@ -55,6 +55,7 @@
     font-size: 32px;
     overflow-wrap: anywhere;
     text-overflow: ellipsis;
+    // max-width: 40%;
 
     @include desktop1440 {
       font-size: 24px;
@@ -66,6 +67,9 @@
   }
 
   &_row_block {
+    // max-width: 200px;
+    overflow-wrap: anywhere;
+    text-overflow: ellipsis;
     @include tablet {
       color: $color-grey;
       margin-bottom: 15px;
@@ -91,6 +95,7 @@
 
   &_field_author_block {
     min-width: 288px;
+    max-width: 200px;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -169,6 +174,7 @@
   font-weight: 700;
   text-overflow: ellipsis;
   overflow: hidden;
+
   
   @include tablet {
     color: $color-black;

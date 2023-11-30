@@ -9,6 +9,7 @@ import { useScreenWidth } from 'hooks';
 import { ScreenWidth, routes } from 'appConstants';
 import { Article, RequestStatus, StatusAccessArticle } from 'types';
 import {
+  formatDate,
   getName, getStatusAccessArticle, 
 } from 'utils';
 import { requestCreate } from 'store/request/actionCreators';
@@ -30,11 +31,13 @@ const textStatus = {
 type ItemProps = {
   article: Article;
   isDisabled?: boolean;
+  search?: string;
 };
 
 export const Item: React.FC<ItemProps> = ({
   article,
   isDisabled,
+  search = '',
 }) => {
   const dispatch = useDispatch();
   const isMobile = useScreenWidth(ScreenWidth.bigMobile);
@@ -54,8 +57,6 @@ export const Item: React.FC<ItemProps> = ({
     updatedAt,
     topCoreEntities,
   } = article;
-
-  const search = '';
 
   const status = getStatusAccessArticle(article);
 
@@ -209,11 +210,11 @@ export const Item: React.FC<ItemProps> = ({
           <div className={styles.item_date_block}>
             <div className={styles.item_created_block}>
               <span className={styles.title}>Created</span>
-              {createdAt}
+              {formatDate(new Date(createdAt))}
             </div>
             <div className={styles.item_col_block}>
               <span className={styles.title}>Modified</span>
-              {updatedAt}
+              {formatDate(new Date(updatedAt))}
             </div>
           </div>
         </div>
