@@ -97,12 +97,14 @@
 	margin-top: 6px;
 
 	@include media-breakpoint-up(md) {
-		flex-wrap: nowrap;
 		margin-top: 10px;
 	}
 
-	@include media-breakpoint-up(xxl) {
+	@include media-breakpoint-up(lg) {
 		flex-wrap: nowrap;
+	}
+
+	@include media-breakpoint-up(xxl) {
 		margin-top: 15px;
 	}
 
@@ -135,10 +137,6 @@
 			@include media-breakpoint-up(md) {
 				line-height: 20px;
 			}
-
-			@include media-breakpoint-up(fhd) {
-				line-height: 20px;
-			}
 		}
 
 		span {
@@ -148,9 +146,14 @@
 
 		&:last-of-type {
 			width: 100%;
+			min-width: 200px;
 
 			@include media-breakpoint-up(md) {
 				flex: 2;
+			}
+
+			@include media-breakpoint-up(lg) {
+				min-width: 150px;
 			}
 
 			span {
