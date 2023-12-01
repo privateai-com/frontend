@@ -144,6 +144,8 @@
   }
 
   &_col_block {
+    overflow-wrap: anywhere;
+    text-overflow: ellipsis;
     @include tablet {
       color: $color-grey;
       margin-bottom: 15px;

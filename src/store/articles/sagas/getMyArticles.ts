@@ -1,7 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
-import { Article, ArticlesState, RequestStatus } from 'types';
+import { Article, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi, getApiQueries } from 'api';  
 import {
@@ -22,13 +22,15 @@ export function* articlesGetMySaga({
       method: 'GET',
       endpoint: ApiEndpoint.ArticlesGetMyArticles + getApiQueries(payload),
     });
+
+    const storeName = payload.doneStatus ? 'myArticles' : 'uploadArticles';
     
-    const articles: ArticlesState['myArticles'] = payload.offset !== 0 ? yield select(
-      articlesSelectors.getProp('myArticles'),
+    const articles: Article[] = payload.offset !== 0 ? yield select(
+      articlesSelectors.getProp(storeName),
     ) : [];
     
     yield put(articlesSetState({ 
-      myArticles: [...articles, ...data[0]],
+      [storeName]: [...articles, ...data[0]],
       total: data[1], 
       pagination: payload,
     }));

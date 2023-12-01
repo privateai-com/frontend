@@ -5,8 +5,7 @@ import {
   Typography, SelectedText, AccessConfirm, 
 } from 'components';
 import { RequestCell } from 'containers';
-import { useScreenWidth } from 'hooks';
-import { ScreenWidth, routes } from 'appConstants';
+import { routes } from 'appConstants';
 import { Article, RequestStatus, StatusAccessArticle } from 'types';
 import {
   formatDate,
@@ -31,6 +30,7 @@ const textStatus = {
 type ItemProps = {
   article: Article;
   isDisabled?: boolean;
+  isMobile: boolean;
   search?: string;
 };
 
@@ -38,10 +38,9 @@ export const Item: React.FC<ItemProps> = ({
   article,
   isDisabled,
   search = '',
+  isMobile,
 }) => {
   const dispatch = useDispatch();
-  const isMobile = useScreenWidth(ScreenWidth.bigMobile);
-
   const statusCreate = useSelector(requestSelectors.getStatus(RequestActionTypes.Create));
 
   const {

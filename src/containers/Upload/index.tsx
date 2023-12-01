@@ -2,7 +2,7 @@ import { filesize } from 'filesize';
 import {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 
 import { Button, Typography } from 'components';
@@ -41,12 +41,13 @@ export const Upload = () => {
   }, []);
 
   const total = useSelector(articlesSelectors.getProp('total'));
-  const articles = useSelector(articlesSelectors.getProp('myArticles'));
+  const articles = useSelector(articlesSelectors.getProp('uploadArticles'));
   const statusGetMyArticles = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetMyArticles),
   );
   const upload = useSelector(
     articlesSelectors.getProp('upload'),
+    shallowEqual,
   );
   const userFilledAllInfo = useSelector(
     profileSelectors.getPropAccountInfo('userFilledAllInfo'),
@@ -96,7 +97,7 @@ export const Upload = () => {
   useEffect(() => {
     if (upload) {
       setUploadArticles(() => (Object.values(upload)
-        .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
+        // .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
         .map((uploadData) => ({
           ...defaultArticle,
           id: uploadData.idArticle || Number(uploadData.id),
@@ -121,12 +122,15 @@ export const Upload = () => {
         if (storageItem && (!article.fileSize || !article.title)) {
           return {
             ...article,
-            fileSize: storageItem.fileSize,
+            fileSize: storageItem.fileSize * 1_000_000,
             title: storageItem.title,
           };
         }
       
-        return article;
+        return {
+          ...article,
+          fileSize: (article.fileSize ?? 0) * 1_000_000,
+        };
       }),
     );
   }, [articles, dataStorage, uploadArticles]);
@@ -233,17 +237,17 @@ export const Upload = () => {
           >
             Statuses
           </Typography>
-          <div className={styles.statuses_items}>
+          <div className={styles.statuses_items} ref={rootRef}>
             <div className={styles.statuses_wrapper}>
-              <div className={styles.statuses_content} ref={rootRef}>
+              <div className={styles.statuses_content}>
                 {currentArticles.map(({
                   id, title, uploadProgress, fileSize, uploadStatus,
                 }) => (
                   <Item
                     key={id}
-                    name={title}
+                    name={`${title}-${id}`}
                     percents={uploadStatus === UploadFileStatus.CREATED
-                      ? Math.round(Math.min((timeToUploaded(fileSize || 0) / 2) * 100, 100))
+                      ? uploadProgress
                       : uploadProgress}
                     weight={filesize(fileSize || 0, { standard: 'jedec' })}
                     idArticle={id}
@@ -257,7 +261,6 @@ export const Upload = () => {
           </div>
         </div>
       </div>
-      {/* {' '} */}
     </div>
   );
 };

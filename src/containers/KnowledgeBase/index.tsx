@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import { Typography } from 'components';
-import { itemsOnPageQuantity } from 'appConstants';
-import { usePagination, useVipUser } from 'hooks';
+import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
+import { usePagination, useScreenWidth, useVipUser } from 'hooks';
 
 import { articlesGetAll, articlesSearch } from 'store/articles/actionCreators';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
@@ -14,6 +14,7 @@ import styles from './styles.module.scss';
 
 export const KnowledgeBase: React.FC = () => {
   const dispatch = useDispatch();
+  const isMobile = useScreenWidth(ScreenWidth.bigMobile);
   const router = useRouter();
   const { search } = router.query;
 
@@ -79,6 +80,7 @@ export const KnowledgeBase: React.FC = () => {
                 article={item}
                 isDisabled={isVipUser}
                 search={search as string}
+                isMobile={isMobile}
               />
             ))}
             {endElementForScroll}

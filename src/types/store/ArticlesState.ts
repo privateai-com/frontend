@@ -22,6 +22,7 @@ export interface ArticleUpload {
 export interface ArticlesState {
   articlesAll: Article[];
   myArticles: Article[];
+  uploadArticles: Article[];
   article?: Article,
   total: number;
   pagination?: Pagination;

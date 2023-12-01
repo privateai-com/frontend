@@ -170,11 +170,15 @@ $btn-height1024: 130px;
   background-color: $color-white;
   border-radius: 16px;
   // @include height(61%, 50vh, 65%);
-  height: calc(100vh - 490px);
+  height: calc(100vh - 520px);
 
   @media screen and (min-width: 1440px) {
-    height: calc(100vh - 580px);
+    height: calc(100vh - 590px);
 	}
+
+  @media screen and (min-width: 1920px) {
+    height: calc(100vh - 600px);
+  }
 
   @include desktop1440 {
     padding: 20px 30px;
@@ -187,6 +191,10 @@ $btn-height1024: 130px;
   @include mobile {
     padding: 10px 15px;
     height: calc(100vh - 460px);
+  }
+
+  @include tablet {
+    min-height: 300px;
   }
 
   &_wrapper {

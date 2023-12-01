@@ -24,7 +24,7 @@ export function* articlesCreateSaga({
       status: RequestStatus.REQUEST,
       percentUpload: 0,
       fileName: payload.file.name,
-      size: payload.file.size,
+      size: payload.file.size / 1_000_000,
       uploadStatus: UploadFileStatus.CREATED,
     }));
 
@@ -43,6 +43,18 @@ export function* articlesCreateSaga({
       formData.append(key, value));
 
     const handleSetStatusUpload = (percentUpload: number) => {
+      if (percentUpload >= 100) {
+        if(payload.callback) payload.callback(); 
+        store.dispatch(
+          articlesSetStatusUpload({ 
+            id: idFile, 
+            percentUpload,
+            status: RequestStatus.SUCCESS,
+            // percentUpload: 100,
+            uploadStatus: UploadFileStatus.PROCESSING, 
+          }), 
+        );
+      }
       store.dispatch(
         articlesSetStatusUpload({ 
           id: idFile, 
