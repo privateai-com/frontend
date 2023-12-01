@@ -194,7 +194,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
       }
     };
 
-    if (networkRef.current) networkRef.current.on('doubleClick', onDoubleClick);
+    if (networkRef.current && isEdit) networkRef.current.on('doubleClick', onDoubleClick);
 
     return () => {
       if (networkRef.current) {
