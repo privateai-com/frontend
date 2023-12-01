@@ -238,7 +238,14 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               <Button
                 theme="secondary"
                 onClick={showAccessConfirm}
-                disabled={isLoading || isRequester || isVipUser || isDisabledRequest}
+                disabled={
+                  isLoading ||
+                  isRequester ||
+                  isVipUser ||
+                  isDisabledRequest || 
+                  statusCreate === RequestStatus.SUCCESS
+                }
+                isLoading={statusCreate === RequestStatus.REQUEST}
               >
                 Request access
               </Button>
@@ -246,7 +253,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
             {article?.status && (
               <Button
                 disabled={!article?.isPublic ||
-                [
+                ![
                   'Access granted',
                   'Open sourced',
                 ].includes(article?.status)}
