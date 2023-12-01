@@ -218,11 +218,12 @@ export const GraphVis: FC<GraphVisProps> = memo(({
           notification.info({ message: `Node with label "${newLabel}" already exists` });
           return;
         } if (newLabel === '') {
-          setShouldDeleteNode(true);
-        } else {
-          updatedNode.label = newLabel;
-          nodes.update(updatedNode);
-        }
+          // setShouldDeleteNode(true);
+          notification.error({ message: 'node name cannot be empty' });
+          return;
+        } 
+        updatedNode.label = newLabel;
+        nodes.update(updatedNode);
       }
       setEditingNodeId(null);
     }
@@ -245,7 +246,9 @@ export const GraphVis: FC<GraphVisProps> = memo(({
           });
           edges.update(currentEdges);
         } else {
-          edges.remove(editingEdgeId as string);
+          // edges.remove(editingEdgeId as string);
+          notification.error({ message: 'edge name cannot be empty' });
+          return;
         }
       }
       setEditingEdgeId(null);
