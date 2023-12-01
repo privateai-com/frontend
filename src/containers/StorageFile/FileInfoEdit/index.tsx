@@ -1,5 +1,5 @@
 import {
-  FC, memo, useCallback, useEffect, useRef, useState, 
+  FC, memo, useCallback, useEffect, useMemo, useRef, useState, 
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
@@ -16,7 +16,7 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { Article, GraphResponseType, RequestStatus } from 'types';
 import { notification } from 'utils';
 import { EditItem } from './EditItem';
-import { exportToExcel } from './utils';
+import { arraysDeepEqual, exportToExcel } from './utils';
 
 import styles from './styles.module.scss';
 import { DeleteBtn } from '../DeleteBtn';
@@ -56,16 +56,21 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
   const [articleAccess, setArticleAccess] = useState('closed' as 'open' | 'closed');
 
   const isOpen = articleAccess === 'open';
-  const isDisabledSave =
+
+  const isDisabledSave = useMemo(() => (
     !article ||
     !!article.isPublic !== isOpen ||
     article.title !== nameFile ||
     article.field !== fieldFile ||
-    article?.graphDraft !== graphData;
+    !arraysDeepEqual(article?.graphDraft, graphData)
+  ), [article, fieldFile, graphData, isOpen, nameFile]);
 
-  const isDisabledRevertToLastSave = !article || article?.graphDraft !== graphData;
-  const isDisabledRevertToLastPublished = !article ||
-    (article?.graph.length && article?.graph !== graphData);
+  const isDisabledRevertToLastSave = useMemo(() => (
+    !article || arraysDeepEqual(article?.graphDraft, graphData)
+  ), [article, graphData]);
+  const isDisabledRevertToLastPublished = useMemo(() => (
+    !article || arraysDeepEqual(article?.graph, graphData)
+  ), [article, graphData]);
 
   const onChangeAvailabilityClick = useCallback((e: 'open' | 'closed') => {
     setArticleAccess(e);
@@ -218,13 +223,13 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
         <Button
           theme="secondary"
           onClick={onRevertToLastSaved}
-          disabled={!isDisabledRevertToLastSave}
+          disabled={isDisabledRevertToLastSave}
         >
           Revert to last saved
         </Button>
         <Button
           onClick={onRevertToLastPublished}
-          disabled={!isDisabledRevertToLastPublished}
+          disabled={isDisabledRevertToLastPublished}
         >
           Revert to last published
         </Button>

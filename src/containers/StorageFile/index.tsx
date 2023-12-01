@@ -105,10 +105,10 @@ export const StorageFile = memo(() => {
   }, [initialGraphData, setGraphData]);
 
   const onRevertToLastSavedClick = useCallback(() => {
-    if (article?.graphDraft) {
-      setIsPublishGraph(false);
+    if (article?.graphDraft && article?.graphDraft.length) {
       setGraphData(article?.graphDraft);
       currentGraphData.current = article?.graphDraft;
+      setIsPublishGraph(() => false);
     }
   }, [article?.graphDraft]);
 
@@ -116,7 +116,7 @@ export const StorageFile = memo(() => {
     if (article?.graph && article?.graph.length) {
       setGraphData(article?.graph);
       currentGraphData.current = article?.graph;
-      setIsPublishGraph(true);
+      setIsPublishGraph(() => true);
     }
   }, [article?.graph]);
 

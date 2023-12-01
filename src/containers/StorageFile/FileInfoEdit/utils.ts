@@ -17,3 +17,20 @@ export const exportToExcel = (data: GraphResponseType[], title: string) => {
   a.click();
   URL.revokeObjectURL(url);
 };
+
+export const arraysDeepEqual = (arr1: GraphResponseType[], arr2: GraphResponseType[]): boolean => {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i += 1) {
+    const item1 = arr1[i];
+    const item2 = arr2[i];
+
+    if (JSON.stringify(item1) !== JSON.stringify(item2)) {
+      return false;
+    }
+  }
+
+  return true;
+};
