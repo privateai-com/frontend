@@ -20,7 +20,7 @@ import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
-import { normalizeUserInfo, notification } from 'utils';
+import { getStatusAccessArticle, normalizeUserInfo, notification } from 'utils';
 import { useVipUser } from 'hooks';
 import { errorsNotification } from 'appConstants';
 import { convertToBytesString, formatDate } from './utils';
@@ -211,7 +211,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
             {!isOwner ? (
               <div className={styles.storageFile__item_info}>
                 Status
-                <span>Permission required</span>
+                {article?.status && <span>{getStatusAccessArticle(article)}</span>}
               </div>
             ) : (
               <>
@@ -240,16 +240,22 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                 Request access
               </Button>
             )}
-            <Button
-              disabled={!article?.isPublic}
-              href={article?.articleUrl}
-              className={cx(styles.download_button, {
-                [styles.disabled]: isVipUser,
-              })}
-              isHrefBlank
-            >
-              Download
-            </Button>
+            {article?.status && (
+              <Button
+                disabled={!article?.isPublic ||
+                [
+                  'Access granted',
+                  'Open sourced',
+                ].includes(article?.status)}
+                href={article?.articleUrl}
+                className={cx(styles.download_button, {
+                  [styles.disabled]: isVipUser,
+                })}
+                isHrefBlank
+              >
+                Download
+              </Button>
+            )}
           </>
         ) : (
           <>
