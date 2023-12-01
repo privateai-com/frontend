@@ -191,12 +191,10 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           </div>
           )}
           <div className={styles.storageFile__item}>
-            Availability :
-            {article?.isPublic ? (
-              <span>
-                {article?.isPublic ? 'Open sourced' : 'Permission based'}
-              </span>
-            ) : (<span>-</span>)}
+            Availability:
+            <span>
+              {article?.isPublic ? 'Open sourced' : 'Permission based'}
+            </span>
           </div>
           <div className={styles.storageFile__item_wrapper}>
             <div className={styles.storageFile__item_date}>
