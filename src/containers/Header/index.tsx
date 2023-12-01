@@ -1,14 +1,17 @@
 import React, {
+  FormEvent,
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import cx from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useModal } from 'react-modal-hook';
 
 import {
-  ButtonIcon, TextInput, SelectedText, LogOut, 
+  ButtonIcon, TextInput, 
+  // SelectedText, 
+  LogOut, 
 } from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
 import { routes } from 'appConstants';
@@ -25,19 +28,21 @@ import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
 
-const results = [
-  'A brief history of the antibiotics era',
-  'Antibiotic resistance',
-  'The effectiveness of frequent antibiotic use',
-  'A brief history of the antibiotics era',
-  'Antibiotic resistance',
-];
+// const results = [
+//   'A brief history of the antibiotics era',
+//   'Antibiotic resistance',
+//   'The effectiveness of frequent antibiotic use',
+//   'A brief history of the antibiotics era',
+//   'Antibiotic resistance',
+// ];
 
 export const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [search, setSearch] = useState('');
+  const { query: { search: searchDefault } } = router;
+
+  const [search, setSearch] = useState(searchDefault ?? '');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const ref = useOnClickOutside<HTMLDivElement>(() => setIsNotificationOpen(false), buttonRef);
@@ -74,12 +79,31 @@ export const Header = () => {
     dispatch(profileNotificationMarkAsView({ requestId }));
   }, [dispatch]);
 
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push({
+      pathname: routes.knowledge.root,
+      query: { search },
+    });
+  }, [router, search]);
+
+  const handleChange = useCallback((text: string) => {
+    if (text === '') {
+      setSearch(text); 
+      router.push({
+        pathname: routes.knowledge.root,
+      });
+    } else {
+      setSearch(text); 
+    }
+  }, [router]);
+
   return (
     <header className={styles.header}>
-      <div className={styles.input_wrapper}>
+      <form className={styles.input_wrapper} onSubmit={handleSubmit}>
         <TextInput
-          value={search}
-          onChangeValue={setSearch}
+          value={search as string}
+          onChangeValue={handleChange}
           placeholder="Global search"
           isSearch
           isClearable
@@ -87,7 +111,7 @@ export const Header = () => {
             [styles.input_wrapper_input_filled]: !!search.length,
           })}
         />
-        {!!search.length && (
+        {/* {!!search.length && (
           <div className={styles.search_result}>
             <ul className={styles.search_list}>
               {results.map((result, i) => (
@@ -112,8 +136,8 @@ export const Header = () => {
               {'See all search results >'}
             </Link>
           </div>
-        )}
-      </div>
+        )} */}
+      </form>
       <span>{fullName || username}</span>
       <ButtonIcon
         className={styles.button}

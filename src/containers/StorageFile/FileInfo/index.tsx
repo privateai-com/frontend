@@ -20,7 +20,12 @@ import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
-import { getStatusAccessArticle, normalizeUserInfo, notification } from 'utils';
+import {
+  getName,
+  getStatusAccessArticle,
+  normalizeUserInfo,
+  notification,
+} from 'utils';
 import { useVipUser } from 'hooks';
 import { errorsNotification } from 'appConstants';
 import { convertToBytesString, formatDate } from './utils';
@@ -75,7 +80,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           id={id || 0}
           title="Owner"
           avatarUrl={avatarUrl || ''}
-          name={normalizeUserInfo(fullName, username) || '-'}
+          name={getName(fullName, username, id ?? 0)}
           country={normalizeUserInfo(city, country) || '-'}
           organization={organization || '-'}
           position={position || '-'}

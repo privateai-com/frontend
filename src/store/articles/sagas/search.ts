@@ -5,25 +5,25 @@ import { Article, ArticlesState, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi, getApiQueries } from 'api';  
 import {
-  articlesGetAll,
+  articlesSearch,
   articlesSetState,
   articlesSetStatus,
 } from '../actionCreators';
 import { articlesSelectors } from '../selectors';
 
-export function* articlesGetAllSaga({
+export function* articlesSearchSaga({
   type,
   payload,
-}: ReturnType<typeof articlesGetAll>) {
+}: ReturnType<typeof articlesSearch>) {
   try {
     yield put(articlesSetStatus({ type, status: RequestStatus.REQUEST }));
 
     const { data }: { data: [Article[], number] } = yield call(callApi, {
       method: 'GET',
-      endpoint: ApiEndpoint.ArticlesGetArticles + getApiQueries({
+      endpoint: ApiEndpoint.ArticlesSearch + getApiQueries({
         ...payload,
-        sortingField: 'id',
-        sortingDirection: 'DESC',
+        sortingField: 'rank',
+        sortingDirection: 'ASC',
         searchField: undefined,
       }),
     });
@@ -37,7 +37,7 @@ export function* articlesGetAllSaga({
       total: data[1], 
       pagination: {
         ...payload,
-        search: undefined,
+        search: payload.search as string,
         sortingField: 'id',
         sortingDirection: 'DESC',
       },
