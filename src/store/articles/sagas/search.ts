@@ -37,6 +37,7 @@ export function* articlesSearchSaga({
       total: data[1], 
       pagination: {
         ...payload,
+        search: payload.search as string,
         sortingField: 'id',
         sortingDirection: 'DESC',
       },

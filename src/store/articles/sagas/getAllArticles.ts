@@ -37,6 +37,7 @@ export function* articlesGetAllSaga({
       total: data[1], 
       pagination: {
         ...payload,
+        search: undefined,
         sortingField: 'id',
         sortingDirection: 'DESC',
       },
