@@ -88,6 +88,11 @@
       height: calc(100vh - 248px - 60px);
 		}
 
+    @include media-breakpoint-up(fhd) {
+			padding: 0 20px;
+      height: calc(100vh - 248px - 70px);
+		}
+
     td {
       padding: 0px 0px;
       text-overflow: ellipsis;

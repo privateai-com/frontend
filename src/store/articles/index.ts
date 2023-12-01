@@ -7,6 +7,7 @@ import { articlesHandlers } from './handlers';
 export const articlesInitialState: Readonly<ArticlesState> = {
   myArticles: [],
   articlesAll: [],
+  uploadArticles: [],
   total: 0,
   ui: {
     [ArticlesActionTypes.GetArticles]: RequestStatus.INIT,

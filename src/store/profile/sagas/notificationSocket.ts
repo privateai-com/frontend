@@ -29,8 +29,11 @@ function* handleSocketEvents(eventData: { data: [NotificationInfo[], number] }) 
 
 function createUploadChannel() {
   return eventChannel<EmitedSocketNotificationEvent>((emit) => {
-    const emitedData = (data: string) => {
-      emit(JSON.parse(data));
+    const emitedData = (data: [NotificationInfo[], number]) => {
+      emit({
+        data,
+        event: SocketNotificationEvent.NEW_NOTIFICATION,
+      });
     };
 
     const errorHandler = (error: unknown) => {

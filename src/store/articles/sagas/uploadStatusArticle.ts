@@ -53,8 +53,14 @@ function* handleSocketEvents(eventData: { articleId: number; uploadProgress: num
 
 function createUploadChannel() {
   return eventChannel<EmitedSocketUploadEvent>((emit) => {
-    const updateUploadPercent = (data: string) => {
-      emit(JSON.parse(data));
+    const updateUploadPercent = (data: {
+      articleId: number,
+      uploadProgress: number
+    }) => {
+      emit({
+        ...data,
+        event: SocketUploadArticleEvent.GET_UPLOAD_STATUS, 
+      });
     };
 
     socket.on(SocketUploadArticleEvent.GET_UPLOAD_STATUS, updateUploadPercent);
