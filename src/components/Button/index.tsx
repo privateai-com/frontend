@@ -28,7 +28,7 @@ const Button = memo(
     ) => {
       const { onMouseEnter, onMouseLeave } = useHoverEvent();
 
-      if (href) {
+      if (href && !disabled) {
         return (
           <Link
             href={href}
@@ -44,7 +44,7 @@ const Button = memo(
             )}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            target={isHrefBlank ? '_blank' : '_self'}
+            target={isHrefBlank && !disabled ? '_blank' : '_self'}
           >
             <div className={cx({ [styles.children_while_loading]: isLoading })}>
               {children}

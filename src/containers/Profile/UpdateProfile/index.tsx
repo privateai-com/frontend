@@ -99,7 +99,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     }
 
     const data = {
-      username: username !== '' ? username : undefined,
+      username,
       socialLink: socialMediaLink,
       organization,
       researchFields,
@@ -143,7 +143,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
   const onSaveClick = useCallback(() => {
     const data = {
       file: avatar,
-      username: usernameOld !== username ? username : null,
+      username,
       socialLink: socialMediaLink,
       organization,
       researchFields,
@@ -162,7 +162,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     } else {
       showEditProfileConfirm();
     }
-  }, [avatar, usernameOld, username, socialMediaLink, organization, 
+  }, [avatar, username, socialMediaLink, organization, 
     researchFields, realName, position, location, saveData, showEditProfileConfirm]);
 
   const handleDrop = useCallback((e: DragEvent<HTMLLabelElement>) => {

@@ -111,7 +111,7 @@ export const Item: React.FC<ItemProps> = ({
       isHideButtonsRequester
       isDisabled={isDisabled}
     >
-      {getName(fullName, username, 1) ?? ''}
+      {getName(fullName, username, ownerId) ?? ''}
     </RequestCell> 
   ), [fullName, hideAccessConfirm, isDisabled, ownerId, showAccessConfirm, username]);
 

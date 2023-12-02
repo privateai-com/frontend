@@ -67,6 +67,7 @@ export type Article = {
   topCoreEntities?: string;
   isGraphDifferent?: boolean;
   usersAmount?: number;
+  usersPendingAccess?: number;
   fileSize?: number;
 };
 

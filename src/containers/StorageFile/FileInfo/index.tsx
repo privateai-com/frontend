@@ -220,7 +220,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               <>
                 <div className={styles.storageFile__item_info}>
                   Pending access requests
-                  <span>{article?.requests ? article?.requests.length : 0}</span>
+                  <span>{article?.usersPendingAccess ? article?.usersPendingAccess : 0}</span>
                 </div>
                 <div className={styles.storageFile__item_info}>
                   Shared with
