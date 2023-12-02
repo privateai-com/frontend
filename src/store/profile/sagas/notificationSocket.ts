@@ -29,9 +29,9 @@ function* handleSocketEvents(eventData: { data: [NotificationInfo[], number] }) 
 
 function createUploadChannel() {
   return eventChannel<EmitedSocketNotificationEvent>((emit) => {
-    const emitedData = (data: [NotificationInfo[], number]) => {
+    const emitedData = (data: { data: [NotificationInfo[], number] }) => {
       emit({
-        data,
+        data: data.data,
         event: SocketNotificationEvent.NEW_NOTIFICATION,
       });
     };
