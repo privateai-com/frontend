@@ -107,6 +107,7 @@
   &.full_width {
     width: 100%;
   }
+  
 }
 
 a.button {
@@ -118,9 +119,12 @@ a.button {
 }
 
 .disabled {
+  cursor: not-allowed !important;
+  background-color: $color-grey !important;
+
   &:disabled {
-    cursor: not-allowed;
-    background-color: $color-grey;
+    cursor: not-allowed !important;
+    background-color: $color-grey !important;
   }
 }
 
