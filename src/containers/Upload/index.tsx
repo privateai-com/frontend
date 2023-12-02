@@ -245,7 +245,7 @@ export const Upload = () => {
                 }) => (
                   <Item
                     key={id}
-                    name={`${title}-${id}`}
+                    name={`${title}`}
                     percents={uploadStatus === UploadFileStatus.CREATED
                       ? uploadProgress
                       : uploadProgress}
