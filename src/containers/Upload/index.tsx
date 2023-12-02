@@ -82,7 +82,7 @@ export const Upload = () => {
   // const timeToUploaded = Math.ceil(Object.values(upload)
   //   .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
 
-  const timeToUploaded = (size: number) => size / 1_000_000 / 60;
+  const timeToUploaded = (size: number) => size / 1_000_000 / 20;
 
   // fixed backend
   const {
