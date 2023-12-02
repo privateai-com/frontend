@@ -96,35 +96,38 @@ export const Item: React.FC<ItemProps> = ({
             <div>{!isMobile && <span>Processing</span>}</div>
           )} */}
         </div>
-        {status === UploadFileStatus.COMPLETE || status === UploadFileStatus.PUBLISHED ? (
-          <div className={styles.item_indication_block}>
-            <Image
-              className={styles.item_complete}
-              src={circleCheckIcon}
-              alt="icon"
-            />
-            <Link
-              className={styles.item_link_btn}
-              href={`${routes.storage.root}`}
-            >
-              {isMobile ? 'My storage' : 'See in my storage'}
-            </Link>
-          </div>
-        ) : (
-          <div className={styles.item_indication_block}>
-            <div className={styles.item_circle} />
-            <button
-              className={styles.item_disabled_btn}
-              disabled
-            >
-              ~ 
-              {' '}
-              {timeToUploaded}
-              {' '}
-              min
-            </button>
-          </div>
-        )}
+        {status === UploadFileStatus.COMPLETE 
+        || status === UploadFileStatus.PUBLISHED 
+          ? (
+            <div className={styles.item_indication_block}>
+              <Image
+                className={styles.item_complete}
+                src={circleCheckIcon}
+                alt="icon"
+              />
+              <Link
+                className={styles.item_link_btn}
+                href={`${routes.storage.root}`}
+              >
+                {isMobile ? 'My storage' : 'See in my storage'}
+              </Link>
+            </div>
+          ) : (
+            <div className={styles.item_indication_block}>
+              <div className={styles.item_circle} />
+              <button
+                className={styles.item_disabled_btn}
+                disabled
+              >
+                {status === UploadFileStatus.PROCESSING || status === UploadFileStatus.UPLOADED ? 'See in my storage' :
+                  `~ 
+                  ${' '}
+                  ${Math.max(timeToUploaded, 1)}
+                  ${' '}
+                  min`}
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );
