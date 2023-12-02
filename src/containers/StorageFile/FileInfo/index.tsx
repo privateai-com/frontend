@@ -22,7 +22,7 @@ import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import {
   getName,
-  getStatusAccessArticle,
+  // getStatusAccessArticle,
   normalizeUserInfo,
   notification,
 } from 'utils';
@@ -214,7 +214,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
             {!isOwner ? (
               <div className={styles.storageFile__item_info}>
                 Status
-                {article?.status && <span>{getStatusAccessArticle(article)}</span>}
+                {!article?.isPublic ? <span>{article?.status}</span> : <span>Open sourced</span>}
               </div>
             ) : (
               <>
@@ -252,11 +252,12 @@ export const FileInfo: FC<FileInfoProps> = memo(({
             )}
             {article?.status && (
               <Button
-                disabled={!article?.isPublic ||
-                ![
-                  'Access granted',
-                  'Open sourced',
-                ].includes(article?.status)}
+                disabled={article?.isPublic === false 
+                  ? ![
+                    'Access granted',
+                    'Open sourced',
+                  ].includes(article?.status) 
+                  : false}
                 href={article?.articleUrl}
                 className={cx(styles.download_button, {
                   [styles.disabled]: isVipUser,
