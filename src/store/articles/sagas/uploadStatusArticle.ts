@@ -25,8 +25,8 @@ let uploadChannel: EventChannel<EmitedSocketUploadEvent>;
 function* handleSocketEvents(eventData: { articleId: number; uploadProgress: number; }) {
   try {
     const { articleId, uploadProgress } = eventData;
-    const articles: ArticlesState['myArticles'] = yield select(
-      articlesSelectors.getProp('myArticles'),
+    const articles: ArticlesState['uploadArticles'] = yield select(
+      articlesSelectors.getProp('uploadArticles'),
     );
 
     const articleToUpdate = articles.find((article) => article.id === articleId);
@@ -44,7 +44,7 @@ function* handleSocketEvents(eventData: { articleId: number; uploadProgress: num
         return article;
       });
 
-      yield put(articlesSetState({ myArticles: updatedArticles }));
+      yield put(articlesSetState({ uploadArticles: updatedArticles }));
     }
   } catch (err) {
     sagaExceptionHandler(err);
@@ -56,11 +56,15 @@ function createUploadChannel() {
     const updateUploadPercent = (data: {
       articleId: number,
       uploadProgress: number
-    }) => {
-      emit({
-        ...data,
-        event: SocketUploadArticleEvent.GET_UPLOAD_STATUS, 
-      });
+    } | string) => {
+      if (typeof data !== 'string') {
+        emit({
+          ...data,
+          event: SocketUploadArticleEvent.GET_UPLOAD_STATUS, 
+        });
+      } else {
+        emit(JSON.parse(data));
+      }
     };
 
     socket.on(SocketUploadArticleEvent.GET_UPLOAD_STATUS, updateUploadPercent);
