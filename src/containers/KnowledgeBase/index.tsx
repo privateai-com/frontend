@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
-import { Typography } from 'components';
+import { Loader, Typography } from 'components';
 import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { usePagination, useScreenWidth, useVipUser } from 'hooks';
 
 import { articlesGetAll, articlesSearch } from 'store/articles/actionCreators';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
+import { RequestStatus } from 'types';
 import { Item } from './Item';
 import styles from './styles.module.scss';
 
@@ -35,11 +36,14 @@ export const KnowledgeBase: React.FC = () => {
   const statusGetArticles = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetArticles),
   );
+  const statusSearchArticles = useSelector(
+    articlesSelectors.getStatus(ArticlesActionTypes.SearchArticles),
+  );
   
   const {
     rootRef, endElementForScroll,
   } = usePagination({
-    total, status: statusGetArticles, offset, increaseOffset, 
+    total, status: search ? statusSearchArticles : statusGetArticles, offset, increaseOffset, 
   });
 
   const isNewSearch = pagination?.search !== search;
@@ -55,12 +59,26 @@ export const KnowledgeBase: React.FC = () => {
       search,
     };
     if (search && search.length > 0) {
-      dispatch(articlesSearch(payload));
-    } else {
-      dispatch(articlesGetAll(payload));
+      if (isNewSearch) {
+        dispatch(articlesSearch(payload));
+      }
     }
   }, [dispatch, isNewSearch, offset, search]);
 
+  useEffect(() => {
+    const payload = {
+      limit: itemsOnPageQuantity,
+      offset: offset * itemsOnPageQuantity,
+    };
+    if (!search) {
+      dispatch(articlesGetAll(payload));
+    }
+  }, [dispatch, offset, search]);
+
+  const isLoading = statusGetArticles === RequestStatus.REQUEST 
+    || statusSearchArticles === RequestStatus.REQUEST;
+  
+  const isHideArticles = !(isLoading && offset === 0); 
   return (
     <div className={styles.knowledge}>
       <div className={styles.knowledge_header}>
@@ -74,7 +92,7 @@ export const KnowledgeBase: React.FC = () => {
       <div className={styles.items}>
         <div className={styles.items_wrapper}>
           <div className={styles.items_container} ref={rootRef}>
-            {articles.map((item) => (
+            {isHideArticles && articles.map((item) => (
               <Item
                 key={item.id} 
                 article={item}
@@ -83,6 +101,11 @@ export const KnowledgeBase: React.FC = () => {
                 isMobile={isMobile}
               />
             ))}
+            {isLoading && (
+            <div className={styles.containerLoader}>
+              <Loader size={64} className={styles.loader} />
+            </div>
+            )}
             {endElementForScroll}
           </div>
         </div>

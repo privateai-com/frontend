@@ -11,13 +11,18 @@ export const getApiQueries = (payload: {
     limit, offset, sortingField, sortingDirection, searchField, doneStatus, 
     search,
   } = payload;
-  return `?${new URLSearchParams({
+  const url = new URLSearchParams({
     limit: `${limit}`,
     offset: `${offset}`,
     sortingField,
     sortingDirection,
-    searchField: searchField ?? '',
-    search: search as string ?? '',
     doneStatus: doneStatus ? 'true' : 'false',
-  }).toString()}`;
+  });
+  if (searchField) {
+    url.append('searchField', searchField);
+  }
+  if (search) {
+    url.append('search', search as string);
+  }
+  return `?${url.toString()}`;
 };
