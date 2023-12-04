@@ -1,5 +1,5 @@
 import {
-  call, delay, fork, put, select, 
+  call, put, select, 
 } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
@@ -9,8 +9,6 @@ import {
 import { ApiEndpoint } from 'appConstants';
 import { callApi, signPersonalEvm } from 'api';
 import { profileLinkWallet, profileSetStatus, profileSetState } from 'store/profile/actionCreators';
-import { metamaskConnect } from 'store/metamask/actionCreators';
-import { connectMetamaskSaga } from 'store/metamask/sagas/connectMetamaskSaga';
 import { metamaskSelectors } from 'store/metamask/selectors';
 import { profileSelectors } from '../selectors';
 
@@ -21,9 +19,6 @@ export function* profileLinkWalletSaga({
 }: ReturnType<typeof profileLinkWallet>) {
   try{
     yield put(profileSetStatus({ type, status: RequestStatus.REQUEST }));
-    
-    yield fork(connectMetamaskSaga, metamaskConnect({}));
-    yield delay(1000);
     
     const status: MetamaskStatus = yield select(metamaskSelectors.getProp('status'));
 
