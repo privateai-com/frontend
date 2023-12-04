@@ -100,6 +100,8 @@ export const GraphVis: FC<GraphVisProps> = memo(({
 
   const handleAddEdge = useCallback((data: Edge, callback: (data: Edge) => void) => {
     if (!data.to || !data.from) return;
+    if (data.from === data.to) return;
+
     const nodeTo = nodes.get(data.to);
     const nodeFrom = nodes.get(data.from);
     if (!nodeTo || !nodeFrom) return;

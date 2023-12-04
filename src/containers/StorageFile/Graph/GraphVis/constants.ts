@@ -29,7 +29,7 @@ export const options = {
     enabled: true,
     timestep: 1,
     minVelocity: 5,
-    maxVelocity: 5,
+    // maxVelocity: 5,
     // stabilization: {
     //   enabled: true,
     // },
