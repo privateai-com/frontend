@@ -52,9 +52,9 @@ export const Header = () => {
   const userId = useSelector(profileSelectors.getPropAccountInfo('id'));
   const notifications = useSelector(profileSelectors.getProp('notifications'));
 
-  const onNotificationClick = () => {
+  const onNotificationClick = useCallback(() => {
     setIsNotificationOpen((prevState) => !prevState);
-  };
+  }, []);
 
   const [showLogout, hideLogout] = useModal(() => (
     <LogOut onClose={hideLogout} />

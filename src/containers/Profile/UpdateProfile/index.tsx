@@ -31,11 +31,11 @@ import styles from './styles.module.scss';
 const UserSchema = z.object({
   file: z.custom<File>(),
   username: z.string().nullable(),
-  fullName: z.string().nonempty(),
+  fullName: z.string().max(100).nonempty(),
   socialLink: z.string().url().or(z.literal('')),
-  organization: z.string().nonempty(),
-  researchFields: z.string().nonempty(),
-  position: z.string().nonempty(),
+  organization: z.string().max(100).nonempty(),
+  researchFields: z.string().max(100).nonempty(),
+  position: z.string().max(100).nonempty(),
   country: z.string().optional().nullable().or(z.literal('')),
 }).required({
   fullName: true,
@@ -263,6 +263,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           classNameContainer={styles.input__container}
           classNameLabel={styles.labelInput}
           isError={validation?.error ? !!validation?.error['socialLink'] : false}
+          placeholder="https://"
         />
       </div>
       <div className={cx(styles.wrapper, styles.info3)}>

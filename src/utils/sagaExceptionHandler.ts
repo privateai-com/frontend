@@ -30,6 +30,8 @@ export const getDataFromException = (exception: unknown) => {
 };
 
 export const sagaExceptionHandler = (exception: unknown) => {
+  notification.destroy();
+  
   let message = '';
   if (exception instanceof Error) {
     message = transformBackendErrorToString(exception);

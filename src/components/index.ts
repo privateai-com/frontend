@@ -26,3 +26,5 @@ export { default as LayoutAuth } from './LayoutAuth';
 export { TextArea } from './TextArea';
 export { DatePicker } from './DatePicker';
 export { TimePicker } from './TimePicker';
+
+export { ProtectedRoute } from './ProtectedRoute';

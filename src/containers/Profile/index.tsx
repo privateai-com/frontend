@@ -12,6 +12,9 @@ import {
   profileDeleteWallet,
   profileLinkWallet,
 } from 'store/profile/actionCreators';
+import {
+  metamaskConnect,
+} from 'store/metamask/actionCreators';
 import { ScreenWidth, routes } from 'appConstants';
 import { useScreenWidth, useVipUser } from 'hooks';
 import { UpdateProfile } from './UpdateProfile';
@@ -66,7 +69,11 @@ export const Profile = () => {
   }, [router, router.query, showSuccess]);
 
   const onLinkWalletClick = useCallback(() => {
-    dispatch(profileLinkWallet());
+    dispatch(metamaskConnect({
+      callback: () => {
+        dispatch(profileLinkWallet());
+      },
+    }));
   }, [dispatch]);
 
   const onDisconnectLinkWalletClick = useCallback(() => {

@@ -99,14 +99,16 @@ const Requester: React.FC<RequesterProps> = ({
             ))}
             <div className={styles.block_wrapper}>
               <span className={styles.block_title}>Social Media</span>
-              <a
-                href={socialMedia}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.block_text}
-              >
-                {socialMedia}
-              </a>
+              {socialMedia !== '-' ? (
+                <a
+                  href={socialMedia}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.block_text}
+                >
+                  {socialMedia}
+                </a>
+              ) : socialMedia}
             </div>
           </div>
         </div>
