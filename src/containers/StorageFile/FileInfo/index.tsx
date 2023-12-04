@@ -209,7 +209,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
             Owner: 
             {article?.owner ? (
               <button onClick={onOwnerClick} className={styles.storageFile__item_button}>
-                {article?.owner.fullName ? article?.owner.fullName : `Archonaut #${article?.owner.id}` }
+                {getName(article?.owner.fullName, article?.owner.username, article?.owner.id)}
               </button>
             ) : ('-')}
           </div>

@@ -24,6 +24,7 @@ import {
 } from 'store/profile/actionCreators';
 
 import { useOnClickOutside } from 'hooks';
+import { getName } from 'utils';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -138,7 +139,7 @@ export const Header = () => {
           </div>
         )} */}
       </form>
-      <span>{fullName || username}</span>
+      <span>{getName(fullName, username, userId) ?? ''}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}
