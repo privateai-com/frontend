@@ -4,6 +4,7 @@ import {
 import { useModal } from 'react-modal-hook';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
+import { Tooltip } from 'react-tooltip';
 
 import {
   AccessConfirm,
@@ -172,13 +173,36 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           )}
           <div className={styles.storageFile__item}>
             File name:
-            <span>{article?.title ? article.title : '-'}</span>
+            <span data-tooltip-id={article?.title}>{article?.title ? article.title : '-'}</span>
+            {(article?.title && article?.title.length > 100) && (
+              <Tooltip
+                id={article.title}
+                place="top"
+                className={styles.tooltip}
+                noArrow
+                offset={-10}
+              >
+                {article.title}
+              </Tooltip>
+            )}
           </div>
           <div className={styles.storageFile__item}>
             Field: 
-            <span>
+            {/* <span>
               {article?.field ? article.field : '-'}
-            </span>
+            </span> */}
+            <span data-tooltip-id={article?.field}>{article?.field ? article.field : '-'}</span>
+            {(article?.field && article?.field.length > 100) && (
+              <Tooltip
+                id={article.field}
+                place="top"
+                className={styles.tooltip}
+                noArrow
+                offset={-10}
+              >
+                {article.field}
+              </Tooltip>
+            )}
           </div>
           {!isOwner && (
           <div className={styles.storageFile__item}>
