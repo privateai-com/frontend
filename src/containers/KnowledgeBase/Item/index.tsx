@@ -1,6 +1,9 @@
 import { useMemo } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
+import Link from 'next/link';
+
 import {
   Typography, SelectedText, AccessConfirm, 
 } from 'components';
@@ -16,7 +19,6 @@ import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
 import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 
-import Link from 'next/link';
 import styles from './styles.module.scss';
 
 const textStatus = {
@@ -133,7 +135,20 @@ export const Item: React.FC<ItemProps> = ({
               text={field}
               searchWord={search}
               className={styles.selected}
+              classNameContainer={styles.selected_container}
+              tooltipId={`field_mobile_${id}`}
             />
+            {(field && field.length > 18) && (
+              <Tooltip
+                id={`field_mobile_${id}`}
+                place="top"
+                className={styles.tooltip}
+                noArrow
+                offset={-10}
+              >
+                {field}
+              </Tooltip>
+            )}
           </div>
           <div className={styles.item_row_block}>
             <span className={styles.title}>Owner: </span>
@@ -172,7 +187,20 @@ export const Item: React.FC<ItemProps> = ({
                 text={title}
                 searchWord={search}
                 className={styles.selected}
+                classNameContainer={styles.selected_container}
+                tooltipId={`title_${id}`}
               />
+              {(title && title.length > 60) && (
+                <Tooltip
+                  id={`title_${id}`}
+                  place="top"
+                  className={styles.tooltip}
+                  noArrow
+                  offset={-10}
+                >
+                  {title}
+                </Tooltip>
+              )}
             </Typography>
           </Link>
           <div className={styles.item_description_block}>
@@ -184,7 +212,20 @@ export const Item: React.FC<ItemProps> = ({
                   text={field}
                   searchWord={search}
                   className={styles.selected}
+                  classNameContainer={styles.selected_container}
+                  tooltipId={`field_${id}`}
                 />
+                {(field && field.length > 18) && (
+                  <Tooltip
+                    id={`field_${id}`}
+                    place="top"
+                    className={styles.tooltip}
+                    noArrow
+                    offset={-10}
+                  >
+                    {field}
+                  </Tooltip>
+                )}
               </div>
               <div className={styles.item_row_block}>
                 <span className={styles.title}>Owner: </span>

@@ -35,13 +35,11 @@
 
 	&:nth-child(-n + 2) {
 		span {
-			@include media-breakpoint-up(md) {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
-			}
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
 		}
 	}
 }
@@ -321,7 +319,6 @@
 }
 
 .tooltip {
-	// display: none;
 	background-color: $color-white !important;
 	padding: 15px !important;
 	border-radius: 8px !important;

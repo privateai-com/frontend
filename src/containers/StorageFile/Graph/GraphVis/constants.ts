@@ -70,7 +70,7 @@ export const options = {
       face: 'Montserrat',
       size: 16,
       strokeWidth: 16,
-      background: '#000',
+      // background: '#000',
     },
     shadow: {
       enabled: true,

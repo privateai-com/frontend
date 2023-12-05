@@ -187,6 +187,14 @@
   background-color: $color-yellow;
 }
 
+.selected_container {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .open,
 .permission_needed,
 .granted,
@@ -232,4 +240,16 @@
   cursor: not-allowed;
   color: $color-black;
   @include icon("../../../assets/img/icons/denied.svg");
+}
+
+.tooltip {
+	background-color: $color-white !important;
+	padding: 15px !important;
+	border-radius: 8px !important;
+	border: 1px solid $color-grey2 !important;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+	color: $color-black !important;
+	word-break: break-all;
+	max-width: 90%;
+	z-index: 2;
 }
