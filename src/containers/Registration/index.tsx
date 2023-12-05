@@ -14,10 +14,11 @@ import { CreateAccount } from './CreateAccount';
 import styles from './styles.module.scss';
 
 export const Registration = () => {
-  const [email, setEmail] = useState('');
-  const [errorCode, setErrorCode] = useState('');
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const [email, setEmail] = useState('');
+  const [errorCode, setErrorCode] = useState('');
 
   const successCallback = useCallback(() => {
     router.push({
@@ -61,6 +62,7 @@ export const Registration = () => {
           onResend={onResend}
           error={errorCode}
           setError={setErrorCode}
+          onBack={router.back}
         />
       ) : (
         <CreateAccount onConfirmEmail={setEmail} />

@@ -29,8 +29,14 @@
 	@include desktop1024 {
 		font-size: 30px;
 	}
-
 	@include media-breakpoint-up(sm) {
+		height: 60px;
+		padding-left: 85px;
+		padding-right: 30px;
+		padding-top: 20px;
+	}
+
+	@include media-breakpoint-up(md) {
 		height: 60px;
 		padding-left: 110px;
 		padding-right: 30px;
@@ -86,6 +92,8 @@
 .input_wrapper_input {
 	height: 50px;
 	transition: all 0.2s;
+
+	padding-right: 20px;
 
 	@include desktop1440 {
 		height: 50px !important;
@@ -210,6 +218,8 @@
 }
 
 .username {
+	color:  #00140E;
+	
 	@include tablet {
 		max-width: 115px;
 		text-overflow: ellipsis;

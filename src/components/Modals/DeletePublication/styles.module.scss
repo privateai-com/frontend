@@ -1,6 +1,14 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/_mixins.scss";
 
+.modal {
+  width: 834px;
+
+  @media screen and (max-width: 891px) {
+    width: calc(100% - 50px);
+	}
+}
+
 @mixin margin-bottom($mb1, $mb2, $mb3) {
   margin-bottom: $mb1;
 
