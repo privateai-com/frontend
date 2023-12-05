@@ -1,5 +1,5 @@
 import {
-  FC, memo, useCallback, useState,
+  FC, memo, useCallback, 
 } from 'react';
 import { useModal } from 'react-modal-hook';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -60,7 +60,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
     shallowEqual,
   );
   const isVipUser = useVipUser();
-  const [isDisabledRequest, setIsDisabledRequest] = useState(false);
+  // const [isDisabledRequest, setIsDisabledRequest] = useState(false);
 
   const [showRequester, hideRequester] = useModal(
     () => {
@@ -87,23 +87,24 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           position={position || '-'}
           fields={researchFields || '-'}
           socialMedia={socialLink || '-'}
-          questionFooter="Request access to a file?"
-          confirmButtonLabel="Confirm"
-          cancelButtonLabel="Cancel"
-          onConfirmButton={() => {
-            if (article) {
-              dispatch(requestCreate({
-                articleId: article.id, 
-                callback: () => {
-                  hideRequester();
-                  setIsDisabledRequest(true);
-                },
-              }));
-            }
-          }}
-          onCancelButton={hideRequester}
+          isHideButtons
+          // questionFooter="Request access to a file?"
+          // confirmButtonLabel="Confirm"
+          // cancelButtonLabel="Cancel"
+          // onConfirmButton={() => {
+          //   if (article) {
+          //     dispatch(requestCreate({
+          //       articleId: article.id, 
+          //       callback: () => {
+          //         hideRequester();
+          //         setIsDisabledRequest(true);
+          //       },
+          //     }));
+          //   }
+          // }}
+          // onCancelButton={hideRequester}
           onCloseModal={hideRequester}
-          isHideButtons={isRequester}
+          // isHideButtons={isRequester}
         />
       );
     },
@@ -266,7 +267,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                   isLoading ||
                   isRequester ||
                   isVipUser ||
-                  isDisabledRequest || 
+                  // isDisabledRequest || 
                   statusCreate === RequestStatus.SUCCESS
                 }
                 isLoading={statusCreate === RequestStatus.REQUEST}
