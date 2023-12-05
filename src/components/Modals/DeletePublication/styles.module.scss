@@ -13,6 +13,16 @@
   }
 }
 
+.delete_pub_container {
+  @include mobile {
+    width: calc(100vw - 40px) !important;
+  }
+
+  @include tablet1024 {
+    width: calc(100vw - 70px) !important;
+  }
+}
+
 .delete_pub {
   display: flex;
   flex-direction: column;

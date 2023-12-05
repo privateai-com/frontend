@@ -1,6 +1,7 @@
 import { FC, memo } from 'react';
 import { Edge } from 'vis-network';
 import { Tooltip } from 'react-tooltip';
+import cx from 'classnames';
 
 import {
   ButtonIcon,
@@ -40,7 +41,10 @@ export const Graph: FC<GraphProps> = memo(({
 
   return (
     <div className={styles.storageFile__data}>
-      <div className={styles.storageFile__data_head}>
+      <div className={cx(styles.storageFile__data_head, {
+        [styles.storageFile__data_head_owner]: isOwner && articleId,
+      })}
+      >
         <Typography type="h1">Data core structure</Typography>
         {(isOwner && articleId) && (
           <DeleteBtn className={styles.storageFile__data_btn} articleId={articleId} />

@@ -53,3 +53,33 @@
 	height: fit-content;
 	margin: auto;
 }
+
+.edit_item_wrapper {
+	display: flex;
+	align-items: center;
+	width: 100%;
+
+	span {
+		width: 56px;
+		margin-left: 4px;
+		text-transform: uppercase;
+	}
+
+	&:nth-child(1) {
+		span {
+			color: $color-pink;
+		}
+	}
+
+	&:nth-child(2) {
+		span {
+			color: $color-green;
+		}
+	}
+
+	&:nth-child(3) {
+		span {
+			color: $color-black;
+		}
+	}
+}

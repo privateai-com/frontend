@@ -11,6 +11,10 @@
     height: 55vh;
 	}
 
+  @include media-breakpoint-up(xxxl) {
+    height: 60vh;
+	}
+
   @include media-breakpoint-up(fhd) {
 		height: 600px;
 	}

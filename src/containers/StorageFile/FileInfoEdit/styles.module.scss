@@ -160,14 +160,6 @@
 			white-space: break-spaces;
 			padding: 5px 20px;
 			// @include font-20();
-
-			@include media-breakpoint-up(lg) {
-				max-width: 160px;
-			}
-		
-			@include media-breakpoint-up(xl) {
-				max-width: 160px;
-			}
 		
 			@include media-breakpoint-up(fhd) {
 				max-width: 230px;

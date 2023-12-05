@@ -45,33 +45,44 @@ export const EditItem: FC<EditItemProps> = ({
     <div className={cx(styles.edit_item__container, className)}>
       <span>{`${index + 1}.`}</span>
       <div className={styles.edit_item_inputs}>
-        <TextInput
-          name="subj"
-          onChangeValue={handleInputChange}
-          value={subject}
-          classNameContainer={styles.edit_item_input_container}
-          classNameInputBox={styles.edit_item_inputBox}
-          placeholder="Artificial Intelligence SUBJ"
-          disabled
-        />
-        <TextInput
-          name="verb"
-          onChangeValue={handleInputChange}
-          value={verb}
-          classNameContainer={styles.edit_item_input_container}
-          classNameInputBox={styles.edit_item_inputBox}
-          placeholder="Analyzes VERB"
-          disabled
-        />
-        <TextInput
-          name="obj"
-          onChangeValue={handleInputChange}
-          value={object}
-          classNameContainer={styles.edit_item_input_container}
-          classNameInputBox={styles.edit_item_inputBox}
-          placeholder="Individual genome OBJ"
-          disabled
-        />
+        <div className={styles.edit_item_wrapper}>
+          <TextInput
+            name="subj"
+            onChangeValue={handleInputChange}
+            value={subject}
+            classNameContainer={styles.edit_item_input_container}
+            classNameInputBox={styles.edit_item_inputBox}
+            placeholder="Artificial Intelligence SUBJ"
+            disabled
+          />
+          <span>subj</span>
+        </div>
+
+        <div className={styles.edit_item_wrapper}>
+          <TextInput
+            name="verb"
+            onChangeValue={handleInputChange}
+            value={verb}
+            classNameContainer={styles.edit_item_input_container}
+            classNameInputBox={styles.edit_item_inputBox}
+            placeholder="Analyzes VERB"
+            disabled
+          />
+          <span>verb</span>
+        </div>
+
+        <div className={styles.edit_item_wrapper}>
+          <TextInput
+            name="obj"
+            onChangeValue={handleInputChange}
+            value={object}
+            classNameContainer={styles.edit_item_input_container}
+            classNameInputBox={styles.edit_item_inputBox}
+            placeholder="Individual genome OBJ"
+            disabled
+          />
+          <span>obj</span>
+        </div>
       </div>
       {/* <ButtonIcon
         className={styles.edit_item_icon}
