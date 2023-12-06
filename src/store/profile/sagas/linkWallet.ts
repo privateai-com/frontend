@@ -23,7 +23,12 @@ export function* profileLinkWalletSaga({
     const status: MetamaskStatus = yield select(metamaskSelectors.getProp('status'));
 
     if (status === MetamaskStatus.CONNECTED) {
-      const signature: string = yield call(signPersonalEvm, message);
+      let signature = '';
+      try {
+        signature = yield call(signPersonalEvm, message);
+      } catch (error) {
+        throw new Error('User rejected the request');
+      }
   
       yield call(callApi, {
         method: 'POST',
