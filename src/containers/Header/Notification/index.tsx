@@ -5,7 +5,7 @@ import Link from 'next/link';
 import cx from 'classnames';
 import Image from 'next/image';
 
-import { arrowIcon, closeModalIcon } from 'assets';
+import { arrowNotifyIcon, closeNotifyIcon } from 'assets';
 import { queryTab, routes } from 'appConstants';
 import { ButtonIcon } from 'components';
 import { NotificationInfo } from 'types';
@@ -42,7 +42,7 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>((
             <ButtonIcon
               className={styles.item_close}
               onClick={() => onDeleteNotification(id)}
-              image={closeModalIcon}
+              image={closeNotifyIcon}
               height={12}
               width={12}
             />
@@ -56,9 +56,10 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>((
           >
             {generateNotificationText(type, article, userId === article.owner.id)}
             <Image
-              src={arrowIcon}
+              src={arrowNotifyIcon}
               alt="next"
-              width={25}
+              width={15}
+              className={styles.item_next}
             />
           </Link>
         </div>

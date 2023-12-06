@@ -11,7 +11,7 @@ $margin-horizontal-mobile: 15px;
     width: 600px;
     max-height: 226px;
     height: 100%;
-    padding: 8px;
+    padding: 13px 15px;
     background-color: $color-white;
     box-shadow: 0px 0px 20px rgba(132, 132, 132, 0.2);
     position: fixed;
@@ -25,56 +25,47 @@ $margin-horizontal-mobile: 15px;
     visibility: hidden;
     transform: translateX(100%);
     transition: all 0.5s;
-    // overflow: hidden;
-    overflow-y: scroll;
-    overflow-x: hidden;
-
-    @include greenScrollbar;
-
-    &::-webkit-scrollbar {
-      width: 16px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      box-shadow: inset -8px 0 0 #EEE;
-    }
 
     @include desktop1440 {
       width: 550px;
-      max-height: 196;
-      padding: 15px;
+      // max-height: 196;
+      padding: 10px 15px;
       top: 80px;
-      rigth: 90px;
+      right: 90px;
     }
 
     @include tablet {
+      max-width: 550px;
+      right: 15px;
+      width: calc(100% - 30px);
+      top: 48px;
+      padding: 15px;
+    }
+
+    @include mobile {
       right: 15px;
       width: calc(100% - 30px);
       top: 48px;
     }
-
-    // @include mobile {
-    //   right: 15px;
-    //   width: calc(100% - 30px);
-    //   top: 48px;
-    // }
   }
 
   &_wrapper {
     position: relative;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
     height: 100%;
     width: 100%;
-
-    @include greenScrollbar;
   }
 
   &_content {
-    position: absolute;
     height: 100%;
     width: 100%;
     padding-right: 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include greenScrollbar();
 
     @include desktop1440 {
       padding-right: 15px;
@@ -106,6 +97,12 @@ $margin-horizontal-mobile: 15px;
     justify-content: space-between;
     align-items: start;
   }
+
+  // &_close {
+  // }
+
+  // &_next {
+  // }
 
   &_time {
     color: $color-grey;

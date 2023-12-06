@@ -172,6 +172,8 @@ $btn-height1024: 130px;
   // @include height(61%, 50vh, 65%);
   height: calc(100vh - 520px);
 
+  min-height: 150px;
+
   @media screen and (min-width: 1440px) {
     height: calc(100vh - 590px);
 	}

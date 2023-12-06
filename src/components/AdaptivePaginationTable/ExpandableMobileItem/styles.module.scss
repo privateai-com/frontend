@@ -27,6 +27,14 @@
 		margin-bottom: 15px;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		overflow-wrap: anywhere;
+		width: calc(100vw - 100px);
+	}
+
+	.name {
+		text-overflow: ellipsis;
+		overflow: hidden;	
+		width: auto;
 	}
 }
 

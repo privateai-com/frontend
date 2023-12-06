@@ -42,7 +42,7 @@ export const Header = () => {
   const router = useRouter();
   const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
 
-  const { query: { search: searchDefault } } = router;
+  const { query: { search: searchDefault }, pathname } = router;
 
   const [search, setSearch] = useState(searchDefault ?? '');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -78,8 +78,15 @@ export const Header = () => {
   }, [dispatch, userId]);
 
   const onDeleteNotification = useCallback((requestId: number) => {
-    dispatch(profileNotificationMarkAsView({ requestId }));
-  }, [dispatch]);
+    dispatch(profileNotificationMarkAsView({ 
+      requestId,
+      callback: () => {
+        if (notifications.length <= 1) {
+          setIsNotificationOpen(false); 
+        }
+      },
+    }));
+  }, [dispatch, notifications.length]);
 
   const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,13 +99,15 @@ export const Header = () => {
   const handleChange = useCallback((text: string) => {
     if (text === '') {
       setSearch(text); 
-      router.push({
-        pathname: routes.knowledge.root,
-      });
+      if (pathname === routes.knowledge.root) {
+        router.push({
+          pathname: routes.knowledge.root,
+        });
+      }
     } else {
       setSearch(text); 
     }
-  }, [router]);
+  }, [pathname, router]);
 
   return (
     <header className={styles.header}>
@@ -153,6 +162,7 @@ export const Header = () => {
         image={ringIcon}
         onClick={onNotificationClick}
         ref={buttonRef}
+        isDisabled={notifications.length === 0}
       />
       <ButtonIcon
         className={styles.button}

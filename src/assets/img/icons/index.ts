@@ -51,3 +51,5 @@ export { default as StorageIcon } from './StorageIcon';
 export { default as UploadActivityIcon } from './UploadActivityIcon';
 export { default as chevronArrowIcons } from './chevronArrowsIcon.svg';
 export { default as plusIcon } from './plus.svg';
+export { default as closeNotifyIcon } from './closeNotify.svg';
+export { default as arrowNotifyIcon } from './arrowNotify.svg';
