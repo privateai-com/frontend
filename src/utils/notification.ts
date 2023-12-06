@@ -4,7 +4,7 @@ export const notification = {
   destroy: toast.dismiss,
   error: ({ message, description }: { message: string, description?: string }) => {
     toast.error(description ? `${message}: ${description}` : message, {
-      autoClose: false,
+      // autoClose: false,
       hideProgressBar: true,
     });
   },
