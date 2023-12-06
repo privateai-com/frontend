@@ -16,7 +16,12 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { Article, GraphResponseType, RequestStatus } from 'types';
 import { notification } from 'utils';
 import { EditItem } from './EditItem';
-import { arraysDeepEqual, exportToExcel } from './utils';
+import {
+  arraysDeepEqual,
+  articleFieldValidator,
+  articleNameValidator,
+  exportToExcel,
+} from './utils';
 
 import styles from './styles.module.scss';
 import { DeleteBtn } from '../DeleteBtn';
@@ -51,7 +56,9 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
   );
 
   const [nameFile, setNameFile] = useState('');
+  const [nameFileError, setNameFileError] = useState('');
   const [fieldFile, setFieldFile] = useState('');
+  const [fieldFileError, setFieldFileError] = useState('');
 
   const [articleAccess, setArticleAccess] = useState('closed' as 'open' | 'closed');
 
@@ -76,40 +83,61 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
     setArticleAccess(e);
   }, []);
 
+  const onNameFileChange = useCallback((value: string) => {
+    setNameFileError('');
+    setNameFile(value);
+  }, []);
+
+  const onFieldFileChange = useCallback((value: string) => {
+    setFieldFileError('');
+    setFieldFile(value);
+  }, []);
+
   const successCallback = useCallback(() => {
     onSaveSuccess();
   }, [onSaveSuccess]);
 
   const onSaveClick = useCallback(() => {
-    if (article) {
-      const { id } = article;
-      if (id) {
-        if (nodesLabelWithoutEdges.length > 0) {
-          const message = `Nodes without edges: ${nodesLabelWithoutEdges.join(', ')}`;
-          notification.info({ message });
-          return;
-        }
+    if (!article || !article.id) return;
+    const currentNameFileError = articleNameValidator(nameFile);
+    const currentFieldFileError = articleFieldValidator(fieldFile);
 
-        const isFieldsNotEmpty = (edge: GraphResponseType) =>
-          edge.subject !== '' && edge.object !== '' && edge.verb !== '';
-        const allEdgesFieldsFilled = graphData.every(isFieldsNotEmpty);
+    const combinedErrors = [currentNameFileError, currentFieldFileError].filter(Boolean).join(', ');
 
-        if (!allEdgesFieldsFilled) {
-          notification.info({ message: 'Node has no edges' });
-          return;
-        }
-
-        if (article.isPublic !== isOpen) {
-          dispatch(articlesChangeAccess({ articleId: id, isOpen }));
-        }
-        if (article.title !== nameFile || article.field !== fieldFile) {
-          dispatch(articlesUpdate({
-            articleId: id, title: nameFile, field: fieldFile,
-          }));
-        }
-        dispatch(articlesSaveGraph({ articleId: id, data: graphData, callback: successCallback }));
-      }
+    setNameFileError(currentNameFileError);
+    setFieldFileError(currentFieldFileError);
+        
+    if (combinedErrors) {
+      notification.info({ message: combinedErrors });
+      return;
     }
+
+    if (nodesLabelWithoutEdges.length > 0) {
+      const message = `Nodes without edges: ${nodesLabelWithoutEdges.join(', ')}`;
+      notification.info({ message });
+      return;
+    }
+
+    const isFieldsNotEmpty = (edge: GraphResponseType) =>
+      edge.subject !== '' && edge.object !== '' && edge.verb !== '';
+    const allEdgesFieldsFilled = graphData.every(isFieldsNotEmpty);
+
+    if (!allEdgesFieldsFilled) {
+      notification.info({ message: 'Node has no edges' });
+      return;
+    }
+
+    if (article.isPublic !== isOpen) {
+      dispatch(articlesChangeAccess({ articleId: article.id, isOpen }));
+    }
+    if (article.title !== nameFile || article.field !== fieldFile) {
+      dispatch(articlesUpdate({
+        articleId: article.id, title: nameFile, field: fieldFile,
+      }));
+    }
+    dispatch(articlesSaveGraph({
+      articleId: article.id, data: graphData, callback: successCallback,
+    }));
   }, [
     article, dispatch, fieldFile, graphData, isOpen,
     nameFile, nodesLabelWithoutEdges, successCallback,
@@ -140,19 +168,21 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           <div className={styles.storageFile__item}>
             File name:
             <TextInput
-              onChangeValue={setNameFile}
+              onChangeValue={onNameFileChange}
               value={nameFile}
               classNameContainer={styles.storageFile__item_input}
               classNameInputBox={styles.storageFile__item_input_box}
+              isError={nameFileError !== ''}
             />
           </div>
           <div className={styles.storageFile__item}>
             Field: 
             <TextInput
-              onChangeValue={setFieldFile}
+              onChangeValue={onFieldFileChange}
               value={fieldFile}
               classNameContainer={styles.storageFile__item_input}
               classNameInputBox={styles.storageFile__item_input_box}
+              isError={fieldFileError !== ''}
             />
           </div>
           <div className={styles.storageFile__item}>

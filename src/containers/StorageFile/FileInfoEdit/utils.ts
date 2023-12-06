@@ -34,3 +34,29 @@ export const arraysDeepEqual = (arr1: GraphResponseType[], arr2: GraphResponseTy
 
   return true;
 };
+
+export const articleNameValidator = (name: string) => {
+  if (!name) {
+    return 'Name required';
+  }
+  if (name.length < 8) {
+    return 'Name min 8 words';
+  }
+  if (name.length > 100) {
+    return 'Name max 100 words';
+  }
+  return '';
+};
+
+export const articleFieldValidator = (field: string) => {
+  if (!field) {
+    return 'Field required';
+  }
+  if (field.length < 8) {
+    return 'Field min 8 words';
+  }
+  if (field.length > 100) {
+    return 'Field max 100 words';
+  }
+  return '';
+};

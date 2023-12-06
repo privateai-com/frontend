@@ -19,6 +19,7 @@ import { articlesCreate, articlesGetMy, articlesGetUploadStatus } from 'store/ar
 import { articlesSelectors } from 'store/articles/selectors';
 import { profileSelectors } from 'store/profile/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
+import { notification } from 'utils';
 import { DragNDrop } from './DragNDrop';
 import { Item } from './Item';
 import { defaultArticle } from './constants';
@@ -66,6 +67,13 @@ export const Upload = () => {
 
   const onConfirmClick = () => {
     if (!doc) return;
+    const fileName = doc.name;
+
+    if (fileName.length > 100) {
+      notification.error({ message: 'File name cannot exceed 100 characters' });
+      return;
+    }
+
     dispatch(articlesCreate({
       file: doc,
       callback: () => {
