@@ -20,6 +20,7 @@ export enum ScreenWidth {
   desktop1920 = 1920,
   desktop1440 = 1440,
   notebook1024 = 1024,
+  notebook1280 = 1280,
   mobile = 576,
   bigMobile = 768,
 }

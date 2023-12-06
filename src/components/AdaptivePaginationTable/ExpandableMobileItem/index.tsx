@@ -41,7 +41,7 @@ const ExpandableMobileItem: FC<ItemProps> = ({
               className={styles.selected}
             />
           ) : (
-            name
+            <span className={styles.name}>{name}</span>
           )}
         </button>
 

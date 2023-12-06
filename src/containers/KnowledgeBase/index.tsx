@@ -48,8 +48,13 @@ export const KnowledgeBase: React.FC = () => {
 
   const isNewSearch = pagination?.search !== search;
 
+  const isLoading = statusGetArticles === RequestStatus.REQUEST 
+  || statusSearchArticles === RequestStatus.REQUEST;
+
+  const isHideArticles = !(isLoading && offset === 0 && isNewSearch); 
+
   useEffect(() => {
-    if (isNewSearch && search && search.length > 0) setOffset(0);
+    if (isNewSearch) setOffset(0);
   }, [isNewSearch, search]);
 
   useEffect(() => {
@@ -59,7 +64,7 @@ export const KnowledgeBase: React.FC = () => {
       search,
     };
     if (search && search.length > 0) {
-      if (isNewSearch) {
+      if (isNewSearch || offset !== 0) {
         dispatch(articlesSearch(payload));
       }
     }
@@ -70,15 +75,11 @@ export const KnowledgeBase: React.FC = () => {
       limit: itemsOnPageQuantity,
       offset: offset * itemsOnPageQuantity,
     };
-    if (!search) {
+    if (!search && !(isNewSearch && offset !== 0)) {
       dispatch(articlesGetAll(payload));
     }
-  }, [dispatch, offset, search]);
+  }, [dispatch, isNewSearch, offset, search]);
 
-  const isLoading = statusGetArticles === RequestStatus.REQUEST 
-    || statusSearchArticles === RequestStatus.REQUEST;
-  
-  const isHideArticles = !(isLoading && offset === 0); 
   return (
     <div className={styles.knowledge}>
       <div className={styles.knowledge_header}>

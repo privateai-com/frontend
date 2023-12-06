@@ -72,7 +72,10 @@ export const profileNotificationSubscribe = () => ({
   type: ProfileActionTypes.NotificationSubscribe,
 });
 
-export const profileNotificationMarkAsView = (payload: { requestId: number; }) => ({
+export const profileNotificationMarkAsView = (payload: { 
+  requestId: number;
+  callback?: () => void,
+}) => ({
   type: ProfileActionTypes.NotificationMarkAsView,
   payload,
 });

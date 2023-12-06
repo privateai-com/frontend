@@ -97,7 +97,7 @@
       padding: 0px 0px;
       text-overflow: ellipsis;
       overflow: hidden;
-
+      overflow-wrap: anywhere;
       &.td_clear {
         padding: 0 !important;
       }

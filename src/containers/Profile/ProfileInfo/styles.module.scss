@@ -122,6 +122,11 @@
 			}
 		}
 
+		.info_item {
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
 		@include mobile {
 			padding: 15px;
 			background-color: $color-white;
@@ -164,6 +169,12 @@
 	@include mobile {
 		margin: 15px 0;
 		padding: 15px;
+	}
+
+	.info_item {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		overflow-wrap: anywhere;
 	}
 }
 
@@ -241,4 +252,10 @@
 	@include mobile {
 		font-size: 14px;
 	}	
+}
+
+.info_item {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	overflow-wrap: anywhere;
 }

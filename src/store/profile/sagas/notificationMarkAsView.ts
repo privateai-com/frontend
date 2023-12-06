@@ -23,6 +23,8 @@ export function* profileNotificationMarkAsViewSaga({
 
     yield put(profileNotification());
 
+    if (payload.callback) payload.callback();
+
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
     sagaExceptionHandler(e);
