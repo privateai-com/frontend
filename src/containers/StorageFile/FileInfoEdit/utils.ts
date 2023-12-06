@@ -49,11 +49,8 @@ export const articleNameValidator = (name: string) => {
 };
 
 export const articleFieldValidator = (field: string) => {
-  if (!field) {
-    return 'Field required';
-  }
-  if (field.length < 8) {
-    return 'Field min 8 words';
+  if (field.length < 3) {
+    return 'Field min 3 words';
   }
   if (field.length > 100) {
     return 'Field max 100 words';
