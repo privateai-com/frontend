@@ -1,8 +1,10 @@
 import { memo, FC, useCallback } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
-import { backArrowIcon } from 'assets';
 import { useRouter } from 'next/router';
+
+import { backArrowIcon } from 'assets';
+import { queryTab, routes } from 'appConstants';
 
 import styles from './styles.module.scss';
 
@@ -20,11 +22,19 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
   onEdit,
 }) => {
   const router = useRouter();
+
   const onBackNavigate = useCallback(() => {
     if (isEdit) {
       onEdit();
       return;
     }
+
+    const { storageTab } = router.query;
+    if (typeof storageTab === 'string' && storageTab === queryTab.storageRequestedData) {
+      router.push(`${routes.storage.root}?storageTab=${queryTab.storageRequestedData}`);
+      return;
+    }
+
     router.back();
   }, [isEdit, onEdit, router]);
 

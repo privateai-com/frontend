@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -32,6 +32,17 @@ export const Storage = () => {
     }
   }, [router.query]);
 
+  const onTabArticles = useCallback(() => {
+    setTab(MyStorageTab.articles);
+    const { pathname } = router;
+    router.replace({ pathname, query: {} }, undefined, { shallow: true });
+  }, [router]);
+
+  const onTabRequested = useCallback(() => {
+    setTab(MyStorageTab.requested);
+    router.push(`?storageTab=${queryTab.storageRequestedData}`, undefined, { shallow: true });
+  }, [router]);
+
   return (
     <div className={styles.storage__container}>
       <div className={cx(styles.storage__head)}>
@@ -52,7 +63,7 @@ export const Storage = () => {
             className={
               tab === MyStorageTab.articles ? undefined : styles.secondary
             }
-            onClick={() => setTab(MyStorageTab.articles)}
+            onClick={onTabArticles}
             theme={tab === MyStorageTab.articles ? 'primary' : 'secondary'}
           >
             My articles
@@ -61,7 +72,7 @@ export const Storage = () => {
             className={
               tab === MyStorageTab.requested ? undefined : styles.secondary
             }
-            onClick={() => setTab(MyStorageTab.requested)}
+            onClick={onTabRequested}
             theme={tab === MyStorageTab.requested ? 'primary' : 'secondary'}
           >
             Requested data

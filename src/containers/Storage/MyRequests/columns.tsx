@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { RequestCell } from 'containers';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
-import { routes } from 'appConstants';
+import { queryTab, routes } from 'appConstants';
 import { requestDelete, requestDownload } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
@@ -90,7 +90,7 @@ export const useColumns = ({
             original: { title, articleId },
           },
         }: ItemRowProps<RequestedDataType>) =>
-          (title ? <Link href={`${routes.storage.root}/${articleId}`}>{title}</Link> : '-'),
+          (title ? <Link href={`${routes.storage.root}/${articleId}?storageTab=${queryTab.storageRequestedData}`}>{title}</Link> : '-'),
       },
       {
         Header: 'Core entities',
