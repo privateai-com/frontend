@@ -2,14 +2,21 @@
 @import "assets/styles/_mixins.scss";
 
 @mixin icon($url) {
+  line-height: normal;;
   &:before {
     content: "";
     position: absolute;
-    bottom: -2px;
+    // bottom: -2px
     left: -32px;
     height: 24px;
     width: 24px;
     background: url($url) no-repeat;
+    background-size: contain;
+
+    @include desktop1440 {
+      height: 20px;
+      width: 20px;
+    }
 
     @include tablet {
       left: -18px;
@@ -120,6 +127,7 @@
       margin-bottom: 40px;
       text-align: right;
       width: 250px;
+      // border: 1px solid red;
     }
   }
 

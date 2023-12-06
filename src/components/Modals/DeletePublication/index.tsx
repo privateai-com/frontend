@@ -14,7 +14,7 @@ const DeletePublication: React.FC<DeletePublicationProps> = ({
   onDelete,
   isLoading,
 }) => (
-  <ModalWithLogo onClose={onClose} classNameModal={styles.delete_pub_container}>
+  <ModalWithLogo onClose={onClose} classNameModal={styles.modal}>
     <div className={styles.delete_pub}>
       <span className={styles.delete_pub_text}>
         You are about to delete this publication.

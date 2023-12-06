@@ -38,10 +38,24 @@ export const Item: React.FC<ItemProps> = ({
 }) => {
   const isLoaded = percents === 100;
   const isMobile = useScreenWidth(ScreenWidth.mobile);
+  const isNotebook1024 = useScreenWidth(ScreenWidth.notebook1024);
+  const isBigMobile = useScreenWidth(ScreenWidth.bigMobile);
   const statusText = statusLabels[status];
 
   const getStatusBarWidthStyle: CSSProperties = {
     width: `${percents}%`,
+  };
+
+  const getName = () => {
+    if (name.length > 50) {
+      let maxWidth = 30;
+      if (isNotebook1024) maxWidth = 24;
+      if (isBigMobile) maxWidth = 20;
+      if (isMobile) maxWidth = 20;
+
+      return stringLongShortcut(name, maxWidth, 10);
+    }
+    return name; 
   };
 
   return (
@@ -50,7 +64,7 @@ export const Item: React.FC<ItemProps> = ({
         <span className={styles.item_filename}>
           {!isMobile && 'File name: '} 
           {' '}
-          {name.length > 50 ? stringLongShortcut(name, 30, 10) : name}
+          {getName()}
         </span>
         <span>{`${weight}`}</span>
       </div>

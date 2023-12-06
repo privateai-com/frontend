@@ -130,14 +130,14 @@ export const Upload = () => {
         if (storageItem && (!article.fileSize || !article.title)) {
           return {
             ...article,
-            fileSize: storageItem.fileSize * 1_000_000,
+            fileSize: storageItem.fileSize,
             title: storageItem.title,
           };
         }
       
         return {
           ...article,
-          fileSize: (article.fileSize ?? 0) * 1_000_000,
+          fileSize: (article.fileSize ?? 0),
         };
       }),
     );

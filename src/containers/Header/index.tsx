@@ -14,7 +14,7 @@ import {
   LogOut, 
 } from 'components';
 import { logoutIcon, ringIcon, userIcon } from 'assets';
-import { routes } from 'appConstants';
+import { ScreenWidth, routes } from 'appConstants';
 import { profileSelectors } from 'store/profile/selectors';
 import {
   profileNotification,
@@ -23,8 +23,8 @@ import {
   profileNotificationSubscribe,
 } from 'store/profile/actionCreators';
 
-import { useOnClickOutside } from 'hooks';
 import { getName } from 'utils';
+import { useOnClickOutside, useScreenWidth } from 'hooks';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
@@ -40,6 +40,7 @@ import styles from './styles.module.scss';
 export const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
 
   const { query: { search: searchDefault } } = router;
 
@@ -105,7 +106,7 @@ export const Header = () => {
         <TextInput
           value={search as string}
           onChangeValue={handleChange}
-          placeholder="Global search"
+          placeholder={isMobile ? 'Search' : 'Global search'}
           isSearch
           isClearable
           classNameInputBox={cx(styles.input_wrapper_input, {
