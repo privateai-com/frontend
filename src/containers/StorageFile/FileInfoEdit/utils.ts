@@ -39,21 +39,18 @@ export const articleNameValidator = (name: string) => {
   if (!name) {
     return 'Name required';
   }
-  if (name.length < 8) {
-    return 'Name min 8 words';
+  if (name.length < 1) {
+    return 'Name min 1 characters';
   }
   if (name.length > 100) {
-    return 'Name max 100 words';
+    return 'Name max 100 characters';
   }
   return '';
 };
 
 export const articleFieldValidator = (field: string) => {
-  if (field.length < 3) {
-    return 'Field min 3 words';
-  }
   if (field.length > 100) {
-    return 'Field max 100 words';
+    return 'Field max 100 characters';
   }
   return '';
 };
