@@ -24,7 +24,7 @@ export function* articlesCreateSaga({
       status: RequestStatus.REQUEST,
       percentUpload: 0,
       fileName: payload.file.name,
-      size: payload.file.size / 1_000_000,
+      size: payload.file.size,
       uploadStatus: UploadFileStatus.CREATED,
     }));
 

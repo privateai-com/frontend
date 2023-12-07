@@ -161,11 +161,11 @@ export const Item: React.FC<ItemProps> = ({
           <div className={styles.item_date_block}>
             <div className={styles.item_created_block}>
               <span className={styles.title}>Created</span>
-              {createdAt}
+              {formatDate(new Date(createdAt))}
             </div>
             <div className={styles.item_col_block}>
               <span className={styles.title}>Modified</span>
-              {updatedAt}
+              {formatDate(new Date(updatedAt))}
             </div>
           </div>
         </div>
