@@ -3,7 +3,7 @@ import { FC, useCallback, useState } from 'react';
 import {
   AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
-import { passwordValidator } from 'utils';
+import { passwordConfirmValidator, passwordValidator } from 'utils';
 
 import styles from './styles.module.scss';
 
@@ -21,17 +21,21 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
   const isNotError =
     passwordError === '' &&
     password &&
-    passwordConfirm &&
-    password === passwordConfirm;
+    passwordConfirm;
 
   const onConfirmClick = useCallback(() => {
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
+    const passwordConfirmError = passwordConfirmValidator(
+      password,
+      passwordConfirm,
+    );
+    if (passwordConfirmError) setPasswordError(passwordConfirmError);
 
     const isError = passwordError !== '' 
       || password === '' 
       || currentPasswordError !== '' 
-      || password !== passwordConfirm;
+      || passwordConfirmError;
 
     if (!isError) {
       onConfirm(password);

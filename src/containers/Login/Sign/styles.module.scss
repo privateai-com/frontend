@@ -17,7 +17,7 @@
 		margin: 50px 0 10px;
 	}
 
-	@include mobile {
+	@include desktop {
 		margin: 32px 0 10px;
 	}
 
@@ -34,7 +34,7 @@
 			margin-bottom: 50px;
 		}
 
-		@include mobile {
+		@include desktop {
 			margin-bottom: 30px;
 		}
 	}
