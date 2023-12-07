@@ -1,11 +1,13 @@
 import { emailRegex, passwordRegex } from 'appConstants';
 
-export const passwordValidator = (password: string) => {
+export const passwordValidator = (password: string, isLogin = false) => {
   if (!password) {
     return 'Password required';
   }
   if (password.length < 8) {
-    return 'Password min 8 characters';
+    return isLogin 
+      ? 'You have entered a wrong email address and/or password. Please check them and try one more time.'
+      : 'Password min 8 characters';
   }
   if (!new RegExp(passwordRegex).test(password)) {
     return 'Your password must be at least 8 characters long, be of mixed case and also contain at least one digit and at least one symbol.';

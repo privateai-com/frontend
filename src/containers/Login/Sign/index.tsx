@@ -28,6 +28,11 @@ interface SignProps {
   setEmail: (email: string) => void;
 }
 
+const initialLoginError = {
+  emailError: '',
+  passwordError: '',
+};
+
 export const Sign: FC<SignProps> = ({
   onRestore,
   email,
@@ -39,10 +44,7 @@ export const Sign: FC<SignProps> = ({
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [loginError, setLoginError] = useState({
-    emailError: '',
-    passwordError: '',
-  });
+  const [loginError, setLoginError] = useState(initialLoginError);
   const [walletError, setWalletError] = useState('');
 
   const status = useSelector(authSelectors.getStatus(AuthActionTypes.Login));
@@ -55,7 +57,6 @@ export const Sign: FC<SignProps> = ({
   const successCallback = useCallback(() => {
     router.push(routes.knowledge.root);
   }, [router]);
-
   const errorCallback = useCallback(
     (error: AuthErrorTransformResult) =>
       setLoginError({
@@ -69,7 +70,7 @@ export const Sign: FC<SignProps> = ({
 
   const handleSignInClick = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const currentPasswordError = passwordValidator(password);
+    const currentPasswordError = passwordValidator(password, true);
     setPasswordError(currentPasswordError);
     const currentEmailError = emailValidator(email);
     setEmailError(currentEmailError);
@@ -98,6 +99,7 @@ export const Sign: FC<SignProps> = ({
     (value: string) => {
       setEmailError('');
       setPasswordError('');
+      setLoginError(initialLoginError);
       setEmail(value.trim());
     },
     [setEmail],
@@ -106,6 +108,7 @@ export const Sign: FC<SignProps> = ({
   const onPasswordChange = useCallback((value: string) => {
     setEmailError('');
     setPasswordError('');
+    setLoginError(initialLoginError);
     setPassword(value.trim());
   }, []);
 
