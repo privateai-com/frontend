@@ -93,17 +93,17 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
 
   const onEmailChange = useCallback((value: string) => {
     setEmailError('');
-    setEmail(value);
+    setEmail(value.trim());
   }, []);
 
   const onPasswordChange = useCallback((value: string) => {
     setPasswordError('');
-    setPassword(value);
+    setPassword(value.trim());
   }, []);
 
   const onConfirmPasswordChange = useCallback((value: string) => {
     setPasswordError('');
-    setPasswordConfirm(value);
+    setPasswordConfirm(value.trim());
   }, []);
 
   const isEmptyInputs = !email || !password || !passwordConfirm;

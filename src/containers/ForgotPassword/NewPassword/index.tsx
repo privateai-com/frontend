@@ -40,7 +40,7 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
 
   const onPasswordChange = useCallback((value: string) => {
     setPasswordError('');
-    setPassword(value);
+    setPassword(value.trim());
   }, []);
 
   const onConfirmPasswordChange = useCallback((value: string) => {

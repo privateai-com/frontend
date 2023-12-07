@@ -97,7 +97,8 @@ export const Sign: FC<SignProps> = ({
   const onEmailChange = useCallback(
     (value: string) => {
       setEmailError('');
-      setEmail(value);
+      setPasswordError('');
+      setEmail(value.trim());
     },
     [setEmail],
   );
@@ -105,7 +106,7 @@ export const Sign: FC<SignProps> = ({
   const onPasswordChange = useCallback((value: string) => {
     setEmailError('');
     setPasswordError('');
-    setPassword(value);
+    setPassword(value.trim());
   }, []);
 
   useEffect(() => {
