@@ -24,26 +24,10 @@ import {
   ProfileActionTypes,
 } from 'store/profile/actionTypes';
 import { profileSelectors } from 'store/profile/selectors';
-import { normalizeUserInfo } from 'utils';
+import { normalizeUserInfo, notification } from 'utils';
 import { Footer } from '../Footer';
 import styles from './styles.module.scss';
-
-const UserSchema = z.object({
-  file: z.custom<File>(),
-  username: z.string().nullable(),
-  fullName: z.string().max(100).nonempty(),
-  socialLink: z.string().url().or(z.literal('')),
-  organization: z.string().max(100).nonempty(),
-  researchFields: z.string().max(100).nonempty(),
-  position: z.string().max(100).nonempty(),
-  country: z.string().optional().nullable().or(z.literal('')),
-}).required({
-  fullName: true,
-  file: true,
-  organization: true,
-  researchFields: true,
-  position: true,
-});
+import { UserSchema } from './schema';
 
 type UpdateProfileProps = {
   callbackLater: () => void;
@@ -158,9 +142,15 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     });
 
     if (res.success) {
-      saveData();
+      if (!data.username || !data.socialLink || !data.country) {
+        showEditProfileConfirm();
+      } else {
+        saveData();
+      }
     } else {
-      showEditProfileConfirm();
+      const errorMessages = res.error.errors.map((error) => error.message);
+      const combinedErrors = errorMessages.join(', ');
+      notification.info({ message: combinedErrors });
     }
   }, [avatar, username, socialMediaLink, organization, 
     researchFields, realName, position, location, saveData, showEditProfileConfirm]);
@@ -237,6 +227,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           classNameContainer={styles.input__container}
           classNameLabel={styles.labelInput}
           placeholder={username || `Archonaut#${id}`}
+          isError={validation?.error ? !!validation?.error['username'] : false}
         />
         <TextInput
           label="Location (Country and/or City)"
@@ -245,6 +236,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           classNameContainer={styles.input__container}
           classNameLabel={styles.labelInput}
           placeholder="e.g., London, UK"
+          isError={validation?.error ? !!validation?.error['country'] : false}
         />
       </div>
       <div className={cx(styles.wrapper, styles.info2)}>
