@@ -48,7 +48,7 @@
 	margin-bottom: 15px;
 	gap: 20px;
 
-	@include media-breakpoint-up(sm) {
+	@include media-breakpoint-up(md) {
 		grid-template-columns: auto auto;
 		grid-template-rows: 1fr;
 		margin-bottom: 25px;
@@ -89,13 +89,17 @@
 	&_auth {
 		display: flex;
 		align-items: center;
-		justify-content: flex-end;
+		justify-content: space-between;
 		color: $color-grey;
 		gap: 30px;
 
 		font-size: 20px;
 		font-weight: 500;
 		line-height: 24px;
+
+		@include media-breakpoint-up(md) {
+			justify-content: flex-end;
+		}
 
 		@include desktop1440 {
 			font-size: 16px;
