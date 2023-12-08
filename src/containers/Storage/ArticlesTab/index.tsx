@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AdaptivePaginationTable } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
-import { convertTitleFile } from 'utils';
+import { convertTitleFile, getStatusArticle } from 'utils';
 import { SortingDirection } from 'types';
 
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
@@ -67,6 +67,7 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
   const data = useMemo(() => articles.map((item) => ({
     ...item,
     title: convertTitleFile(item.title, 15),
+    uploadStatus: getStatusArticle(item.uploadStatus),
   })), [articles]);
 
   useEffect(() => {
