@@ -38,6 +38,8 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
     });
   }, []);
 
+  const itemsOnPageQuantityCurrent = isMobile ? 16 : itemsOnPageQuantity;
+
   const [selectSortingField, setSelectSortingField] = useState('id');
   const [selectSortingDirection, setSelectSortingDirection] = useState<SortingDirection>('DESC');
 
@@ -72,14 +74,14 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
 
   useEffect(() => {
     const payload = {
-      limit: itemsOnPageQuantity,
-      offset: offset * itemsOnPageQuantity,
+      limit: itemsOnPageQuantityCurrent,
+      offset: offset * itemsOnPageQuantityCurrent,
       sortingDirection: selectSortingDirection,
       sortingField: selectSortingField,
       doneStatus: true,
     };
     dispatch(articlesGetMy(payload));
-  }, [dispatch, offset, selectSortingDirection, selectSortingField]);
+  }, [dispatch, itemsOnPageQuantityCurrent, offset, selectSortingDirection, selectSortingField]);
 
   const pagination = useMemo(() => ({
     total,
