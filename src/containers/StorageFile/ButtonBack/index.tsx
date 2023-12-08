@@ -35,7 +35,13 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
       return;
     }
 
-    router.back();
+    const pageHistory = sessionStorage.getItem('pageHistory');
+    if (pageHistory && JSON.parse(pageHistory)[0] === routes.storage.root) {
+      router.push(routes.storage.root);
+      return;
+    }
+    
+    router.push(routes.knowledge.root);
   }, [isEdit, onEdit, router]);
 
   return (

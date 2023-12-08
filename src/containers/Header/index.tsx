@@ -109,6 +109,21 @@ export const Header = () => {
     }
   }, [pathname, router]);
 
+  useEffect(() => {
+    const newUrl = router.asPath;
+    let history = [];
+    const pageHistory = sessionStorage.getItem('pageHistory');
+    if (pageHistory) {
+      history = JSON.parse(pageHistory);
+    }
+    const isUrlInHistory = history.includes(newUrl);
+
+    if (!isUrlInHistory) {
+      const updatedHistory = [...history, router.asPath].slice(-2);
+      sessionStorage.setItem('pageHistory', JSON.stringify(updatedHistory));
+    }
+  }, [router.asPath]);
+
   return (
     <header className={styles.header}>
       <form className={styles.input_wrapper} onSubmit={handleSubmit}>
