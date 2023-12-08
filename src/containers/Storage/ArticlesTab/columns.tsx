@@ -35,7 +35,7 @@ export const useColumns = ({
             original: { id, title, uploadStatus },
           },
         }: ItemRowProps<Article>) =>
-          (['published', 'complete'].includes(uploadStatus) ? (
+          (['Published', 'Uploaded'].includes(uploadStatus) ? (
             <Link href={`${routes.storage.root}/${id}`}>{title}</Link>
           ) : (
             <div className={styles.empty_space}>{title}</div>
