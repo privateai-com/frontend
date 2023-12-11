@@ -28,13 +28,14 @@ const itemsMobile = [
     key: 'owner',
     cell: (value: RequestedDataType | ReactNode): ReactNode => {
       if (value && typeof value === 'object') {
-        const { ownerId, owner } = value as RequestedDataType;
+        const { ownerId, owner, id } = value as RequestedDataType;
         return (
           <RequestCell
             className={styles.requesterMobile}
             profileId={ownerId}
             titleModal="Owner"
             isHideButtonsRequester
+            id={id}
           >
             {owner}
           </RequestCell>

@@ -1,5 +1,6 @@
+import Image from 'next/image';
+
 import { chevronArrowIcons } from 'assets';
-import { ButtonIcon } from 'components';
 
 import styles from './styles.module.scss';
 
@@ -9,13 +10,10 @@ type TitleWithArrowsProps = {
 };
 
 const TitleWithArrows: React.FC<TitleWithArrowsProps> = ({ title, onClick }) => (
-  <div className={styles.title_wrapper}>
+  <button className={styles.title_wrapper} onClick={onClick}>
     <span className={styles.title_title}>{title}</span>
-    <ButtonIcon
-      image={chevronArrowIcons}
-      onClick={onClick}
-    />
-  </div>
+    <Image src={chevronArrowIcons} alt="arrow" />
+  </button>
 );
 
 export { TitleWithArrows };

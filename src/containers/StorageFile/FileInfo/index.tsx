@@ -120,6 +120,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
       dispatch(profileGetProfileUser({
         profileId: article?.owner.id,
         successCallback,
+        id: article?.owner.id,
       }));
     }
   }, [article?.owner.id, dispatch, isVipUser, successCallback]);

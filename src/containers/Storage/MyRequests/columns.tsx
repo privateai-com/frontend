@@ -99,8 +99,7 @@ export const useColumns = ({
           row: {
             original: { core },
           },
-        }: ItemRowProps<RequestedDataType>) =>
-          (core ? <p className={styles.columns_core}>{core}</p> : '-'),
+        }: ItemRowProps<RequestedDataType>) => core ?? '-',
       },
       {
         Header: (
@@ -116,9 +115,17 @@ export const useColumns = ({
         Cell: ({
           row: {
             original: { owner, ownerId },
+            index,
           },
         }: ItemRowProps<RequestedDataType>) =>
-          <RequestCell isHideButtonsRequester profileId={ownerId} titleModal="Owner">{owner}</RequestCell> || '-',
+          <RequestCell
+            isHideButtonsRequester
+            profileId={ownerId}
+            titleModal="Owner"
+            id={index}
+          >
+            {owner}
+          </RequestCell> || '-',
       },
       {
         Header: (

@@ -127,6 +127,7 @@ export const TabToMe = () => {
                 onConfirmButton={handleProvideMobile(id)}
                 onCancelButton={handleDeclineMobile(id)}
                 isHideButtonsRequester={!!approve}
+                id={id}
               >
                 See the profile details
               </RequestCell>

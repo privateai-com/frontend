@@ -44,6 +44,7 @@ export const profileGetProfile = () => ({
 
 export const profileGetProfileUser = (payload: {
   profileId: number,
+  id: number,
   successCallback: () => void,
 }) => ({
   type: ProfileActionTypes.GetProfileUser,

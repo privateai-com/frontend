@@ -11,7 +11,7 @@ export function* profileGetProfileUserSaga({
   payload,
 }: ReturnType<typeof profileGetProfileUser>) {
   try {
-    yield put(profileSetStatusRequester({ id: payload.profileId, status: RequestStatus.REQUEST }));
+    yield put(profileSetStatusRequester({ id: payload.id, status: RequestStatus.REQUEST }));
 
     const endpoint = `${ApiEndpoint.ProfileGetUser}?profileId=${payload.profileId}`;
 
@@ -25,9 +25,9 @@ export function* profileGetProfileUserSaga({
       if (payload.successCallback) payload.successCallback();
     }
     
-    yield put(profileSetStatusRequester({ id: payload.profileId, status: RequestStatus.SUCCESS }));
+    yield put(profileSetStatusRequester({ id: payload.id, status: RequestStatus.SUCCESS }));
   } catch (e) {
     sagaExceptionHandler(e);
-    yield put(profileSetStatusRequester({ id: payload.profileId, status: RequestStatus.ERROR }));
+    yield put(profileSetStatusRequester({ id: payload.id, status: RequestStatus.ERROR }));
   }
 }

@@ -101,6 +101,7 @@ export const useColumns = ({
             original: {
               id, requester, approve, requesterId,
             },
+            index,
           },
         }: ItemRowProps<RequestsType>) =>
           (requester ? (
@@ -110,6 +111,7 @@ export const useColumns = ({
               onConfirmButton={handleProvide(id)}
               onCancelButton={handleDecline(id)}
               isHideButtonsRequester={!!approve}
+              id={index}
             >
               See the profile details
             </RequestCell>

@@ -105,10 +105,11 @@ export const Item: React.FC<ItemProps> = ({
       onCancelButton={hideAccessConfirm}
       isHideButtonsRequester
       isDisabled={isDisabled}
+      id={id}
     >
       {getName(fullName, username, ownerId) ?? ''}
     </RequestCell> 
-  ), [fullName, hideAccessConfirm, isDisabled, ownerId, showAccessConfirm, username]);
+  ), [fullName, hideAccessConfirm, id, isDisabled, ownerId, showAccessConfirm, username]);
 
   if (isMobile) {
     return (

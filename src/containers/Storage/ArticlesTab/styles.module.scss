@@ -91,8 +91,17 @@
 
 .availability {
 	display: flex;
+	justify-content: flex-end;
 }
 
 .containerLoader {
   @include containerLoader();
+}
+
+.link {
+	font-size: 16px;
+
+	@include media-breakpoint-up(xxxl) {
+		font-size: 20px;	
+	}
 }

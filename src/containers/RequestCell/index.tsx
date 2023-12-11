@@ -12,6 +12,7 @@ import { profileGetProfileUser } from 'store/profile/actionCreators';
 import styles from './styles.module.scss';
 
 type RequestCellProps = {
+  id: number;
   requester?: string;
   children: ReactNode;
   titleModal?: string;
@@ -27,11 +28,11 @@ type RequestCellProps = {
 const RequestCell: React.FC<RequestCellProps> = ({
   requester, children, className = '', profileId, classNameRequester = '',
   isHideButtonsRequester = false, onConfirmButton, onCancelButton, isDisabled,
-  titleModal = 'Requester',
+  titleModal = 'Requester', id,
 }) => {
   const dispatch = useDispatch();
   const requesterUser = useSelector(profileSelectors.getPropRequester(profileId), shallowEqual);
-  const status = useSelector(profileSelectors.getStatusRequester(profileId));
+  const status = useSelector(profileSelectors.getStatusRequester(id));
 
   const isLoading = status === RequestStatus.REQUEST;
 
@@ -79,9 +80,10 @@ const RequestCell: React.FC<RequestCellProps> = ({
       dispatch(profileGetProfileUser({
         profileId,
         successCallback,
+        id,
       }));
     }
-  }, [dispatch, isDisabled, profileId, successCallback]);
+  }, [dispatch, id, isDisabled, profileId, successCallback]);
 
   return (
     <>
