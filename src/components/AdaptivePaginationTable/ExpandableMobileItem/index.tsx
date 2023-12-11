@@ -15,6 +15,7 @@ type ItemProps = {
   children: ReactNode;
   searchWord?: string;
   id: number;
+  href?: string;
 };
 
 const ExpandableMobileItem: FC<ItemProps> = ({
@@ -23,8 +24,10 @@ const ExpandableMobileItem: FC<ItemProps> = ({
   children,
   searchWord,
   id,
+  href,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const articleHref = href || `${routes.storage.root}/${id}`;
 
   return (
     <div className={cx(styles.item_container, className)}>
@@ -45,7 +48,7 @@ const ExpandableMobileItem: FC<ItemProps> = ({
           )}
         </button>
 
-        <Link href={`${routes.storage.root}/${id}`}>
+        <Link href={articleHref}>
           <Image
             src={arrowGreenIcon}
             alt="arrow"

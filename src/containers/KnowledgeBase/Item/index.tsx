@@ -1,25 +1,18 @@
 import { useMemo } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tooltip } from 'react-tooltip';
-import Link from 'next/link';
 
-import {
-  Typography, SelectedText, AccessConfirm, 
-} from 'components';
+import { AccessConfirm } from 'components';
 import { RequestCell } from 'containers';
-import { routes } from 'appConstants';
 import { Article, RequestStatus, StatusAccessArticle } from 'types';
-import {
-  formatDate,
-  getName, getStatusAccessArticle, 
-} from 'utils';
+import { getName, getStatusAccessArticle } from 'utils';
 import { requestCreate } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
-import { ExpandableMobileItem } from 'components/AdaptivePaginationTable/ExpandableMobileItem';
 
 import styles from './styles.module.scss';
+import { ItemMobile } from './ItemMobile';
+import { ItemDesktop } from './ItemDesktop';
 
 const textStatus = {
   [StatusAccessArticle.OpenSource]: 'Open sourced', 
@@ -119,146 +112,36 @@ export const Item: React.FC<ItemProps> = ({
 
   if (isMobile) {
     return (
-      <ExpandableMobileItem
-        name={title}
-        searchWord={search}
-        id={id}
-      >
-        <div>
-          <div className={styles.item_row_block}>
-            <span className={getStatusStyle()}>{status}</span>
-          </div>
-          <div className={styles.item_row_block}>
-            <span className={styles.title}>Field: </span>
-            <SelectedText
-              key={`field_mobile_${id}`}
-              text={field}
-              searchWord={search}
-              className={styles.selected}
-              classNameContainer={styles.selected_container}
-              tooltipId={`field_mobile_${id}`}
-            />
-            {(field && field.length > 18) && (
-              <Tooltip
-                id={`field_mobile_${id}`}
-                place="top"
-                className={styles.tooltip}
-                noArrow
-                offset={-10}
-              >
-                {field}
-              </Tooltip>
-            )}
-          </div>
-          <div className={styles.item_row_block}>
-            <span className={styles.title}>Owner: </span>
-            {requester}
-          </div>
-          <div className={styles.item_col_block}>
-            <span className={styles.title}>Core entities: </span>
-            <span className={styles.item_core}>{topCoreEntities ?? '-'}</span>
-          </div>
-          <div className={styles.item_date_block}>
-            <div className={styles.item_created_block}>
-              <span className={styles.title}>Created</span>
-              {formatDate(new Date(createdAt))}
-            </div>
-            <div className={styles.item_col_block}>
-              <span className={styles.title}>Modified</span>
-              {formatDate(new Date(updatedAt))}
-            </div>
-          </div>
-        </div>
-      </ExpandableMobileItem>
+      <ItemMobile
+        title={title}
+        id={id} 
+        createdAt={createdAt}
+        updatedAt={updatedAt}
+        field={field}
+        classNameStatus={getStatusStyle()}
+        requester={requester}
+        status={status}
+        search={search}
+        topCoreEntities={topCoreEntities}
+      />
     );
   }
 
   return (
-    <div className={styles.item}>
-      <div className={styles.item_content_block}>
-        <div className={styles.item_first_block}>
-          <Link href={`${routes.storage.root}/${id}`}>
-            <Typography
-              className={styles.item_title}
-              type="h4"
-            >
-              <SelectedText
-                key={`title_${id}`}
-                text={title}
-                searchWord={search}
-                className={styles.selected}
-                classNameContainer={styles.selected_container}
-                tooltipId={`title_${id}`}
-              />
-              {(title && title.length > 60) && (
-                <Tooltip
-                  id={`title_${id}`}
-                  place="top"
-                  className={styles.tooltip}
-                  noArrow
-                  offset={-10}
-                >
-                  {title}
-                </Tooltip>
-              )}
-            </Typography>
-          </Link>
-          <div className={styles.item_description_block}>
-            <div className={styles.item_field_author_block}>
-              <div className={styles.item_row_block}>
-                <span className={styles.title}>Field: </span>
-                <SelectedText
-                  key={`field_${id}`}
-                  text={field}
-                  searchWord={search}
-                  className={styles.selected}
-                  classNameContainer={styles.selected_container}
-                  tooltipId={`field_${id}`}
-                />
-                {(field && field.length > 18) && (
-                  <Tooltip
-                    id={`field_${id}`}
-                    place="top"
-                    className={styles.tooltip}
-                    noArrow
-                    offset={-10}
-                  >
-                    {field}
-                  </Tooltip>
-                )}
-              </div>
-              <div className={styles.item_row_block}>
-                <span className={styles.title}>Owner: </span>
-                {requester}
-              </div>
-            </div>
-            <div className={styles.item_col_block}>
-              <span className={styles.title}>Core entities</span>
-              <span className={styles.item_core}>{topCoreEntities ?? '-'}</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.item_second_block}>
-          <button 
-            onClick={(status === StatusAccessArticle.PermissionNeeded && !isDisabled)
-              ? showAccessConfirm
-              : () => {}} 
-            className={styles.buttonShowAccess}
-          >
-            <span className={getStatusStyle()}>{textStatus[status]}</span>
-          </button>
-          <div className={styles.item_date_block}>
-            <div className={styles.item_created_block}>
-              <span className={styles.title}>Created</span>
-              {formatDate(new Date(createdAt))}
-            </div>
-            <div className={styles.item_col_block}>
-              <span className={styles.title}>Modified</span>
-              {formatDate(new Date(updatedAt))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ItemDesktop
+      title={title}
+      id={id} 
+      createdAt={createdAt}
+      updatedAt={updatedAt}
+      field={field}
+      classNameStatus={getStatusStyle()}
+      requester={requester}
+      status={status}
+      textStatus={textStatus[status]}
+      search={search}
+      topCoreEntities={topCoreEntities}
+      isDisabled={isDisabled}
+      showAccessConfirm={showAccessConfirm}
+    />
   );
 };

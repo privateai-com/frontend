@@ -4,14 +4,14 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  AdaptivePaginationTable, ButtonIcon, 
+  AdaptivePaginationTable, ButtonIcon, Loader, 
 } from 'components';
 import { RequestCell } from 'containers';
-import { itemsOnPageQuantity } from 'appConstants';
+import { itemsOnPageQuantity, queryTab, routes } from 'appConstants';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestGetMyRequests } from 'store/request/actionCreators';
-import { SortingDirection } from 'types';
+import { RequestStatus, SortingDirection } from 'types';
 import { convertTitleFile, getName } from 'utils';
 import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
@@ -103,6 +103,8 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
   const statusGetMyRequests = useSelector(
     requestSelectors.getStatus(RequestActionTypes.GetMyRequests),
   );
+  const isLoading = statusGetMyRequests === RequestStatus.REQUEST;
+  const isHideRequests = !(isLoading && offset === 0); 
 
   const content = useMemo(() => myRequests.map((item) => {
     function getStatus() {
@@ -128,6 +130,7 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
       isOwnerViewed: item.isOwnerViewed, 
       approve: item.approve,
       status,
+      href: `${routes.storage.root}/${item.id}?storageTab=${queryTab.storageRequestedData}`,
       other: (
         <div className={styles.table_mobile_block_status}>
           <div>
@@ -165,14 +168,23 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
   }), [increaseOffset, offset, statusGetMyRequests, total]);
   
   return (
-    <AdaptivePaginationTable
-      columns={columns}
-      content={content}
-      classNameTableContainer={styles.table}
-      itemsMobile={itemsMobile}
-      pagination={pagination}
-      isMobile={isMobile}
-      classNameMobile={styles.tableMobile}
-    />
+    <>
+      {isHideRequests && (
+        <AdaptivePaginationTable
+          columns={columns}
+          content={content}
+          classNameTableContainer={styles.table}
+          itemsMobile={itemsMobile}
+          pagination={pagination}
+          isMobile={isMobile}
+          classNameMobile={styles.tableMobile}
+        />
+      )}
+      {isLoading && (
+        <div className={styles.containerLoader}>
+          <Loader size={64} />
+        </div>
+      )}
+    </>
   );
 };

@@ -3,10 +3,10 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AdaptivePaginationTable } from 'components';
+import { AdaptivePaginationTable, Loader } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
 import { convertTitleFile, getStatusArticle } from 'utils';
-import { SortingDirection } from 'types';
+import { RequestStatus, SortingDirection } from 'types';
 
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesGetMy } from 'store/articles/actionCreators';
@@ -66,7 +66,10 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
     articlesSelectors.getStatus(ArticlesActionTypes.GetMyArticles),
   );
 
-  const data = useMemo(() => articles.map((item) => ({
+  const isLoading = statusGetMyArticles === RequestStatus.REQUEST;
+  const isHideRequests = !(isLoading && offset === 0); 
+
+  const content = useMemo(() => articles.map((item) => ({
     ...item,
     title: convertTitleFile(item.title, 15),
     uploadStatus: getStatusArticle(item.uploadStatus),
@@ -91,14 +94,23 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
   }), [increaseOffset, offset, statusGetMyArticles, total]);
 
   return (
-    <AdaptivePaginationTable
-      columns={columns}
-      content={data}
-      classNameTableContainer={styles.table}
-      pagination={pagination}
-      itemsMobile={itemsMobile}
-      isMobile={isMobile}
-      classNameMobile={styles.tableMobile}
-    />
+    <>
+      {isHideRequests && (
+        <AdaptivePaginationTable
+          columns={columns}
+          content={content}
+          classNameTableContainer={styles.table}
+          pagination={pagination}
+          itemsMobile={itemsMobile}
+          isMobile={isMobile}
+          classNameMobile={styles.tableMobile}
+        />
+      )}
+      {isLoading && (
+        <div className={styles.containerLoader}>
+          <Loader size={64} />
+        </div>
+      )}
+    </>
   );
 };

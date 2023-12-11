@@ -60,4 +60,11 @@ $border-radius: 8px;
   text-align: left;
   align-items: flex-start;
   justify-content: flex-start;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.containerLoader {
+  @include containerLoader();
 }

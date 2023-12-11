@@ -52,6 +52,9 @@
 .requesterMobile {
   margin-top: 2px;
   justify-content: flex-start;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  overflow-wrap: anywhere;
 }
 
 .table {

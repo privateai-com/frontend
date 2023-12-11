@@ -4,15 +4,15 @@ import {
   useCallback, useEffect, useMemo, useState, 
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AdaptivePaginationTable } from 'components';
+import { AdaptivePaginationTable, Loader } from 'components';
 import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { RequestCell } from 'containers/RequestCell';
 import { RequestedDataType } from 'containers/Storage/MyRequests/types';
 import { requestSelectors } from 'store/request/selectors';
-import { requestAnswer, requestToMe } from 'store/request/actionCreators';
+import { requestAnswer, requestSetState, requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { useScreenWidth } from 'hooks';
-import { SortingDirection } from 'types';
+import { RequestStatus, SortingDirection } from 'types';
 import { convertTitleFile, formatDate, getName } from 'utils';
 import { useColumns } from './columns';
 
@@ -56,6 +56,10 @@ export const TabToMe = () => {
   const statusGetRequestsToMe = useSelector(
     requestSelectors.getStatus(RequestActionTypes.GetRequestsToMe),
   );
+
+  const isLoading = statusGetRequestsToMe === RequestStatus.REQUEST;
+
+  const isHideRequests = !(isLoading && offset === 0); 
 
   const content = useMemo(() => requestsToMe.map((item) => ({
     id: item.id,
@@ -133,15 +137,28 @@ export const TabToMe = () => {
       },
     ];
   }, [dispatch]);
+
+  useEffect(() => () => {
+    if (isMobile) dispatch(requestSetState({ requestsToMe: [] }));
+  }, [dispatch, isMobile]);
   
   return (
-    <AdaptivePaginationTable
-      columns={columns}
-      content={content}
-      itemsMobile={itemsMobile}
-      classNameTableContainer={styles.table}
-      pagination={pagination}
-      isMobile={isMobile}
-    />
+    <>
+      {isHideRequests && (
+        <AdaptivePaginationTable
+          columns={columns}
+          content={content}
+          itemsMobile={itemsMobile}
+          classNameTableContainer={styles.table}
+          pagination={pagination}
+          isMobile={isMobile}
+        />
+      )}
+      {isLoading && (
+        <div className={styles.containerLoader}>
+          <Loader size={64} />
+        </div>
+      )}
+    </>
   );
 };

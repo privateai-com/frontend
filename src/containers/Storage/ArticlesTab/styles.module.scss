@@ -91,5 +91,8 @@
 
 .availability {
 	display: flex;
-	
+}
+
+.containerLoader {
+  @include containerLoader();
 }

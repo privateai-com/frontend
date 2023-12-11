@@ -55,6 +55,7 @@ export const MobileTable: React.FC<AdaptivePaginationTableProps> = ({
             state: key === 'owner' ? content[ind] : content[ind][key] as string, 
             cell,
           }))}
+          href={iter?.href}
         />
       ))}
       {endElementForScroll}

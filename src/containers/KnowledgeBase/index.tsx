@@ -6,7 +6,7 @@ import { Loader, Typography } from 'components';
 import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { usePagination, useScreenWidth, useVipUser } from 'hooks';
 
-import { articlesGetAll, articlesSearch } from 'store/articles/actionCreators';
+import { articlesGetAll, articlesSearch, articlesSetState } from 'store/articles/actionCreators';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import { RequestStatus } from 'types';
@@ -79,6 +79,10 @@ export const KnowledgeBase: React.FC = () => {
       dispatch(articlesGetAll(payload));
     }
   }, [dispatch, isNewSearch, offset, search]);
+
+  useEffect(() => () => {
+    if (isMobile) dispatch(articlesSetState({ articlesAll: [] }));
+  }, [dispatch, isMobile]);
 
   return (
     <div className={styles.knowledge}>

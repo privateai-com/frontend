@@ -34,8 +34,9 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
       router.push(`${routes.storage.root}?storageTab=${queryTab.storageRequestedData}`);
       return;
     }
-
+     
     const pageHistory = sessionStorage.getItem('pageHistory');
+
     if (pageHistory && JSON.parse(pageHistory)[0] === routes.storage.root) {
       router.push(routes.storage.root);
       return;

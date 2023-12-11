@@ -5,6 +5,7 @@ import { ExpandableMobileItem } from '../ExpandableMobileItem';
 
 interface ItemProps {
   className?: string;
+  href?: string;
   name: string;
   items: {
     title: string | null;
@@ -21,11 +22,13 @@ export const MobileTableItem: FC<ItemProps> = ({
   id,
   other,
   items,
+  href,
 }) => (
   <ExpandableMobileItem
     className={className}
     name={name}
     id={id}
+    href={href}
   >
     {items.map((item) => (
       <div className={styles.item_item}>
