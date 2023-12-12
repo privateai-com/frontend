@@ -30,25 +30,26 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
     }
 
     const storageUrl = routes.storage.root;
-
     const { storageTab } = router.query;
     if (typeof storageTab === 'string' && storageTab === queryTab.storageRequestedData) {
       router.push(`${storageUrl}?storageTab=${queryTab.storageRequestedData}`);
       return;
     }
-     
-    const pageHistory = sessionStorage.getItem('pageHistory');
-    if (
-      pageHistory &&
-      JSON.parse(pageHistory)?.some((url: string) => url === storageUrl || url.includes(storageUrl))
-    ) {
-      router.push(storageUrl);
-      return;
-    }
 
+    const pageHistory = sessionStorage.getItem('pageHistory');
     if (pageHistory && JSON.parse(pageHistory)[0] === routes.requests.root) {
       router.push(routes.requests.root);
       return;
+    }
+     
+    if (pageHistory) {
+      const history = JSON.parse(pageHistory);
+      const containsSubstring = history.some((url: string | string[]) => url.includes(storageUrl));
+
+      if (containsSubstring || history.includes(storageUrl)) {
+        router.push(storageUrl);
+        return;
+      }
     }
     
     router.push(routes.knowledge.root);

@@ -116,8 +116,7 @@ export const Header = () => {
     if (pageHistory) {
       history = JSON.parse(pageHistory);
     }
-    const isUrlInHistory = history.includes(newUrl);
-
+    const isUrlInHistory = history[1].includes(newUrl);
     if (!isUrlInHistory) {
       const updatedHistory = [...history, router.asPath].slice(-2);
       sessionStorage.setItem('pageHistory', JSON.stringify(updatedHistory));
