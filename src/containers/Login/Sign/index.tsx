@@ -140,8 +140,8 @@ export const Sign: FC<SignProps> = ({
           className={styles.button_connect}
           onClick={onConnectWallet}
           type="button"
-          isLoading={statusConnect === RequestStatus.REQUEST}
-          disabled={isMobile}
+          isLoading={statusConnect === RequestStatus.REQUEST && walletError === ''}
+          disabled={isMobile || walletError !== ''}
         >
           Sign in with your wallet
           <Image

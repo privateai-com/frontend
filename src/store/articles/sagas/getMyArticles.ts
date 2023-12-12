@@ -32,7 +32,7 @@ export function* articlesGetMySaga({
     yield put(articlesSetState({ 
       [storeName]: [...articles, ...data[0].map((item) => ({
         ...item,
-        fileSize: (item.fileSize ?? 0) * 1_000_000,
+        fileSize: (item.fileSize ?? 0) * 1_048_576,
       }))],
       total: data[1], 
       pagination: payload,

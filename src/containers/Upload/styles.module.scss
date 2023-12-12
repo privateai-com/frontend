@@ -33,6 +33,7 @@ $btn-height1024: 130px;
     margin-bottom: 25px;
     font-size: 38px;
     font-weight: 700;
+    line-height: normal;
 
     @include desktop1440 {
       margin-bottom: 16px;

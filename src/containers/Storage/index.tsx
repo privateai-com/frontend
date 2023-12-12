@@ -52,7 +52,7 @@ export const Storage = () => {
         >
           <Typography
             className={cx(styles.storage__title)}
-            type="h1"
+            type="h3"
           >
             My storage
           </Typography>

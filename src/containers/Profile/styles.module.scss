@@ -145,6 +145,9 @@
 .title {
 	min-width: fit-content;
 	padding-right: 5px;
+	line-height: normal;
+	align-self: flex-start;
+	
 	@include desktop1024 {
 		font-size: 32px !important;
 	}
