@@ -21,6 +21,8 @@ const statusLabels: StatusLabelsType = {
   [UploadFileStatus.CREATED]: 'Uploading',
   [UploadFileStatus.PROCESSING]: 'Processing',
   [UploadFileStatus.UPLOADED]: 'Uploaded',
+  [UploadFileStatus.QUEUE]: 'Queue',
+  [UploadFileStatus.ERROR]: 'Error',
 };
 
 type ItemProps = {
@@ -28,13 +30,14 @@ type ItemProps = {
   weight: string;
   timeToUploaded: number;
   // timeToProcessing: number;
+  onCancel: () => void;
   idArticle?: number;
   percents: number;
   status: UploadFileStatus;
 };
 
 export const Item: React.FC<ItemProps> = ({ 
-  name, weight, percents, timeToUploaded, status,
+  name, weight, percents, timeToUploaded, status, onCancel,
 }) => {
   const isLoaded = percents === 100;
   const isMobile = useScreenWidth(ScreenWidth.mobile);
@@ -128,7 +131,7 @@ export const Item: React.FC<ItemProps> = ({
             </div>
           ) : (
             <div className={styles.item_indication_block}>
-              <div className={styles.item_circle} />
+              <button className={styles.item_circle} onClick={onCancel} />
               <button
                 className={styles.item_disabled_btn}
                 disabled

@@ -15,7 +15,10 @@ import {
 import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { Article, RequestStatus, UploadFileStatus } from 'types';
 
-import { articlesCreate, articlesGetMy, articlesGetUploadStatus } from 'store/articles/actionCreators';
+import { 
+  articlesCancelUpload, articlesCreate, articlesGetMy, 
+  articlesGetUploadStatus,
+} from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { profileSelectors } from 'store/profile/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
@@ -96,6 +99,7 @@ export const Upload = () => {
   const {
     dataStorage,
     addItemStorage,
+    removeItemByIdStorage,
     getItemByIdStorage,
   } = useLocalStorage('articles');
 
@@ -177,6 +181,27 @@ export const Upload = () => {
     increaseOffset,
   });
 
+  const handleCancelUpload = useCallback((articleId: number) => () => {
+    dispatch(articlesCancelUpload({
+      articleId,
+      isHidden: true,
+      callback: () => {
+        removeItemByIdStorage(`${articleId}`);
+        setUploadArticles(() => (Object.values(upload)
+          .filter((uploadArticle) => uploadArticle.idArticle !== articleId)
+          .map((uploadData) => ({
+            ...defaultArticle,
+            id: uploadData.idArticle || Number(uploadData.id),
+            title: uploadData.fileName,
+            uploadProgress: uploadData.percentUpload,
+            fileSize: uploadData.size,
+            status: uploadData.status,
+          }))));
+        dispatch(articlesGetMy(queryParams));
+      },
+    }));
+  }, [dispatch, queryParams, removeItemByIdStorage, upload]);
+
   const isDisabledUploadFile = isVipUser || !userFilledAllInfo;
 
   return (
@@ -253,6 +278,7 @@ export const Upload = () => {
                 }) => (
                   <Item
                     key={id}
+                    onCancel={handleCancelUpload(id)}
                     name={`${title}`}
                     percents={uploadStatus === UploadFileStatus.CREATED
                       ? uploadProgress

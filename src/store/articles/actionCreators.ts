@@ -46,6 +46,15 @@ export const articlesPublish = (payload: {
   payload,
 });
 
+export const articlesCancelUpload = (payload: {
+  articleId: number;
+  isHidden: boolean;
+  callback: () => void;
+}) => ({
+  type: ArticlesActionTypes.CancelUpload,
+  payload,
+});
+
 export const articlesUpdate = (payload: {
   articleId: number;
   title: string;

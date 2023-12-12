@@ -11,4 +11,6 @@ export enum UploadFileStatus {
   PROCESSING = 'processing',
   COMPLETE = 'complete',
   PUBLISHED = 'published',
+  QUEUE = 'queue',
+  ERROR = 'error',
 }

@@ -163,7 +163,7 @@ export const Header = () => {
           </div>
         )} */}
       </form>
-      <span>{getName(fullName, username, userId) ?? ''}</span>
+      <span className={styles.username}>{getName(fullName, username, userId) ?? ''}</span>
       <ButtonIcon
         className={styles.button}
         image={userIcon}

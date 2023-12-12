@@ -272,6 +272,10 @@
 }
 
 .storageFile__item_button {
+	max-width:  auto;
+	text-overflow: ellipsis;
+	overflow: hidden;
+
 	color: $color-green;
 	text-decoration: underline;
 	font-size: 14px;

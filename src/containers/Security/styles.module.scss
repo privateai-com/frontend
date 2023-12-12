@@ -8,7 +8,8 @@
   &_title {
     font-size: 38px;
     margin-bottom: 25px;
-
+    line-height: normal;
+    
     @include desktop1440 {
       margin-bottom: 16px;
       font-size: 32px;

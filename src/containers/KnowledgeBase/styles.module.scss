@@ -4,7 +4,7 @@
 .knowledge {
   position: relative;
   height: 100%;
-
+  
   &_header {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -15,6 +15,7 @@
     margin-bottom: 25px;
     font-size: 38px;
     font-weight: 700;
+    line-height: normal;
 
     @include desktop1440 {
       margin-bottom: 20px;
