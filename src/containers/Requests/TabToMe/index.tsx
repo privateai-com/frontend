@@ -116,13 +116,13 @@ export const TabToMe = () => {
         cell: (value: RequestedDataType | ReactNode): ReactNode => {
           if (value && typeof value === 'object') {
             const { 
-              ownerId, requester, approve, id,
+              requesterId, requester, approve, id,
             } = value as RequestedDataType;
             return (
               <RequestCell
                 className={styles.requesterMobile}
                 classNameRequester={styles.requesterMobile}
-                profileId={ownerId}
+                profileId={requesterId}
                 requester={requester}
                 onConfirmButton={handleProvideMobile(id)}
                 onCancelButton={handleDeclineMobile(id)}
