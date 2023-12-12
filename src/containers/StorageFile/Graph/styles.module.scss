@@ -21,7 +21,7 @@
 	margin-bottom: 20px;
 
 	& > h1 {
-		@include adaptive-font-size(18, 32, 32, 32, 38);
+		@include adaptive-font-size-static(18, 32, 32, 32, 38);
 	}
 
 	&_owner {
@@ -73,7 +73,7 @@
 
 	& > h2 {
 		margin-top: auto;
-		@include adaptive-font-size(14, 24, 24, 24, 32);
+		@include adaptive-font-size-static(14, 24, 24, 24, 32);
 
 		@include media-breakpoint-up(fhd) {
 			padding-top: 20px;
@@ -135,7 +135,7 @@
 			color: $color-grey;
 			font-weight: 500;
 			max-width: 118px;
-			@include adaptive-font-size(14, 14, 16, 16, 16);
+			@include adaptive-font-size-static(14, 14, 16, 16, 16);
 			line-height: 16px;
 
 			@include media-breakpoint-up(md) {

@@ -216,6 +216,6 @@
 	}
 
 	& > h1 {
-		@include adaptive-font-size(18, 32, 32, 32, 38);
+		@include adaptive-font-size-static(18, 32, 32, 32, 38);
 	}
 }
