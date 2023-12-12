@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 
 import { routes } from 'appConstants';
-import { getStatusArticle } from 'utils';
 import { Article, ItemRowProps } from 'types';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { DeleteBtn } from './DeleteBtn';
@@ -67,12 +66,12 @@ export const useColumns = ({
           (uploadStatus ? (
             <p
               className={
-                uploadStatus === 'published' ? styles.green_text : styles.status
+                uploadStatus.toLowerCase() === 'published' ? styles.green_text : styles.status
               }
             >
-              {getStatusArticle(uploadStatus)} 
+              {uploadStatus} 
               {' '}
-              {uploadStatus === 'processing' ? `- ${uploadProgress}%` : ''}
+              {uploadStatus.toLowerCase() === 'processing' ? `- ${uploadProgress}%` : ''}
             </p>
           ) : (
             '-'
