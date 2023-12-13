@@ -27,6 +27,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'backend-demo.privateai.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }
