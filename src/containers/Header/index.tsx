@@ -116,9 +116,15 @@ export const Header = () => {
     if (pageHistory) {
       history = JSON.parse(pageHistory);
     }
-    const isUrlInHistory = history[1].includes(newUrl);
-    if (!isUrlInHistory) {
-      const updatedHistory = [...history, router.asPath].slice(-2);
+    if (history.length > 1) {
+      const isUrlInHistory = history[1].includes(newUrl);
+      
+      if (!isUrlInHistory) {
+        const updatedHistory = [...history, router.asPath].slice(-2);
+        sessionStorage.setItem('pageHistory', JSON.stringify(updatedHistory));
+      }
+    } else {
+      const updatedHistory = [...history, router.asPath];
       sessionStorage.setItem('pageHistory', JSON.stringify(updatedHistory));
     }
   }, [router.asPath]);
