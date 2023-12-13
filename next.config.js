@@ -33,6 +33,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'archon.sfxdx.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }
