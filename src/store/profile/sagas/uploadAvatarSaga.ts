@@ -25,6 +25,8 @@ export function* profileUploadAvatarSaga({
 
     yield put(profileSetAccountInfo(data));
 
+    if (payload.successCallback) payload.successCallback();
+
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
     sagaExceptionHandler(e);

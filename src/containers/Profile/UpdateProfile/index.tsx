@@ -73,15 +73,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     error: z.ZodFormattedError<z.infer<typeof UserSchema>, string> | null 
   }>({ success: true, error: null });
 
-  const saveData = useCallback(() => {
-    if (avatar) {
-      dispatch(
-        profileUploadAvatar({
-          file: avatar,
-        }),
-      );
-    }
-
+  const updateProfile = useCallback((callback?: () => void) => {
     const data = {
       username,
       socialLink: socialMediaLink,
@@ -95,18 +87,37 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     dispatch(
       profileUpdateProfile({
         ...data,
-        callback: callbackSuccess,
+        callback: () => {
+          callbackSuccess();
+          if (callback) callback();
+        },
       }),
     );
-  }, [avatar, callbackSuccess, dispatch, location, organization, position, 
-    realName, researchFields, socialMediaLink, username]);
+  }, [
+    callbackSuccess, dispatch, location, organization, position,
+    realName, researchFields, socialMediaLink, username,
+  ]);
+
+  const saveData = useCallback((callback?: () => void) => {
+    if (avatar) {
+      dispatch(
+        profileUploadAvatar({
+          file: avatar,
+          successCallback: () => updateProfile(callback),
+        }),
+      );
+      return;
+    }
+
+    updateProfile(callback);
+  }, [avatar, dispatch, updateProfile]);
 
   const [showEditProfileConfirm, hideEditProfileConfirm] = useModal(() => (
     <EditProfileConfirm 
       onCloseModal={hideEditProfileConfirm}
       isLoading={statusUpdate === RequestStatus.REQUEST}
       onConfirm={() => {
-        saveData();
+        saveData(hideEditProfileConfirm);
       }} 
     />
   ), [statusUpdate, saveData]);
@@ -142,12 +153,9 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     });
 
     if (res.success) {
-      if (!data.username || !data.socialLink || !data.country) {
-        showEditProfileConfirm();
-      } else {
-        saveData();
-      }
+      saveData();
     } else {
+      showEditProfileConfirm();
       const errorMessages = res.error.errors.map((error) => error.message);
       const combinedErrors = errorMessages.join(', ');
       notification.info({ message: combinedErrors });

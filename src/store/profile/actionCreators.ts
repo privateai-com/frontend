@@ -60,7 +60,10 @@ export const profileUpdateProfile = (payload: ProfileUpdateData) => ({
   payload,
 });
 
-export const profileUploadAvatar = (payload: { file: File }) => ({
+export const profileUploadAvatar = (payload: {
+  file: File,
+  successCallback: () => void,
+}) => ({
   type: ProfileActionTypes.UploadAvatar,
   payload,
 });
