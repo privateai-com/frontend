@@ -6,10 +6,11 @@ export const getApiQueries = (payload: {
   searchField?: string;
   search?: string | string[];
   doneStatus?: boolean;
+  isHidden?: boolean;
 }) => {
   const {
     limit, offset, sortingField, sortingDirection, searchField, doneStatus, 
-    search,
+    search, isHidden,
   } = payload;
   const url = new URLSearchParams({
     limit: `${limit}`,
@@ -17,6 +18,7 @@ export const getApiQueries = (payload: {
     sortingField,
     sortingDirection,
     doneStatus: doneStatus ? 'true' : 'false',
+    isHidden: isHidden ? 'true' : 'false',
   });
   if (searchField) {
     url.append('searchField', searchField);

@@ -82,6 +82,7 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
       sortingDirection: selectSortingDirection,
       sortingField: selectSortingField,
       doneStatus: true,
+      isHidden: false,
     };
     dispatch(articlesGetMy(payload));
   }, [dispatch, itemsOnPageQuantityCurrent, offset, selectSortingDirection, selectSortingField]);
