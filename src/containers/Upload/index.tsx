@@ -7,6 +7,7 @@ import cx from 'classnames';
 
 import { Button, Typography } from 'components';
 import {
+  useLocalStorage,
   usePagination,
   useScreenWidth,
   useVipUser,
@@ -15,8 +16,11 @@ import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { Article, RequestStatus, UploadFileStatus } from 'types';
 
 import { 
-  articlesCancelUpload, articlesCreate, articlesGetMy, 
+  articlesCancelUpload, 
+  articlesCreate, 
+  articlesGetMy, 
   articlesGetUploadStatus,
+  articlesSetState,
 } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { profileSelectors } from 'store/profile/selectors';
@@ -52,6 +56,7 @@ export const Upload = () => {
     articlesSelectors.getProp('upload'),
     shallowEqual,
   );
+  
   const userFilledAllInfo = useSelector(
     profileSelectors.getPropAccountInfo('userFilledAllInfo'),
   );
@@ -94,20 +99,72 @@ export const Upload = () => {
 
   const timeToUploaded = (size: number) => size / 1_000_000 / 20;
 
+  const {
+    dataStorage,
+    addItemStorage,
+    removeItemByIdStorage,
+    getItemByIdStorage,
+  } = useLocalStorage('articles');
+  
   const [currentArticles, setCurrentArticles] = useState<Article[]>([]);
   const [uploadArticles, setUploadArticles] = useState<Article[]>([]);
 
   useEffect(() => {
+    if (upload) {
+      setUploadArticles(() => (Object.values(upload)
+        // .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
+        .map((uploadData) => ({
+          ...defaultArticle,
+          id: uploadData.idArticle || Number(uploadData.id),
+          title: uploadData.fileName,
+          uploadProgress: uploadData.percentUpload,
+          fileSize: uploadData.size,
+          status: uploadData.status,
+        }))));
+    }
+  }, [upload]);
+
+  useEffect(() => {
     const newUploadArticles = uploadArticles.filter((uploadArticle) =>
       !articles.some((article) => article.id === uploadArticle.id));
-    
+
     setCurrentArticles(
-      [...newUploadArticles, ...articles].map((article: Article) => ({
-        ...article,
-        fileSize: (article.fileSize ?? 0),
-      })),
+      [...newUploadArticles, ...articles].map((article: Article) => {
+        if (!dataStorage) return article;
+        const storageItem =
+          dataStorage.find((storage: { id: number }) => storage.id === article.id);
+        if (storageItem && (!article.fileSize || !article.title)) {
+          return {
+            ...article,
+            fileSize: storageItem.fileSize,
+            title: storageItem.title,
+          };
+        }
+      
+        return {
+          ...article,
+          fileSize: (article.fileSize ?? 0),
+        };
+      }),
     );
-  }, [articles, uploadArticles]);
+  }, [articles, dataStorage, uploadArticles]);
+
+  useEffect(() => {
+    if (upload && Object.values(upload).length > 0) {
+      const { idArticle, size, fileName } = Object.values(upload)[0];
+      if (upload && idArticle) {
+        const isArticleStorage = !getItemByIdStorage(idArticle);
+        
+        if (isArticleStorage) {
+          addItemStorage({
+            id: idArticle,
+            fileSize: size,
+            title: fileName,
+          });
+        }
+      }
+    }
+  }, [addItemStorage, dispatch, getItemByIdStorage, upload]);
 
   useEffect(() => {
     dispatch(articlesGetUploadStatus());
@@ -131,20 +188,23 @@ export const Upload = () => {
       articleId,
       isHidden: true,
       callback: () => {
+        removeItemByIdStorage(`${articleId}`);
         setUploadArticles(() => (Object.values(upload)
           .filter((uploadArticle) => uploadArticle.idArticle !== articleId)
-          .map((uploadData) => ({
-            ...defaultArticle,
-            id: uploadData.idArticle || Number(uploadData.id),
-            title: uploadData.fileName,
-            uploadProgress: uploadData.percentUpload,
-            fileSize: uploadData.size,
-            status: uploadData.status,
-          }))));
+          .map((uploadData) => 
+            ({
+              ...defaultArticle,
+              id: uploadData.idArticle || Number(uploadData.id),
+              title: uploadData.fileName,
+              uploadProgress: uploadData.percentUpload,
+              fileSize: uploadData.size,
+              status: uploadData.status,
+            }))));
         dispatch(articlesGetMy(queryParams));
+        dispatch(articlesSetState({ upload: {} }));
       },
     }));
-  }, [dispatch, queryParams, upload]);
+  }, [dispatch, queryParams, removeItemByIdStorage, upload]);
 
   const isDisabledUploadFile = isVipUser || !userFilledAllInfo;
 

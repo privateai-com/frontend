@@ -23,7 +23,7 @@ export const useLocalStorage = (key: string) => {
   const removeItemById = useCallback((id: string) => {
     const storedData = localStorage.getItem(key);
     if (storedData) {
-      const newData = JSON.parse(storedData).filter((item: any) => item.id !== id);
+      const newData = JSON.parse(storedData).filter((item: any) => item.id !== Number(id));
       saveData(newData);
     }
   }, [key, saveData]);
