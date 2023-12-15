@@ -15,6 +15,7 @@ export const articlesInitialState: Readonly<ArticlesState> = {
     [ArticlesActionTypes.ChangeArticleAccess]: RequestStatus.INIT,
     [ArticlesActionTypes.PublishArticle]: RequestStatus.INIT,
     [ArticlesActionTypes.SaveGraph]: RequestStatus.INIT,
+    [ArticlesActionTypes.CreateArticle]: RequestStatus.INIT,
   },
   upload: {},
 };

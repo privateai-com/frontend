@@ -49,7 +49,7 @@ export function* articlesCreateSaga({
 
     const handleSetStatusUpload = (percentUpload: number) => {
       if (percentUpload >= 100) {
-        if(payload.callback) payload.callback(); 
+        if(payload.callback) payload.callback();
         store.dispatch(
           articlesSetStatusUpload({ 
             id: idFile, 
@@ -124,7 +124,6 @@ export function* articlesCreateSaga({
       }));
       return;
     }
-
     // yield call(callApi, {
     //   method: 'PUT',
     //   endpoint: ApiEndpoint.GraphSave,
@@ -148,6 +147,7 @@ export function* articlesCreateSaga({
     yield put(articlesSetStatusUpload({ 
       id: idFile, 
       status: RequestStatus.ERROR,
+      uploadStatus: UploadFileStatus.ERROR,
     }));
   }
 }

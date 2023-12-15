@@ -110,12 +110,12 @@ export const Upload = () => {
   
   const [currentArticles, setCurrentArticles] = useState<Article[]>([]);
   const [uploadArticles, setUploadArticles] = useState<Article[]>([]);
-
+  // console.log({ uploadArticles })
   useEffect(() => {
     if (upload) {
-      setUploadArticles(() => (Object.values(upload)
+      setUploadArticles(() => (Object.values(upload).reverse()
         // .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
-        .filter((uploadArticle) => uploadArticle.status !== RequestStatus.ERROR)
+        // .filter((uploadArticle) => uploadArticle.status !== RequestStatus.ERROR)
         .map((uploadData) => ({
           ...defaultArticle,
           id: uploadData.idArticle || Number(uploadData.id),
@@ -123,6 +123,7 @@ export const Upload = () => {
           uploadProgress: uploadData.percentUpload,
           fileSize: uploadData.size,
           status: uploadData.status,
+          uploadStatus: uploadData.uploadStatus,
         }))));
     }
   }, [upload]);
@@ -196,7 +197,7 @@ export const Upload = () => {
       isHidden: true,
       callback: () => {
         removeItemByIdStorage(`${articleId}`);
-        setUploadArticles(() => (Object.values(upload)
+        setUploadArticles(() => (Object.values(upload).reverse()
           .filter((uploadArticle) => uploadArticle.idArticle !== articleId)
           .map((uploadData) => 
             ({

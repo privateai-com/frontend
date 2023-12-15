@@ -10,6 +10,10 @@ export const requestInitialState: Readonly<RequestState> = {
   total: 0,
   ui: {
     [RequestActionTypes.GetData]: RequestStatus.INIT,
+    [RequestActionTypes.Create]: RequestStatus.INIT,
+    [RequestActionTypes.Delete]: RequestStatus.INIT,
+    [RequestActionTypes.GetMyRequests]: RequestStatus.INIT,
+    [RequestActionTypes.GetRequestsToMe]: RequestStatus.INIT,
   },
 };
 
