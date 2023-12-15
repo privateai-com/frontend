@@ -1,5 +1,5 @@
 import {
-  FC, memo, useCallback, 
+  FC, memo, useCallback, useState, 
 } from 'react';
 import { useModal } from 'react-modal-hook';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -60,7 +60,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
     shallowEqual,
   );
   const isVipUser = useVipUser();
-  // const [isDisabledRequest, setIsDisabledRequest] = useState(false);
+  const [isDisabledRequest, setIsDisabledRequest] = useState(false);
 
   const [showRequester, hideRequester] = useModal(
     () => {
@@ -138,6 +138,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               articleId: article.id, 
               callback: () => {
                 hideAccessConfirm();
+                setIsDisabledRequest(true);
               },
             }));
           }
@@ -267,8 +268,8 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                 disabled={
                   isLoading ||
                   isRequester ||
-                  isVipUser
-                  // isDisabledRequest || 
+                  isVipUser ||
+                  isDisabledRequest
                   // statusCreate === RequestStatus.SUCCESS
                 }
                 isLoading={statusCreate === RequestStatus.REQUEST}
