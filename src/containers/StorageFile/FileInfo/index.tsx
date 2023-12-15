@@ -267,9 +267,9 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                 disabled={
                   isLoading ||
                   isRequester ||
-                  isVipUser ||
+                  isVipUser
                   // isDisabledRequest || 
-                  statusCreate === RequestStatus.SUCCESS
+                  // statusCreate === RequestStatus.SUCCESS
                 }
                 isLoading={statusCreate === RequestStatus.REQUEST}
               >

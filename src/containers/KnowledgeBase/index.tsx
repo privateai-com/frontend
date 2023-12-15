@@ -51,7 +51,7 @@ export const KnowledgeBase: React.FC = () => {
   const isLoading = statusGetArticles === RequestStatus.REQUEST 
   || statusSearchArticles === RequestStatus.REQUEST;
 
-  const isHideArticles = !(isLoading && offset === 0 && isNewSearch); 
+  const isHideArticles = !(isLoading && offset === 0 && isNewSearch && articles?.length); 
 
   useEffect(() => {
     if (isNewSearch) setOffset(0);
