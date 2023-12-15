@@ -82,9 +82,9 @@ export const useColumns = ({
         accessor: 'core',
         Cell: ({
           row: {
-            original: { topCoreEntities },
+            original: { topCoreEntities, uploadStatus },
           },
-        }: ItemRowProps<Article>) => topCoreEntities ?? '-',
+        }: ItemRowProps<Article>) => (uploadStatus.toLowerCase() === 'error' ? '-' : topCoreEntities),
       },
       {
         Header: (
@@ -101,16 +101,18 @@ export const useColumns = ({
         minWidth: '130px',
         Cell: ({
           row: {
-            original: { isPublic, id },
+            original: { isPublic, id, uploadStatus },
           },
         }: ItemRowProps<Article>) =>
           (
             <div className={styles.availability} key={`div-${id}-${isPublic}`}>
-              <ChangeAvailability
-                key={`ChangeAvailability-${id}-${isPublic}`}
-                id={Number(id)}
-                isPublic={isPublic}
-              />
+              {uploadStatus.toLowerCase() !== 'error' && (
+                <ChangeAvailability
+                  key={`ChangeAvailability-${id}-${isPublic}`}
+                  id={Number(id)}
+                  isPublic={isPublic}
+                />
+              )}
               <DeleteBtn id={Number(id)} />
             </div>
           ),

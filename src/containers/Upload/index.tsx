@@ -224,6 +224,7 @@ export const Upload = () => {
       case UploadFileStatus.UPLOADED:
       case UploadFileStatus.QUEUE:
       case UploadFileStatus.PROCESSING:
+      case UploadFileStatus.ERROR:
         return handleCancelUpload(id);
       default:
         return undefined;
@@ -306,8 +307,8 @@ export const Upload = () => {
                     key={id}
                     onCancel={() => getCancelFunction(uploadStatus, id)}
                     name={`${title}`}
-                    percents={uploadStatus === UploadFileStatus.CREATED
-                      ? uploadProgress
+                    percents={uploadStatus === UploadFileStatus.ERROR
+                      ? 100
                       : uploadProgress}
                     weight={filesize(fileSize || 0, { standard: 'jedec' })}
                     idArticle={id}

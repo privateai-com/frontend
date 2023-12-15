@@ -79,6 +79,10 @@
       background-color: $color-yellow;
     }
 
+    &_error {
+      background-color: $color-red;
+    }
+
     @include desktop1440 {
       margin-right: 10px;
     }

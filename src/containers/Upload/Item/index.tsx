@@ -83,6 +83,7 @@ export const Item: React.FC<ItemProps> = ({
               [styles.item_status_bar_full]: status === UploadFileStatus.COMPLETE ||
                 status === UploadFileStatus.PUBLISHED,
               [styles.item_status_bar_uploading]: isLoaded && status === UploadFileStatus.CREATED,
+              [styles.item_status_bar_error]: status === UploadFileStatus.ERROR,
             })}
             style={getStatusBarWidthStyle}
           />
@@ -140,12 +141,17 @@ export const Item: React.FC<ItemProps> = ({
                 className={styles.item_disabled_btn}
                 disabled
               >
-                {status === UploadFileStatus.PROCESSING || status === UploadFileStatus.UPLOADED ? 'See in my storage' :
-                  `~ 
-                  ${' '}
-                  ${Math.max(timeToUploaded, 1)}
-                  ${' '}
-                  min`}
+                {
+                  status === UploadFileStatus.PROCESSING ||
+                  status === UploadFileStatus.UPLOADED ||
+                  status === UploadFileStatus.ERROR 
+                    ? 'See in my storage' :
+                    `~ 
+                    ${' '}
+                    ${Math.max(timeToUploaded, 1)}
+                    ${' '}
+                    min`
+                }
               </button>
             </div>
           )}
