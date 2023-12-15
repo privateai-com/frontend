@@ -19,6 +19,7 @@ import {
   articlesCancelUpload, 
   articlesCancelUploadFetch, 
   articlesCreate, 
+  articlesDelete, 
   articlesGetMy, 
   articlesGetUploadStatus,
   articlesSetState,
@@ -214,6 +215,24 @@ export const Upload = () => {
 
   const isDisabledUploadFile = isVipUser || !userFilledAllInfo;
 
+  const onDelete = useCallback((articleId: number) => {
+    dispatch(articlesDelete({ 
+      articleId, 
+    }));
+  }, [dispatch]);
+
+  const getCancelFunction = useCallback((uploadStatus: UploadFileStatus, id: number) => {
+    switch (uploadStatus) {
+      case UploadFileStatus.CREATED:
+        return handleCancelUploadFetch(id);
+      case UploadFileStatus.COMPLETE:
+      case UploadFileStatus.PUBLISHED:
+        return onDelete(id);
+      default:
+        return handleCancelUpload(id);
+    }
+  }, [handleCancelUpload, handleCancelUploadFetch, onDelete]);
+
   return (
     <div className={styles.upload}>
       <Typography
@@ -288,9 +307,7 @@ export const Upload = () => {
                 }) => (
                   <Item
                     key={id}
-                    onCancel={UploadFileStatus.CREATED === uploadStatus
-                      ? handleCancelUploadFetch(id) :
-                      handleCancelUpload(id)}
+                    onCancel={() => getCancelFunction(uploadStatus, id)}
                     name={`${title}`}
                     percents={uploadStatus === UploadFileStatus.CREATED
                       ? uploadProgress
