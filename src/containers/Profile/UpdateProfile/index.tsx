@@ -51,6 +51,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     organization: organizationOld,
     position: positionRedux,
     researchFields: researchFieldsOld,
+    avatarUrl,
   } = useSelector(profileSelectors.getProp('accountInfo'), shallowEqual);
 
   const statusUpdate = useSelector(profileSelectors.getStatus(ProfileActionTypes.UpdateProfile));
@@ -137,7 +138,10 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
 
   const onSaveClick = useCallback(() => {
     const data = {
-      file: avatar,
+      file: {
+        file: avatar,
+        avatarUrl,
+      },
       username,
       socialLink: socialMediaLink,
       organization,
@@ -156,12 +160,16 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
       saveData();
     } else {
       showEditProfileConfirm();
-      const errorMessages = res.error.errors.map((error) => error.message);
-      const combinedErrors = errorMessages.join(', ');
-      notification.info({ message: combinedErrors });
+      const errorMessages = res.error.errors.map((error) => error.message.trim()).filter(Boolean);
+
+      if (errorMessages?.length) {
+        const combinedErrors = errorMessages.join(', ');
+        notification.info({ message: combinedErrors });
+      }
     }
-  }, [avatar, username, socialMediaLink, organization, 
-    researchFields, realName, position, location, saveData, showEditProfileConfirm]);
+  }, [
+    avatar, username, socialMediaLink, organization, researchFields,
+    realName, position, location, avatarUrl, saveData, showEditProfileConfirm]);
 
   const handleDrop = useCallback((e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();

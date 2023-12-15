@@ -1,7 +1,21 @@
 import { z } from 'zod';
 
+type FileType = {
+  avatarUrl?: string;
+  file?: File;
+};
+
 export const UserSchema = z.object({
-  file: z.custom<File>(),
+  file: z.custom<FileType>().superRefine((value, ctx) => {
+    if (!value.avatarUrl && !value.file) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Avatar is required',
+      });
+      return false;
+    }
+    return true;
+  }),
   username: z.string({
     required_error: 'Username is required',
     invalid_type_error: 'Username must be a string',
@@ -13,7 +27,7 @@ export const UserSchema = z.object({
     invalid_type_error: 'Real name must be a string',
   })
     .max(100, { message: 'Real name max 100 characters' })
-    .nonempty(),
+    .nonempty(' '),
   socialLink: z.string()
     .max(100, { message: 'Social link max 100 characters' })
     .url()
@@ -23,19 +37,19 @@ export const UserSchema = z.object({
     invalid_type_error: 'Organization must be a string',
   })
     .max(100, { message: 'Organization max 100 characters' })
-    .nonempty(),
+    .nonempty(' '),
   researchFields: z.string({
     required_error: 'Research fields is required',
     invalid_type_error: 'Research fields must be a string',
   })
     .max(100, { message: 'Research fields max 100 characters' })
-    .nonempty(),
+    .nonempty(' '),
   position: z.string({
     required_error: 'Position is required',
     invalid_type_error: 'Position must be a string',
   })
     .max(100, { message: 'Position max 100 characters' })
-    .nonempty(),
+    .nonempty(' '),
   country: z.string({
     required_error: 'Country is required',
     invalid_type_error: 'Country must be a string',
