@@ -69,6 +69,8 @@ export type Article = {
   usersAmount?: number;
   usersPendingAccess?: number;
   fileSize?: number;
+  isPublished?: boolean;
+  isHidden?: boolean;
 };
 
 export enum SocketUploadArticleEvent {

@@ -309,7 +309,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               onClick={onPublishClick}
               isLoading={statusPublish === RequestStatus.REQUEST}
             >
-              {article?.isPublic ? 'Published' : 'Publish'} 
+              {article?.isPublished ? 'Published' : 'Publish'} 
             </Button>
           </>
         )}
