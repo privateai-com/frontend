@@ -12,6 +12,7 @@ export enum ArticlesActionTypes {
 
   CreateArticle = 'ARTICLES.CREATE_ARTICLE',
   CancelUpload = 'ARTICLES.CANCEL_UPLOAD_ARTICLE',
+  CancelUploadFetch = 'ARTICLES.CANCEL_UPLOAD_FETCH_ARTICLE',
   ChangeArticleAccess = 'ARTICLES.CHANGE_ARTICLE_ACCESS',
   DeleteArticle = 'ARTICLES.DELETE_ARTICLE',
   UpdateArticle = 'ARTICLES.UPDATE_ARTICLE',

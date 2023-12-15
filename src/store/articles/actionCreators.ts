@@ -137,3 +137,12 @@ export const articlesSearch = (
   type: ArticlesActionTypes.SearchArticles,
   payload,
 });
+
+export const articlesCancelUploadFetch = (
+  payload: {
+    id: number;
+  },
+) => ({
+  type: ArticlesActionTypes.CancelUploadFetch,
+  payload,
+});

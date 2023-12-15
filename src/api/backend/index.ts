@@ -112,9 +112,10 @@ export function* callApi(options: {
   payload?: Record<string, any> | FormData;
   isBlob?: boolean;
   callbackUploadStatus?: (percent: number) => void;
+  cancelTokenSource?: any;
 }): SagaIterator {
   const {
-    method = 'GET', endpoint, payload, isBlob, callbackUploadStatus,
+    method = 'GET', endpoint, payload, isBlob, callbackUploadStatus, cancelTokenSource,
   } = options;
 
   yield call(waitForFreshAccessToken);
@@ -124,6 +125,13 @@ export function* callApi(options: {
   let body;
 
   let requestOptions: Record<string, any>;
+
+  let source;
+  if (cancelTokenSource) {
+    source = cancelTokenSource;
+  } else {
+    source = axios.CancelToken.source();
+  }
 
   const isUploadFile = payload instanceof FormData;
 
@@ -167,7 +175,7 @@ export function* callApi(options: {
               callbackUploadStatus(Math.ceil(100 * (p.loaded / p.total)));
             }
           },
-        
+          cancelToken: source.token,
         },
       );
       if (callbackUploadStatus) callbackUploadStatus(100);

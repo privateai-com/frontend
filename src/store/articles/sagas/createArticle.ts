@@ -1,11 +1,16 @@
-import { call, put } from 'redux-saga/effects';
+import {
+  ActionPattern,
+  call, put, race, take, 
+} from 'redux-saga/effects';
+import axios from 'axios';
 
 import { sagaExceptionHandler } from 'utils';
-import { RequestStatus, UploadFileStatus } from 'types';
+import { Action, RequestStatus, UploadFileStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
 import { store } from 'store/configureStore';
 import { articlesCreate, articlesSetStatusUpload } from '../actionCreators';
+import { ArticlesActionTypes } from '../actionTypes';
 
 function generateNumericId(): number {
   const idFile = crypto.randomUUID();
@@ -63,18 +68,62 @@ export function* articlesCreateSaga({
       );
     };
 
-    const res: {
-      data: {
+    // const res: {
+    //   data: {
+    //     data: {
+    //       id: number,
+    //     }
+    //   }
+    // } = yield call(callApi, {
+    //   method: 'POST',
+    //   endpoint: ApiEndpoint.ArticlesCreateArticle,
+    //   payload: formData,
+    //   callbackUploadStatus: handleSetStatusUpload,
+    // });
+    const cancelTokenSource = axios.CancelToken.source();
+    const { res, cancel }: {
+      res: {
         data: {
-          id: number,
+          data: {
+            id: number,
+          }
         }
-      }
-    } = yield call(callApi, {
-      method: 'POST',
-      endpoint: ApiEndpoint.ArticlesCreateArticle,
-      payload: formData,
-      callbackUploadStatus: handleSetStatusUpload,
+      },
+      cancel: ActionPattern,
+    } = yield race({
+      res: call(callApi, {
+        method: 'POST',
+        endpoint: ApiEndpoint.ArticlesCreateArticle,
+        payload: formData,
+        callbackUploadStatus: handleSetStatusUpload,
+        cancelTokenSource,
+      }),
+      cancel: take((action: Action<string>) => {
+        const typedAction = action as {
+          type: string;
+          payload?: {
+            id?: number;
+          };
+        };
+        return (
+          typedAction.type === ArticlesActionTypes.CancelUploadFetch &&
+          typedAction.payload?.id === idFile
+        );
+      }),
     });
+
+    if (cancel) {
+      cancelTokenSource.cancel();
+      yield put(articlesSetStatusUpload({ 
+        id: idFile, 
+        status: RequestStatus.ERROR,
+        percentUpload: 0,
+        fileName: payload.file.name,
+        size: payload.file.size,
+        uploadStatus: UploadFileStatus.ERROR,
+      }));
+      return;
+    }
 
     // yield call(callApi, {
     //   method: 'PUT',

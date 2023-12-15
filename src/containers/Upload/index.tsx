@@ -17,6 +17,7 @@ import { Article, RequestStatus, UploadFileStatus } from 'types';
 
 import { 
   articlesCancelUpload, 
+  articlesCancelUploadFetch, 
   articlesCreate, 
   articlesGetMy, 
   articlesGetUploadStatus,
@@ -113,6 +114,7 @@ export const Upload = () => {
     if (upload) {
       setUploadArticles(() => (Object.values(upload)
         // .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
+        .filter((uploadArticle) => uploadArticle.status !== RequestStatus.ERROR)
         .map((uploadData) => ({
           ...defaultArticle,
           id: uploadData.idArticle || Number(uploadData.id),
@@ -182,6 +184,10 @@ export const Upload = () => {
     status: statusGetMyArticles, 
     increaseOffset,
   });
+
+  const handleCancelUploadFetch = useCallback((articleId: number) => () => {
+    dispatch(articlesCancelUploadFetch({ id: articleId }));
+  }, [dispatch]);
 
   const handleCancelUpload = useCallback((articleId: number) => () => {
     dispatch(articlesCancelUpload({
@@ -282,7 +288,9 @@ export const Upload = () => {
                 }) => (
                   <Item
                     key={id}
-                    onCancel={handleCancelUpload(id)}
+                    onCancel={UploadFileStatus.CREATED === uploadStatus
+                      ? handleCancelUploadFetch(id) :
+                      handleCancelUpload(id)}
                     name={`${title}`}
                     percents={uploadStatus === UploadFileStatus.CREATED
                       ? uploadProgress
