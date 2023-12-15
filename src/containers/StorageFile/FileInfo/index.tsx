@@ -13,7 +13,7 @@ import {
   Typography,
 } from 'components';
 import { Article, RequestStatus } from 'types';
-import { articlesPublish } from 'store/articles/actionCreators';
+import { articlesPublish, articlesSetState } from 'store/articles/actionCreators';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestCreate } from 'store/request/actionCreators';
@@ -139,6 +139,12 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               callback: () => {
                 hideAccessConfirm();
                 setIsDisabledRequest(true);
+                dispatch(articlesSetState({
+                  article: {
+                    ...article,
+                    status: 'Access request pending',
+                  },
+                }));
               },
             }));
           }
