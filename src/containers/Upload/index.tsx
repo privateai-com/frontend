@@ -223,6 +223,7 @@ export const Upload = () => {
       case UploadFileStatus.PUBLISHED:
       case UploadFileStatus.UPLOADED:
       case UploadFileStatus.QUEUE:
+      case UploadFileStatus.PROCESSING:
         return handleCancelUpload(id);
       default:
         return undefined;
