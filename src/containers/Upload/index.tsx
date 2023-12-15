@@ -18,8 +18,7 @@ import { Article, RequestStatus, UploadFileStatus } from 'types';
 import { 
   articlesCancelUpload, 
   articlesCancelUploadFetch, 
-  articlesCreate, 
-  articlesDelete, 
+  articlesCreate,
   articlesGetMy, 
   articlesGetUploadStatus,
   articlesSetState,
@@ -72,6 +71,7 @@ export const Upload = () => {
     offset: offset * itemsOnPageQuantity,
     sortingDirection: 'DESC' as const,
     sortingField: 'id',
+    isHidden: false,
   }), [offset]);
 
   const onConfirmClick = () => {
@@ -186,11 +186,11 @@ export const Upload = () => {
     increaseOffset,
   });
 
-  const handleCancelUploadFetch = useCallback((articleId: number) => () => {
+  const handleCancelUploadFetch = useCallback((articleId: number) => {
     dispatch(articlesCancelUploadFetch({ id: articleId }));
   }, [dispatch]);
 
-  const handleCancelUpload = useCallback((articleId: number) => () => {
+  const handleCancelUpload = useCallback((articleId: number) => {
     dispatch(articlesCancelUpload({
       articleId,
       isHidden: true,
@@ -215,23 +215,19 @@ export const Upload = () => {
 
   const isDisabledUploadFile = isVipUser || !userFilledAllInfo;
 
-  const onDelete = useCallback((articleId: number) => {
-    dispatch(articlesDelete({ 
-      articleId, 
-    }));
-  }, [dispatch]);
-
   const getCancelFunction = useCallback((uploadStatus: UploadFileStatus, id: number) => {
     switch (uploadStatus) {
       case UploadFileStatus.CREATED:
         return handleCancelUploadFetch(id);
       case UploadFileStatus.COMPLETE:
       case UploadFileStatus.PUBLISHED:
-        return onDelete(id);
-      default:
+      case UploadFileStatus.UPLOADED:
+      case UploadFileStatus.QUEUE:
         return handleCancelUpload(id);
+      default:
+        return undefined;
     }
-  }, [handleCancelUpload, handleCancelUploadFetch, onDelete]);
+  }, [handleCancelUpload, handleCancelUploadFetch]);
 
   return (
     <div className={styles.upload}>

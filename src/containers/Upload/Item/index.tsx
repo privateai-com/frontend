@@ -4,7 +4,7 @@ import Link from 'next/link';
 import cx from 'classnames';
 
 import { ScreenWidth, routes } from 'appConstants';
-import { circleCheckIcon, documentTextIcon1 } from 'assets';
+import { documentTextIcon1 } from 'assets';
 import { stringLongShortcut } from 'utils';
 import { useScreenWidth } from 'hooks';
 import { UploadFileStatus } from 'types';
@@ -117,10 +117,14 @@ export const Item: React.FC<ItemProps> = ({
         || status === UploadFileStatus.PUBLISHED 
           ? (
             <div className={styles.item_indication_block}>
-              <Image
+              {/* <Image
                 className={styles.item_complete}
                 src={circleCheckIcon}
                 alt="icon"
+              /> */}
+              <button
+                className={cx(styles.item_circle, styles.item_circle_complete)}
+                onClick={onCancel}
               />
               <Link
                 className={styles.item_link_btn}
