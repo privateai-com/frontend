@@ -146,3 +146,13 @@ export const articlesCancelUploadFetch = (
   type: ArticlesActionTypes.CancelUploadFetch,
   payload,
 });
+
+
+export const articleSetFetchingStatus = (
+  payload: {
+    status: boolean
+  }
+) =>({
+  type: ArticlesActionTypes.SetFetchingStatus,
+  payload
+})

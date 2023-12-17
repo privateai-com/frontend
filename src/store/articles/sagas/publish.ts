@@ -5,7 +5,7 @@ import { RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
 import { 
-  articlesPublish, articlesSetStatus, articlesGetOneArticle,
+  articlesPublish, articlesSetStatus, articleSetFetchingStatus, articlesGetOneArticle,
 } from 'store/articles/actionCreators';
 
 export function* articlesPublishSaga({
@@ -31,8 +31,11 @@ export function* articlesPublishSaga({
     if(payload.callback) payload.callback();
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
+    yield put(articleSetFetchingStatus({status:false}))
   } catch (e) {
     sagaExceptionHandler(e);
     yield put(articlesSetStatus({ type, status: RequestStatus.ERROR }));
+    yield put(articleSetFetchingStatus({status:false}))
+
   }
 }

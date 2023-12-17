@@ -1,0 +1,90 @@
+.headerIcon{
+    max-width: 100%;
+    display: block;
+    width: 18px;
+    height: auto;
+}
+.experienceWrapper{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+    column-gap: 10px;
+    margin-left: 10px;
+    align-items: flex-end;
+    
+
+   
+}
+
+.experienceRow{
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    position: relative;
+
+    --border-width: 0px;
+    --arrow-height: 7px;
+
+    .toolTipMessage{
+        
+        display: none;
+        position: absolute;
+        width: max-content;
+        max-width: 200px;
+        // width: 200px;
+        // max-width: 90vw;
+        top : calc(100% + 7px ) ;
+        right:  -10px;
+        background-color: aliceblue;
+        padding: 8px;
+        line-height: 1.2;
+        z-index: 1;
+        border-radius: 5px;
+        // border: 1px solid;
+
+        &::after{
+            content: "";
+            cursor: pointer;
+            // width: 10px;
+            // height: 10px;
+            position: absolute;
+            bottom: calc(100% + var(--border-width));
+            // background-color: red;
+            right: 12px;
+            border: var(--arrow-height) solid transparent; border-bottom: var(--arrow-height) solid aliceblue; 
+        }
+    }
+    .experineceSpan{
+        font-size: 12px;
+        line-height: 1;
+        font-weight: 500;
+    }
+    img{
+        cursor: pointer;
+    }
+    .experienceRowImgWrap:hover ~ .toolTipMessage{
+        display: block;
+    }
+
+    .toolTipMessage:hover{
+        display: block;
+    }
+    
+}
+@media screen and (max-width: 768px){
+    .experienceWrapper{
+        flex-direction: row;
+    }
+    .experienceRow{
+    .toolTipMessage{
+            right: auto;
+            left: 50%;
+            transform: translate(-50%);
+            &::after{
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+}
