@@ -28,6 +28,7 @@ import { useOnClickOutside, useScreenWidth } from 'hooks';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
+import { ExperienceWrapper } from 'components/ExperienceWrapper';
 
 // const results = [
 //   'A brief history of the antibiotics era',
@@ -169,7 +170,12 @@ export const Header = () => {
           </div>
         )} */}
       </form>
+
+
+     
+      <ExperienceWrapper />
       <span className={styles.username}>{getName(fullName, username, userId) ?? ''}</span>
+      
       <ButtonIcon
         className={styles.button}
         image={userIcon}
@@ -177,6 +183,7 @@ export const Header = () => {
         width={30}
         height={30}
       />
+      
       <ButtonIcon
         className={cx(styles.button, { [styles.active]: !!notifications.length })}
         image={ringIcon}
@@ -198,6 +205,7 @@ export const Header = () => {
           notifications={notifications}
         />
       )}
+      
     </header>
   );
 };
