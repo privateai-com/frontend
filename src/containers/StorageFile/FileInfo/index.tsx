@@ -290,7 +290,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                     'Access granted',
                     'Open sourced',
                   ].includes(article?.status) 
-                  : false}
+                  : false || !article?.articleUrl}
                 href={article?.articleUrl}
                 className={cx(styles.download_button, {
                   [styles.disabled]: isVipUser,
