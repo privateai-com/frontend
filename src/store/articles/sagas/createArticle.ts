@@ -31,6 +31,7 @@ export function* articlesCreateSaga({
       fileName: payload.file.name,
       size: payload.file.size,
       uploadStatus: UploadFileStatus.CREATED,
+      createdAt: new Date().toString(),
     }));
 
     const formData = new FormData();

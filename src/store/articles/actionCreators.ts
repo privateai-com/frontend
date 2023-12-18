@@ -24,6 +24,7 @@ export const articlesSetStatusUpload = (payload: {
   status?: RequestStatus;
   idArticle?: number,
   uploadStatus?: UploadFileStatus,
+  createdAt?: string,
 }) => ({
   type: ArticlesActionTypes.SetStatusUpload,
   payload,

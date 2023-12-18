@@ -124,6 +124,7 @@ export const Upload = () => {
           fileSize: uploadData.size,
           status: uploadData.status,
           uploadStatus: uploadData.uploadStatus,
+          createdAt: uploadData.createdAt,
         }))));
     }
   }, [upload]);
@@ -142,6 +143,7 @@ export const Upload = () => {
             ...article,
             fileSize: storageItem.fileSize,
             title: storageItem.title,
+            createdAt: storageItem.createdAt,
           };
         }
       
@@ -149,13 +151,15 @@ export const Upload = () => {
           ...article,
           fileSize: (article.fileSize ?? 0),
         };
-      }),
+      }).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
     );
   }, [articles, dataStorage, uploadArticles]);
 
   useEffect(() => {
     if (upload && Object.values(upload).length > 0) {
-      const { idArticle, size, fileName } = Object.values(upload)[0];
+      const {
+        idArticle, size, fileName, createdAt,
+      } = Object.values(upload)[0];
       if (upload && idArticle) {
         const isArticleStorage = !getItemByIdStorage(idArticle);
         
@@ -164,6 +168,7 @@ export const Upload = () => {
             id: idArticle,
             fileSize: size,
             title: fileName,
+            createdAt,
           });
         }
       }
