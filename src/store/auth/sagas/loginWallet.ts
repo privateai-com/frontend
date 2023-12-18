@@ -9,7 +9,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { providers } from 'ethers';
 import { authLoginWallet, authSetState, authSetStatus } from '../actionCreators';
 
-const message = 'Connect Archon!';
+const message = 'Connecting wallet to PrivateAI';
 
 export function* authLoginWalletSaga({
   type,
