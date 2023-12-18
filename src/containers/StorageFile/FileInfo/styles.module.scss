@@ -124,6 +124,7 @@
 }
 
 .storageFile__buttons {
+	position: relative;
 	grid-area: buttons;
 	display: flex;
 	justify-content: space-between;
@@ -153,6 +154,25 @@
 			text-wrap: wrap;
 			height: fit-content;
 			// @include font-20();
+		}
+	}
+
+	&_loader {
+		position: absolute;
+		grid-area: buttons;
+		height: 50px;
+		z-index: 2;
+		bottom: 0;
+    right: 0;
+    left: 0;
+    width: calc(100% + 1px);
+
+		@include media-breakpoint-up(md) {
+			height: 40px;
+		}
+
+		@include media-breakpoint-up(xxl) {
+			height: 50px;
 		}
 	}
 }

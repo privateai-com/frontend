@@ -36,3 +36,18 @@ export const GraphLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps
     <rect x="70%" y="88%" rx="0" ry="0" width="100" height="20" />
   </ContentLoader>
 );
+
+export const ButtonsLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
+  <ContentLoader
+    width="100%"
+    height="100%"
+    // viewBox="0 0 450 400"
+    backgroundColor="#f0f0f0"
+    foregroundColor="#dedede"
+    // className={styles.loader_container}
+    {...props}
+  >
+    <rect x="0" y="0" rx="8" ry="8" width="48.8%" height="100%" />
+    <rect x="51.2%" y="0" rx="8" ry="8" width="48.8%" height="100%" />
+  </ContentLoader>
+);

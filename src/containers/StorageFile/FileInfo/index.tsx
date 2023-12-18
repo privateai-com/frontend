@@ -23,14 +23,13 @@ import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import {
   getName,
-  // getStatusAccessArticle,
   normalizeUserInfo,
   notification,
 } from 'utils';
 import { useVipUser } from 'hooks';
 import { errorsNotification } from 'appConstants';
 import { convertToBytesString, formatDate } from './utils';
-import { FileInformationLoader } from '../Loader';
+import { ButtonsLoader, FileInformationLoader } from '../Loader';
 import { DeleteBtn } from '../DeleteBtn';
 
 import styles from './styles.module.scss';
@@ -88,23 +87,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           fields={researchFields || '-'}
           socialMedia={socialLink || '-'}
           isHideButtons
-          // questionFooter="Request access to a file?"
-          // confirmButtonLabel="Confirm"
-          // cancelButtonLabel="Cancel"
-          // onConfirmButton={() => {
-          //   if (article) {
-          //     dispatch(requestCreate({
-          //       articleId: article.id, 
-          //       callback: () => {
-          //         hideRequester();
-          //         setIsDisabledRequest(true);
-          //       },
-          //     }));
-          //   }
-          // }}
-          // onCancelButton={hideRequester}
           onCloseModal={hideRequester}
-          // isHideButtons={isRequester}
         />
       );
     },
@@ -197,9 +180,6 @@ export const FileInfo: FC<FileInfoProps> = memo(({
           </div>
           <div className={styles.storageFile__item}>
             Field: 
-            {/* <span>
-              {article?.field ? article.field : '-'}
-            </span> */}
             <span data-tooltip-id={article?.field}>{article?.field ? article.field : '-'}</span>
             {(article?.field && article?.field.length > 100) && (
               <Tooltip
@@ -265,7 +245,10 @@ export const FileInfo: FC<FileInfoProps> = memo(({
         </div> 
       </div>
       <div className={cx(styles.storageFile__buttons, classNameButtons)}>
-        {!isOwner ? (
+        {isLoading && (
+          <ButtonsLoader className={styles.storageFile__buttons_loader} />
+        )}
+        {!isLoading && (!isOwner ? (
           <>
             {!article?.isPublic && (
               <Button
@@ -318,7 +301,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               {article?.isPublished ? 'Published' : 'Publish'} 
             </Button>
           </>
-        )}
+        ))}
        
       </div>
     </>
