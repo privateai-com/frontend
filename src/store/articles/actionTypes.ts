@@ -4,7 +4,6 @@ export enum ArticlesActionTypes {
   SetStatusUpload = 'ARTICLES.SET_STATUS_UPLOAD',
   SetFetchingStatus = 'ARTICLES.SET_FETCHING',
 
-
   GetOneArticle = 'ARTICLES.GET_ONE_ARTICLE',
   GetArticles = 'ARTICLES.GET_ARTICLES',
   GetMyArticles = 'ARTICLES.GET_MY_ARTICLES',

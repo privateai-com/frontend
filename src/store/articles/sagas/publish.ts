@@ -31,11 +31,10 @@ export function* articlesPublishSaga({
     if(payload.callback) payload.callback();
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
-    yield put(articleSetFetchingStatus({status:false}))
+    yield put(articleSetFetchingStatus({ status: false }));
   } catch (e) {
     sagaExceptionHandler(e);
     yield put(articlesSetStatus({ type, status: RequestStatus.ERROR }));
-    yield put(articleSetFetchingStatus({status:false}))
-
+    yield put(articleSetFetchingStatus({ status: false }));
   }
 }

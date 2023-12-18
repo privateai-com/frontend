@@ -11,7 +11,6 @@ import {
   articlesSetStatus,
 } from '../actionCreators';
 import { articlesSelectors } from '../selectors';
-import { ArticlesActionTypes } from '../actionTypes';
 
 export function* articlesGetMySaga({
   type,
@@ -41,11 +40,11 @@ export function* articlesGetMySaga({
     }));
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
-    yield put(articleSetFetchingStatus({status:false}))
+    yield put(articleSetFetchingStatus({ status: false }));
   } catch (e) {
     sagaExceptionHandler(e);
     
     yield put(articlesSetStatus({ type, status: RequestStatus.ERROR }));
-    yield put(articleSetFetchingStatus({status:false}))
+    yield put(articleSetFetchingStatus({ status: false }));
   }
 }

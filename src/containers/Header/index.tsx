@@ -25,10 +25,10 @@ import {
 
 import { getName } from 'utils';
 import { useOnClickOutside, useScreenWidth } from 'hooks';
+import { ExperienceWrapper } from 'components/ExperienceWrapper';
 import { Notification } from './Notification';
 
 import styles from './styles.module.scss';
-import { ExperienceWrapper } from 'components/ExperienceWrapper';
 
 // const results = [
 //   'A brief history of the antibiotics era',
@@ -170,8 +170,6 @@ export const Header = () => {
           </div>
         )} */}
       </form>
-
-
      
       <ExperienceWrapper />
       <span className={styles.username}>{getName(fullName, username, userId) ?? ''}</span>
