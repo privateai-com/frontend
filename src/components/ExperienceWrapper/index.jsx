@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { GlobalColors } from 'assets/globalStyles';
 import {
   useCallback, useEffect, useMemo, useState, 
 } from 'react';
@@ -89,26 +88,27 @@ export const ExperienceWrapper = () => {
       {endElementForScroll}
       {/* MY ARTICLE RATING */}
       <div className={styles.experienceRow}>
-        <span className={styles.experineceSpan} style={{ color: GlobalColors.mainColor }}>
+        <span className={styles.experineceSpan}>
           {rating}
         </span>
         <div className={styles.experienceRowImgWrap}>
           <Image width={20} height={20} className={`${styles.headerIcon} ${styles.iconStar}`} src={star.src} alt="rating star" />
         </div>
-        <div className={styles.toolTipMessage} style={{ fontSize: GlobalColors.toolTipFontSize }}>
-          <div>Get rewarded for uploading and processing your files.</div>&nbsp;
+        <div className={styles.toolTipMessage}>
+          <div>Get rewarded for uploading and processing your files.</div>
+&nbsp;
           <div>For each provided document you will receive 100 bonus points.</div>
         </div>
       </div>
       {/* MY ARTICLE DOCS COUNT */}
       <div className={styles.experienceRow}>
-        <span className={styles.experineceSpan} style={{ color: GlobalColors.mainColor }}>
+        <span className={styles.experineceSpan}>
           {docCount === 0 ? '-' : docCount}
         </span>
         <div className={styles.experienceRowImgWrap}>
           <Image width={20} height={20} className={`${styles.headerIcon} ${styles.iconDoc}`} src={docs.src} alt="rating doc" />
         </div>
-        <div className={styles.toolTipMessage} style={{ fontSize: GlobalColors.toolTipFontSize }}>
+        <div className={styles.toolTipMessage}>
           <div>
             Number of documents that have been published
           </div>
