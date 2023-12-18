@@ -162,13 +162,10 @@ export const FileInfo: FC<FileInfoProps> = memo(({
     if (article) {
       const { id } = article;
       if (id) {
-        dispatch(articleSetFetchingStatus({status:true}))
+        dispatch(articleSetFetchingStatus({ status: true }));
         dispatch(articlesPublish({ articleId: id, isPublished: true, callback: () => {} }));
-       
       }
     }
-
-
   }, [article, dispatch, isUserRequiredFieldsFilled]);
 
   return (

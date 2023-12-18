@@ -26,7 +26,9 @@
     --arrow-height: 7px;
 
     .toolTipMessage{
-        
+        * {
+            display: inline;
+        }
         display: none;
         position: absolute;
         width: max-content;

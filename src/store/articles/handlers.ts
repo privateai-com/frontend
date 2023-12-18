@@ -46,12 +46,11 @@ const setStatusUpload: ArticlesStateActionFn<typeof articlesSetStatusUpload> = (
 
 const setFetchingStatus: ArticlesStateActionFn<typeof articleSetFetchingStatus> = (
   state,
-  { payload},
+  { payload },
 ) => ({
   ...state,
-  isFetching: payload.status
+  isFetching: payload.status,
 });
-
 
 export const articlesHandlers = {
   [ArticlesActionTypes.SetState]: setState,
