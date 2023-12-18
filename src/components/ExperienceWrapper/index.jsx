@@ -95,8 +95,7 @@ export const ExperienceWrapper = () => {
           <Image width={20} height={20} className={`${styles.headerIcon} ${styles.iconStar}`} src={star.src} alt="rating star" />
         </div>
         <div className={styles.toolTipMessage}>
-          <div>Get rewarded for uploading and processing your files.</div>
-&nbsp;
+          <div>Get rewarded for uploading and processing your files. </div>
           <div>For each provided document you will receive 100 bonus points.</div>
         </div>
       </div>
