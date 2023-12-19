@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tooltip } from 'react-tooltip';
 
 import { AccessConfirm, SelectedText } from 'components';
 import { RequestCell } from 'containers';
@@ -111,26 +110,14 @@ export const Item: React.FC<ItemProps> = ({
       id={id}
     >
       <SelectedText
-        key={`title_${id}`}
+        key={`ownerName_${id}`}
         text={ownerName}
         searchWord={search}
         className={styles.selected}
         classNameContainer={styles.selected_container}
-        tooltipId={`title_${id}`}
       />
-      {(title && title.length > 60) && (
-        <Tooltip
-          id={`title_${id}`}
-          place="top"
-          className={styles.tooltip}
-          noArrow
-          offset={-10}
-        >
-          {ownerName}
-        </Tooltip>
-      )}
     </RequestCell> 
-  ), [hideAccessConfirm, id, isDisabled, ownerId, ownerName, search, showAccessConfirm, title]);
+  ), [hideAccessConfirm, id, isDisabled, ownerId, ownerName, search, showAccessConfirm]);
 
   if (isMobile) {
     return (
