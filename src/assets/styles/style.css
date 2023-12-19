@@ -1,0 +1,14 @@
+div.vis-network div.vis-navigation div.vis-button.vis-up, 
+div.vis-network div.vis-navigation div.vis-button.vis-down, 
+div.vis-network div.vis-navigation div.vis-button.vis-left, 
+div.vis-network div.vis-navigation div.vis-button.vis-right {
+  display: none !important;
+}
+
+div.vis-network div.vis-close {
+  display: none !important;
+}
+
+div.vis-network div.vis-separator-line {
+  display: none !important;
+}
