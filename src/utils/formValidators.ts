@@ -29,6 +29,9 @@ export const emailValidator = (email: string) => {
   if (!email) {
     return 'Email required';
   }
+  if (email && email.length > 63) {
+    return '63 character limit in mail name';
+  }
   if (!new RegExp(emailRegex).test(email)) {
     return 'Email incorrect';
   }
