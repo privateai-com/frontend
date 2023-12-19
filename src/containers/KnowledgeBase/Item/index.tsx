@@ -1,18 +1,19 @@
 import { useMemo } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
 
-import { AccessConfirm } from 'components';
+import { AccessConfirm, SelectedText } from 'components';
 import { RequestCell } from 'containers';
 import { Article, RequestStatus, StatusAccessArticle } from 'types';
 import { getName, getStatusAccessArticle } from 'utils';
 import { requestCreate } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
-
-import styles from './styles.module.scss';
 import { ItemMobile } from './ItemMobile';
 import { ItemDesktop } from './ItemDesktop';
+
+import styles from './styles.module.scss';
 
 const textStatus = {
   [StatusAccessArticle.OpenSource]: 'Open sourced', 
@@ -96,6 +97,8 @@ export const Item: React.FC<ItemProps> = ({
     [statusCreate],
   );
 
+  const ownerName = getName(fullName, username, ownerId) ?? '';
+
   const requester = useMemo(() => (
     <RequestCell
       className={styles.item_btn_link}
@@ -107,9 +110,27 @@ export const Item: React.FC<ItemProps> = ({
       isDisabled={isDisabled}
       id={id}
     >
-      {getName(fullName, username, ownerId) ?? ''}
+      <SelectedText
+        key={`title_${id}`}
+        text={ownerName}
+        searchWord={search}
+        className={styles.selected}
+        classNameContainer={styles.selected_container}
+        tooltipId={`title_${id}`}
+      />
+      {(title && title.length > 60) && (
+        <Tooltip
+          id={`title_${id}`}
+          place="top"
+          className={styles.tooltip}
+          noArrow
+          offset={-10}
+        >
+          {ownerName}
+        </Tooltip>
+      )}
     </RequestCell> 
-  ), [fullName, hideAccessConfirm, id, isDisabled, ownerId, showAccessConfirm, username]);
+  ), [hideAccessConfirm, id, isDisabled, ownerId, ownerName, search, showAccessConfirm, title]);
 
   if (isMobile) {
     return (
