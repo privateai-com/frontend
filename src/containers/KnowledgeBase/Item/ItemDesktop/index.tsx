@@ -100,7 +100,17 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
           </div>
           <div className={styles.item_col_block}>
             <span className={styles.title}>Core entities</span>
-            <span className={styles.item_core}>{topCoreEntities ?? '-'}</span>
+            <span className={styles.item_core}>
+              {topCoreEntities ? (
+                <SelectedText
+                  key={`topCoreEntities_${id}`}
+                  text={topCoreEntities}
+                  searchWord={search}
+                  className={styles.selected}
+                  tooltipId={`topCoreEntities_${id}`}
+                />
+              ) : ('-')}
+            </span>
           </div>
         </div>
       </div>
