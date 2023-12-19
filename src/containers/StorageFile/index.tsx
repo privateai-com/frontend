@@ -42,7 +42,10 @@ export const StorageFile = memo(() => {
 
   const initialGraphData = useMemo(
     () => {
-      const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
+      // eslint-disable-next-line no-nested-ternary
+      const graphArr = isPublishGraph ? 
+        article?.graph : 
+        article?.graphDraft.length ? article?.graphDraft : article?.graph;
       return (article && graphArr) ? graphArr : [];
     },
     [article, isPublishGraph],
