@@ -115,7 +115,7 @@ export const Item: React.FC<ItemProps> = ({
           )} */}
         </div>
         {status === UploadFileStatus.COMPLETE 
-        || status === UploadFileStatus.PUBLISHED 
+        || status === UploadFileStatus.PUBLISHED
           ? (
             <div className={styles.item_indication_block}>
               {/* <Image
@@ -144,7 +144,8 @@ export const Item: React.FC<ItemProps> = ({
                 {
                   status === UploadFileStatus.PROCESSING ||
                   status === UploadFileStatus.UPLOADED ||
-                  status === UploadFileStatus.ERROR 
+                  status === UploadFileStatus.ERROR ||
+                  status === UploadFileStatus.QUEUE
                     ? 'See in my storage' :
                     `~ 
                     ${' '}
