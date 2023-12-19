@@ -22,7 +22,7 @@ export function* articlesGetAllSaga({
       method: 'GET',
       endpoint: ApiEndpoint.ArticlesGetArticles + getApiQueries({
         ...payload,
-        sortingField: 'id',
+        sortingField: 'publishDate',
         sortingDirection: 'DESC',
         searchField: undefined,
       }),
