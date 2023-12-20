@@ -48,6 +48,7 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
       JSON.parse(pageHistory)[0] === routes.knowledge.root)
     ) {
       router.push(routes.knowledge.root);
+      return;
     }
      
     if (pageHistory) {
