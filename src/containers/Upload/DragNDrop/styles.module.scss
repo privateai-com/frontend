@@ -86,6 +86,7 @@
   &_title {
     align-self: flex-start;
     text-wrap: nowrap;
+    display: block ruby;
 
     @include desktop1440 {
       // margin-bottom: 26px;
