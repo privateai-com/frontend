@@ -5,7 +5,7 @@ div.vis-network div.vis-navigation div.vis-button.vis-right {
   display: none !important;
 }
 
-div.vis-network div.vis-close {
+div.vis-network button.vis-close {
   display: none !important;
 }
 

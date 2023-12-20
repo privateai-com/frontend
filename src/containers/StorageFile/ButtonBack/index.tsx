@@ -30,6 +30,8 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
     }
 
     const storageUrl = routes.storage.root;
+    const knowledgeUrl = routes.knowledge.root;
+
     const { storageTab } = router.query;
     if (typeof storageTab === 'string' && storageTab === queryTab.storageRequestedData) {
       router.push(`${storageUrl}?storageTab=${queryTab.storageRequestedData}`);
@@ -45,9 +47,11 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
     if (
       pageHistory &&
       (JSON.parse(pageHistory)[0] === JSON.parse(pageHistory)[1] ||
-      JSON.parse(pageHistory)[0] === routes.knowledge.root)
+      JSON.parse(pageHistory)[0] === knowledgeUrl ||
+      JSON.parse(pageHistory)[0].includes(knowledgeUrl)
+      )
     ) {
-      router.push(routes.knowledge.root);
+      router.push(knowledgeUrl);
       return;
     }
      
@@ -61,7 +65,7 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
       }
     }
     
-    router.push(routes.knowledge.root);
+    router.push(knowledgeUrl);
   }, [isEdit, onEdit, router]);
 
   return (
