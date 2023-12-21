@@ -117,7 +117,6 @@ export const articlesGetMy = (
     sortingField: string;
     sortingDirection: SortingDirection;
     doneStatus?: boolean;
-    isHidden?: boolean;
   },
 ) => ({
   type: ArticlesActionTypes.GetMyArticles,

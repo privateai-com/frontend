@@ -18,8 +18,10 @@ export const getApiQueries = (payload: {
     sortingField,
     sortingDirection,
     doneStatus: doneStatus ? 'true' : 'false',
-    isHidden: isHidden ? 'true' : 'false',
   });
+  if (isHidden !== undefined) {
+    url.append('isHidden', isHidden ? 'true' : 'false');
+  }
   if (searchField) {
     url.append('searchField', searchField);
   }
