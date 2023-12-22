@@ -1,4 +1,6 @@
-import { FC, useCallback, useState } from 'react';
+import {
+  FC, FormEvent, useCallback, useState,
+} from 'react';
 
 import {
   AuthWrapper, Button, TextInput, Typography, 
@@ -34,7 +36,8 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
     RequestStatus.REQUEST;
   const isNotError = !emailError && !!email;
 
-  const onConfirmClick = useCallback(() => {
+  const onConfirmClick = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const currentEmailError = emailValidator(email);
 
     setEmailError(currentEmailError);
@@ -56,7 +59,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
 
   return (
     <AuthWrapper onClickBack={onBack}>
-      <form className={styles.reset__container}>
+      <form className={styles.reset__container} onSubmit={onConfirmClick}>
         <Typography
           type="p"
           className={styles.description}
@@ -76,7 +79,6 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
           </div>
         )}
         <Button
-          onClick={onConfirmClick}
           className={styles.button}
           disabled={!isNotError}
           isLoading={isLoading}

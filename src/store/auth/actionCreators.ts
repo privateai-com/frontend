@@ -76,7 +76,7 @@ export const authConfirmCode = (payload: {
 });
 
 export const authChangePassword = (payload: {
-  password?: string;
+  verificationCode: string;
   successCallback: () => void;
   errorCallback: (error: AuthErrorTransformResult) => void;
 }) => ({
@@ -91,5 +91,14 @@ export const authOnUpdateAccessTokensFinish = (payload: UpdatePayload) => ({
 
 export const authResendConfCode = (payload: { email: string }) => ({
   type: AuthActionTypes.ResendConfCode,
+  payload,
+});
+
+export const authRequestResetPassword = (payload: {
+  password: string,
+  successCallback: () => void;
+  errorCallback: (error: AuthErrorTransformResult) => void;
+}) => ({
+  type: AuthActionTypes.RequestResetPassword,
   payload,
 });

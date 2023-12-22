@@ -18,6 +18,7 @@ export const authInitialState: Readonly<AuthState> = {
     [AuthActionTypes.ResendConfCode]: RequestStatus.INIT,
     [AuthActionTypes.ConfirmCode]: RequestStatus.INIT,
     [AuthActionTypes.ChangePassword]: RequestStatus.INIT,
+    [AuthActionTypes.RequestResetPassword]: RequestStatus.INIT,
   },
 };
 
