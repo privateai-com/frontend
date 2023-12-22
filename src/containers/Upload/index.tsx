@@ -110,7 +110,7 @@ export const Upload = () => {
   
   const [currentArticles, setCurrentArticles] = useState<Article[]>([]);
   const [uploadArticles, setUploadArticles] = useState<Article[]>([]);
-  // console.log({ uploadArticles })
+
   useEffect(() => {
     if (upload) {
       setUploadArticles(() => (Object.values(upload).reverse()
@@ -219,6 +219,16 @@ export const Upload = () => {
     }));
   }, [dispatch, queryParams, removeItemByIdStorage, upload]);
 
+  const handleCancelUploadLocal = useCallback((articleId: number) => {
+    const uploadCurrent = { ...upload };
+    if (uploadCurrent[articleId]) {
+      delete uploadCurrent[articleId];
+      dispatch(articlesSetState({ upload: uploadCurrent }));
+    } else {
+      handleCancelUpload(articleId);
+    }
+  }, [dispatch, handleCancelUpload, upload]);
+
   const isDisabledUploadFile = isVipUser || !userFilledAllInfo;
 
   const getCancelFunction = useCallback((uploadStatus: UploadFileStatus, id: number) => {
@@ -230,12 +240,13 @@ export const Upload = () => {
       case UploadFileStatus.UPLOADED:
       case UploadFileStatus.QUEUE:
       case UploadFileStatus.PROCESSING:
-      case UploadFileStatus.ERROR:
         return handleCancelUpload(id);
+      case UploadFileStatus.ERROR:
+        return handleCancelUploadLocal(id);
       default:
         return undefined;
     }
-  }, [handleCancelUpload, handleCancelUploadFetch]);
+  }, [handleCancelUpload, handleCancelUploadFetch, handleCancelUploadLocal]);
 
   return (
     <div className={styles.upload}>
