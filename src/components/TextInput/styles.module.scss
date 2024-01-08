@@ -6,7 +6,7 @@
   width: 100%;
 
   .label_container {
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     display: flex;
     font-size: 12px;
     line-height: 16px;
@@ -16,9 +16,11 @@
       display: flex;
       flex-direction: row;
       letter-spacing: 0;
-      color: $color-grey4;	
+      // color: $color-grey4;	
+      color: #7C859E;
+      font-weight: 400;
 
-      font-size: 20px;
+      font-size: 16px;
       line-height: 24px;
 
       @include desktop1440 {
@@ -37,13 +39,13 @@
       }
 
       .required {
-        color: $color-green;
+        // color: $color-blue;
       }
     }
 
     .input__label_right {
       margin-left: auto;
-      color: $color-green;
+      color: $color-blue;
     }
   }
 
@@ -51,7 +53,7 @@
     overflow: hidden;
     background-color: $color-white;
     border: 1px solid $color-grey2;
-    box-shadow: 0px 6px 16px 0px rgba($color-green, .06);
+    // box-shadow: 0px 6px 16px 0px rgba($color-blue, .06);
 
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
@@ -64,20 +66,20 @@
     display: flex;
     align-items: center;
 
-    height: 50px;
+    // height: 50px;
 
-    @include desktop1440 {
-      height: 40px;
-    }
+    // @include desktop1440 {
+    //   height: 40px;
+    // }
   
-    @include desktop1024 {
-      height: 40px;
-    }
+    // @include desktop1024 {
+    //   height: 40px;
+    // }
   
-    @include mobile {
-      height: 30px;
-      border-radius: 4px;
-    }
+    // @include mobile {
+    //   // height: 30px;
+    //   border-radius: 4px;
+    // }
 
     input {
       grid-area: input;
@@ -89,42 +91,49 @@
 
       border: 0;
       outline: 0;
-      padding: 0px 15px 0px 15px;
+      padding: 8px 16px;
+      // padding: 15px 15px 15px 15px;
 
-      font-size: 20px;
-      line-height: 24px;
-      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.75;
+      font-weight: 400;
 
       @include desktop1440 {
-        font-size: 16px;
-        line-height: 20px;
+        // font-size: 16px;
+        // line-height: 20px;
       }
     
       @include desktop1024 {
-        font-size: 18px;
-        line-height: 22px;
+        // font-size: 18px;
+        // line-height: 22px;
       }
     
       @include mobile {
-        font-size: 12px;
-        line-height: 17px;
+        // font-size: 16px;
+        // line-height: 24px;
+        // font-size: 12px;
+        // line-height: 17px;
       }
     }
 
-    ::placeholder {
-      color: $color-grey;
-
+    input[type=password]{
       font-size: 20px;
+    }
+
+    ::placeholder {
+      color: #7C859E;
+
+      font-size: 15px;
       line-height: normal;
-      font-weight: 500;
+      font-weight: 400;
 
       @include desktop1440 {
-        font-size: 16px;
+        // font-size: 16px;
         line-height: normal;
       }
     
       @include desktop1024 {
-        font-size: 18px;
+        // font-size: 18px;
         line-height: normal;
       }
     
@@ -208,8 +217,9 @@
   & .input_btn_clear {
     position: absolute;
     right: 17px;
-    height: 15px;
+    height: 15px!important;
     width: 15px;
+    // height: auto!important;
     cursor: pointer;
   }
 

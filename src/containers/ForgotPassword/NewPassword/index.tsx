@@ -55,12 +55,20 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
   return (
     <AuthWrapper>
       <form className={styles.new_password__container}>
-        <Typography
-          type="p"
-          className={styles.description}
-        >
-          Set a new password for your account
-        </Typography>
+        <div className={styles.new_password__head}>
+          <Typography
+            type="h4"
+          >
+           Change password
+          </Typography>
+          <Typography
+            type="p"
+            className={styles.description}
+          >
+            Set a new password for your account
+          </Typography>
+        </div>
+       
         <TextInput
           label="Password"
           value={password}

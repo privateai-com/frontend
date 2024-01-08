@@ -27,7 +27,9 @@ import { profileSelectors } from 'store/profile/selectors';
 import { normalizeUserInfo, notification } from 'utils';
 import { Footer } from '../Footer';
 import styles from './styles.module.scss';
+import commonStyles from '../common.module.scss'
 import { UserSchema } from './schema';
+import { ButtonTransparent } from 'components/ButtonTransparent';
 
 type UpdateProfileProps = {
   callbackLater: () => void;
@@ -59,6 +61,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
 
   const [avatar, setAvatar] = useState<File | null>();
+  const [avatarURI, setAvatarURI] = useState(avatarUrl)
   const [realName, setRealName] = useState(fullName || '');
   const [username, setUsername] = useState(usernameOld ?? '');
   const [location, setLocation] = useState(normalizeUserInfo(city, country) || '');
@@ -80,7 +83,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
       socialLink: socialMediaLink,
       organization,
       researchFields,
-      fullName: realName,
+      fullName: username,
       position,
       country: location,
     };
@@ -98,6 +101,8 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     callbackSuccess, dispatch, location, organization, position,
     realName, researchFields, socialMediaLink, username,
   ]);
+
+  const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
 
   const saveData = useCallback((callback?: () => void) => {
     if (avatar) {
@@ -179,149 +184,400 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     checkFile(file);
   }, []);
 
+
   return (
     <>
-      <div className={cx(styles.wrapper, styles.info)}>
-        <label
-          htmlFor="upload"
-          className={cx(styles.info_upload_btn, {
-            [styles.dragOver]: isDragging,
-          })}
-          onDragOver={() => setIsDragging(true)}
-          onDragEnter={() => setIsDragging(true)}
-          onDragLeave={() => setIsDragging(false)}
-          onDrop={handleDrop}
-        >
-          {avatar ? (
-            <Image
-              src={URL.createObjectURL(avatar)}
-              alt="avatar"
-              className={styles.avatar}
-              width={350}
-              height={350}
-                // fill
-              style={{ objectFit: 'cover' }}
-            /> 
-          ) : (
-            <p>
-              {isSmallDesktop
-                ? 'Tap to upload your profile picture'
-                : 'Upload your profile picture'}
-              <span>*</span>
-            </p>
-          )}
-          {!avatar && (
-            <>
-              <Image
-                src={uploadIcon}
-                alt="icon"
-                className={styles.info_upload_img}
-              />
-              <input
-                type="file"
-                id="upload"
-                onChange={onUploadClick}
-                className={styles.info_upload_input}
-                accept="image/png, image/jpg, image/jpeg"
-              />
-            </>
-          )}
-        </label>
-        <TextInput
-          label="Real name"
-          value={realName}
-          onChangeValue={setRealName}
-          classNameContainer={styles.input__container}
-          classNameLabel={styles.labelInput}
-          isRequired
-          isError={validation?.error ? !!validation?.error['fullName'] : false}
-        />
-        <TextInput
-          label="User name"
-          value={username}
-          onChangeValue={setUsername}
-          classNameContainer={styles.input__container}
-          classNameLabel={styles.labelInput}
-          placeholder={username || `Archonaut#${id}`}
-          isError={validation?.error ? !!validation?.error['username'] : false}
-        />
-        <TextInput
-          label="Location (Country and/or City)"
-          value={location}
-          onChangeValue={setLocation}
-          classNameContainer={styles.input__container}
-          classNameLabel={styles.labelInput}
-          placeholder="e.g., London, UK"
-          isError={validation?.error ? !!validation?.error['country'] : false}
-        />
-      </div>
-      <div className={cx(styles.wrapper, styles.info2)}>
-        <Typography type="h2">Contact information</Typography>
-        <div className={styles.info__email_block}>
-          <div className={styles.info__email_title}>
-            Email address
-            <span>*</span>
+       <div className={styles.itemWrap}>
+        <div className={styles.short_col}>
+          <div className={cx(styles.wrapper, styles.info)}>
+            
+            <div className={styles.containerAvatar}>
+              {avatarURI && avatarURI !== '' && !avatar && <>
+                <label htmlFor="upload" className={styles.info_avatar}>
+                  <Image
+                    src={avatarURI}
+                    alt=""
+                    className={styles.info_avatar}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                </label>
+              </>}
+              {!avatar && !avatarURI && avatarURI === '' && <label htmlFor="upload">
+                <div  className={styles.no_avatar} />
+              </label>
+              }
+                
+              {avatar && 
+                <label htmlFor="upload">
+                  <Image
+                      src={URL.createObjectURL(avatar)}
+                      alt="icon"
+                      width={350}
+                      height={350}
+                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+                      // fill
+                      className={styles.info_avatar}
+                    />
+                </label>
+              }
+            </div>
+            <div className={styles.info_uploadBtns}>
+              <label htmlFor="upload" className={styles.uploadBtn}>
+              
+              
+              {/* <Button theme='secondary'> */}
+                Upload new picture
+                <input
+                  style={{
+                    position: 'absolute', 
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    zIndex: -1
+                  }}
+                  type="file"
+                  id="upload"
+                  onChange={onUploadClick}
+                  className={styles.info_upload_input}
+                  accept="image/png, image/jpg, image/jpeg"
+                />
+              {/* </Button> */}
+              </label>
+              {/* <Button onClick={()=>{setAvatar(null); setAvatarURI('')}} className={styles.uploadBtn} theme='secondary'>
+                Delete
+              </Button> */}
+            </div>
+
+            <div className={styles.info_wrapper}>
+              <div className={styles.info_item}>
+                <Typography type="h4">
+                  Real name/User name
+                  <span>*</span>
+                </Typography>
+                <TextInput
+                  value={username}
+                  onChangeValue={setUsername}
+                  classNameContainer={styles.input__container}
+                  classNameLabel={commonStyles.h3_style_gray}
+                  placeholder={username || `Archonaut#${id}`}
+                  isError={validation?.error ? !!validation?.error['username'] : false}
+                />
+                <Typography type="h4">
+                  Location (Country and/or City)
+                  <span>*</span>
+                </Typography>
+                <TextInput
+                  value={location}
+                  onChangeValue={setLocation}
+                  classNameContainer={styles.input__container}
+                  classNameLabel={commonStyles.h3_style_gray}
+                  placeholder="e.g., London, UK"
+                  isError={validation?.error ? !!validation?.error['country'] : false}
+                />
+              </div>
+            </div>
           </div>
-          <div>{email}</div>
+          {!isMobile && 
+          <Footer isEditProfile={false} className={styles.footer} />}
         </div>
-        <TextInput
-          label="Social media"
-          value={socialMediaLink}
-          onChangeValue={setSocialMediaLink}
-          classNameContainer={styles.input__container}
-          classNameLabel={styles.labelInput}
-          isError={validation?.error ? !!validation?.error['socialLink'] : false}
-          placeholder="https://"
-        />
+        <div className={styles.long_col}>
+          <div className={cx(styles.wrapper, styles.walletWrap)}>
+            <div className={styles.walletInner}>
+              <div className={cx(styles.walletInfoCol,styles.info_item)}>
+                <h4 className={commonStyles.h4_style} >
+                  Linked Wallet
+                </h4>
+                <p className={commonStyles.p_text} >
+                KL1s22d1330032d1806...564
+                </p>
+              </div>
+              
+              <Button
+                  theme='secondary'
+                  className={styles.profile__head_button}
+                  isLoading={false}
+                  disabled={false}
+                >
+                  Link your wallet
+              </Button>
+            </div>
+            
+            {/* Connect wallet */}
+          </div>
+          <div className={cx(styles.wrapper, styles.info2)}>
+            <h2 className={commonStyles.h2_style}>
+              Contact information
+            </h2>
+            <div className={styles.info_item}>
+              <h3 className={commonStyles.h3_style_gray}>
+                Email address *
+              </h3>
+              <div className={commonStyles.p_text}>
+                {email}
+              </div>
+            
+            </div>
+            <div className={styles.info_item}>
+              <h3 className={commonStyles.h3_style_gray}>
+                Social media *
+              </h3>            
+            </div>
+            <TextInput
+                value={socialMediaLink}
+                onChangeValue={setSocialMediaLink}
+                classNameContainer={styles.input__container}
+                classNameLabel={commonStyles.h3_style_gray}
+                isError={validation?.error ? !!validation?.error['socialLink'] : false}
+                placeholder="https://"
+              />
+          </div>
+          <div className={cx(styles.wrapper, styles.info3)}>
+            <h2 className={commonStyles.h2_style}>
+              Field of activity
+            </h2>
+            <div className={styles.info_item}>
+              <h3 className={commonStyles.h3_style_gray}>
+                Organisation/Institute *
+              </h3>
+              
+            </div>
+            <TextInput
+              placeholder="e.g., London Institute of Medical Sciences"
+              value={organization}
+              onChangeValue={setOrganization}
+              classNameContainer={styles.input__container}
+              classNameLabel={commonStyles.h3_style_gray}
+              isRequired
+              isError={validation?.error ? !!validation?.error['organization'] : false}
+            />
+            <div className={styles.info_item}>
+              <h3 className={commonStyles.h3_style_gray}>
+                Position *
+              </h3>
+            </div>
+            <TextInput
+              value={position}
+              onChangeValue={setPosition}
+              classNameContainer={styles.input__container}
+              classNameLabel={commonStyles.h3_style_gray}
+              isRequired
+              isError={validation?.error ? !!validation?.error['position'] : false}
+            />
+            <div className={styles.info_item}>
+              <h3 className={commonStyles.h3_style_gray}>
+                Research fields *
+              </h3>
+            </div>
+            <TextInput
+              value={researchFields}
+              onChangeValue={setResearchFields}
+              classNameContainer={styles.input__container}
+              classNameLabel={commonStyles.h3_style_gray}
+              isRequired
+              isError={validation?.error ? !!validation?.error['researchFields'] : false}
+            />
+            <div className={styles.btnWrap}>
+
+         
+              <Button
+                theme='secondary'
+                onClick={callbackLater}
+              >
+                Fill in later
+              </Button>
+              <Button
+                className={styles.filledBtn}
+                onClick={onSaveClick}
+                isLoading={statusUpdate === RequestStatus.REQUEST}
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+          {isMobile && 
+          <Footer isEditProfile={false} className={styles.footer} />}
+        </div>
       </div>
-      <div className={cx(styles.wrapper, styles.info3)}>
-        <Typography type="h2">Field of activity</Typography>
-        <TextInput
-          label="Organisation/Institute"
-          placeholder="e.g., London Institute of Medical Sciences"
-          value={organization}
-          onChangeValue={setOrganization}
-          classNameContainer={styles.input__container}
-          classNameLabel={styles.labelInput}
-          isRequired
-          isError={validation?.error ? !!validation?.error['organization'] : false}
-        />
-        <TextInput
-          label="Position"
-          value={position}
-          onChangeValue={setPosition}
-          classNameContainer={styles.input__container}
-          classNameLabel={styles.labelInput}
-          isRequired
-          isError={validation?.error ? !!validation?.error['position'] : false}
-        />
-        <TextInput
-          label="Research fields"
-          value={researchFields}
-          onChangeValue={setResearchFields}
-          classNameContainer={styles.input__container}
-          classNameLabel={styles.labelInput}
-          isRequired
-          isError={validation?.error ? !!validation?.error['researchFields'] : false}
-        />
+    </>
+  )
+
+  return (
+    <>
+      <div className={styles.itemWrap}>
+        <div className={styles.short_col}>
+          <div className={cx(styles.wrapper, styles.info)}>
+            <label
+              htmlFor="upload"
+              className={cx(styles.info_upload_btn, {
+                [styles.dragOver]: isDragging,
+              })}
+              onDragOver={() => setIsDragging(true)}
+              onDragEnter={() => setIsDragging(true)}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={handleDrop}
+            >
+              {avatar ? (
+                <Image
+                  src={URL.createObjectURL(avatar)}
+                  alt="avatar"
+                  className={styles.avatar}
+                  width={350}
+                  height={350}
+                    // fill
+                  style={{ objectFit: 'cover' }}
+                /> 
+              ) : (
+                <p className={commonStyles.accent_text}>
+                  {isSmallDesktop
+                    ? 'Tap to upload your profile picture'
+                    : 'Upload your profile picture'}
+                  <span>*</span>
+                </p>
+              )}
+              {!avatar && (
+                <>
+                  <Image
+                    src={uploadIcon}
+                    alt="icon"
+                    className={styles.info_upload_img}
+                  />
+                  <input
+                    type="file"
+                    id="upload"
+                    onChange={onUploadClick}
+                    className={styles.info_upload_input}
+                    accept="image/png, image/jpg, image/jpeg"
+                  />
+                </>
+              )}
+            </label>
+            <TextInput
+              label="Real name"
+              value={realName}
+              onChangeValue={setRealName}
+              classNameContainer={styles.input__container}
+              // classNameLabel={styles.labelInput}
+              classNameLabel={commonStyles.h3_style_gray}
+              isRequired
+              isError={validation?.error ? !!validation?.error['fullName'] : false}
+            />
+            <TextInput
+              label="User name"
+              value={username}
+              onChangeValue={setUsername}
+              classNameContainer={styles.input__container}
+              // classNameLabel={styles.labelInput}
+              classNameLabel={commonStyles.h3_style_gray}
+              placeholder={username || `Archonaut#${id}`}
+              isError={validation?.error ? !!validation?.error['username'] : false}
+            />
+            <TextInput
+              label="Location (Country and/or City)"
+              value={location}
+              onChangeValue={setLocation}
+              classNameContainer={styles.input__container}
+              // classNameLabel={styles.labelInput}
+              classNameLabel={commonStyles.h3_style_gray}
+              placeholder="e.g., London, UK"
+              isError={validation?.error ? !!validation?.error['country'] : false}
+            />
+          </div>
+        </div>
+        <div className={styles.long_col}>
+          <div className={cx(styles.wrapper, styles.info2)}>
+            <h2 className={commonStyles.h2_style }>Contact information</h2>
+            {/* <Typography type="h2">Contact information</Typography> */}
+            
+            <div className={styles.info__email_block}>
+              {/* <div className={styles.info__email_title}>
+                Email address
+                <span>*</span>
+              </div> */}
+              <h3 className={commonStyles.h3_style_gray}>
+                Email address *
+              </h3>
+              <div className={commonStyles.p_text}>{email}</div>
+            </div>
+            <TextInput
+              label="Social media"
+              value={socialMediaLink}
+              onChangeValue={setSocialMediaLink}
+              classNameContainer={styles.input__container}
+              classNameLabel={commonStyles.h3_style_gray}
+              isError={validation?.error ? !!validation?.error['socialLink'] : false}
+              placeholder="https://"
+            />
+          </div>
+          <div className={cx(styles.wrapper, styles.info3)}>
+            {/* <Typography type="h2">Field of activity</Typography> */}
+            <h2 className={commonStyles.h2_style }>Field of activity</h2>
+            <TextInput
+              label="Organisation/Institute"
+              placeholder="e.g., London Institute of Medical Sciences"
+              value={organization}
+              onChangeValue={setOrganization}
+              classNameContainer={styles.input__container}
+              classNameLabel={commonStyles.h3_style_gray}
+              isRequired
+              isError={validation?.error ? !!validation?.error['organization'] : false}
+            />
+            <TextInput
+              label="Position"
+              value={position}
+              onChangeValue={setPosition}
+              classNameContainer={styles.input__container}
+              classNameLabel={commonStyles.h3_style_gray}
+              isRequired
+              isError={validation?.error ? !!validation?.error['position'] : false}
+            />
+            <TextInput
+              label="Research fields"
+              value={researchFields}
+              onChangeValue={setResearchFields}
+              classNameContainer={styles.input__container}
+              classNameLabel={commonStyles.h3_style_gray}
+              isRequired
+              isError={validation?.error ? !!validation?.error['researchFields'] : false}
+            />
+          </div>
+
+        </div>
       </div>
+    
       <div className={styles.footer}>
         <Footer isEditProfile />
         <div className={styles.button_block}>
-          <Button
+          {/* <Button
             theme="secondary"
             className={styles.button}
             onClick={callbackLater}
           >
             Fill in later
-          </Button>
-          <Button
+          </Button> */}
+
+          <div className={styles.btnWrap}>
+
+         
+            <Button
+              onClick={callbackLater}
+            >
+              Fill in later
+            </Button>
+            <Button
+              className={styles.filledBtn}
+              onClick={onSaveClick}
+              isLoading={statusUpdate === RequestStatus.REQUEST}
+            >
+              Save
+            </Button>
+          </div>
+          {/* <Button
             className={styles.button}
             onClick={onSaveClick}
             isLoading={statusUpdate === RequestStatus.REQUEST}
           >
             Save
-          </Button>
+          </Button> */}
         </div>
       </div>
     </>

@@ -12,9 +12,9 @@
   flex-direction: column;
   align-items: center;
 
-  background-color: $color-white;
-  border-right: 1px solid $color-grey3;
-  padding: 30px;
+  background-color: #F3F5FF;
+  // border-right: 1px solid $color-grey3;
+  // padding: 30px;
 
   @include desktop1024 {
     width: 268px;
@@ -30,7 +30,7 @@
 }
 
 .sidebar_logo {
-  margin: 6px auto 32px;
+  margin: 0px auto 30px;
 }
 
 .sidebar_list {
@@ -38,7 +38,8 @@
   flex-direction: column;
   gap: 40px;
   width: 100%;
-  border-top: 1px solid $color-grey3;
+  border-top: 1px solid #BDC5DC;
+  // border-top: 1px solid $color-grey3;
   padding-top: 34px;
   padding-left: 10px;
 
@@ -78,23 +79,28 @@
   &:hover {
     .svg {
       path {
-        stroke: $color-green;
+        stroke: $color-blue2;;
+        // stroke: $color-blue;
       }
     }
   }
 
   &.active {
-    color: $color-green;
+    color: #4659FE;
+    // color: $color-blue;
 
     &::before {
       content: '';
       width: 8px;
       height: 8px;
-      background-color: $color-green;
+      background-color: #4659FE;
+      // background-color: $color-blue;
       position: absolute;
-      top: 2px;
+      // top: 3px;
+      top: 50%;
       right: -44px;
-      transform: translate(-50%, 75%);
+      transform: translate(-50%,-50%);
+      // transform: translate(-50%, 75%);
       border-radius: 100%;
 
       @include media-breakpoint-up(lg) {
@@ -113,7 +119,8 @@
     .active_svg {
       
       path {
-        stroke: $color-green;
+        stroke: #4659FE;
+        // stroke: $color-blue;
       }
     }
   }

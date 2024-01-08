@@ -23,41 +23,50 @@
 
 .storage__head_buttons {
 	display: flex;
-	height: 40px;	
+	margin-bottom: -22px;
+	// height: 40px;	
 
 	@media screen and (max-width: 1218px) {
 		width: 100%;
 	}
 
 	@include desktop1440 {
-		height: 30px;
+		// height: 30px;
 	}
 
-	button {
-		width: 200px;
-		font-size: 20px;
+	// button {
+	// 	// width: 200px;
+	// 	font-size: 20px;
+	// 	border-radius: 0px;
+	// 	padding-left: 0;
+	// 	padding-right: 0;
 
-		@include desktop1440 {
-			width: 192.5px;
-			font-size: 16px;
-		}
 
-		@include desktop1024 {
-			width: 180px;
-		}
+	// 	@include desktop1440 {
+	// 		// width: 192.5px;
+	// 		font-size: 16px;
+	// 	}
 
-		@include mobile {
-			padding: 6px 10px;
-			width: 100%;
-		}
+	// 	@include desktop1024 {
+	// 		width: 180px;
+	// 	}
 
-		&:first-child {
-			border-radius: 8px 0 0 8px;
-		}
-		&:last-of-type {
-			border-radius: 0 8px 8px 0;
-		}
-	}
+	// 	@include mobile {
+	// 		padding: 6px 10px;
+	// 		width: 100%;
+	// 	}
+
+	// 	&:first-child {
+	// 		margin-left: 0px;
+	// 		margin-right: 10px;
+	// 		// border-radius: 8px 0 0 0px;
+	// 	}
+	// 	&:last-of-type {
+	// 		margin-left: 10px;
+	// 		margin-right: 0px;
+	// 		// border-radius: 0 8px 0px 0;
+	// 	}
+	// }
 }
 
 .upload {
@@ -151,8 +160,8 @@
 
 .buttonUpload {
 	position: relative;
-	width: 300px;
-	
+	// width: 300px;
+	text-decoration: none;
 	display: flex;
 	justify-content: center;
 	justify-self: flex-end;
@@ -160,17 +169,23 @@
 	height: 50px;
 	align-items: center;
 	padding: 8px 15px;
-
+	min-width: none!important;
 	border-radius: 8px;
-	background: #00DEA3;
+	background: #4659FE;
+	color: #ffff;
+	border: 1px solid #4659FE;
+	&:hover{
+		background: #ffff;
+		color: #4659FE;
+	}
 
 	/* Tab */
 	box-shadow: 0px 6px 16px 0px rgba(0, 222, 163, 0.06);
 	backdrop-filter: blur(7.5px);
 
 	@include desktop1440 {
-		min-width: 190px;
-		width: 190px;
+		// min-width: 190px;
+		// width: 190px;
 		height: 40px;
 	}
 
@@ -188,15 +203,16 @@
 		// position: absolute;
 		// top: 15px;
 
-		color:  #FFF;
-		font-size: 20px;
+		// color:  #FFF;
+		// font-size: 20px;
 		font-style: normal;
 		font-weight: 600;
+		font-size: 16px;
 
 		@include desktop1440 {
 			// top: 10px;
-			padding-left: 16px;
-			font-size: 16px;
+			// padding-left: 16px;
+			// font-size: 16px;
 		}
 	}
 
@@ -204,7 +220,30 @@
 		display: none;
 	}
 	@media screen and (max-width: 1218px) {
-		position: absolute;
-		right: 0px;
+		// position: absolute;
+		// right: 0px;
 	}
+}
+
+
+.tabButton{
+	padding: 0px 0 10px;
+	margin: 0 10px;
+	border-bottom: 4px solid;
+	&_active{
+		color:#4659FE;
+		border-color: #4659FE;
+	}
+	&_disabled{
+		color:#7C859E;
+		border-color: transparent;
+	}
+	&:first-child{
+		margin-left: 0px;
+	}
+	&:last-child{
+		margin-right: 0px;
+	}
+
+	transition: all 0.2s ease-out;
 }

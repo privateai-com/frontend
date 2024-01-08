@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 type InputOtpProps = {
   value: string;
   numInputs?: number;
-  label?: string;
+  label?: any;
   classNameContainer?: string;
   classNameLabel?: string;
   classNameInput?: string;

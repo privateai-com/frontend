@@ -20,6 +20,8 @@
 }
 
 .modal_container {
+  width: 100%;
+  max-width: 640px;
   position: relative;
   height: auto;
   min-height: 200px;
@@ -28,6 +30,7 @@
   border: 1px solid;
   border-color: transparent;
   border-radius: 16px;
+
 
   @include mobile {
     width: calc(100vw - 50px) !important;
@@ -52,6 +55,7 @@
 
   top: 30px;
   right: 30px;
+   box-shadow: none!important;
 
   @include desktop1440 {
     top: 20px;

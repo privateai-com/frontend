@@ -139,9 +139,9 @@ export const TabToMe = () => {
     ];
   }, [dispatch]);
 
-  useEffect(() => () => {
-    if (isMobile) dispatch(requestSetState({ requestsToMe: [] }));
-  }, [dispatch, isMobile]);
+  // useEffect(() => () => {
+  //   if (isMobile) dispatch(requestSetState({ requestsToMe: [] }));
+  // }, [dispatch, isMobile]);
   
   return (
     <>

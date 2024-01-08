@@ -25,6 +25,8 @@ import {
 
 import styles from './styles.module.scss';
 import { DeleteBtn } from '../DeleteBtn';
+import { MultiDrop } from 'components/MultiDrop';
+import { ChangeAvailability } from 'containers/Storage/ArticlesTab/ChangeAvailability';
 
 interface FileInfoProps {
   graphData: GraphResponseType[];
@@ -59,6 +61,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
   const [nameFileError, setNameFileError] = useState('');
   const [fieldFile, setFieldFile] = useState('');
   const [fieldFileError, setFieldFileError] = useState('');
+  const [isEditingTitle, setEditingTitle] = useState(false);
 
   const [articleAccess, setArticleAccess] = useState('closed' as 'open' | 'closed');
 
@@ -159,24 +162,40 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
     <>
       <div className={cx(styles.storageFile__file, classNameFile)}>
         <div className={styles.storageFile__data_head}>
-          <Typography type="h1">File information</Typography>
-          {(isOwner && article?.id) && (
-            <DeleteBtn className={styles.storageFile__data_btn} articleId={article?.id} />
-          )}
-        </div>
-        <div className={styles.storageFile__wrapper}>
-          <div className={styles.storageFile__item}>
-            File name:
-            <TextInput
-              onChangeValue={onNameFileChange}
-              value={nameFile}
-              classNameContainer={styles.storageFile__item_input}
-              classNameInputBox={styles.storageFile__item_input_box}
-              isError={nameFileError !== ''}
-            />
+          {/* Title */}
+          <div className={styles.row}>
+            {!isEditingTitle && <Typography type="h2">{nameFile}</Typography>}
+            {!isEditingTitle && <button className={styles.titleEditBtn} onClick={()=>{
+              setEditingTitle(prev=>!prev)
+            }} ><span>Edit file name</span></button>}
+            {isEditingTitle && <div>
+              <Typography 
+                type="h4"
+              >
+                File name
+              </Typography>
+              <TextInput
+                onChangeValue={onNameFileChange}
+                value={nameFile}
+                classNameContainer={styles.storageFile__item_input}
+                classNameInputBox={styles.storageFile__item_input_box}
+                isError={nameFileError !== ''}
+              />
+            </div>}
           </div>
-          <div className={styles.storageFile__item}>
-            Field: 
+          {/* Delete */}
+          {/* {(isOwner && article?.id) && (
+            <div className={cx(styles.row,styles.deleteRow)}><DeleteBtn className={styles.storageFile__data_btn} articleId={article?.id} /></div>
+          )} */}
+
+          
+          {/* Topic */}
+          <div className={styles.row}>
+            <Typography 
+              type="h4"
+            >
+              Topic:
+            </Typography>
             <TextInput
               onChangeValue={onFieldFileChange}
               value={fieldFile}
@@ -184,17 +203,88 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
               classNameInputBox={styles.storageFile__item_input_box}
               isError={fieldFileError !== ''}
             />
+
           </div>
-          <div className={styles.storageFile__item}>
-            Graph edges: 
-            {/* <Button
-              onClick={addNewEdgeClick}
-              theme="secondary"
-              disabled={!lastEdgeAvaliable}
-            >
-              Add new edge
-            </Button> */}
+          {/* Graph edges */}
+          <div className={styles.row}>
+
+              
+            <div className={styles.storageFile__item}>
+            
+              <Typography 
+                type="h4"
+              >
+                Graph edges: 
+              </Typography>
+
+              {
+                article && 
+                <ChangeAvailability id={article.id} isPublic={article.isPublic} />
+              }
+              {/* <select name="" defaultValue={articleAccess} id="">
+                <option value="open">Open-sourced</option>
+                <option value="closed">Permission-based</option>
+              </select> */}
+              {/* <RadioButtons
+                containerClassName={styles.radio_buttons}
+                options={[
+                  {
+                    value: 'open',
+                    label: 'Open-sourced',
+                  },
+                  {
+                    value: 'closed',
+                    label: 'Permission-based',
+                  },
+                ]}
+                currentValue={articleAccess}
+                onChange={onChangeAvailabilityClick}
+              /> */}
+              {/* <Button
+                theme="secondary"
+                onClick={onDownloadXlsxClick}
+                disabled={!article}
+                className={styles.storageFile__download_xlsx}
+              >
+                Download xlsx
+              </Button> */}
+            </div>
+
           </div>
+        </div>
+        
+        <div className={styles.storageFile__wrapper}>
+            {/* <div className={styles.storageFile__item}>
+              File name:
+              <TextInput
+                onChangeValue={onNameFileChange}
+                value={nameFile}
+                classNameContainer={styles.storageFile__item_input}
+                classNameInputBox={styles.storageFile__item_input_box}
+                isError={nameFileError !== ''}
+              />
+            </div> */}
+            {/* <div className={styles.storageFile__item}>
+              Field: 
+              <TextInput
+                onChangeValue={onFieldFileChange}
+                value={fieldFile}
+                classNameContainer={styles.storageFile__item_input}
+                classNameInputBox={styles.storageFile__item_input_box}
+                isError={fieldFileError !== ''}
+              />
+            </div> */}
+            {/* <div className={styles.storageFile__item}>
+              Graph edges: 
+              <Button
+                onClick={addNewEdgeClick}
+                theme="secondary"
+                disabled={!lastEdgeAvaliable}
+              >
+                Add new edge
+              </Button>
+            </div> */}
+          
           <div className={styles.storageFile__edit} ref={storageFileItemRef}>
             {!!graphData?.length && (
               graphData.map(({ subject, object, verb }, index) => (
@@ -213,44 +303,37 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
             )}
             
           </div>
-          <div className={styles.storageFile__item}>
-            Access:
-            <RadioButtons
-              containerClassName={styles.radio_buttons}
-              options={[
-                {
-                  value: 'open',
-                  label: 'Open-sourced',
-                },
-                {
-                  value: 'closed',
-                  label: 'Permission-based',
-                },
-              ]}
-              currentValue={articleAccess}
-              onChange={onChangeAvailabilityClick}
-            />
-            <Button
-              theme="secondary"
-              onClick={onDownloadXlsxClick}
-              disabled={!article}
-              className={styles.storageFile__download_xlsx}
-            >
-              Download xlsx
-            </Button>
-          </div>
+         
         </div> 
       </div>
       <div className={cx(styles.storageFile__buttons, classNameButtons)}>
         <Button
-          theme="secondary"
+          theme="primary"
           onClick={onSaveClick}
           isLoading={statusUpdateArticle === RequestStatus.REQUEST}
           disabled={!isDisabledSave}
+          className={styles.saveBtn}
         >
           Save changes
         </Button>
-        <Button
+
+
+        <MultiDrop
+          props={{
+            btnContent:'•••',
+            btnList:[
+              <div onClick={onRevertToLastSaved}>
+                Revert to last saved
+              </div>,
+              <div onClick={onRevertToLastPublished}>
+                Revert to last published
+              </div>
+            ],
+            top: true
+          }}
+        />
+
+        {/* <Button
           theme="secondary"
           onClick={onRevertToLastSaved}
           disabled={isDisabledRevertToLastSave}
@@ -262,7 +345,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           disabled={isDisabledRevertToLastPublished}
         >
           Revert to last published
-        </Button>
+        </Button> */}
       </div>
     </>
   );

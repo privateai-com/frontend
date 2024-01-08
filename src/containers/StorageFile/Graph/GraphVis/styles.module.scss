@@ -3,8 +3,8 @@
 @import 'assets/styles/function.scss';
 
 .visContainer {
+  width: 100%;
   position: relative;
-  height: 100%;
   height: 100%;
 
   @include media-breakpoint-up(xxl) {
@@ -40,18 +40,18 @@
   height: 486px;
   max-height: 99%;
 
-  @include media-breakpoint-up(md) {
-    max-height: 100%;
-    height: 638px;
-  }
+  // @include media-breakpoint-up(md) {
+  //   max-height: 100%;
+  //   height: 638px;
+  // }
 
-  @include media-breakpoint-up(xxl) {
-    height: 100%;
-  }
+  // @include media-breakpoint-up(xxl) {
+  //   height: 100%;
+  // }
 
-  @include media-breakpoint-up(fhd) {
-    max-height: 100%;
-  }
+  // @include media-breakpoint-up(fhd) {
+  //   max-height: 100%;
+  // }
 
   // @include media-breakpoint-up(lg) {
 	// 	height: vw(290, 1025);
@@ -71,7 +71,8 @@
 }
 
 .visManipulation {
-  background: $color-white !important;
+  background: #F3F5FF99!important;
+  // background: $color-white !important;
   border: none !important;
   padding-top: 0 !important;
   width: 96% !important;

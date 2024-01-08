@@ -27,7 +27,7 @@ export const generateNotificationText = (
   type: NotificationType,
   article: NotificationArticle,
   isOwner: boolean,
-): string => {
+): any => {
   switch (type) {
     case NotificationType.YouGrantedAccess:
     case NotificationType.AccessWasGranted:

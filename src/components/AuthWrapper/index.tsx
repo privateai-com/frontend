@@ -16,6 +16,10 @@ interface AuthWrapperProps {
 export const AuthWrapper: FC<AuthWrapperProps> = ({ 
   className = '', children, onClickBack,
 }) => (
+  // <div className="" style={{paddingTop: 100, paddingBottom:100}}>
+
+
+  
   <div className={cx(styles.authWrapper_container, className)}>
     {onClickBack && (
       <ButtonIcon
@@ -24,10 +28,11 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
         className={styles.button}
       />
     )}
-    <Image
+    {/* <Image
       src={privateAILogo}
       alt="logo"
-    />
+    /> */}
     {children}
   </div>
+  // </div>
 );

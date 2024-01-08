@@ -1,0 +1,61 @@
+.h1_style{
+    color: #0F0F0F;
+    font-family: Montserrat; // 'Satoshi'
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.h2_style{
+    font-size: 22px;
+    font-weight: 700;
+    color: #0F0F0F;
+    line-height: normal;
+    font-family: Montserrat; // 'Satoshi'
+}
+
+.h3_style_gray{
+    color: #7C859E!important;
+    font-size: 16px!important;
+    font-weight: 400;
+    line-height: normal;
+    font-family: Montserrat; // 'Satoshi'
+}
+
+.h4_style{
+    color: #0F0F0F;
+    font-family: Montserrat; // 'Satoshi'
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.accent_text{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: rgba(70, 89, 254, .7);
+}
+
+.p_text{
+    color: #0F0F0F;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    font-family: Montserrat; // 'Satoshi'
+}
+
+.link_style{
+    color: #7C859E;
+    font-family: Montserrat; // 'Satoshi'
+    font-size: 16px;
+    // font-weight: 300;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.input_text{
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 20px!important;
+}

@@ -153,6 +153,7 @@ export const Item: React.FC<ItemProps> = ({
                     min`
                 }
               </button>
+              
             </div>
           )}
       </div>

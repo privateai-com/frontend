@@ -8,7 +8,7 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import styles from './styles.module.scss';
 
-export const DeleteBtn = ({ id }: { id: number }) => {
+export const DeleteBtn = ({ id , children}: { id: number , children? : any }) => {
   const dispatch = useDispatch();
 
   const statusDelete = useSelector(
@@ -32,6 +32,16 @@ export const DeleteBtn = ({ id }: { id: number }) => {
     ),
     [statusDelete, id],
   );
+  
+  if(children){
+    return <>
+      <div onClick={showModal}>
+        {children}
+      </div>
+    </>
+  }
+ 
+
 
   return (
     <ButtonIcon

@@ -11,6 +11,7 @@ interface ButtonIconProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   width?: number;
   height?:number;
   image: string;
+  children? : any;
 }
 
 export const ButtonIcon =
@@ -22,7 +23,10 @@ forwardRef<HTMLButtonElement, ButtonIconProps>(({
   image,
   width,
   height,
+  children
 }, ref) => (
+  <>
+  
   <button
     className={cx(
       styles.button_icon__container,
@@ -44,5 +48,8 @@ forwardRef<HTMLButtonElement, ButtonIconProps>(({
       width={width}
       height={height}
     />
+    {children}
   </button>
+    
+  </>
 ));

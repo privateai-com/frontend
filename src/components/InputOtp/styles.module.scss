@@ -5,6 +5,8 @@
   width: 100%;
 
   .input_otp {
+    margin-top: 20px;
+    gap: 10px;
     justify-content: space-between;
   }
 
@@ -14,7 +16,8 @@
     border: 1px solid $color-grey2;
     justify-content: center;
 
-    width: 50px !important;
+    width: 100%!important;
+    min-width: 50px !important;
     height: 50px;
 
     color: $color-grey;
@@ -26,22 +29,22 @@
     @include desktop1440 {
       font-size: 16px;
       line-height: 20px;
-      width: 40px !important;
-      height: 40px;
+      // width: 40px !important;
+      // height: 40px;
     }
   
     @include desktop1024 {
       font-size: 18px;
       line-height: 22px;
-      width: 40px !important;
-      height: 40px;
+      // width: 40px !important;
+      // height: 40px;
     }
   
     @include mobile {
       font-size: 14px;
       line-height: 17px;
-      width: 30px !important;
-      height: 30px;
+      min-width: 30px !important;
+      height: 40px;
     }
 
     &_error {
@@ -60,27 +63,36 @@
 }
 
 .input_otp__label {
-  margin-bottom: 8px;
-  color: $color-grey;
-  font-weight: 500;
+  color: #7C859E;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap:10px;
+  line-height: 1.2;
+  justify-content: space-between;
+  // margin-bottom: 8px;
+  // color: $color-grey;
+  // font-weight: 500;
 
-  font-size: 20px;
-  line-height: 24px;
+  // font-size: 20px;
+  // line-height: 24px;
 
   @include desktop1440 {
     font-size: 16px;
-    line-height: 20px;
+    // line-height: 20px;
   }
 
   @include desktop1024 {
-    font-size: 18px;
-    line-height: 22px;
+    // font-size: 18px;
+    // line-height: 22px;
   }
 
   @include mobile {
     margin-bottom: 6px;
-    font-size: 14px;
-    line-height: 17px;
+    // font-size: 16px;
+    // line-height: 17px;
   }
 }
 

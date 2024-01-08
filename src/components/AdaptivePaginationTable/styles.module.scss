@@ -9,6 +9,8 @@
 			border-bottom: 2px solid $color-grey2;
 			padding: 16px 0;
 			border-right: 2px solid $color-grey2;
+			color:#7C859E;
+			font-weight: 500;
 
 			&:last-of-type {
 				border-right: none;
@@ -26,13 +28,24 @@
 		td {
 			padding: 16px 0px;
 			line-height: 24px;
+			text-overflow: ellipsis;
+			// display: -webkit-box;
+			white-space: nowrap;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
 
 			@include desktop1024 {
 				padding: 6px 0px;
 			}
 
 			a {
-				max-width: 400px;
+				color:#0F0F0F;
+				text-decoration: none;
+				&:hover{
+					color:#4659FE;
+				}
+				// color:#4659FE;
+				// max-width: 400px;
 
 				@include desktop1660 {
 					max-width: initial;
@@ -40,8 +53,9 @@
 			}
 
 			& > p {
+				// overflow: hidden;
 				font-size: inherit;
-				font-weight: 700;
+				
 			}
 
 			&:nth-child(3) {
@@ -66,7 +80,7 @@
 				padding: 16px 0px;
 
 				@include desktop1024 {
-					padding: 16px;
+					// padding: 16px;
 				}
 			}
 		}

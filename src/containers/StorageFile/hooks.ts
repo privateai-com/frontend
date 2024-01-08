@@ -256,7 +256,7 @@ export const useGraphControls = ({
 
   // useEffect(() => {
   //   if (visJsGraphRef) {
-  //     apdateGraphControls(visJsGraphRef);
+  //     updateGraphControls(visJsGraphRef);
   //   }
   // }, [visJsGraphRef]);
 
@@ -306,7 +306,7 @@ export const useGraphControls = ({
         { nodes: nodes as DataInterfaceNodes, edges: edges as DataInterfaceEdges },
         currentOption,
       ) as ExtendedNetwork;
-    // apdateGraphControls(visJsGraphRef);
+    // updateGraphControls(visJsGraphRef);
   }, [currentOption, edges, graphRef, nodes]);
 
   return {

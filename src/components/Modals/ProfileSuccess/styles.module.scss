@@ -60,7 +60,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 9px;
-    border: 1px solid $color-green;
+    border: 1px solid $color-blue;
     border-radius: 16px;
     padding: 30px 22px;
     width: 47%;
@@ -70,7 +70,7 @@
     transition: background-color .3s;
 
     &:hover {
-      background-color: rgba($color-green, .3);
+      background-color: rgba($color-blue, .3);
     }
 
     @include desktop1440 {

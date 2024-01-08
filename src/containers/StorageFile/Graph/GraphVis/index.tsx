@@ -22,7 +22,7 @@ import {
 import { notification } from 'utils';
 import { transformNodesAndEdgesToData } from '../utils';
 import { options } from './constants';
-import { apdateGraphControls } from './hooks';
+import { updateGraphControls } from './hooks';
 
 import styles from './styles.module.scss';
 
@@ -171,7 +171,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
         { nodes: nodes as DataInterfaceNodes, edges: edges as DataInterfaceEdges },
         currentOption,
       ) as ExtendedNetwork;
-    apdateGraphControls(graphRef);
+    updateGraphControls(graphRef);
 
     const onDoubleClick = (event: { pointer: { canvas: Position; }; }) => {
       if (!networkRef.current) return;
@@ -292,7 +292,7 @@ export const GraphVis: FC<GraphVisProps> = memo(({
 
   useEffect(() => {
     if (graphRef) {
-      apdateGraphControls(graphRef);
+      updateGraphControls(graphRef);
     }
   }, [graphRef]);
 

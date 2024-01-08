@@ -8,11 +8,16 @@
 	align-items: center;
 	width: 100%;
 	min-height: 100vh;
-	background: radial-gradient(rgba(219, 255, 202, 0.5), rgba(250, 232, 255, 0.55));
-	background-image: url('../../assets/img/images/bgAuth.svg');
+	background-color: #F3F5FF;
+	// background: #DCDDE7;
+	// background: radial-gradient(rgba(219, 255, 202, 0.5), rgba(250, 232, 255, 0.55));
+	// background-image: url('../../assets/img/images/bgAuth.svg');
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='731' height='547' viewBox='0 0 731 547' fill='none'%3E%3Cpath d='M307.994 440.974C278.233 489.37 249.044 540.328 220.929 621.479L170.473 764.659L170.141 765.599L171.08 765.933L274.734 802.909L275.648 803.235L276.001 802.331L331.544 660.182L331.547 660.174L331.55 660.166C361.733 578.818 373.314 523.322 375.463 468.39C408.612 511.637 449.691 557.555 513.768 611.218L513.777 611.225L630.826 707.019L631.586 707.642L632.222 706.892L703.4 622.958L704.045 622.199L703.287 621.551L587.879 522.916L587.873 522.911L587.866 522.906C520.674 467.369 479.187 437.722 424.402 409.704C473.744 389.145 530.113 359.586 598.235 312.845L728.45 225.061L729.338 224.462L728.679 223.617L659.029 134.297L658.447 133.55L657.67 134.091L534.185 220.065C534.183 220.067 534.181 220.068 534.179 220.069C463.773 267.452 423.978 306.621 383.031 348.384C379.752 292.233 372.967 232.081 351.582 152.461L311.289 2.44288L311.029 1.47711L310.063 1.7365L204.716 30.0317L203.75 30.2911L204.009 31.2569L244.302 181.275C265.671 260.834 287.155 314.692 315.108 366.469C258.12 348.766 202.443 337.605 115.653 332.475L-33.6948 322.179L-34.6554 322.113L-34.7579 323.07L-46.4013 431.824L-46.5114 432.852L-45.4802 432.928L108.935 444.257C108.939 444.258 108.944 444.258 108.949 444.259C179.928 451.365 239.17 449.848 307.994 440.974Z' stroke='url(%23paint0_linear_274_12522)' stroke-width='2'/%3E%3Cdefs%3E%3ClinearGradient id='paint0_linear_274_12522' x1='258' y1='-53.4995' x2='329.5' y2='416' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%23F3F5FF'/%3E%3Cstop offset='1' stop-color='white'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E");
   // background-position-x: 40px;
-  background-size: cover, cover;
+//   background-size: cover, cover;
   background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: bottom left;
 }
 
 .page__main {
@@ -27,5 +32,7 @@
 	justify-content: center;
 	padding: 0px 15px 0px 15px;
 	row-gap: 20px;
+	position: relative;
 }
+
 
