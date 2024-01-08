@@ -67,32 +67,46 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
   return (
     <AuthWrapper onClickBack={onBack}>
       <form className={styles.confirmEmail__container} onSubmit={onConfirmClick}>
-        <Typography
-          type="p"
-          className={styles.description}
-        >
-          Please enter the verification code we sent to
-          <br />
-          <strong>{` ${email}`}</strong>
-        </Typography>
+        <div className={styles.confirmEmail__head}>
+          <Typography
+            type="h4"
+          >
+            Sign In
+          </Typography>
+
+          <Typography
+            type="p"
+            className={styles.description}
+          >
+            Please enter the verification code we sent to
+            {/* <br /> */}
+            <strong>{` ${email}`}</strong>
+          </Typography>
+
+
+        </div>
+      
 
         <div className={styles.containerInputs}>
           <InputOtp
             value={otp}
             onChangeValue={onOtpChange}
-            label="Verification code"
+            label={<>Verification code {isShowResend && (
+              <ButtonResend
+                className={styles.resender}
+                onClick={onResendCodeClick}
+              />
+            )}</>} 
             classNameContainer={styles.otp_container}
             isError={error !== ''}
           />
 
-          {isShowResend && (
-            <ButtonResend
-              className={styles.resender}
-              onClick={onResendCodeClick}
-            />
-          )}
+          
         </div>
 
+        <div style={{width:'100%'}}>
+
+         
         {error !== '' && (
           <div className={styles.error}>
             {error.includes('Verification code incorrect!') ? msgError : error}
@@ -106,6 +120,8 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
         >
           Confirm
         </Button>
+         
+        </div>
       </form>
     </AuthWrapper>
   );

@@ -27,24 +27,24 @@
 }
 
 .main {
-  padding: 30px 20px 20px 40px;
+  // padding: 30px 20px 20px 40px;
   background-color: $color-white;
   border-radius: 16px;
   height: calc(100% - 64px);
 
   @include desktop1440 {
     height: calc(100% - 45px);
-    padding: 15px 20px 20px 30px;
+    // padding: 15px 20px 20px 30px;
   }
 
   @include tablet1024 {
     height: calc(100% - 63px);
-    padding: 15px 30px;
+    // padding: 15px 30px;
   }
 
   @include mobile {
     height: calc(100% - 32px);
-    padding: 10px 15px;
+    padding: 15px 0px;
   }
 
   &_wrapper {
@@ -100,13 +100,13 @@
   &_text,
   ul {
     font-weight: 400;
-    font-size: 26px;
-    line-height: 36px;
+    font-size: 18px;
+    line-height: 1.5;
     text-align: justify;
 
     @include desktop1440 {
-      font-size: 20px;
-      line-height: 24px;
+      font-size: 18px;
+      // line-height: 24px;
     }
 
     @include mobile {
@@ -131,7 +131,7 @@
   &_link_list {
     li {
       &::marker {
-        color: $color-green;
+        color: #4659FE;
       }
       a {
         vertical-align: text-top;
@@ -185,7 +185,7 @@
     }
     img {
       &:first-of-type {
-        border-bottom: 1px solid $color-green;
+        border-bottom: 1px solid $color-blue;
         margin-bottom: 10px;
       }
     }

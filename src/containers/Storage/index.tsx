@@ -13,6 +13,7 @@ import { MyRequests } from './MyRequests';
 import { UploadButton } from './uploadButton';
 
 import styles from './styles.module.scss';
+import { PageHead } from 'components/PageHead';
 
 enum MyStorageTab {
   articles,
@@ -45,7 +46,7 @@ export const Storage = () => {
 
   return (
     <div className={styles.storage__container}>
-      <div className={cx(styles.storage__head)}>
+      {false && <div className={cx(styles.storage__head)}>
         <div className={cx(
           styles.storage__title_block,
         )}
@@ -96,7 +97,65 @@ export const Storage = () => {
             </span>
           </Link>
         )}
-      </div>
+      </div>}
+      <PageHead props={{
+        title: "My storage",
+        btnWrap:<>
+          {/* {!isMobile && tab === MyStorageTab.articles && ( */}
+            {!isMobile  && (
+            <Link
+              className={styles.buttonUpload}
+              href={routes.uploadActivity.root}
+              type="button"
+            >
+              {/* <Image 
+                src={plusIcon} 
+                alt="icon plus" 
+                width={20} 
+                height={20} 
+                className={styles.icon} 
+              />  */}
+              <span className={styles.buttonTitle}>
+                Upload new file
+              </span>
+            </Link>
+          )}
+        </>
+      }}>
+        <div className={cx(styles.storage__head_buttons)}>
+            <button
+              className={`${styles.tabButton} ${tab === MyStorageTab.articles ? styles.tabButton_active : styles.tabButton_disabled}`}
+
+              onClick={onTabArticles}
+            >
+              My articles
+            </button>
+            <button
+              className={`${styles.tabButton} ${tab === MyStorageTab.requested ? styles.tabButton_active : styles.tabButton_disabled}`}
+              onClick={onTabRequested}  
+            >
+              Requested data
+            </button>
+            {/* <Button
+              className={
+                tab === MyStorageTab.articles ? undefined : styles.secondary
+              }
+              onClick={onTabArticles}
+              theme={tab === MyStorageTab.articles ? 'primary' : 'secondary'}
+            >
+              My articles
+            </Button>
+            <Button
+              className={
+                tab === MyStorageTab.requested ? undefined : styles.secondary
+              }
+              onClick={onTabRequested}
+              theme={tab === MyStorageTab.requested ? 'primary' : 'secondary'}
+            >
+              Requested data
+            </Button> */}
+        </div>
+      </PageHead>
       {tab === MyStorageTab.articles 
         ? <ArticlesTab isMobile={isBigMobile} /> 
         : <MyRequests isMobile={isBigMobile} />}

@@ -2,45 +2,62 @@
 @import 'assets/styles/_mixins.scss';
 
 .storageFile__container {
+  margin-top: -20px;
+  padding-top: 0;
 	position: relative;
 	display: grid;
-	grid-template-areas: 'back'
-    'info'
-    'data'
-    'buttons';
-  grid-template-columns: minmax(100px, 1fr);
+	// grid-template-areas: 'back'
+  //   'info'
+  //   'data'
+  //   'buttons';
+  		grid-template-areas: 'back back'
+    'info data'
+    'buttons data';
+
+    grid-template-columns: 40% 55%;
+    // grid-template-columns: 0.7fr 1fr;
+  // grid-template-columns: minmax(100px, 1fr);
   grid-template-rows: auto;
 	column-gap: 40px;
   height: 100%;
 
-  @include media-breakpoint-up(md) {
-    margin: -5px 0 0;
+  @media screen and (max-width:824px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'back'
+    'info'
+    'data'
+    'buttons';
   }
 
-  @include media-breakpoint-up(xxl) {
-		grid-template-areas: 'back back'
-    'info data'
-    'buttons data';
-    grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
-    grid-template-rows: auto 1fr;
-    column-gap: 20px;
-    margin: -16px 0 -20px;
-	}
+  // @include media-breakpoint-up(md) {
+  //   margin: -5px 0 0;
+  // }
 
-  @include media-breakpoint-up(fhd) {
-    column-gap: 40px;
-    margin-top: 0;
-	}
+  // @include media-breakpoint-up(xxl) {
+	// 	grid-template-areas: 'back back'
+  //   'info data'
+  //   'buttons data';
+  //   // grid-template-columns: 0.7fr 1fr;
+  //   // grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
+  //   grid-template-rows: auto 1fr;
+  //   column-gap: 40px;
+  //   // margin: -16px 0 -20px;
+	// }
 
-  &.fullScreenGraph {
-    @include media-breakpoint-up(xxl) {
-      grid-template-areas: 'back back'
-      'data data';
-      grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
-      grid-template-rows: auto auto;
-      column-gap: 0;
-    }
-  }
+  // @include media-breakpoint-up(fhd) {
+  //   column-gap: 40px;
+  //   margin-top: 0;
+	// }
+
+  // &.fullScreenGraph {
+  //   @include media-breakpoint-up(xxl) {
+  //     grid-template-areas: 'back back'
+  //     'data data';
+  //     grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
+  //     grid-template-rows: auto auto;
+  //     column-gap: 0;
+  //   }
+  // }
 }
 
 .isFullscreen {

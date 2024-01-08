@@ -118,7 +118,7 @@ export const Item: React.FC<ItemProps> = ({
         id={id} 
         createdAt={createdAt}
         updatedAt={updatedAt}
-        field={field}
+        field={field.length === 0 ? 'Empty' : field}
         classNameStatus={getStatusStyle()}
         requester={requester}
         status={status}
@@ -134,7 +134,7 @@ export const Item: React.FC<ItemProps> = ({
       id={id} 
       createdAt={createdAt}
       updatedAt={updatedAt}
-      field={field}
+      field={field.length === 0 ? 'Empty' : field}
       classNameStatus={getStatusStyle()}
       requester={requester}
       status={status}

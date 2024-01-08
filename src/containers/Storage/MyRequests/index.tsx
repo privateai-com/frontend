@@ -182,9 +182,20 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
         />
       )}
       {isLoading && (
-        <div className={styles.containerLoader}>
-          <Loader size={64} />
-        </div>
+        <>
+          {/* <AdaptivePaginationTable
+            columns={columns}
+            content={[]}
+            classNameTableContainer={styles.table}
+            itemsMobile={itemsMobile}
+            pagination={pagination}
+            isMobile={isMobile}
+            classNameMobile={styles.tableMobile}
+          /> */}
+          <div className={styles.containerLoader}>
+            <Loader size={64} />
+          </div>
+        </>
       )}
     </>
   );

@@ -5,7 +5,8 @@
   position: relative;
   
   background-color: $color-white;
-  box-shadow: -10px 56px 140px 0px rgba(143, 155, 186, 0.2);
+  box-shadow: 0px 11px 31.9px 0px rgba(124, 133, 158, 0.23);
+  // box-shadow: -10px 56px 140px 0px rgba(143, 155, 186, 0.2);
   backdrop-filter: blur(9.5px);
   
   border-radius: 16px;
@@ -14,10 +15,12 @@
   flex-direction: column;
   align-items: center;
   
-  padding: 25px 40px;
+  // padding: 25px 40px;
+  padding: 35px 70px;
   
-  max-width: 650px;
+  max-width: 640px;
   width: 100%;
+  margin: 100px 0;
 
   & > img {
     width: 210px;
@@ -25,8 +28,8 @@
   }
 
   @include desktop1440 {
-		padding: 25px 30px;
-    max-width: 470px;
+		// padding: 25px 30px;
+    // max-width: 470px;
 
     & > img {
       width: 188px;
@@ -45,8 +48,8 @@
 	}
 
   @include mobile {
-    padding: 25px 15px;
-    margin: 0 15px;
+    padding: 25px;
+    // margin: 0 15px;
 
     & > img {
       width: 116px;
@@ -58,8 +61,33 @@
 .button {
   position: absolute;
   top: 38px;
-  left: 38px;
+  left: 27px;
   transform: rotate(180deg);
+  box-shadow: unset;
+  z-index: 1;
+  &:hover{
+    scale: 1.1;
+    box-shadow: unset;
+    background: none;
+  }
+
+
+  @media screen and (max-width:1024px){
+    top: 25px;
+    left: 10px;
+  }
+
+  @media screen and (max-width:768px) {
+    
+  }
+
+
+  @media screen and (max-width:576px) {
+    top: 34px;
+    left: 2px
+  }
+
+
   
   & > img {
     width: 24px;
@@ -67,6 +95,6 @@
   }
 
   @include mobile {
-    left: 12px;
+    // left: 12px;
   }
 }

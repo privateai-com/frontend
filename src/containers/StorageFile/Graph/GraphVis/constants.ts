@@ -54,7 +54,7 @@ export const options = {
     // size: 40,
     color: {
       background: '#fff',
-      border: '#00DEA3',
+      border: '#4659FE',
       hover: {
         background: '#fff',
         border: '#747474',

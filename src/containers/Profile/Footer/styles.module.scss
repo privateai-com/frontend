@@ -4,24 +4,35 @@
 .footer {
   grid-area: footer;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  // align-items: center;
   flex-wrap: wrap;
   gap: 14px;
+  margin-top: 0px!important;
+  .bigStar{
+
+  }
 
   @include media-breakpoint-up(lg) {
     flex-wrap: nowrap;
     gap: vw(30, 1024);
-    margin-top: vw(40, 1024);
+    // margin-top: vw(40, 1024);
   }
 
   @include media-breakpoint-up(xxl) {
-    margin-top: vw(10, 1440);
+    // margin-top: vw(10, 1440);
     gap: vw(30, 1440);
   }
 
   @include media-breakpoint-up(fhd) {
-    margin-top: vw(40);
+    // margin-top: vw(40);
     gap: vw(30);
+  }
+
+  .footer_list{
+    gap:22px;
+    display: flex;
+    flex-direction: column;
   }
 
   &_list {
@@ -30,8 +41,8 @@
     & > li {
       display: flex;
 
-      color: $color-grey;
-      font-size: 16px;
+      color: rgba(124, 133, 158, 0.5);
+      font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.256px;
       margin-bottom: 2px;
@@ -41,7 +52,7 @@
       }
 
       span {
-        color: $color-green;
+        color: $color-blue;
         margin-right: 4px;
       }
     }

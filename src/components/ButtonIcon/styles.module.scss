@@ -10,21 +10,25 @@
   align-items: center;
   justify-content: center;
   transition: background-color .3s;
+  box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
 }
 
 .button_icon__container:hover {
-  background-color: rgba($color-green, 0.1);
-  box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
+  // background-color: rgba(70, 89, 254, 0.1) ;
+  // rgba($color-blue, 0.1);
+  // box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
 }
 
 .button_icon__container:active {
-  background-color: rgba($color-green, 0.5);
-  box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
+  // background-color: rgba(70, 89, 254, 0.5) ;
+  // background-color: rgba($color-blue, 0.5);
+  // box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
 }
 
 .button_icon__disabled,
 .button_icon__disabled:hover {
-  background-color: rgba($color-green, 0.1);
-  box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
+  // background-color: rgba(70, 89, 254, 0.1) ;
+  // background-color: rgba($color-blue, 0.1);
+  // box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
   cursor: not-allowed;
 }

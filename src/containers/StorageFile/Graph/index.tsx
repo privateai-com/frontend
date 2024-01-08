@@ -45,10 +45,10 @@ export const Graph: FC<GraphProps> = memo(({
         [styles.storageFile__data_head_owner]: isOwner && articleId,
       })}
       >
-        <Typography type="h1">Data core structure</Typography>
-        {(isOwner && articleId) && (
+        <Typography className={styles.dataCoreTitle} type="h2">Data core structure</Typography>
+        {/* {(isOwner && articleId) && (
           <DeleteBtn className={styles.storageFile__data_btn} articleId={articleId} />
-        )}
+        )} */}
       </div>
       <div className={styles.storageFile__wrapper}>
         <ButtonIcon
@@ -67,7 +67,13 @@ export const Graph: FC<GraphProps> = memo(({
           setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
         />
 
-        <Typography type="h2">Data highlights:</Typography>
+          <h2 style={{fontSize: 19, fontStyle: 'normal', fontWeight: 700}}>
+            Data highlights: 
+          </h2>
+        {/* <Typography type="h2">
+          Data highlights: 
+        </Typography> */}
+        <hr />
         <div className={styles.graph_info}>
           <div className={styles.graph_info__item}>
             <p>Number of nodes</p>

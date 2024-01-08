@@ -18,6 +18,7 @@ import { FileInfoEdit } from './FileInfoEdit';
 import { Graph } from './Graph';
 
 import styles from './styles.module.scss';
+import { PageHead } from 'components/PageHead';
 
 export const StorageFile = memo(() => {
   const dispatch = useDispatch();
@@ -125,46 +126,53 @@ export const StorageFile = memo(() => {
   }, []);
 
   return (
-    <div className={cx(styles.storageFile__container, {
-      [styles.fullScreenGraph]: isFullscreen,
-    })}
-    >
-      <ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} />
-      {isEdit ? (
-        <FileInfoEdit
-          graphData={graphData}
-          isOwner={isOwner}
-          onSaveSuccess={onSaveSuccess}
-          onRevertToLastSaved={onRevertToLastSavedClick}
-          onRevertToLastPublished={onRevertToLastPublishedClick}
-          classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
-          classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
-          nodesLabelWithoutEdges={nodesLabelWithoutEdges}
-          {...(article && { article })}
-        />
-      ) : (
-        <FileInfo
-          onEditClick={isEditToggle}
-          isOwner={isOwner}
-          isRequester={isRequester}
+    <>
+ <div className="">
+        <PageHead props={{title:<ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} />}}> </PageHead>
+        
+        </div>
+      <div className={cx(styles.storageFile__container, {
+        [styles.fullScreenGraph]: isFullscreen,
+      })}
+      >
+       
+      
+        {isEdit ? (
+          <FileInfoEdit
+            graphData={graphData}
+            isOwner={isOwner}
+            onSaveSuccess={onSaveSuccess}
+            onRevertToLastSaved={onRevertToLastSavedClick}
+            onRevertToLastPublished={onRevertToLastPublishedClick}
+            classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
+            classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
+            nodesLabelWithoutEdges={nodesLabelWithoutEdges}
+            {...(article && { article })}
+          />
+        ) : (
+          <FileInfo
+            onEditClick={isEditToggle}
+            isOwner={isOwner}
+            isRequester={isRequester}
+            isLoading={statusGetOneArticle === RequestStatus.REQUEST}
+            classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
+            classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
+            isUserRequiredFieldsFilled={!!accountInfo?.userFilledAllInfo}
+            {...(article && { article })}
+          />
+        )}
+        <Graph
+          graphData={currentGraphData.current || graphData}
+          setGraphData={setCurrentGraphData}
+          isEdit={isEdit}
           isLoading={statusGetOneArticle === RequestStatus.REQUEST}
-          classNameFile={cx({ [styles.isFullscreen]: isFullscreen })}
-          classNameButtons={cx({ [styles.isFullscreen]: isFullscreen })}
-          isUserRequiredFieldsFilled={!!accountInfo?.userFilledAllInfo}
-          {...(article && { article })}
+          onFullScreen={onFullScreenClick}
+          articleId={Number(articleId)}
+          isOwner={isOwner}
+          topCoreEntities={article?.topCoreEntities || '-'}
+          setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
         />
-      )}
-      <Graph
-        graphData={currentGraphData.current || graphData}
-        setGraphData={setCurrentGraphData}
-        isEdit={isEdit}
-        isLoading={statusGetOneArticle === RequestStatus.REQUEST}
-        onFullScreen={onFullScreenClick}
-        articleId={Number(articleId)}
-        isOwner={isOwner}
-        topCoreEntities={article?.topCoreEntities || '-'}
-        setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
-      />
-    </div>
+      </div>
+    </>
   );
 });

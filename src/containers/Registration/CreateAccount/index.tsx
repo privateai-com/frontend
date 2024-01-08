@@ -152,7 +152,7 @@ export const CreateAccount: FC<CreateAccountProps> = ({ onConfirmEmail }) => {
           <div className={styles.error}>{passwordError || emailError}</div>
         ) : null}
         <Button
-          className={styles.button}
+          className={`${styles.button} ${styles.createButton}`}
           isLoading={status === RequestStatus.REQUEST}
           disabled={isEmptyInputs}
           type="submit"

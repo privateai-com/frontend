@@ -16,30 +16,76 @@
 
 .header {
 	grid-area: header;
-	
+	position: fixed;
 	display: flex;
 	align-items: center;
-	width: 100%;
-	height: 40px;
+	justify-content: space-between;
+	width: calc(100% - 300px);
+	z-index:10;
+	right: 0; 
 
-	padding-left: 55px;
-	padding-right: 15px;
-	padding-top: 10px;
+	&_logo{
+		display: none;
+	}
+
+	@media screen and (max-width:1024px) {
+		
+	
+		&_logo{
+			display: flex;
+			align-items: center;
+			font-size: 22px;
+			font-weight: 500;
+			color: #4659FE;
+			margin-right: 20px;
+			
+			svg{
+				margin-top: -4px;
+				margin-bottom: -4px;
+				width: 48px;
+				height: 48px;
+			}
+
+			span{
+				margin-left: 10px;
+				white-space: nowrap;
+			}
+
+		}
+	}
+
+
+	@media screen and (max-width:1024px) {
+		background: #F3F5FF;	
+		border-bottom: 1px solid #BDC5DC;
+	}
+	background: #FFF;
+	padding-bottom:20px;
+	// height: 40px;
+
+	padding-left: 15px;
+	padding-right: 70px;
+	padding-top: 20px;
 
 	@include desktop1024 {
 		font-size: 30px;
+		width: calc(100%);
 	}
 	@include media-breakpoint-up(sm) {
-		height: 60px;
-		padding-left: 85px;
-		padding-right: 30px;
+		
+		// height: 60px;
+		// padding-left: 85px;
+		
+		// padding-right: 30px;
 		padding-top: 20px;
+		padding-right: 90px;
 	}
 
 	@include media-breakpoint-up(md) {
-		height: 60px;
-		padding-left: 110px;
-		padding-right: 30px;
+		// height: 60px;
+		// padding-left: 110px;
+		
+		// padding-right: 30px;
 		padding-top: 20px;
 	}
 
@@ -57,7 +103,7 @@
 		font-size: 16px;
 		line-height: 20px;
 		font-weight: 500;
-		margin-left: 10px;
+		margin-left: 20px;
 
 		@include desktop1440 {
 			font-size: 14px;
@@ -85,8 +131,15 @@
 	}
 
 	@include desktop1024 {
-		max-width: 510px;
+		margin-left: auto;
+		max-width: 300px;
+		margin-right: 0px;
 	}
+
+	@media screen and (max-width:600px) {
+		display: none;
+	}
+
 
 	@include mobile {
 		max-width: 170px;
@@ -108,7 +161,7 @@
 	}
 
 	@include mobile {
-		height: 30px !important;
+		// height: 30px !important;
 	}
 }
 
@@ -184,7 +237,7 @@
 	margin-left: 20px;
 
 	&:first-of-type {
-		margin-left: 10px;
+		// margin-left: 10px;
 	}
 
 	@include desktop1024 {
@@ -193,13 +246,13 @@
 	}
 
 	@include mobile {
-		width: 30px;
-		height: 30px;
+		// width: 30px;
+		// height: 30px;
 		margin-left: 10px;
 
 		img {
-			width: 16px;
-			height: 16px;
+			// width: 16px;
+			// height: 16px;
 		}
 	}
 
@@ -228,5 +281,121 @@
 		max-width: 115px;
 		text-overflow: ellipsis;
 		overflow: hidden;
+	}
+}
+
+.profileButton{
+	display: none!important;
+	&_dropdown{
+		display: none;
+	}
+}
+
+
+@media screen and (min-width: 1024px) {
+// 	.profileButton{
+// 		display: flex!important;
+// 		&_dropdown{
+// 			display: none;
+// 		}
+// 	}
+// }
+
+
+// @media screen and (min-width: 1024px) {
+	.profileButton{
+		display: flex!important;
+		position: relative;
+		svg{
+			transition: rotate 0.2s ease-out;
+		}
+		
+		&_list{
+			padding: 0px 26px 0px 26px;
+			margin: 0;
+		}
+
+
+		&_dropdown{
+			padding-top: 10px;
+			&_inner{
+				padding: 20px 0;
+				background: #FFF;
+				border: 1px solid#ECEDF0;
+				border-radius: 8px;
+			}
+			display: none;
+			cursor: default;
+			position: absolute;
+			top: calc(100%);
+			width: 200px;
+			// width: 100%;
+			right: -10px;
+			&::after{
+				content: "";
+				width: 13px;
+				height: 13px;
+				position: absolute;
+				top: 3px;
+				right: 42px;
+				border-left: 1px solid #ECEDF0;
+				border-top: 1px solid #ECEDF0;
+				border-radius: 4px 0 0 0;
+				// left: 0;
+				background-color: #ffff;
+				transform: rotate(45deg);
+			}
+			// padding: 20px 0;
+			
+
+			& .stroke{
+				display: flex;
+				width: 100%;
+				padding: 0;
+				height: 1px;
+				margin: 20px 0;
+				background-color: #ECEDF0;
+			}
+
+			li{
+				list-style: none;
+				padding: 5px;
+				padding-left: 0;
+
+				
+			}
+			a{
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				gap:10px;
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 500;
+				text-decoration: none;
+				color: #7C859E;
+				line-height: 1;
+				transition: transform 0.2s ease-out;
+				img{
+					transition: transform 0.2s ease-out;
+				}
+				&:hover{
+					transform: translateX(5px);
+					img{
+						transform: translateX(-5px);
+					}
+				}
+			}
+			
+		}
+
+		&:hover{
+			& .profileButton_dropdown{
+				display: block;
+			}
+			svg{
+				rotate: 180deg;
+			}
+		}
 	}
 }

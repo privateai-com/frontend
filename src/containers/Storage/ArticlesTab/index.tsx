@@ -97,6 +97,7 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
   return (
     <>
       {isHideRequests && (
+        <>
         <AdaptivePaginationTable
           columns={columns}
           content={content}
@@ -106,11 +107,24 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
           isMobile={isMobile}
           classNameMobile={styles.tableMobile}
         />
+        </>
       )}
       {isLoading && (
-        <div className={styles.containerLoader}>
-          <Loader size={64} />
-        </div>
+        <>
+          {/* <AdaptivePaginationTable
+            columns={columns}
+            content={[]}
+            classNameTableContainer={styles.table}
+            pagination={pagination}
+            itemsMobile={itemsMobile}
+            isMobile={isMobile}
+            classNameMobile={styles.tableMobile}
+          /> */}
+           <div className={styles.containerLoader}>
+            <Loader size={64} />
+          </div>
+        </>
+       
       )}
     </>
   );

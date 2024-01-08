@@ -12,6 +12,8 @@ import { articlesSelectors } from 'store/articles/selectors';
 import { RequestStatus } from 'types';
 import { Item } from './Item';
 import styles from './styles.module.scss';
+import { TableHead } from './TableHead';
+import { PageHead } from 'components/PageHead';
 
 export const KnowledgeBase: React.FC = () => {
   const dispatch = useDispatch();
@@ -80,22 +82,20 @@ export const KnowledgeBase: React.FC = () => {
     }
   }, [dispatch, isNewSearch, offset, search]);
 
-  useEffect(() => () => {
-    if (isMobile) dispatch(articlesSetState({ articlesAll: [] }));
-  }, [dispatch, isMobile]);
+  // useEffect(() => () => {
+  //   if (isMobile) dispatch(articlesSetState({ articlesAll: [] }));
+  // }, [dispatch, isMobile]);
 
   return (
     <div className={styles.knowledge}>
-      <div className={styles.knowledge_header}>
-        <Typography
-          className={styles.knowledge_title}
-          type="h3"
-        >
-          Knowledge base
-        </Typography>
-      </div>
+      <PageHead props={{
+        title:'Knowledge base'
+      }} > </PageHead>
       <div className={styles.items}>
         <div className={styles.items_wrapper}>
+          <TableHead 
+              props={['File name','Core entities', 'Created', 'Modified', 'Status']}
+            />
           <div className={styles.items_container} ref={rootRef}>
             {isHideArticles && articles.map((item) => (
               <Item
@@ -103,7 +103,8 @@ export const KnowledgeBase: React.FC = () => {
                 article={item}
                 isDisabled={isVipUser}
                 search={search as string}
-                isMobile={isMobile}
+                isMobile={false}
+                // isMobile={isMobile}
               />
             ))}
             {isLoading && (

@@ -13,6 +13,7 @@ import Image, { StaticImageData } from 'next/image';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import styles from './styles.module.scss';
+import { PageHead } from 'components/PageHead';
 
 const anchorId = {
   keyPassword: 'key-password',
@@ -40,12 +41,8 @@ const Security = () => {
 
   return (
     <div className={styles.security}>
-      <Typography
-        className={styles.security_title}
-        type="h2"
-      >
-        Security page
-      </Typography>
+      <PageHead props={{title: 'Security page'}}>
+      </PageHead>
       <div className={styles.main}>
         <div className={styles.main_wrapper}>
           <div className={styles.main_content}>

@@ -1,0 +1,147 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+@mixin state($color) {
+  &:hover:enabled {
+    background-color: #4659FE;
+    color: #ffffff;
+    // background-color: rgba($color, 0.7);
+  }
+
+  &:active:enabled {
+    background-color: rgba($color, 0.7);
+  }
+
+  &:focus:enabled {
+    background-color: rgba($color, 0.7);
+  }
+}
+
+.button {
+  border-radius: 8px;
+  padding: 15px 24px;
+  box-sizing: border-box;
+  position: relative;
+  font-family: $montserrat;
+  font-weight: 600;
+  // font-size: 20px;
+  font-size: 16px;
+  line-height: 1;
+  color: $color-white;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+  width: fit-content;
+
+  @include desktop1440 {
+    font-size: 16px;
+    line-height: 16px;
+    padding: 12px 24px;
+  }
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 14px;
+    // padding: 9px 10px;
+  }
+
+  .children_while_loading {
+    opacity: 0;
+  }
+
+  .loader {
+    position: absolute;
+  }
+
+  &.primary {
+    border:  1px solid #4659FE;
+    color: #4659FE;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    box-shadow: 0px 3px 14px 0px rgba(70, 89, 254, 0.28);
+    transition: background-color 0.3s;
+
+    @include state($color-blue);
+  }
+
+  &.secondary {
+    background-color: $color-white;
+    color: $color-blue;
+    transition:
+      color 0.3s,
+      background-color 0.3s;
+    border: 1px solid $color-blue;
+
+    &:hover:enabled {
+      background-color: rgba($color-blue, 0.7);
+      color: $color-white;
+    }
+
+    &:active:enabled {
+      background-color: rgba($color-blue, 0.7);
+      color: $color-white;
+    }
+
+    &:focus:enabled {
+      background-color: rgba($color-blue, 0.7);
+      color: $color-white;
+    }
+
+    &:disabled {
+      color: $color-white;
+      border: 1px solid transparent;
+    }
+  }
+
+  &.grey {
+    background-color: $color-grey2;
+    transition: background-color 0.3s;
+
+    @include state($color-grey2);
+  }
+
+  &.white {
+    background-color: $color-white;
+	  border: 1px solid $color-black;
+    transition: background-color 0.3s;
+    color: $color-black;
+
+    @include state($color-grey2);
+  }
+
+  &.full_width {
+    width: 100%;
+  }
+  
+}
+
+a.button {
+  text-decoration: none;
+  &.primary:hover {
+    background-color: rgba($color-blue, 0.7);
+    color: $color-white;
+  }
+}
+
+.disabled {
+  cursor: not-allowed !important;
+  background-color: $color-grey !important;
+
+  &:disabled {
+    cursor: not-allowed !important;
+    background-color: $color-grey !important;
+  }
+}
+
+.mobile {
+  @include mobile {
+    font-weight: 500;
+    font-size: 12px;
+    padding: 0;
+    height: 20px;
+    width: 120px;
+  }
+}

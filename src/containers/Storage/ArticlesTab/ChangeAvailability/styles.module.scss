@@ -6,3 +6,25 @@
 	flex-direction: column;
 	min-width: auto;
 }
+
+.select{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	padding: 8px 30px;
+	border: none;
+	border-radius: 8px;
+	background: rgb(243, 245, 255);
+	color:#7C859E;
+	min-width: 160px;
+	width: 100%;
+	max-width: 250px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	cursor: pointer;
+	&:hover{
+		background-color: rgba(239, 233, 233, 0.484);
+	}
+}

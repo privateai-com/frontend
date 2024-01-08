@@ -132,7 +132,7 @@
 	
 	&::-webkit-scrollbar-thumb {
 		border-radius: 4px;
-		background-color: $color-green;
+		background-color: $color-blue;
 	}
 }
 
@@ -164,8 +164,8 @@
 
 @mixin containerLoader {
 	display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
 }

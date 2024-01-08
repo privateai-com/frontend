@@ -78,11 +78,12 @@ ol {
 a {
   position: relative;
   display: inline-block;
-  color: $color-green;
+  color: #4659FE;
   transition: color .3s;
 
   &:hover {
-    color: rgba($color-green, .7);
+    color: $color-blue2;
+    // color: rgba($color-blue, .7);
   }
 }
 
@@ -108,7 +109,7 @@ button {
 
 .react-datepicker__today-button {
   background-color: $color-grey;
-  color: $color-green;
+  color: $color-blue;
 }
 .react-datepicker__day {
   color: $color-white2; 
@@ -169,4 +170,51 @@ button {
 .rc-time-picker-panel-select::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
+
+div.vis-button{
+  --gap: 10px;
+  --width: 24px;
+  width:var(--width)!important;
+  height: var(--width)!important;
+}
+
+
+
+div.vis-zoomIn{
+  right: 0!important;
+  bottom: calc(var(--width) * 2 + var(--gap) * 2)!important;
+  background-size: contain;
+  background-position: center!important;
+  background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQjSURBVHgB7VnfedNIEJ+R/R2vvgpwB/gqIKng6CAxKeDOjxCbE5cY7i3XQCLTQaiAUAGmAkQF+BWwd5hZxWH/aC1pHdt8kN+D9e16VprZnf8LcIc7/NpAiMTwZbaHpHoAyX0C6AJBlxA6CVGHx53Ax2YKccbP/Ho8BVAfCZPp6ZP+FUSgkQCaaQUHAPQoxGQsRDj+vaQEXjURppYA6TjrzRHOgGgPtgA5oVaC++mTfl5Fm1QRPPsv+2sO9G5bzAtEJeeKPvCJ/1NFu/IE9AsUpYGF+sgB1fsFJbPfRJ8TmeMTC+xcmmYduAed+ZxthlUQW4qfyUNmuUek53xhkAbjp0f/Q1MB0peZ3gV/BV7BAp6fjuKMLoThSbYHSIfM0YH7nwL848Vxf1q2rh164YLojTmWHSeFfWb8EjaA6w25Go0zftKZ6SQSsT+A/bJ1pTYg3sY/UhpsinkTJ8f9iWyU/Wna0ydUglIBCldpjAEnJ8dHE9gS9EaJqpo8JL5qCQJeiB5ZIwWvYNtgOzOH5PC0hCeAVh9D/8Qn37bB1oF8s/B0N+iUqZEnQJEefIcCeA87Aqcmr61xy+ZN4HkhIuxaE0hXEIFnLy4O2BGI/54hQvrv08eN1RCBpgR48J0VhzcoswHEB/ZLkhwiwGqYiipKVFWFII0hAdJ5Z9elqUwl2JhmEAHHDUclfjq6G2CbuO/SeAK4UrbbReq7EyT25mHJRngCSD5vTXyOO4FNgOoI4BKlaX9nApQkhZ4AwVyoLpbepqrAGY4vyBxLfIn1TiaqjbgCS28DDbGOdzKxtgDMSXRp6UTaKKwvAOCAVSGHhiiYp+ewJta2AUl/+TFx512dPz1+HN0BWQU/F3KOVSoz2BF0CWrDUzlPAOnbwI+Ce7Z9YR0BkMgi+tK63f5PE8ydrIAQc5fGF8Ahan31U9g6MHdr2YlrjPmicvP8SEz00RwrjD2Bwjut422whV2wmfNqE88LIVLONcHNOKHkAUQg5J2aQfeMbkbcI8o9CneCFomVwoZq0e2ALPVFhzc9V7ZsNL74ZKUHCve3XRdLbc5dQbM3NeNY8rtLVxqJ3VoUWlDZo7xtlLR2LsvoylOJBU6scdFY2poqcXfukFX30JwLtXZKBdDq4jSW2Jqz0fj8EDaMYqPozJxb1doJ5kJtggEHknfGFBfoyEJkD5teQtSB1nliVeXTJuc/uSsIrVuZYI1Oz//m6HcWWJjzf1ME9Zakc4Ewa0vA4hI0VMUt8yod3b9Cr4WqA9pNr7jxUcSd8KMUYgQQDE/OU24Pb92IBRxUB+Ph0cqip94VE++ctNtDlxC3DrY/UeE0cCdgkUIDLC8hOEX4c2OXfOxtmsSc+GtWFoaviHq6FXndzZM6t9Y1K+l2Yy55l05dOMLuooF8hzv8DPgGpGG99rDupl0AAAAASUVORK5CYII=')!important;
+
+}
+div.vis-zoomExtends{
+  bottom: 0!important;
+  right: 0!important;
+  background-size: cover;
+  background-position: center!important;
+  background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARGSURBVHgB7VldftNGEJ+R/Suv7glwT4B7ApITlBskTg4AfiS2qaht6FvgAInMDdITkJ4Ac4I6J6hfW+wdZlYxaL8saRM7/CD/B8u7Gkkzu/O9APe4x48NhEgMXmd7SKoDkDwkgDYQtAmhlRC1eNwKfGyhEBd8nV+PZwDqijCZjZ93LyECtQTQTCs4AKAnISZjIcLx7wUl8K6OMJUESCdZZ4lwCkR7sAPIDjUS3E+fd+dltEkZwYs/s6dLoA+7Yl4gKrlU9A/v+O9ltBt3QL9AURp4UG85oPq4omTxk+hzInO8Y4GVS9OsBQ+gtVyyzbAKYkPxNXnMLHeI9JwrDFJvcnL8BuoKkL7O9Cq4T+AlrODleBhndCEMRtkeIB0yRwf2PQX466t+d+Z7rhl64YrofXEsK04Ku8z4BWwB1wtyOZxkfKXTopNIxP4A9n3PeW1AvI27pdTbFvNFjPrdqSyU+Wna0zvkgVeA3FUWxoDTUf94CjuCXihR1SIPiatagoAXoifGSME72DXYzopDsnhawzFiUR/2PO8LBPNR/+gXqIkXr84PWA3fbAp42pMh7+5Jt+e7P5yc/2s8r3Dfdh7ODuTpwVcogI8QAf5wWhat5T4RPRtMzlLvfYS/jHHD5E3gCECEbWMC6RJiQHVSDXzqnQWamaxg26ZxbQDxkfmSZA5RwB5inrRVgFdYCZDFsU4aLQTjwNe3wAIiIO6QL9PQ/cHknKAEEt2XhTHbzEObxlUhS8pms/Iq3j4Sc/HQs1OOAJLPGxP/xe3ANkBVBLCJ0rR7ZwJ4kkJHgHIbCGDt5/nvgo01/ePkaPfBDirUAyGs/bzYjMoFuRPEC2Ame7XLy7ye+PJ/DpGIFuDmyONELgi9hEhE28BNURYnqsLNhcB0m1KZwR1Bl6AmHI/oCCB9G/hW8MC0LawiABIZRP83brf/UwdLKysgxLlN49gAMhGnuF/S1sYnncJ6C+oiQrmNeJjoOLFctSDZ7Gc86TRdFccKw21CqICbxAlsYNt8GTm1iatCSHODgJJH4GWM3kJVRiA2n5KeUeGbFm+awp6gVWKoS6gWHfePUy7X3pYxdzM/T0YFhhZv1+93UaUW3Tbs2pyxGPePfrbpvBZi16LQgNIe5W3D09q58NH5TXyFU2OcN5a8qrQNcHfukFX3sDgXau14BdDqYjWW2Jqz4eTsELaMfKHotDgnrjikwsFcqEnQ40DyoTDFqTOyENnjuocQVaB1nlhVebftgCJnBaHnNrbXh+OzZxz9TgMPzvneDEH9TdK5QFg0JS3mEjRUxa3zKh3dP0GngaoF2k1vOPFRxJ1w9ngxAggGI246JbhzIxZwUO1NBscbg2C1IyZeOWm3hw4hbh1sf6LCaeBMwCCFGlgfQnBu89vWDvnY29SJObUEKEKE4SOijm5FXnfzJO+pdMxKuhEgSeOVpC4S/XcdKO9xj+8FnwFQB9KcOmZSYAAAAABJRU5ErkJggg==')!important
+}
+div.vis-zoomOut{
+  bottom: calc(var(--width) + var(--gap))!important;
+  right: 0!important;
+  background-size: cover;
+  background-position: center!important;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPpSURBVHgB7ZlRWhoxEIBnFr72lZ5AbiA9gXqCegNFD9DyqIJdC2jf8AK6eAN7gtITiCconqC8tkKmM0HrJtkFdoHdfi3/A/slZGEmmUlmJgBr1vzfIKSkfhFsI6kKgLdBAGUgKBNCySMqcbsU82dDhTjk5+Cp3QdQD4Rev3VU7UEKEimghVawB0C7cUKmRZTjz1vy4CaJMnMp4LeDygihA0TbkAGyQgUPd/yj6mDWWG/WgNPPwfsR0F1WwgtikiNF33nFP84aO3UF9A8o8mNe1EsOqO7H5A1fiT170scrFjNzvh+U4DWURiP2GTZBLCh+elsscoVI97nKINXax4eXkFQB/yLQs+C+gT0Yw1mrkc7p4qg3g21A2meJ9uzvFODb85NqP+q9YtwPjom+htsy46SwyoLfwgp4mpBeox3wkzrhTcIT/wPYiXov0gdkt3GXlGqrEj5M86TalYky/5q29QpFEKnAZKsMtQG7zZPDLmSEnigx1bAMnmtaQswuRLtGS8ENZA37WbhJlkzPOApo8wnZn+zJy3bYeZD/nOx0fyhFmZGjwCQ8eEEB3ENOcGjyxWgXTNkERwEiLBsdSD3ICQTqm6Jg2R7j+gDipvkj3gByQg7IcFsHjRYzQwl2piHkhD7dQ7BPbNhjXBOytCwWJ6FvLnjm5GFEBOwoIPG80fEzvxWwoXkUsAf5fjU3BSKCQkeB2FhoXk7Pr/c47LhMmuDI+YII/qfjg4UOydlOPAMW3E+TnYmvKVYcFmRhBViS1KmlddKmYnEFAGtsCgNIyER4OoMFWdgHJPzlRxdywo2FrGWVzAxyQqegJo7JOQpI3Qb+Fl6b/oXzKIBExqBfheXWf5IwsqICQhzYY1wFrEGFRzeEzYzReObkRYTT9BBuK8xvBbCAZaODyMlNIlaABsYA8jYhN6Rm9AJZsukRdgeNPSOEjctFs4EM80VLNt0X9Vqjff3DCA8U7mSdF0tuzlXBcG1q2Do5eGOPizyJ7VwUCjCzRrlsIko7kTWp6FBijF2jPSksZWZKXJ3bZ9PdD/fFlXYiFdDmYhWW2JuDRvtqH1bMZKKoE+6bVtqJjYWKBDU+SO5CXXzzgqxEsJX0EmIetM0TmyqvNlnfyV1B3HtTy+uN1tUHPv06MS8O+Ls+gvpGUrlAGBbl6ohT0Lgs7jmu0qf7I1QKqEqgt+kpNz6KuBJ+6EMaBYR688rn8nDmTizwoVpr1w+nJj3zXTHxzEm5Pe4SYumw/4kJ+zF3AsZQSMDzJQQnMO9WdsnHu02SMyf9NSsrw1dEFV2KfKrmSZ471zUrwVCyOIm7JHSR0z+PAvKaNf8CvwF465pZFN+INwAAAABJRU5ErkJggg==')!important
+}
+div.vis-network div.vis-navigation div.vis-button:hover{
+  box-shadow: unset!important;
+  scale: 1.05;
+}
+button.vis-button{
+  transition: scale 0.1s ease-out;
+}
+
+div.vis-network div.vis-manipulation button.vis-button:hover{
+  box-shadow: unset!important;
+}
+
+div.vis-network div.vis-manipulation button.vis-button:hover .vis-label{
+  // scale: 1.02;
 }

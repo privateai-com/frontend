@@ -58,6 +58,11 @@ export const ResetPassword: FC<ResetPasswordProps> = ({
     <AuthWrapper onClickBack={onBack}>
       <form className={styles.reset__container}>
         <Typography
+          type="h4"
+        >
+          Restore account
+        </Typography>
+        <Typography
           type="p"
           className={styles.description}
         >

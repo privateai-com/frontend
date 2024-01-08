@@ -23,7 +23,8 @@
 }
 
 .green_text {
-	color: $color-green;
+	color:$color-green;
+	// color: $color-blue;
 }
 .status {
 	text-transform: capitalize;
@@ -45,26 +46,44 @@
 
 .table {
 	thead, tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
+    // display: table;
+		width: 100%;
+		// table-layout: fixed;
+	}
 
-  tbody {
+  	tbody {
 		@include desktop1024 {
-      height: calc(100vh - 248px - 64px);
+    //   height: calc(100vh - 248px - 64px);
 			padding: 0 10px;
 		}
 
 		@media screen and (max-width: 1218px) {
-			height: calc(100vh - 248px - 78px);
+			// height: calc(100vh - 248px - 78px);
 		}
 		@media screen and (min-width: 1218px)  and (max-width: 1400px)  {
-			height: calc(100vh - 248px - 28px);
+			// height: calc(100vh - 248px - 28px);
 		}
 
 		@media screen and (min-width: 1920px) {
-			height: calc(100vh - 248px - 78px);
+			// height: calc(100vh - 248px - 78px);
+		}
+	}
+
+	thead{
+		// height: 38px!important;
+		border-radius: 16px!important;
+		background-color: unset;
+	}
+	thead tr{
+		padding: 0 20px;
+		height: 58px;
+		// height: 8px!important;
+		border: none!important;
+		border-radius: 16px!important;
+		background-color: rgba(243, 245, 255, 0.6);
+
+		@media (max-width: 1440px) {
+			height: 38px;
 		}
 	}
 
@@ -73,35 +92,171 @@
 		@include media-breakpoint-up(lg) {
 			th, td {
 				padding: 16px 6px;
+				border: none!important;
 			}	
 		}
-		th {
-			&:last-of-type {
-				width: 7rem;
+		th,td{
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+		padding: 0 20px;
+
+		tr{
+			th, td {
+				border: none!important;
+			}
+			display: flex;
+			align-items: center;
+			min-height: auto;
+			column-gap: 5px;
+			border-bottom: 1px solid #F3F5FF;
+			td:nth-child(1),th:nth-child(1){
+				flex-basis: 25%;
+			}
+
+			td:nth-child(2),th:nth-child(2){
+				min-width: 130px;
+				flex-basis: 130px;
+			}
+
+			td:nth-child(3),th:nth-child(3){
+				min-width: 130px!important;
+				
+				flex-basis: calc(100% - 25% - 280px - 130px);
+			}
+			td:nth-child(3){
+				font-weight: 400;
+			}
+
+			td:nth-child(4),th:nth-child(4){
+				flex-basis: 280px;
+			}
+
+		}
+
+
+	}
+
+	.link{
+		span{
+			// display: -webkit-box;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			max-width: 100%;
+			overflow-wrap: anywhere;
+		}
+		
+	}
+
+	// td:nth-child(1),th:nth-child(1){
+	// 	width: 150px!important;
+	// 	min-width: 150px!important;
+	// }
+
+	tbody svg{
+		min-width: 21px;
+	}
+
+	@media screen and (max-width:800px) {
+
+		// margin-top: -22px;
+
+		thead {
+			display: none;
+		}
+		tbody{
+			padding: 0;
+		}
+		tbody tr{
+			display: grid;
+			position: relative;
+			border-bottom: 1px solid #F3F5FF;
+			padding-bottom: 25px;
+			margin-top: 25px;
+			&:first-of-type{
+				margin-top: 0px!important;
+			}
+			
+		}
+		tbody tr td{
+			width: auto!important;
+			border:none!important;
+		}
+
+	
+
+		.status_p{
+			position: absolute;
+			right: 0;
+			top: 6px;
+			span {
+				display: none
 			}
 		}
 
-		td {
-			&:last-of-type {
-				width: 2rem;
-			}
+		.link{
+			margin-right:  30px;			
 		}
+		
+		tbody td:last-of-type{
+			padding: 15px 0 0 0
+		}
+	}
+
+	@media screen and (max-width:576px) {
+		&:first-of-type{
+			// margin-top: 20px!important;
+			// margin-top: 0px!important;
+		}
+		
 	}
 }
 
-.availability {
-	display: flex;
-	justify-content: flex-end;
-}
+
 
 .containerLoader {
   @include containerLoader();
 }
 
 .link {
+	color: #0F0F0F;
+	text-decoration: none;
 	font-size: 16px;
+	display: flex;
+	align-items: center;
+	column-gap: 15px;
 
 	@include media-breakpoint-up(xxxl) {
-		font-size: 20px;	
+		font-size: 16px;	
 	}
 }
+
+.multiDrop{
+	// margin-left:23px;
+	padding: 20px 20px;
+	border-radius: 8px;
+	background:#F3F5FF;
+	cursor: pointer;
+	&:hover{
+		background: #efe9e97b!important;
+	}
+	span {
+		line-height:0; margin-top: -4.5; letter-spacing: 1; color: #7C859E
+	}
+}
+
+.availability {
+	// container: availability;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap:5px;
+	flex-wrap:wrap;
+
+
+	// justify-content: flex-end;
+}
+

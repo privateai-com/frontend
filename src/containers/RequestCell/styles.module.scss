@@ -3,8 +3,17 @@
 .cell {
   &_btn_link {
     text-decoration: underline;
-    color: $color-green;
+    padding: 9px 16px;
+    background-color: #F3F5FF;
+    color:#7C859E;
+    text-decoration: none;
+    border-radius: 8px;
+    // color: $color-blue;
     font-weight: 500;
+
+    &:hover{
+      background-color: rgba(239, 233, 233, 0.484);
+    }
   }
 
   &_block_btn {

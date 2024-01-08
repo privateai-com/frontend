@@ -7,21 +7,23 @@
     content: "";
     position: absolute;
     // bottom: -2px
-    left: -32px;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
     height: 24px;
     width: 24px;
     background: url($url) no-repeat;
     background-size: contain;
 
-    @include desktop1440 {
-      height: 20px;
-      width: 20px;
-    }
+    // @include desktop1440 {
+    //   height: 20px;
+    //   width: 20px;
+    // }
 
     @include tablet {
-      left: -18px;
-      top: 0px;
-      background-size: 14px;
+      // left: -18px;
+      // top: 0px;
+      // background-size: 14px;
     }
   }
 }
@@ -34,11 +36,11 @@
 }
 
 .item {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+  // margin-bottom: 20px;
+  // padding-bottom: 20px;
   color: $color-grey;
-  border-bottom: 2px solid $color-grey2;
-  font-size: 20px;
+  border-bottom: 2px solid #F3F5FF;;
+  // font-size: 20px;
 
   @include desktop1440 {
     font-size: 16px;
@@ -57,15 +59,18 @@
   }
 
   &_title {
-    color: $color-grey;
-    margin-bottom: 25px;
-    font-size: 32px;
+    font-weight: 500;
+    // color: $color-grey;
+    // color: #4659FE;
+    // margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.2!important;
     overflow-wrap: anywhere;
     text-overflow: ellipsis;
     // max-width: 40%;
 
     @include desktop1440 {
-      font-size: 24px;
+      // font-size: 24px;
     }
 
     @include tablet {
@@ -94,6 +99,11 @@
 
   &_core {
     max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
 
     @include desktop1440 {
       max-width: 425px;
@@ -173,15 +183,16 @@
   }
 
   &_btn_link {
-    text-decoration: underline;
-    color: $color-green;
+    // text-decoration: underline;
+    color: $color-blue;
     display: inline-block;
     margin-left: 3px;
   }
 }
 
 .title {
-  font-weight: 700;
+  font-weight: 500;
+  color:#0F0F0F;
   text-overflow: ellipsis;
   overflow: hidden;
 
@@ -226,21 +237,33 @@
 .open {
   position: relative;
   color: $color-green;
+  padding: 2px;
+  padding-left: 32px;
+  margin-bottom: 0;
   @include icon("../../../assets/img/icons/check1.svg");
 }
 
 .granted {
-  color: $color-green;
+  color: $color-blue;
+  padding: 2px;
+  padding-left: 32px;
+  margin-bottom: 0;
   @include icon("../../../assets/img/icons/alertSquare.svg");
 }
 
 .pending {
+  padding: 2px;
+  padding-left: 32px;
+  margin-bottom: 0;
   @include icon("../../../assets/img/icons/clock.svg");
 }
 
 .permission_needed {
-  color: $color-pink;
-  text-decoration: underline;
+  padding: 2px;
+  padding-left: 32px;
+  margin-bottom: 0;
+  color: #E0A32C;
+  // text-decoration: underline;
   @include icon("../../../assets/img/icons/alertSquare1.svg");
 }
 
@@ -260,4 +283,213 @@
 	word-break: break-all;
 	max-width: 90%;
 	z-index: 2;
+}
+
+
+
+// .item_inner_row{
+//   display: flex;
+//   gap: 15px
+// }
+
+
+
+
+.item{
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 30px 0px;
+  // padding-right: 20px;
+  position: relative;
+
+  *:not(button *){
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  &_title{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    svg{
+      width: 16px;
+      min-width: 16px;
+    }
+  }
+  &_inner_col{
+    width: 25%;
+    a,button{
+      text-decoration: none;
+    }
+    // min-width: ;
+  }
+  &_inner_col:nth-child(1){
+    width: 40%;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h4{
+      display: flex;
+    }
+
+    .requester_row{
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-left: 26px;
+    }
+    .field{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px
+    }
+  }
+  &_inner_col:nth-child(2){
+    width: 25%;
+    min-width: 100px;
+    -webkit-line-clamp: 5;
+  }
+  &_inner_col:nth-child(3),
+  &_inner_col:nth-child(4){
+    width: 10%;
+    min-width: 100px;
+
+    @media screen and (min-width:1024px){
+      span{
+        display: none;
+      }
+    }
+  }
+  &_inner_col:nth-child(5){
+    width: 15%;
+    min-width: 100px;
+    overflow: visible;
+    padding-right: 20px;
+    text-align: left;
+    *{
+      text-align: left;
+    }
+  }
+  &_inner_col:nth-child(6){
+    display: none;
+  }
+  @media screen and (max-width: 1280px) {
+    &_inner_col:nth-child(1){
+      .requester_row{
+        margin-left: 0;
+      }
+    }
+    &_inner_col:nth-child(5){
+      display: flex;
+      justify-content: flex-end;
+      width: 5%;
+      min-width: 60px;
+    }
+    .permission_needed,.granted,
+    .pending,
+    .denied{
+      // text-align: right;
+      // height: 20px;
+      padding: 0;
+      padding-top: 20px;
+      
+      &::before{
+        top: 0;
+        position: relative;
+        display: block;
+        transform: none
+      }
+      span{
+        display: none;
+      }
+    }
+  }
+
+
+  @media screen and (max-width:1024px){
+
+    &:first-of-type{
+      padding-top: 0;
+    }
+
+    padding: 25px 0;
+
+    &_inner_col{
+      width: 100%!important;
+    }
+    flex-wrap: wrap;
+    // flex-direction: column;
+
+    &_title{
+      font-size: 19px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    &_inner_col:nth-child(1){
+      .requester_row{
+        display: none;
+      }
+    }
+   
+    &_inner_col:nth-child(5){
+      position: absolute;
+      right: 0px;
+      top: 0;
+      *{
+        padding: 0;
+      }
+    }
+    &_inner_col:nth-child(3),
+    &_inner_col:nth-child(4){
+      // width: calc(50% - 5px)!important;
+      display: flex;
+      justify-content: space-between;
+      min-width: 120px;
+      span{
+        font-weight: 500;
+        color: #0F0F0F
+      }
+      // order: 999;
+    }
+    &_inner_col:nth-child(5){
+      width: auto!important;
+      min-width: auto;
+      .permission_needed,.granted,
+      .pending,
+      .denied{
+        margin-bottom: 0;
+        padding-left: 2px;
+        &::before{
+          position: static;
+          display: block;
+          transform: unset;
+        }
+        span {
+          display: none;
+        }
+      }
+    }
+    &_inner_col:nth-child(6){
+      display: block;
+      .requester_row{
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .field{
+          display: flex;
+          gap: 10px;
+          flex-wrap: nowrap;
+        }
+      }
+    }
+  }
 }

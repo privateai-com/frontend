@@ -7,10 +7,10 @@
   border-collapse: separate;
   background-color: $color-white;
   padding: 0;
-  border-radius: 16px;
-  box-shadow: -10px 56px 140px 0px #8F9BBA33;
+  // border-radius: 16px;
+  // box-shadow: -10px 56px 140px 0px #8F9BBA33;
   color: $color-grey;
-  padding: 0 0 20px;
+  // padding: 0 0 20px;
   
   thead {
     color: $color-grey4;
@@ -21,18 +21,22 @@
     }
 
     padding-left: 20px;
-    padding-right: 40px;
-    border-radius: 16px 16px 0px 0px;
-    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25); 
+    padding-right: 20px;
+    border-radius: 16px 16px 16px 16px;
+    background-color: rgba(243, 245, 255, 0.60);
+    // box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25); 
     
     th {
       border-bottom: none !important;
-      padding: 12px 0px !important;
+      // padding: 12px 0px !important;
+      padding-top: 12px!important;
+      padding-bottom: 12px!important;
       line-height: 10px;
       border-right: none !important;
       position: relative;
       font-weight: 600;
-      font-size: 20px;
+      // font-size: 20px;
+      font-size: 16px;
 
       @include desktop1440 {
         font-size: 16px;
@@ -44,7 +48,7 @@
     }
 
     th:not(:last-child)::after {
-      content: " ";
+      // content: " ";
       position: absolute;
       border-right: 2px #CCC solid;
       top: 12px;
@@ -61,36 +65,37 @@
   }
 
   tbody {
-    height: calc(100vh - 248px - 15px);
+
+    height: calc(100vh - 320px);
 
     display: block;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
 
     @include greenScrollbar();
-    margin-top: 20px;
-    margin-right: 20px;
+    // margin-top: 20px;
+    // margin-right: 20px;
 
     padding: 0 20px;
 
 		@include media-breakpoint-up(lg) {
-      height: calc(100vh - 248px - 40px);
+      // height: calc(100vh - 248px - 40px);
 			padding: 0 10px;
 		}
 
 		@include media-breakpoint-up(xl) {
-      height: calc(100vh - 248px - 30px);
+      // height: calc(100vh - 248px - 30px);
 			padding: 0 20px;
 		}
 
 		@include media-breakpoint-up(xxl) {
 			padding: 0 20px;
-      height: calc(100vh - 248px - 60px);
+      // height: calc(100vh - 248px - 60px);
 		}
 
     @include media-breakpoint-up(fhd) {
 			padding: 0 20px;
-      height: calc(100vh - 248px - 70px);
+      // height: calc(100vh - 248px - 70px);
 		}
 
     td {
@@ -102,19 +107,22 @@
         padding: 0 !important;
       }
 
+      &:last-of-type{
+        overflow: visible;
+      }
       &:not(.td_clear) {
         border-bottom: 2px solid $color-grey2;
       }
 
       &.td_open {
-        border-top: 1px solid $color-green;
+        border-top: 1px solid $color-blue;
 
         &:first-child {
-          border-left: 1px solid $color-green;
+          border-left: 1px solid $color-blue;
           border-bottom-left-radius: 0;
         }
         &:last-child {
-          border-right: 1px solid $color-green;
+          border-right: 1px solid $color-blue;
           border-bottom-right-radius: 0;
         }
       }
@@ -122,7 +130,7 @@
   }
 
   th, td {
-    text-align: center;
+    // text-align: center;
     // @include font-20();
   }
 
@@ -141,7 +149,7 @@
 
     button {
       display: flex;
-      align-items: center;
+      // align-items: center;
       flex-direction: row;
       gap: 14px;
     }

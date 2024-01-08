@@ -6,37 +6,51 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 36px 0 40px;
+	padding-bottom: 10px;
+	// margin: 36px 0 40px;
 	width: 100%;
+	gap:30px;
 
-	@include desktop1440 {
-		margin: 25px 0 10px;
+	@media screen and (max-width: 576px) {
+		gap: 18px
 	}
 
-	@include desktop1024 {
-		margin: 50px 0 10px;
-	}
+	// @include desktop1440 {
+	// 	margin: 25px 0 10px;
+	// }
 
-	@include desktop {
-		margin: 32px 0 10px;
-	}
+	// @include desktop1024 {
+	// 	margin: 50px 0 10px;
+	// }
+
+	// @include desktop {
+	// 	margin: 32px 0 10px;
+	// }
 
 	h4 {
 		color: $color-grey4;
 		font-weight: 700;
-		margin-bottom: 38px;
+		// margin-bottom: 38px;
+		font-size: 18px;
 
-		@include desktop1440 {
-			margin-bottom: 20px;
+		@media screen and (max-width:576px){
+			margin-right: auto;
+			font-size: 28px;
+			font-style: normal;
+			font-weight: 700;
 		}
 
-		@include desktop1024 {
-			margin-bottom: 50px;
-		}
+		// @include desktop1440 {
+		// 	margin-bottom: 20px;
+		// }
 
-		@include desktop {
-			margin-bottom: 30px;
-		}
+		// @include desktop1024 {
+		// 	margin-bottom: 50px;
+		// }
+
+		// @include desktop {
+		// 	margin-bottom: 30px;
+		// }
 	}
 
 	p {
@@ -46,18 +60,46 @@
 
 .button_connect {
 	position: relative;
-	margin-bottom: 15px;
-	width: 100%;
+	box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.15);
+
+	padding-right: calc(24px + 15px + 9px);
+	font-weight: 500;
+	background-color: transparent!important;
+	border-color:$color-blue ;
+	color: $color-blue;
+
+	svg{
+		// fill: $color-blue ;
+		
+		path{
+			stroke: $color-blue
+		}
+	}
+	&:hover{
+		background-color: $color-blue!important;
+		color: $color-white;
+
+		svg{
+			path{
+				stroke: $color-white
+			}
+			// fill: $color-white;
+			// stroke: $color-blue ;
+		}
+	}
+
+	// margin-bottom: 15px;
+	// width: 100%;
 
 	@include mobile {
-		margin-bottom: 10px;
+		// margin-bottom: 10px;
 	}
 
 	& > div {
 		display: flex;
 		align-items: center;
 
-		img {
+		svg {
 			position: absolute;
 			right: 15px;
 			width: 24px;
@@ -90,53 +132,52 @@
 }
 
 .input__container {
-	margin-bottom: 20px;
+	
+	input, button{
+		height: 40px!important;
+	}
+	// margin-bottom: 20px;
 
 	@include mobile {
-		margin-bottom: 8px;
+		// margin-bottom: 8px;
 	}
 }
 
 .forgot_password {
-	margin-bottom: 46px;
-	width: 100%;
+	// margin-bottom: 46px;
+	// width: 100%;
+
 
 	button {
-		color: $color-green;
-		text-decoration: underline;
+		color: $color-blue;
+		// text-decoration: underline;
 		margin-left: 4px;
 	}
 
 	@include mobile {
 		font-size: 14px;
-		margin-bottom: 36px;
+		// margin-bottom: 36px;
 	}
 
 	&_margin {
-		margin-bottom: 20px;
+		// margin-bottom: 20px;
 
 		@include mobile {
-			margin-bottom: 10px;
+			// margin-bottom: 10px;
 		}
 	}
 }
 
 .button {
-	margin-bottom: 20px;
+	// margin-bottom: 20px;
+	font-weight: 500;
 	width: 100%;
-	max-width: 280px;
-
-	@include desktop1440 {
-		max-width: 190px;
-	}
-
-	@include desktop1024 {
-		max-width: 220px;
-	}
-
-	@include mobile {
-		max-width: 165px;
-		margin-bottom: 14px;
+	// max-width: 280px;
+	box-shadow: 0px 3px 14px 0px rgba(70, 89, 254, 0.28);
+	&:hover{
+		background-color: $color-white!important;
+		color: $color-blue;
+		border-color: $color-blue;
 	}
 }
 
@@ -146,18 +187,33 @@
 	}
 	a {
 		margin-left: 4px;
+		text-decoration: none
 	}
 }
 
-.signin__container,
-.button_connect,
-.description_wallet,
-.description,
-.input__container,
-.forgot_password,
-.button,
-.footer_text {
-	@include font-size;
+// .signin__container,
+// .button_connect,
+// .description_wallet,
+// .description,
+// .input__container,
+// .forgot_password,
+// .button,
+// .footer_text {
+// 	@include font-size;
+// }
+.footer_text{
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.2;
+}
+.forgot_password{
+	font-size: 16px;
+	line-height: 1.2;
+	a, button
+	{
+		font-weight: 500;
+		text-decoration: none;
+	}
 }
 
 .error {
@@ -166,4 +222,40 @@
 	text-align: center;
 	font-size: 14px;
 	font-weight: 500;
+}
+
+
+.signin{
+	&__btn{
+		width: 100%;
+		
+	}
+	&__btn_container{
+		display: flex;
+		gap:25px;
+		justify-content: center;
+		width: 100%;
+		align-items: center;
+	}
+
+	@media screen and (max-width:567px) {
+		&__btn_container{
+			flex-direction: column;
+			gap: 10px;
+			button{
+				width: 100%;
+			}
+			margin-bottom: 13px;
+			// flex-wrap: wrap;
+		}
+	}
+
+}
+
+
+.auth_form__footer{
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	text-align: center;
 }

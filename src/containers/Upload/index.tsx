@@ -32,6 +32,9 @@ import { Item } from './Item';
 import { defaultArticle } from './constants';
 
 import styles from './styles.module.scss';
+import { PageHead } from 'components/PageHead';
+import { ButtonTransparent } from 'components/ButtonTransparent';
+import { NewItem } from './NewItem';
 
 export const Upload = () => {
   const dispatch = useDispatch();
@@ -74,9 +77,11 @@ export const Upload = () => {
     isHidden: false,
   }), [offset]);
 
-  const onConfirmClick = () => {
-    if (!doc) return;
-    const fileName = doc.name;
+  const onConfirmClick = (arg: File) => {
+    if(!arg) return
+
+    // if (!doc) return;
+    const fileName = arg.name;
 
     if (fileName.length > 100) {
       notification.error({ message: 'File name cannot exceed 100 characters' });
@@ -84,7 +89,7 @@ export const Upload = () => {
     }
 
     dispatch(articlesCreate({
-      file: doc,
+      file: arg,
       callback: () => {
         dispatch(articlesGetMy(queryParams));
       },
@@ -234,64 +239,93 @@ export const Upload = () => {
 
   return (
     <div className={styles.upload}>
-      <Typography
+      {/* <Typography
         className={styles.upload_title}
         type="h3"
       >
         Upload activity
-      </Typography>
-      <div className={styles.upload_wrapper}>
-        <div className={styles.upload_dnd_block}>
-          <DragNDrop
-            doc={doc}
-            setDoc={setDoc}
-            isDisabled={isDisabledUploadFile}
-          />
-        </div>
-        <span className={styles.upload_notice}>
-          * - name of the file will be displayed on the platform after the
-          upload, rename it beforehand if necessary
-        </span>
-        {doc ? (
-          <div className={styles.upload_btn_block}>
-            <Button
-              className={styles.upload_btns}
-              onClick={onConfirmClick}
-              isLoading={isLoading}
+      </Typography> */}
+      <PageHead 
+        props={{
+          title: 'Upload activity',
+          btnWrap:
+            <label
+              htmlFor="upload"
+              className={cx(styles.upload_btn, {
+                [styles.disabled]: isDisabledUploadFile,
+              })}
             >
-              Confirm
-            </Button>
-            <Button
-              className={styles.upload_btns}
-              theme="secondary"
-              onClick={onClearClick}
-              disabled={isLoading}
+              Upload file
+              {/* <input
+                type="file"
+                id="upload"
+                className={styles.upload_input}
+                disabled={isDisabledUploadFile}
+              /> */}
+            </label>
+          // <Button onClick={onConfirmClick}>Upload file</Button>
+        }}
+        
+      >
+      </PageHead>
+      {/* </PageHead> */}
+      {/* <div className={styles.upload_wrapper}> */}
+        <div className="">
+
+
+        
+          <div className={styles.upload_dnd_block}>
+            <DragNDrop
+              doc={doc}
+              setDoc={setDoc}
+              onConfirmClick={onConfirmClick}
+              isDisabled={isDisabledUploadFile}
             >
-              Cancel
-            </Button>
-          </div>
-        ) : (
-          // eslint-disable-next-line
-          <>
-            {!isMobile && (
-              <label
-                htmlFor="upload"
-                className={cx(styles.upload_btn, {
-                  [styles.disabled]: isDisabledUploadFile,
-                })}
-              >
-                Select a file from local directory
-                <input
-                  type="file"
-                  id="upload"
-                  className={styles.upload_input}
-                  disabled={isDisabledUploadFile}
-                />
-              </label>
+
+            
+            {doc ? (
+              <div className={styles.upload_btn_block}>
+                <ButtonTransparent
+                  className={cx(styles.upload_btns,styles.upload_btns_filled)}
+                  onClick={onConfirmClick}
+                  isLoading={isLoading}
+                >
+                  Confirm
+                </ButtonTransparent>
+                <ButtonTransparent
+                  className={styles.upload_btns}
+                  // theme="secondary"
+                  onClick={onClearClick}
+                  disabled={isLoading}
+                >
+                  Cancel
+                </ButtonTransparent>
+              </div>
+            ) : (
+              // eslint-disable-next-line
+              <>
+                {!isMobile && (
+                  <label
+                    htmlFor="upload"
+                    className={cx(styles.upload_btn, {
+                      [styles.disabled]: isDisabledUploadFile,
+                    })}
+                  >
+                    Select a file from local directory
+                    <input
+                      type="file"
+                      id="upload"
+                      className={styles.upload_input}
+                      disabled={isDisabledUploadFile}
+                    />
+                  </label>
+                )}
+              </>
             )}
-          </>
-        )}
-        <div className={styles.statuses}>
+            </DragNDrop>
+            </div>
+        </div>
+        {/* <div className={styles.statuses}>
           <Typography
             className={styles.statuses_title}
             type="h4"
@@ -321,8 +355,39 @@ export const Upload = () => {
               </div>
             </div>
           </div>
+        </div> */}
+
+        <div className={styles.uploadTable}>
+          <div className={cx(styles.uploadHead,styles.uploadTableRow)}>
+            <div className={styles.uploadTable_col}>
+              File name
+            </div>
+            <div className={styles.uploadTable_col}>
+              Size
+            </div>
+            <div className={styles.uploadTable_col}>
+              Upload on
+            </div>
+            <div className={styles.uploadTable_col}>
+              Status
+            </div>
+          </div>
+          <div className={cx(styles.uploadBody)} ref={rootRef}>
+
+              {currentArticles.map((
+                {id, title, uploadProgress, fileSize, uploadStatus, updatedAt}
+              )=>{
+                return <NewItem key={`title-${id}`} props={{title, uploadProgress, fileSize, 
+                  status: 
+                  // 'processing',
+                  uploadStatus,
+                   updatedAt,  timeToUploaded:Math.round(timeToUploaded(fileSize || 0))}} />
+              })}
+              {endElementForScroll}
+          </div>
         </div>
-      </div>
+
+      {/* </div> */}
     </div>
   );
 };

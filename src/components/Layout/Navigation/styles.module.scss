@@ -4,21 +4,24 @@
 .burger {
   grid-area: sidebar;
   
-  position: relative;
+  position: fixed;
+  top: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 
   padding: 13px 10px;
+  z-index: 11;
 
   height: 40px;
   width: 40px;
   
-  background-color: $color-green;
+  background-color: $color-white;
   border-radius: 8px;
 
-  top: 0px;
-  left: 30px;
+  // top: 0px;
+  right: 30px;
   
   @include desktop1024 {
     grid-area: header;
@@ -26,10 +29,11 @@
   }
 
   @include mobile {
-    left: 15px;
-    top: 0px;
-    height: 30px;
-    width: 30px;
+    right: 15px;
+    // left: 15px;
+    // top: 0px;
+    height: 40px;
+    width: 40px;
     padding: 9px 7px;
   }
 
@@ -39,13 +43,18 @@
 }
 
 .bar {
+  margin-top: 4px;
   width: 20px;
   height: 2px;
-  background-color: $color-grey4;
+  border-radius: 100px;
+  background-color: #7C859E;
+  // background-color: $color-grey4;
   transition: transform 0.3s ease-in-out;
-
+  &:first-of-type{
+    margin-top: 0px;
+  }
   @include mobile {
-    width: 15px;
+    width: 20px;
   }
 }
 

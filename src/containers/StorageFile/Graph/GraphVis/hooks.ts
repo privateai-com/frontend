@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 type ApdateGraphControlsProps =
   React.RefObject<HTMLDivElement>;
 
-export const apdateGraphControls = (ref: ApdateGraphControlsProps) => {
+export const updateGraphControls = (ref: ApdateGraphControlsProps) => {
   if (ref.current) {
     const { children } = ref.current;
     const visNetwork = children[0];

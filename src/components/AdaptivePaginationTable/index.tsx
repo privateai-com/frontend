@@ -32,17 +32,17 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
   isMobile,
   classNameMobile,
 }) => {
-  if (isMobile) {
-    return(
-      <MobileTable
-        content={content}
-        pagination={pagination}
-        other={other}
-        itemsMobile={itemsMobile}
-        className={classNameMobile}
-      />
-    );
-  } 
+  // if (isMobile) {
+  //   return(
+  //     <MobileTable
+  //       content={content}
+  //       pagination={pagination}
+  //       other={other}
+  //       itemsMobile={itemsMobile}
+  //       className={classNameMobile}
+  //     />
+  //   );
+  // } 
 
   return (
     <Table

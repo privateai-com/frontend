@@ -61,54 +61,60 @@ const Requester: React.FC<RequesterProps> = ({
       isWithCloseButton
     >
       <div className={styles.requester_wrapper}>
-        <Typography
-          type="h3"
-          className={styles.requester_title}
-        >
-          {title}
-        </Typography>
-        <div className={styles.requester_content_wrapper}>
-          <div className={styles.requester_image}>
-            {avatarUrl ? (
-              <Image
-                src={avatarUrl}
-                alt={name}
-                fill
-                style={{ objectFit: 'cover' }}
-              />
-            ) : (
-              <span />
-            )}
-          </div>
-          <div className={styles.requester_content}>
-            <Typography
-              type="h4"
-              className={styles.requester_name}
-            >
-              {name || `Archonaut#${id}`}
-            </Typography>
-            <span className={styles.requester_country}>{country}</span>
-            {blocks.map((block) => (
-              <div
-                className={styles.block_wrapper}
-                key={block.title}
-              >
-                <span className={styles.block_title}>{block.title}</span>
-                <span className={styles.block_text}>{block.text}</span>
-              </div>
-            ))}
-            <div className={styles.block_wrapper}>
-              <span className={styles.block_title}>Social Media</span>
-              {socialMedia !== '-' ? (
-                <a
-                  href={socialMedia}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles.block_text}
+        <div className={styles.requester_info}>
+
+        
+          <Typography
+            type="h3"
+            className={styles.requester_title}
+          >
+            {title}
+          </Typography>
+          <div className={styles.requester_content_wrapper}>
+            <div className={styles.requester_image}>
+              {avatarUrl ? (
+                <Image
+                  src={avatarUrl}
+                  alt={name}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              ) : (
+                <span />
+              )}
+            </div>
+            <div className={styles.requester_content}>
+              <div className="">
+                <Typography
+                  type="h4"
+                  className={styles.requester_info_title}
                 >
-                  {socialMedia}
-                </a>
-              ) : socialMedia}
+                  {name || `Archonaut#${id}`}
+                </Typography>
+                <span className={styles.requester_info_description}>{country}</span>
+              </div>
+              {blocks.map((block) => (
+                <div
+                  className={styles.block_wrapper}
+                  key={block.title}
+                >
+                  <span className={styles.requester_info_title}>{block.title}</span>
+                  <span className={styles.requester_info_description}>{block.text}</span>
+                </div>
+              ))}
+              <div className={styles.block_wrapper}>
+                {socialMedia !== '-' && <span className={styles.requester_info_title}>Social Media</span>}
+                {socialMedia !== '-' ? (
+                  <a
+                    href={socialMedia}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.requester_info_description}
+                  >
+                    {socialMedia}
+                  </a>
+                ) : <></>}
+              </div>
             </div>
           </div>
         </div>

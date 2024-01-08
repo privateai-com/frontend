@@ -25,15 +25,15 @@
     transition: all .3s;
 
     &:hover:enabled {
-      border: solid 1px $color-green;
+      border: solid 1px $color-blue;
     }
 
     &:active:enabled {
-      border: solid 1px $color-green;
+      border: solid 1px $color-blue;
     }
 
     &:focus:enabled {
-      border: solid 1px $color-green;
+      border: solid 1px $color-blue;
     }
 
     .checkbox_icon {
@@ -61,21 +61,21 @@
 
   .checkbox_checked {
     border: 0;
-    background-color: $color-green;
+    background-color: $color-blue;
 
     &:hover:enabled {
-      background-color: $color-green;
+      background-color: $color-blue;
       border: 0;
     }
 
     &:active:enabled {
-      background-color: $color-green;
+      background-color: $color-blue;
       border: 0;
     }
 
     &:focus:enabled {
-      background-color: $color-green;
-      border: solid 1px $color-green;
+      background-color: $color-blue;
+      border: solid 1px $color-blue;
 
       &:before {
         border: 0;

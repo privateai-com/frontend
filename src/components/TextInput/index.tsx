@@ -45,6 +45,7 @@ type TextInputProps = {
   isNumberOnly?: boolean;
   isRequired?: boolean;
   isError?: boolean;
+  tagName?: string;
   tooltipId?: string;
   error?: string | undefined;
   onBlur?: ChangeEventHandler<HTMLInputElement>;
