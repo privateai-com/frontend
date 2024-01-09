@@ -16,26 +16,19 @@ const DeletePublication: React.FC<DeletePublicationProps> = ({
 }) => (
   <ModalWithLogo onClose={onClose} classNameModal={styles.modal}>
     <div className={styles.delete_pub}>
-      <span className={styles.delete_pub_text}>
+      <div className={styles.delete_pub_question}>
+          Are you sure you want to proceed?
+      </div>
+      {/* <span className={styles.delete_pub_text}>
         You are about to delete this publication.
-      </span>
+      </span> */}
       <span className={styles.delete_pub_text}>
         Once deleted, all access previously granted to this file will be
         automatically revoked
       </span>
       <div>
-        <div className={styles.delete_pub_question}>
-          Are you sure you want to proceed?
-        </div>
+        
         <div className={styles.delete_pub_btn_block}>
-          <Button
-            className={cx(styles.delete_pub_btn, styles.delete_pub_black_btn)}
-            theme="secondary"
-            onClick={onDelete}
-            isLoading={isLoading}
-          >
-            Yes, delete
-          </Button>
           <Button
             className={styles.delete_pub_btn}
             theme="secondary"
@@ -43,6 +36,14 @@ const DeletePublication: React.FC<DeletePublicationProps> = ({
             disabled={isLoading}
           >
             Don&apos;t delete
+          </Button>
+          <Button
+            className={cx(styles.delete_pub_btn, styles.delete_pub_black_btn)}
+            theme="secondary"
+            onClick={onDelete}
+            isLoading={isLoading}
+          >
+            Yes, delete
           </Button>
         </div>
       </div>

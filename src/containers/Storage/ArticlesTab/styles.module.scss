@@ -11,6 +11,8 @@
 	}
 }
 
+
+
 .input {
 
 	@include desktop1440 {
@@ -260,3 +262,9 @@
 	// justify-content: flex-end;
 }
 
+
+.emptyTable{
+	tbody{
+		height: 0px !important;
+	}
+}

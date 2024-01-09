@@ -377,15 +377,17 @@
 
 .no_avatar {
 	// min-width: 450px;
+	width: 130px;
+	height: 130px;
 	background-color: $color-grey2;
 	@include avatar();
 
 	@include desktop1024 {
-		min-width: 250px;
+		// min-width: 250px;
 	}
 
 	@include mobile {
-		min-width: 100px;
+		// min-width: 100px;
 	}
 }
 

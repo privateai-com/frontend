@@ -318,3 +318,10 @@ $border-radius: 8px;
 		}
 	}
 }
+
+
+.emptyTable{
+	tbody{
+		height: 0px!important;
+	}
+}

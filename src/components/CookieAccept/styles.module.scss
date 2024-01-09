@@ -15,7 +15,7 @@ $marginBotton : 41px;
         // padding: ;
         width: calc(100% - $marginHorizontal * 2);
         margin: 0px $marginHorizontal $marginBotton; 
-        z-index: 400;
+        z-index: 1001;
         @media screen and (max-width:768px) {
             margin: 0px 20px 20px; 
             width: calc(100% - 20px * 2);

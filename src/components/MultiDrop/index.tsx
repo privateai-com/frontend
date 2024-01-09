@@ -17,7 +17,7 @@ export const MultiDrop = ({props}:any) =>{
         top = false
     } = props
 
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     // const [selectName , setSelectName] = useState('Not mentioned')
     // const [selectList , setSelectList] = useState(selectOptions)
@@ -46,7 +46,36 @@ export const MultiDrop = ({props}:any) =>{
       }, []);
 
     const handleClickOutside = (event: { target: any }) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+
+        let checkerFlag = false
+        
+// console.log(event.target.className)
+
+
+
+
+        const containsPartOfWord = (element: Element | null, part: string): boolean => {
+            while (element) {
+                const classNames = element.className.split(' ');
+                if (classNames.some(className => className.includes(part))) {
+                    return true;
+                }
+                element = element.parentElement;
+            }
+            return false;
+        };
+        
+        if(!checkerFlag && event.target){
+            checkerFlag = containsPartOfWord(event.target,'modal')
+        }
+        if(!checkerFlag && event.target){
+            checkerFlag = containsPartOfWord(event.target,'outside')
+        }
+
+
+
+
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)  && !checkerFlag) {
             setOpen(false);
         }
     };

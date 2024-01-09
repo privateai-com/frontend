@@ -223,10 +223,14 @@
   position: relative;
   align-self: end;
   margin-bottom: 40px;
-
+  cursor: default;
   @include desktop1440 {
     margin-bottom: 28px;
   }
+}
+
+.permission_needed{
+  cursor: pointer;
 }
 
 .granted,

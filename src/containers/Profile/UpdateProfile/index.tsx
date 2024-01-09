@@ -17,6 +17,8 @@ import { RequestStatus } from 'types';
 import { useModal } from 'react-modal-hook';
 
 import {
+  profileDeleteWallet,
+  profileLinkWallet,
   profileUpdateProfile,
   profileUploadAvatar,
 } from 'store/profile/actionCreators';
@@ -24,12 +26,13 @@ import {
   ProfileActionTypes,
 } from 'store/profile/actionTypes';
 import { profileSelectors } from 'store/profile/selectors';
-import { normalizeUserInfo, notification } from 'utils';
+import { normalizeUserInfo, notification, stringLongShortcut } from 'utils';
 import { Footer } from '../Footer';
 import styles from './styles.module.scss';
 import commonStyles from '../common.module.scss'
 import { UserSchema } from './schema';
 import { ButtonTransparent } from 'components/ButtonTransparent';
+import { metamaskConnect } from 'store/metamask/actionCreators';
 
 type UpdateProfileProps = {
   callbackLater: () => void;
@@ -184,6 +187,29 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
     checkFile(file);
   }, []);
 
+  const onLinkWalletClick = useCallback(() => {
+    dispatch(metamaskConnect({
+      callback: () => {
+        dispatch(profileLinkWallet());
+      },
+    }));
+  }, [dispatch]);
+
+  const onDisconnectLinkWalletClick = useCallback(() => {
+    dispatch(profileDeleteWallet());
+  }, [dispatch]);
+
+  const walletAddress = useSelector(profileSelectors.getPropAccountInfo('walletAddress'));
+
+
+  const statusDeleteWallet = useSelector(
+    profileSelectors.getStatus(ProfileActionTypes.DeleteWallet),
+  );
+
+
+  const isDeleteLoading = statusDeleteWallet === RequestStatus.REQUEST;
+
+
 
   return (
     <>
@@ -287,19 +313,41 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
                 <h4 className={commonStyles.h4_style} >
                   Linked Wallet
                 </h4>
-                <p className={commonStyles.p_text} >
-                KL1s22d1330032d1806...564
-                </p>
+                {walletAddress && <p className={commonStyles.p_text} >
+                  {stringLongShortcut(walletAddress , 7, 5)}
+                </p>}
               </div>
               
-              <Button
+              {/* <Button
                   theme='secondary'
                   className={styles.profile__head_button}
                   isLoading={false}
                   disabled={false}
                 >
                   Link your wallet
-              </Button>
+              </Button> */}
+
+                {walletAddress ? (
+                  <>
+                    <Button
+                      className={styles.profile__head_button}
+                      theme="secondary"
+                      onClick={onDisconnectLinkWalletClick}
+                      isLoading={isDeleteLoading}
+                    >
+                      Disconnect wallet
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    className={styles.profile__head_button}
+                    onClick={onLinkWalletClick}
+                    isLoading={status === RequestStatus.REQUEST}
+                    disabled={isMobile}
+                  >
+                    Link your wallet
+                  </Button>
+                )}
             </div>
             
             {/* Connect wallet */}

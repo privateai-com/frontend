@@ -12,6 +12,8 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesGetMy } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 
+import cx from 'classnames'
+
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
 
@@ -111,15 +113,15 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
       )}
       {isLoading && (
         <>
-          {/* <AdaptivePaginationTable
+          <AdaptivePaginationTable
             columns={columns}
             content={[]}
-            classNameTableContainer={styles.table}
+            classNameTableContainer={cx(styles.table,styles.emptyTable)}
             pagination={pagination}
             itemsMobile={itemsMobile}
             isMobile={isMobile}
             classNameMobile={styles.tableMobile}
-          /> */}
+          />
            <div className={styles.containerLoader}>
             <Loader size={64} />
           </div>
