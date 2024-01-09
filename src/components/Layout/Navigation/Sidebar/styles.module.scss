@@ -16,6 +16,20 @@
   // border-right: 1px solid $color-grey3;
   // padding: 30px;
 
+  @media screen and (max-width: 1070px) {
+    width: 260px;
+  }
+  .sidebar_inner_container{
+    padding: 30px; 
+    width: 100%;
+    position: sticky;
+    top: 0;
+
+    @media screen and (max-width: 1070px) {
+      padding: 20px; 
+    }
+  }
+
   @include desktop1024 {
     width: 268px;
 		grid-area: none;
@@ -42,6 +56,11 @@
   // border-top: 1px solid $color-grey3;
   padding-top: 34px;
   padding-left: 10px;
+
+
+  @media screen and (max-width: 1070px) {
+    padding-left: 5px; 
+  }
 
   @include mobile {
     padding-top: 40px;

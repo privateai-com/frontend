@@ -94,6 +94,63 @@ export const Profile = () => {
   const isDeleteLoading = statusDeleteWallet === RequestStatus.REQUEST;
 
   return (
+    <>
+    <PageHead props={{
+      title:"My profile",
+      headStyles : {
+        background: 'transparent'
+        // also styles from scss
+      },
+      btnWrapStyles:{},
+      btnWrap:<>
+        {!isEditProfile && !isVipUser && (
+          <Button
+            theme='primary'
+            className={styles.profile__head_button}
+            onClick={() => setIsEditProfile(true)}
+          >
+            Edit
+          </Button>
+        )}
+        {
+          isEditProfile &&  <Button
+          className={styles.profile__head_button}
+          onClick={() => setIsEditProfile(false)}
+        >
+          Back
+        </Button>
+        }
+      {!isVipUser === undefined && (
+        <div className={styles.profile__head_auth}>
+          {walletAddress ? (
+            <>
+              {!isEditProfile &&
+              `Linked wallet: ${stringLongShortcut(walletAddress , 6, 3)}`}
+              <Button
+                className={styles.profile__head_button}
+                theme="secondary"
+                onClick={onDisconnectLinkWalletClick}
+                isLoading={isDeleteLoading}
+              >
+                Disconnect wallet
+              </Button>
+            </>
+          ) : (
+            <Button
+              className={styles.profile__head_button}
+              onClick={onLinkWalletClick}
+              isLoading={status === RequestStatus.REQUEST}
+              disabled={isMobile}
+            >
+              Link your wallet
+            </Button>
+          )}
+        </div>
+      )}
+      </>
+    }}> 
+      {/* <p>hello</p> */}
+    </PageHead>
     <div className={styles.profile__container}>
       {false && <div className={styles.profile__head}>
         <div className={styles.profile__head_title}>
@@ -145,61 +202,6 @@ export const Profile = () => {
           </div>
         )}
       </div>}
-      <PageHead props={{
-        title:"My profile",
-        headStyles : {
-          background: 'transparent'
-          // also styles from scss
-        },
-        btnWrapStyles:{},
-        btnWrap:<>
-          {!isEditProfile && !isVipUser && (
-            <Button
-              className={styles.profile__head_button}
-              onClick={() => setIsEditProfile(true)}
-            >
-              Edit
-            </Button>
-          )}
-          {
-            isEditProfile &&  <Button
-            className={styles.profile__head_button}
-            onClick={() => setIsEditProfile(false)}
-          >
-            Back
-          </Button>
-          }
-        {!isVipUser === undefined && (
-          <div className={styles.profile__head_auth}>
-            {walletAddress ? (
-              <>
-                {!isEditProfile &&
-                `Linked wallet: ${stringLongShortcut(walletAddress , 6, 3)}`}
-                <Button
-                  className={styles.profile__head_button}
-                  theme="secondary"
-                  onClick={onDisconnectLinkWalletClick}
-                  isLoading={isDeleteLoading}
-                >
-                  Disconnect wallet
-                </Button>
-              </>
-            ) : (
-              <Button
-                className={styles.profile__head_button}
-                onClick={onLinkWalletClick}
-                isLoading={status === RequestStatus.REQUEST}
-                disabled={isMobile}
-              >
-                Link your wallet
-              </Button>
-            )}
-          </div>
-        )}
-        </>
-      }}> 
-        {/* <p>hello</p> */}
-      </PageHead>
       {isEditProfile ? (
         <UpdateProfile
           callbackLater={onClickBrowse}
@@ -209,5 +211,6 @@ export const Profile = () => {
         <ProfileInfo />
       )}
     </div>
+    </>
   );
 };

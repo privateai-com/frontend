@@ -64,3 +64,72 @@
   font-style: normal;
 }
 
+
+/* 
+ */
+
+ @font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi/Satoshi-Black.eot');
+  src: local('Satoshi ExtraBold'), local('Satoshi-ExtraBold'),
+      url('../fonts/Satoshi/Satoshi-Black.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Satoshi/Satoshi-Black.woff') format('woff'),
+      url('../fonts/Satoshi/Satoshi-Black.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi/Satoshi-Black.eot');
+  src: local('Satoshi Black'), local('Satoshi-Black'),
+      url('../fonts/Satoshi/Satoshi-Black.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Satoshi/Satoshi-Black.woff') format('woff'),
+      url('../fonts/Satoshi/Satoshi-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi/Satoshi-Bold.eot');
+  src: local('Satoshi SemiBold'), local('Satoshi-SemiBold'),
+      url('../fonts/Satoshi/Satoshi-Bold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Satoshi/Satoshi-Bold.woff') format('woff'),
+      url('../fonts/Satoshi/Satoshi-Bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi/Satoshi-Regular.eot');
+  src: local('Satoshi Regular'), local('Satoshi-Regular'),
+      url('../fonts/Satoshi/Satoshi-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Satoshi/Satoshi-Regular.woff') format('woff'),
+      url('../fonts/Satoshi/Satoshi-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi/Satoshi-Medium.eot');
+  src: local('Satoshi Medium'), local('Satoshi-Medium'),
+      url('../fonts/Satoshi/Satoshi-Medium.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Satoshi/Satoshi-Medium.woff') format('woff'),
+      url('../fonts/Satoshi/Satoshi-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi/Satoshi-Bold.eot');
+  src: local('Satoshi Bold'), local('Satoshi-Bold'),
+      url('../fonts/Satoshi/Satoshi-Bold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Satoshi/Satoshi-Bold.woff') format('woff'),
+      url('../fonts/Satoshi/Satoshi-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

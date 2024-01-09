@@ -354,6 +354,7 @@
 
 .storageFile_table{
 	&_wrapper{
+		margin-top: 10px;
 		display: flex;
 		flex-direction: column;
 		// min-height: 300px;
@@ -410,4 +411,33 @@
 
 .dataCoreTitle{
 	color:#7C859E!important
+}
+
+
+.status_span{
+	display: flex;
+	align-items: center;
+	gap:10px;
+	flex-wrap: wrap;
+}
+
+
+.openSourcedStatus{
+	color:#3AB393 !important;
+}
+
+.otherStatus{
+	color:#7C859E !important;
+}
+
+.accessGrantedStatus{
+	color:#3AB393 !important;
+}
+
+.permissionNeededStatus{
+	color:#E0A32C !important;
+}
+
+.accessRequestPendingStatus{
+	color:#7C859E !important;
 }

@@ -5,14 +5,17 @@
   &:hover:enabled {
     background-color: #4659FE;
     color: #ffffff;
+    // border: 1px solid $color-blue;
     // background-color: rgba($color, 0.7);
   }
 
   &:active:enabled {
+    // border: 1px solid $color-blue;
     background-color: rgba($color, 0.7);
   }
 
   &:focus:enabled {
+    // border: 1px solid $color-blue;
     background-color: rgba($color, 0.7);
   }
 }

@@ -18,11 +18,11 @@ const ModalWithLogo: React.FC<ModalWithLogoProps> = ({ children, onClose, classN
   >
     <div className={styles.modal}>
       <div className={styles.modal_container}>
-        <Image
+        {/* <Image
           className={styles.modal_logo}
           src={logoIcon}
           alt="logo"
-        />
+        /> */}
         {children}
       </div>
     </div>

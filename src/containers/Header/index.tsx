@@ -173,58 +173,61 @@ export const Header = () => {
         // isDisabled={notifications.length === 0}
       />
 
-     <MultiDrop
-      props={{
-        isCustom: true,
-        showArrow: true,
-        btnContent: <div className={styles.profileButton} style={{display:'flex', alignItems:'center'}}>
-          <div className="" style={{display:'flex', flexDirection:'column', marginLeft: 35, marginRight:15}}>
-            <span className={styles.username} style={{
-                textAlign: 'right',
-                fontSize: 16,
-                fontStyle: 'normal',
-                fontWeight: 700,
-                color: '#7C859E'
-              }}>{getName(fullName, username, userId) ?? ''}</span>
-            <span
-              style={{
-                textAlign: 'right',
-                fontSize: 14,
-                fontStyle: 'normal',
-                fontWeight: 400,
-                color: '#BBC0CE'
-              }}
-            >
-              Profile menu
-            </span>
+      <div className={styles.multiDrop_wrap}>
+        <MultiDrop
+          props={{
+            isCustom: true,
+            showArrow: true,
+            btnContent: <div className={styles.profileButton} style={{display:'flex', alignItems:'center'}}>
+              <div className="" style={{display:'flex', flexDirection:'column', marginLeft: 35, marginRight:15}}>
+                <span className={styles.username} style={{
+                    textAlign: 'right',
+                    fontSize: 16,
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    color: '#7C859E'
+                  }}>{getName(fullName, username, userId) ?? ''}</span>
+                <span
+                  style={{
+                    textAlign: 'right',
+                    fontSize: 14,
+                    fontStyle: 'normal',
+                    fontWeight: 400,
+                    color: '#BBC0CE'
+                  }}
+                >
+                  Profile menu
+                </span>
 
-          </div>
-          <Image
-            style={{borderRadius:'100%', overflow: 'hidden'}}
-            src={userIcon}
-            width={41}
-            height={41}
-            alt={''}
-          />
-          
-          {/* <span>sss</span> */}
-        </div>,
-        btnList: [
-          <Link href="/profile">Settings</Link>,
-          <a onClick={showLogout}>
-            <Image
-              src={logoutIcon}
-              alt="button icon"
-              priority 
-              width={18}
-              height={18}
-            />
-            Logout
-          </a>
-        ]
+              </div>
+              <Image
+                style={{borderRadius:'100%', overflow: 'hidden'}}
+                src={userIcon}
+                width={41}
+                height={41}
+                alt={''}
+              />
+              
+              {/* <span>sss</span> */}
+            </div>,
+            btnList: [
+              <Link href="/profile">Settings</Link>,
+              <a onClick={showLogout}>
+                <Image
+                  src={logoutIcon}
+                  alt="button icon"
+                  priority 
+                  width={18}
+                  height={18}
+                />
+                Logout
+              </a>
+            ]
 
-      }}
-     />
+          }}
+        />
+      </div>
+     
       
       {/* <div className={styles.profileButton} style={{display:'flex', alignItems:'center'}}>
         <div className="" style={{display:'flex', flexDirection:'column', marginLeft: 35, marginRight:15}}>

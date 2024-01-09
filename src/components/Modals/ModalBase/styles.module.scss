@@ -53,8 +53,8 @@
 .buttonClose {
   position: absolute;
 
-  top: 30px;
-  right: 30px;
+  top: 29px;
+  right: 23px;
    box-shadow: none!important;
 
   @include desktop1440 {
@@ -68,12 +68,12 @@
   }
 
   img {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14;
   
-    @include mobile {
-      width: 15px;
-      height: 15px;
-    }
+    // @include mobile {
+    //   width: 15px;
+    //   height: 15px;
+    // }
   }
 }
