@@ -249,14 +249,6 @@ export const Upload = () => {
         props={{
           title: 'Upload activity',
           btnWrap:<>
-            {/* <label
-              htmlFor="upload"
-              className={cx(styles.upload_btn, {
-                [styles.disabled]: isDisabledUploadFile,
-              })}
-            >
-              Upload file
-            </label> */}
             <Button
               theme='primary'
             >
@@ -266,8 +258,6 @@ export const Upload = () => {
               
             </Button>
           </>
-           
-          // <Button onClick={onConfirmClick}>Upload file</Button>
         }}
         
       >
@@ -285,9 +275,7 @@ export const Upload = () => {
               onConfirmClick={onConfirmClick}
               isDisabled={isDisabledUploadFile}
             >
-
-            
-            {doc ? (
+            {/* {doc ? (
               <div className={styles.upload_btn_block}>
                 <ButtonTransparent
                   className={cx(styles.upload_btns,styles.upload_btns_filled)}
@@ -325,7 +313,7 @@ export const Upload = () => {
                   </label>
                 )}
               </>
-            )}
+            )} */}
             </DragNDrop>
             </div>
         </div>

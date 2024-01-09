@@ -17,6 +17,7 @@ import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
+import cx from 'classnames'
 
 const itemsMobile = [
   {
@@ -183,15 +184,16 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
       )}
       {isLoading && (
         <>
-          {/* <AdaptivePaginationTable
+          <AdaptivePaginationTable
             columns={columns}
             content={[]}
-            classNameTableContainer={styles.table}
+            // classNameTableContainer={styles.table}
+            classNameTableContainer={cx(styles.table,styles.emptyTable)}
             itemsMobile={itemsMobile}
             pagination={pagination}
             isMobile={isMobile}
             classNameMobile={styles.tableMobile}
-          /> */}
+          />
           <div className={styles.containerLoader}>
             <Loader size={64} />
           </div>

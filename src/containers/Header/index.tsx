@@ -3,7 +3,7 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import cx from 'classnames';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useRouter } from 'next/router';
 // import Link from 'next/link';
 import { useModal } from 'react-modal-hook';
@@ -33,6 +33,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MultiDrop } from 'components/MultiDrop';
 
+import logoPrivateAI from '../../assets/img/icons/logoPrivateAI.svg'
+
+
 // const results = [
 //   'A brief history of the antibiotics era',
 //   'Antibiotic resistance',
@@ -41,7 +44,7 @@ import { MultiDrop } from 'components/MultiDrop';
 //   'Antibiotic resistance',
 // ];
 
-export const Header = () => {
+export const Header = ({children,setActive}) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
@@ -57,6 +60,9 @@ export const Header = () => {
   const fullName = useSelector(profileSelectors.getPropAccountInfo('fullName'));
   const userId = useSelector(profileSelectors.getPropAccountInfo('id'));
   const notifications = useSelector(profileSelectors.getProp('notifications'));
+  const {
+    avatarUrl,
+  } = useSelector(profileSelectors.getProp('accountInfo'), shallowEqual);
 
   const onNotificationClick = useCallback(() => {
     setIsNotificationOpen((prevState) => !prevState);
@@ -136,7 +142,15 @@ export const Header = () => {
   return (
     <header className={styles.header}   >
       <div className={styles.header_logo}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <Link href="/knowledge">
+          <Image
+            src={logoPrivateAI}
+            alt="logo"
+            style={{marginTop:-14, marginBottom: -14}}
+          />
+        </Link>
+        
+        {/* <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M33.5635 18.814C35.9262 20.2757 37.9328 22.2564 39.4233 24.5967C37.8968 26.9934 35.8291 29.0131 33.3918 30.4842C32.4944 31.6951 31.3309 32.7268 29.9784 33.5088C34.3893 32.0814 38.1193 29.147 40.5584 25.3169C40.8385 24.8774 40.8385 24.3159 40.5584 23.8764C38.2101 20.1888 34.6649 17.3314 30.4677 15.85C31.6974 16.6437 32.7508 17.6514 33.5635 18.814ZM16.9962 15.9604C12.9321 17.4706 9.50142 20.2783 7.20995 23.8764C6.93002 24.3159 6.93002 24.8774 7.20995 25.3169C9.59105 29.0558 13.2022 31.9411 17.476 33.4042C16.1434 32.6024 15.0024 31.555 14.1293 30.3322C11.7994 28.8753 9.81976 26.9119 8.34527 24.5967C9.78481 22.3363 11.7058 20.4113 13.9642 18.9656C14.754 17.7926 15.786 16.7714 16.9962 15.9604Z" fill="#4659FE"/>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M31.394 21.5316C30.5455 19.3924 28.807 17.6204 26.4632 16.8042C22.2162 15.3253 17.5774 17.5406 16.05 21.7567L14.6255 21.7776C14.6626 21.6558 14.7022 21.5343 14.7445 21.413C16.4792 16.4313 21.9239 13.7991 26.9056 15.5338C29.8052 16.5435 31.9088 18.8101 32.8187 21.5106L31.394 21.5316Z" fill="#4659FE"/>
           <path d="M16.5564 22.7572C16.2876 23.529 15.4441 23.9368 14.6723 23.6681C13.9005 23.3993 13.4927 22.5557 13.7614 21.7839C14.0302 21.0121 14.8737 20.6043 15.6455 20.8731C16.4173 21.1418 16.8252 21.9854 16.5564 22.7572Z" fill="#4659FE"/>
@@ -146,7 +160,7 @@ export const Header = () => {
         </svg>
         <span>
           Private AI
-        </span>
+        </span> */}
       </div>
       <form className={styles.input_wrapper} onSubmit={handleSubmit}>
         <TextInput
@@ -162,72 +176,82 @@ export const Header = () => {
       </form>
      
       {/* <ExperienceWrapper /> */}
-
-
-      <ButtonIcon
-        className={cx(styles.button, { [styles.active]: !!notifications.length })}
-        image={ringIcon}
-        onClick={onNotificationClick}
-        ref={buttonRef}
-        isDisabled={false}
-        // isDisabled={notifications.length === 0}
-      />
-
-      <div className={styles.multiDrop_wrap}>
-        <MultiDrop
-          props={{
-            isCustom: true,
-            showArrow: true,
-            btnContent: <div className={styles.profileButton} style={{display:'flex', alignItems:'center'}}>
-              <div className="" style={{display:'flex', flexDirection:'column', marginLeft: 35, marginRight:15}}>
-                <span className={styles.username} style={{
-                    textAlign: 'right',
-                    fontSize: 16,
-                    fontStyle: 'normal',
-                    fontWeight: 700,
-                    color: '#7C859E'
-                  }}>{getName(fullName, username, userId) ?? ''}</span>
-                <span
-                  style={{
-                    textAlign: 'right',
-                    fontSize: 14,
-                    fontStyle: 'normal',
-                    fontWeight: 400,
-                    color: '#BBC0CE'
-                  }}
-                >
-                  Profile menu
-                </span>
-
-              </div>
-              <Image
-                style={{borderRadius:'100%', overflow: 'hidden'}}
-                src={userIcon}
-                width={41}
-                height={41}
-                alt={''}
-              />
-              
-              {/* <span>sss</span> */}
-            </div>,
-            btnList: [
-              <Link href="/profile">Settings</Link>,
-              <a onClick={showLogout}>
-                <Image
-                  src={logoutIcon}
-                  alt="button icon"
-                  priority 
-                  width={18}
-                  height={18}
-                />
-                Logout
-              </a>
-            ]
-
-          }}
+      <div className={styles.header_right_col}>
+        <ButtonIcon
+          className={cx(styles.button, { [styles.active]: !!notifications.length })}
+          image={ringIcon}
+          onClick={onNotificationClick}
+          ref={buttonRef}
+          isDisabled={false}
+          // isDisabled={notifications.length === 0}
         />
+
+        <div className={styles.multiDrop_wrap}>
+          <MultiDrop
+            props={{
+              isCustom: true,
+              showArrow: true,
+              btnContent: <div className={styles.profileButton} style={{display:'flex', alignItems:'center'}}>
+                <div className="" style={{display:'flex', flexDirection:'column', marginLeft: 35, marginRight:15}}>
+                  <span className={styles.username} style={{
+                      textAlign: 'right',
+                      fontSize: 16,
+                      fontStyle: 'normal',
+                      fontWeight: 700,
+                      color: '#7C859E'
+                    }}>{getName(fullName, username, userId) ?? ''}</span>
+                  <span
+                    style={{
+                      textAlign: 'right',
+                      fontSize: 14,
+                      fontStyle: 'normal',
+                      fontWeight: 400,
+                      color: '#BBC0CE'
+                    }}
+                  >
+                    Profile menu
+                  </span>
+
+                </div>
+                {avatarUrl ? <Image
+                  style={{borderRadius:'100%', overflow: 'hidden'}}
+                  src={avatarUrl}
+                  width={41}
+                  height={41}
+                  alt={''}
+                />: <Image
+                    style={{borderRadius:'100%', overflow: 'hidden'}}
+                    src={userIcon}
+                    width={41}
+                    height={41}
+                    alt={''}
+                  />
+                }
+                
+                
+                {/* <span>sss</span> */}
+              </div>,
+              btnList: [
+                <Link href="/profile">Settings</Link>,
+                <a onClick={showLogout}>
+                  <Image
+                    src={logoutIcon}
+                    alt="button icon"
+                    priority 
+                    width={18}
+                    height={18}
+                  />
+                  Logout
+                </a>
+              ]
+
+            }}
+          />
+        </div>
+        <div className="" style={{marginLeft:20}}>
+          {children}
+        </div>
       </div>
-     
       
       {/* <div className={styles.profileButton} style={{display:'flex', alignItems:'center'}}>
         <div className="" style={{display:'flex', flexDirection:'column', marginLeft: 35, marginRight:15}}>

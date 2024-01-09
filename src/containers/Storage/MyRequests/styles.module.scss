@@ -298,3 +298,9 @@
 		}
 	}
 }
+
+.emptyTable{
+	tbody{
+		height: 0px !important;
+	}
+}

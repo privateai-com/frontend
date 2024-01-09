@@ -1,12 +1,12 @@
 import cx from 'classnames';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { Button, Typography } from 'components';
-import { profileGetProfile } from 'store/profile/actionCreators';
+import { profileDeleteWallet, profileGetProfile, profileLinkWallet } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
-import { normalizeUserInfo } from 'utils';
+import { normalizeUserInfo, stringLongShortcut } from 'utils';
 import styles from './styles.module.scss';
 import commonStyles from '../common.module.scss';
 import { Footer } from '../Footer';
@@ -14,9 +14,13 @@ import { ButtonTransparent } from 'components/ButtonTransparent';
 import { useScreenWidth } from 'hooks';
 import { ScreenWidth } from 'appConstants';
 import { requestSetState } from 'store/request/actionCreators';
+import { metamaskConnect } from 'store/metamask/actionCreators';
+import { ProfileActionTypes } from 'store/profile/actionTypes';
+import { RequestStatus } from 'types';
 
 export const ProfileInfo = () => {
   const dispatch = useDispatch();
+  const walletAddress = useSelector(profileSelectors.getPropAccountInfo('walletAddress'));
 
 
   const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
@@ -30,6 +34,25 @@ export const ProfileInfo = () => {
     if (isMobile) dispatch(requestSetState({ requestsToMe: [] }));
   }, [dispatch, isMobile]);
 
+
+
+
+
+
+
+  const onLinkWalletClick = useCallback(() => {
+    dispatch(metamaskConnect({
+      callback: () => {
+        dispatch(profileLinkWallet());
+      },
+    }));
+  }, [dispatch]);
+
+  const onDisconnectLinkWalletClick = useCallback(() => {
+    dispatch(profileDeleteWallet());
+  }, [dispatch]);
+
+
   const {
     avatarUrl,
     username,
@@ -42,6 +65,14 @@ export const ProfileInfo = () => {
     position,
     researchFields,
   } = useSelector(profileSelectors.getProp('accountInfo'), shallowEqual);
+
+  const statusDeleteWallet = useSelector(
+    profileSelectors.getStatus(ProfileActionTypes.DeleteWallet),
+  );
+
+
+  const isDeleteLoading = statusDeleteWallet === RequestStatus.REQUEST;
+
 
   return (
     <>
@@ -74,7 +105,8 @@ export const ProfileInfo = () => {
                   User name/Real name 
                 </h3>
                 <h2 className={commonStyles.h2_style}>
-                  {normalizeUserInfo(username)}
+                  {username}
+                  {/* {normalizeUserInfo(username)} */}
                 </h2>
 
                 {/* <Typography type="h5">
@@ -107,22 +139,44 @@ export const ProfileInfo = () => {
                 <h4 className={commonStyles.h4_style} >
                   Linked Wallet
                 </h4>
-                <p className={commonStyles.p_text} >
-                KL1s22d1330032d1806...564
-                </p>
+                {walletAddress && <p className={commonStyles.p_text} >
+                  {stringLongShortcut(walletAddress , 7, 5)}
+                </p>}
               </div>
               
-              <Button
+              {/* <Button
                   theme='secondary'
                   className={styles.profile__head_button}
                   // onClick={onLinkWalletClick}
                   isLoading={false}
                   // isLoading={status === RequestStatus.REQUEST}
-                  // disabled={isMobile}
                   disabled={false}
                 >
                   Link your wallet
+              </Button> */}
+               {walletAddress ? (
+            <>
+              {/* {!isEditProfile && */}
+              {/* {`Linked wallet: ${stringLongShortcut(walletAddress , 6, 3)}`} */}
+              <Button
+                className={styles.profile__head_button}
+                theme="secondary"
+                onClick={onDisconnectLinkWalletClick}
+                isLoading={isDeleteLoading}
+              >
+                Disconnect wallet
               </Button>
+            </>
+          ) : (
+            <Button
+              className={styles.profile__head_button}
+              onClick={onLinkWalletClick}
+              isLoading={status === RequestStatus.REQUEST}
+              disabled={isMobile}
+            >
+              Link your wallet
+            </Button>
+          )}
             </div>
             
             {/* Connect wallet */}

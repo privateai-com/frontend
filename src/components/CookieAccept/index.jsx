@@ -1,16 +1,49 @@
 import { Button } from 'components/Button'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 
 
 export const CookieAccept = () =>{
-    const [isShow, setShow] = useState(true)
+    const [isShow, setShow] = useState(false)
 
     const handleClick = () =>{
         setShow(false)
-        
+        setCookie('cookieAcceptFlag', true)
     }
+
+    function setCookie(name, value) {
+        const expirationDate = new Date();
+        // expirationDate.setTime(expirationDate.getTime() + 2 * 60 * 1000); // 2 minutes in milliseconds
+        expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+
+      
+        const cookie = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/`;
+      
+        document.cookie = cookie;
+    }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+      
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+ 
+          if (cookie.startsWith(`${name}=`)) {
+            return cookie.substring(name.length + 1); 
+          }
+        }
+      
+        return null;
+      }
+
+    useEffect(()=>{
+        const flag = getCookie('cookieAcceptFlag')
+        !flag && setShow(true)
+    },[])
+
+
+
 
 
     return <>

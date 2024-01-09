@@ -1,10 +1,12 @@
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import Head from 'next/head';
 import cx from 'classnames';
 
 import { Navigation } from './Navigation';
 
 import styles from './styles.module.scss';
+import { CookieAccept } from 'components/CookieAccept';
+import { MenuBtn } from 'components/MenuBtn';
 
 type Props = {
   children: ReactNode,
@@ -46,8 +48,13 @@ export const Layout: FC<Props> = ({
         className, 
       )}
     >
-      <Navigation />
-      {header}
+     
+      {header && <IntermediateComponent>
+        {header}
+      </IntermediateComponent>}
+      {/* <Navigation isActive={true} setActive={()=>{}} /> */}
+
+      {/* {header} */}
       <main 
         className={cx(
           styles.page__main, 
@@ -56,6 +63,23 @@ export const Layout: FC<Props> = ({
       >
         {children}
       </main>
+      <CookieAccept />
     </div>
   </>
 );
+
+interface IntermediateComponentProps {
+  children: ReactNode;
+}
+
+const IntermediateComponent: React.FC<IntermediateComponentProps> = ({  children }) => {
+  const [isActive, setActive] = useState(false)
+
+  return (
+    <>
+      {children && React.cloneElement(children as React.ReactElement, setActive, <MenuBtn callBack={()=>{setActive(!isActive)}}/>)}
+      <Navigation isActive={isActive} setActive={()=>{setActive(!isActive)}} />
+      {/* Other elements and components */}
+    </>
+  );
+};

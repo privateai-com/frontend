@@ -15,6 +15,7 @@ import { useScreenWidth } from 'hooks';
 import { RequestStatus, SortingDirection } from 'types';
 import { convertTitleFile, formatDate, getName } from 'utils';
 import { useColumns } from './columns';
+import cx from 'classnames'
 
 import styles from './styles.module.scss';
 
@@ -156,9 +157,19 @@ export const TabToMe = () => {
         />
       )}
       {isLoading && (
-        <div className={styles.containerLoader}>
-          <Loader size={64} />
-        </div>
+        <>
+          <AdaptivePaginationTable
+            columns={columns}
+            content={[]}
+            itemsMobile={itemsMobile}
+            classNameTableContainer={cx(styles.table,styles.emptyTable)}
+            pagination={pagination}
+            isMobile={isMobile}
+          />
+          <div className={styles.containerLoader}>
+            <Loader size={64} />
+          </div>
+        </>
       )}
     </>
   );

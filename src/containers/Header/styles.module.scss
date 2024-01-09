@@ -24,6 +24,11 @@
 	z-index:10;
 	right: 0; 
 
+	&_right_col{
+		display: flex;
+		align-items: center;
+	}
+
 	&_logo{
 		display: none;
 	}
@@ -62,12 +67,13 @@
 		border-bottom: 1px solid #BDC5DC;
 	}
 	background: #FFF;
-	padding-bottom:20px;
+	padding: 20px 15px;
+	// padding-bottom:20px;
 	// height: 40px;
 
-	padding-left: 15px;
-	padding-right: 70px;
-	padding-top: 20px;
+	// padding-left: 15px;
+	// padding-right: 70px;
+	// padding-top: 20px;
 
 	@include desktop1024 {
 		font-size: 30px;
@@ -80,7 +86,7 @@
 		
 		// padding-right: 30px;
 		padding-top: 20px;
-		padding-right: 90px;
+		// padding-right: 90px;
 	}
 
 	@include media-breakpoint-up(md) {

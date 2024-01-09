@@ -7,7 +7,12 @@ import { Sidebar } from './Sidebar';
 
 import styles from './styles.module.scss';
 
-export const Navigation = memo(() => {
+interface NavigationProps {
+  isActive: boolean;
+  setActive : () => void;
+}
+
+export const Navigation: React.FC<NavigationProps> = memo(({isActive,setActive}) => {
   const isAdaptive = useScreenWidth(ScreenWidth.notebook1024);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,21 +24,22 @@ export const Navigation = memo(() => {
   
   return (
     <>
-      <button
+      {/* <button
         className={cx(styles.burger)}
         onClick={toggleMenu}
       >
         <div className={styles.bar} />
         <div className={styles.bar} />
         <div className={styles.bar} />
-      </button>
+      </button> */}
       <Sidebar 
-        className={cx({ [styles.showSidebar]: isOpen })} 
+        className={cx({ [styles.showSidebar]: isActive })} 
       />
       <button 
-        className={cx(styles.overlay, { [styles.show]: isOpen })} 
-        onClick={toggleMenu} 
+      onClick={()=>setActive()}
+        className={cx(styles.overlay, { [styles.show]: isActive })} 
       />
+      
     </>
   );
 });

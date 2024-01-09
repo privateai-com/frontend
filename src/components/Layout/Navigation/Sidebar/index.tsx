@@ -51,7 +51,6 @@ export const Sidebar: FC<SidebarProps> = memo(({
           </div>
         </div>
       </div>
-      <CookieAccept />
     </>
   );
 });
