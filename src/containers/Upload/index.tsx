@@ -248,21 +248,25 @@ export const Upload = () => {
       <PageHead 
         props={{
           title: 'Upload activity',
-          btnWrap:
-            <label
+          btnWrap:<>
+            {/* <label
               htmlFor="upload"
               className={cx(styles.upload_btn, {
                 [styles.disabled]: isDisabledUploadFile,
               })}
             >
               Upload file
-              {/* <input
-                type="file"
-                id="upload"
-                className={styles.upload_input}
-                disabled={isDisabledUploadFile}
-              /> */}
-            </label>
+            </label> */}
+            <Button
+              theme='primary'
+            >
+              <label htmlFor="upload">
+                Upload file
+              </label>
+              
+            </Button>
+          </>
+           
           // <Button onClick={onConfirmClick}>Upload file</Button>
         }}
         

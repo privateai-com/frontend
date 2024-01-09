@@ -21,6 +21,20 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    button{
+      max-width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: unset!important;
+      // display: -webkit-box;
+
+    }
   }
 }
 

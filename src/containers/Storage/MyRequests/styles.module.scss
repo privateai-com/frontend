@@ -57,6 +57,12 @@
   overflow-wrap: anywhere;
 }
 
+
+.table{
+	tbody{
+	}
+}
+
 // .table {
 //   thead, tbody tr {
 //     display: table;
@@ -149,6 +155,9 @@
 
   tbody {
       
+
+
+
     @include desktop1024 {
     //   height: calc(100vh - 248px - 64px);
       padding: 0 10px;

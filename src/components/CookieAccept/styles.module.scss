@@ -1,0 +1,98 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
+$marginHorizontal : 35px;
+$marginBotton : 41px;
+
+
+
+.cookie{
+    
+    &_wrap{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        // padding: ;
+        width: calc(100% - $marginHorizontal * 2);
+        margin: 0px $marginHorizontal $marginBotton; 
+        z-index: 400;
+        @media screen and (max-width:768px) {
+            margin: 0px 20px 20px; 
+            width: calc(100% - 20px * 2);
+        }
+    }
+    &_container{
+        padding: 23px 30px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, #FFF 100%);
+        box-shadow: 0px 11px 31.9px 0px rgba(124, 133, 158, 0.23);
+        border-radius: 20px;   
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    &_col{
+        display: flex;
+        gap: 5px;
+        align-items: flex-start;
+        svg{
+            min-width: 16.1px;
+        }
+        // gap: 20px
+    }
+
+    &_col:last-of-type{
+        gap:20px;
+        button{
+            background-color: transparent !important;
+            padding: 0!important;
+            border: none!important;
+            color: $color-blue!important;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            border-radius: 0!important;
+            line-height: 1.4;
+            border-bottom: 1px solid $color-blue!important;
+            &:hover{
+                color: rgba(70, 89, 254, 0.6)!important;
+                border-bottom: 1px solid rgba(70, 89, 254, 0.6)!important;
+            }
+           
+        }
+        @media screen and (max-width:1024px) {
+            .textLink{
+                display: none;
+            }
+        }
+    }
+    &_text{
+        line-height: 1.4;
+        margin-left: 5px;
+        color: #7C859E;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+    }
+}
+
+.acceptBtn{
+
+}
+
+.textLink{
+    line-height: 1.4!important;
+    text-decoration: none;
+    color: #7C859E;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    border-bottom: 1px solid #7C859E;
+    transition: border-color 0.2s ease-out;
+    white-space: nowrap;
+    &:hover{
+        border-color: $color-blue;
+    }
+}
+

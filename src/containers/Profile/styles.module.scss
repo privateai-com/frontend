@@ -143,11 +143,12 @@
 
 	&_button {
 		height: fit-content;
+		border: 1px solid $color-blue;
 		// width: 100%;
-		background-color: #4659FE;
-		color: #ffffff!important;
-		font-weight: 500 !important; 
-		max-width: 300px;
+		// background-color: #4659FE;
+		// color: #ffffff!important;
+		// font-weight: 500 !important; 
+		// max-width: 300px;
 
 		&:hover{
 			background-color: #ffffff!important;

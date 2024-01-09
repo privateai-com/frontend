@@ -134,7 +134,22 @@ export const useColumns = ({
           // eslint-disable-next-line no-nested-ternary
           (approve === null ? (
             <div className={styles.table_block_btn}>
-              <Button 
+              <Button theme='primary' onClick={handleProvide(id)}
+                isLoading={
+                  statusAnswer === RequestStatus.REQUEST 
+                  && id === activeRequestId 
+                  && isProvided === true
+                }>
+                Grant access
+              </Button>
+              <Button theme='secondary' onClick={handleDecline(id)} isLoading={
+                  statusAnswer === RequestStatus.REQUEST 
+                  && id === activeRequestId 
+                  && isProvided === false
+                }>
+                Decline
+              </Button>
+              {/* <Button 
                 className={styles.table_provide}
                 onClick={handleProvide(id)}
                 isLoading={
@@ -154,8 +169,8 @@ export const useColumns = ({
                   </clipPath>
                   </defs>
                 </svg>
-              </Button>
-              <Button
+              </Button> */}
+              {/* <Button
                 theme="grey"
                 className={styles.table_decline}
                 onClick={handleDecline(id)}
@@ -177,8 +192,7 @@ export const useColumns = ({
                   </clipPath>
                   </defs>
                 </svg>
-                {/* Decline */}
-              </Button>
+              </Button> */}
             </div>
           ) : 
             (approve === true ? 'Provided' : 'Declined')

@@ -362,9 +362,20 @@ $btn-height1024: 130px;
   }
 
   .uploadBody{
+    height: calc(100vh - 290px);
+    // background-color: red;
     // display: table;
-    height: calc(100vh - 160px - 61px - 30px - 33px) ;
+    // height: calc(100vh - 160px - 61px - 30px - 33px) ;
     overflow-y: scroll;
+
+
+    @media screen and (max-width:1024px){
+      height: calc(100vh - 210px);
+    }
+    @media screen and (max-width:576px){
+      // height: 100%;
+    }
+
     .title{
       color: #0F0F0F;
       font-size: 16px;
@@ -413,7 +424,7 @@ $btn-height1024: 130px;
     }
 
     .uploadBody{
-      height: calc(100vh - 160px - 61px - 30px - 33px);
+      // height: calc(100vh - 160px - 61px - 30px - 33px);
       .uploadTableRow{
         position: relative;
         padding: 25px 0;
@@ -540,5 +551,23 @@ $btn-height1024: 130px;
   margin-right: auto;
   &_complete{
     color: #3AB393
+  }
+}
+
+.processing_status{
+  color:#E0A32C;
+
+  .processing_status_icon{
+    animation: rotate 1s infinite ease-in-out;;
+
+    @keyframes rotate {
+      0%{
+        rotate :-150deg;
+      }
+      100%{
+        rotate: 210deg;
+        // rotate: 360deg
+      }
+    }
   }
 }

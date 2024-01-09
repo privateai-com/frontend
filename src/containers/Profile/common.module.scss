@@ -1,6 +1,9 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/_mixins.scss';
+
 .h1_style{
     color: #0F0F0F;
-    font-family: Montserrat; // 'Satoshi'
+    font-family: $montserrat; // 'Satoshi'
     font-size: 28px;
     font-weight: 700;
 }
@@ -10,7 +13,7 @@
     font-weight: 700;
     color: #0F0F0F;
     line-height: normal;
-    font-family: Montserrat; // 'Satoshi'
+    font-family: $montserrat; // 'Satoshi'
 }
 
 .h3_style_gray{
@@ -18,12 +21,12 @@
     font-size: 16px!important;
     font-weight: 400;
     line-height: normal;
-    font-family: Montserrat; // 'Satoshi'
+    font-family: $montserrat; // 'Satoshi'
 }
 
 .h4_style{
     color: #0F0F0F;
-    font-family: Montserrat; // 'Satoshi'
+    font-family: $montserrat; // 'Satoshi'
     font-size: 16px;
     font-weight: 700;
     line-height: normal;
@@ -41,12 +44,12 @@
     font-size: 16px;
     font-weight: 400;
     line-height: normal;
-    font-family: Montserrat; // 'Satoshi'
+    font-family: $montserrat; // 'Satoshi'
 }
 
 .link_style{
     color: #7C859E;
-    font-family: Montserrat; // 'Satoshi'
+    font-family: $montserrat; // 'Satoshi'
     font-size: 16px;
     // font-weight: 300;
     line-height: normal;
