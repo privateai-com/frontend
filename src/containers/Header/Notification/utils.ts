@@ -27,6 +27,7 @@ export const generateNotificationText = (
   type: NotificationType,
   article: NotificationArticle,
   isOwner: boolean,
+  // eslint-disable-next-line
 ): any => {
   switch (type) {
     case NotificationType.YouGrantedAccess:

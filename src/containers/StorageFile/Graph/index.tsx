@@ -46,9 +46,9 @@ export const Graph: FC<GraphProps> = memo(({
       })}
       >
         <Typography className={styles.dataCoreTitle} type="h2">Data core structure</Typography>
-        {/* {(isOwner && articleId) && (
+        {(isOwner && articleId) && (
           <DeleteBtn className={styles.storageFile__data_btn} articleId={articleId} />
-        )} */}
+        )}
       </div>
       <div className={styles.storageFile__wrapper}>
         <ButtonIcon
@@ -67,9 +67,9 @@ export const Graph: FC<GraphProps> = memo(({
           setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
         />
 
-          <h2 style={{fontSize: 19, fontStyle: 'normal', fontWeight: 700}}>
-            Data highlights: 
-          </h2>
+        <h2 style={{ fontSize: 19, fontStyle: 'normal', fontWeight: 700 }}>
+          Data highlights: 
+        </h2>
         {/* <Typography type="h2">
           Data highlights: 
         </Typography> */}

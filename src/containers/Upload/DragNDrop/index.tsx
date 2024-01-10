@@ -1,4 +1,4 @@
-import {
+import React, {
   ChangeEvent, DragEvent, useCallback, useState, FC, 
 } from 'react';
 import { toast } from 'react-toastify';
@@ -20,12 +20,12 @@ type DragNDropProps = {
   setDoc: (doc: File | null) => void;
   className?: string;
   isDisabled?: boolean;
-  children? :any;
-  onConfirmClick?: (arg: File | null) => void;
+  children?: React.ReactNode;
+  onConfirmClick?: (doc: File | null) => void;
 };
 
 export const DragNDrop: FC<DragNDropProps> = ({
-  doc, setDoc, className, isDisabled,children,onConfirmClick
+  doc, setDoc, className, isDisabled, children, onConfirmClick,
 }) => {
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
   const [isDragging, setIsDragging] = useState(false);
@@ -41,9 +41,10 @@ export const DragNDrop: FC<DragNDropProps> = ({
         notification.info({ message: errorsNotification.profileNotFilled });
         return;
       }
-      
       setDoc(file ? file[0] : null);
-      onConfirmClick(file ? file[0] : null)
+      if(onConfirmClick) {
+        onConfirmClick(file ? file[0] : null);
+      }
     },
     [userFilledAllInfo, setDoc],
   );
@@ -73,72 +74,65 @@ export const DragNDrop: FC<DragNDropProps> = ({
   };
 
   return (
-    <>
-     
-    
-      <div
+    <div
         // htmlFor="upload"
-        className={cx(styles.dnd_btn, className, {
-          [styles.dragOver]: isDragging,
-          [styles.disabled]: isDisabled,
-          doc,
-        })}
-        // onDragOver={onDragPrevent}
-        // onDragEnter={onDragPrevent}
-        // onDragLeave={() => setIsDragging(false)}
-        // onDrop={handleDrop}
-      >
-         <Typography
+      className={cx(styles.dnd_btn, className, {
+        [styles.dragOver]: isDragging,
+        [styles.disabled]: isDisabled,
+        doc,
+      })}
+    >
+      <Typography
         className={styles.dnd_title}
         type="h4"
       >
         Add a file*
       </Typography>
 
-        <div className={styles.dnd_wrapper}>
-          <label className={styles.dnd_content}
+      <div className={styles.dnd_wrapper}>
+        <label
+          className={styles.dnd_content}
           htmlFor="upload"
-              onDragOver={onDragPrevent}
+          onDragOver={onDragPrevent}
           onDragEnter={onDragPrevent}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
-          >
-            {doc ? (
-              <span className={styles.dnd_file_name}>{doc.name}</span>
-            ) : (
-              <p className={styles.dnd_text}>
-                <span>
-                  {isSmallDesktop
-                    ? 'Tap to upload your file'
-                    : 'Drag and drop your file'}
-                </span>
-              </p>
-            )}
-            <Image
-              src={doc ? documentTextIcon1 : uploadIcon}
-              alt="icon"
+        >
+          {doc ? (
+            <span className={styles.dnd_file_name}>{doc.name}</span>
+          ) : (
+            <p className={styles.dnd_text}>
+              <span>
+                {isSmallDesktop
+                  ? 'Tap to upload your file'
+                  : 'Drag and drop your file'}
+              </span>
+            </p>
+          )}
+          <Image
+            src={doc ? documentTextIcon1 : uploadIcon}
+            alt="icon"
               // width={40}
-              className={styles.dnd_img}
-            />
-            <input
-              type="file"
-              id="upload"
-              onChange={onUploadClick}
-              className={styles.dnd_input}
-            />
-          </label>
-        </div>
-
-        <span className={styles.dnd_notice}>
-          * - name of the file will be displayed on the platform after the
-          upload, rename it beforehand if necessary
-        </span>
-        <div className="" style={{width:'100%'}}>
-          {children}
-        </div>
-       
-        {/* <div className={styles.mock} /> */}
+            className={styles.dnd_img}
+          />
+          <input
+            type="file"
+            id="upload"
+            onChange={onUploadClick}
+            className={styles.dnd_input}
+          />
+        </label>
       </div>
-    </>
+
+      <span className={styles.dnd_notice}>
+        * - name of the file will be displayed on the platform after the
+        upload, rename it beforehand if necessary
+      </span>
+      <div className="" style={{ width: '100%' }}>
+        {children}
+      </div>
+       
+      {/* <div className={styles.mock} /> */}
+    </div>
   );
 };

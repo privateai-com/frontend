@@ -2,11 +2,11 @@ import React, { FC, ReactNode, useState } from 'react';
 import Head from 'next/head';
 import cx from 'classnames';
 
+import { CookieAccept } from 'components/CookieAccept';
+import { MenuBtn } from 'components/MenuBtn';
 import { Navigation } from './Navigation';
 
 import styles from './styles.module.scss';
-import { CookieAccept } from 'components/CookieAccept';
-import { MenuBtn } from 'components/MenuBtn';
 
 type Props = {
   children: ReactNode,
@@ -22,6 +22,26 @@ type Props = {
   },
   className?: string,
   mainClassName?: string,
+};
+
+interface IntermediateComponentProps {
+  children: ReactNode;
+}
+
+const IntermediateComponent: React.FC<IntermediateComponentProps> = ({ children }) => {
+  const [isActive, setActive] = useState(false);
+
+  return (
+    <>
+      {children && React.cloneElement(
+        children as React.ReactElement, 
+        setActive,
+        <MenuBtn callBack={() => { setActive(!isActive); }} />,
+      )}
+      <Navigation isActive={isActive} setActive={() => { setActive(!isActive); }} />
+      {/* Other elements and components */}
+    </>
+  );
 };
 
 export const Layout: FC<Props> = ({
@@ -49,9 +69,11 @@ export const Layout: FC<Props> = ({
       )}
     >
      
-      {header && <IntermediateComponent>
+      {header && (
+      <IntermediateComponent>
         {header}
-      </IntermediateComponent>}
+      </IntermediateComponent>
+      )}
       {/* <Navigation isActive={true} setActive={()=>{}} /> */}
 
       {/* {header} */}
@@ -67,19 +89,3 @@ export const Layout: FC<Props> = ({
     </div>
   </>
 );
-
-interface IntermediateComponentProps {
-  children: ReactNode;
-}
-
-const IntermediateComponent: React.FC<IntermediateComponentProps> = ({  children }) => {
-  const [isActive, setActive] = useState(false)
-
-  return (
-    <>
-      {children && React.cloneElement(children as React.ReactElement, setActive, <MenuBtn callBack={()=>{setActive(!isActive)}}/>)}
-      <Navigation isActive={isActive} setActive={()=>{setActive(!isActive)}} />
-      {/* Other elements and components */}
-    </>
-  );
-};

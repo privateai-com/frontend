@@ -13,11 +13,11 @@ import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestGetMyRequests } from 'store/request/actionCreators';
 import { RequestStatus, SortingDirection } from 'types';
 import { convertTitleFile, getName } from 'utils';
+import cx from 'classnames';
 import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
 import { RequestedDataType } from './types';
-import cx from 'classnames'
 
 const itemsMobile = [
   {
@@ -188,7 +188,7 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
             columns={columns}
             content={[]}
             // classNameTableContainer={styles.table}
-            classNameTableContainer={cx(styles.table,styles.emptyTable)}
+            classNameTableContainer={cx(styles.table, styles.emptyTable)}
             itemsMobile={itemsMobile}
             pagination={pagination}
             isMobile={isMobile}

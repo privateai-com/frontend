@@ -12,7 +12,7 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesGetMy } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 
-import cx from 'classnames'
+import cx from 'classnames';
 
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
@@ -99,7 +99,6 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
   return (
     <>
       {isHideRequests && (
-        <>
         <AdaptivePaginationTable
           columns={columns}
           content={content}
@@ -109,20 +108,19 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
           isMobile={isMobile}
           classNameMobile={styles.tableMobile}
         />
-        </>
       )}
       {isLoading && (
         <>
           <AdaptivePaginationTable
             columns={columns}
             content={[]}
-            classNameTableContainer={cx(styles.table,styles.emptyTable)}
+            classNameTableContainer={cx(styles.table, styles.emptyTable)}
             pagination={pagination}
             itemsMobile={itemsMobile}
             isMobile={isMobile}
             classNameMobile={styles.tableMobile}
           />
-           <div className={styles.containerLoader}>
+          <div className={styles.containerLoader}>
             <Loader size={64} />
           </div>
         </>

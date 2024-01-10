@@ -83,43 +83,44 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
             <strong>{` ${email}`}</strong>
           </Typography>
 
-
         </div>
-      
 
         <div className={styles.containerInputs}>
           <InputOtp
             value={otp}
             onChangeValue={onOtpChange}
-            label={<>Verification code {isShowResend && (
-              <ButtonResend
-                className={styles.resender}
-                onClick={onResendCodeClick}
-              />
-            )}</>} 
+            label={(
+              <>
+                Verification code
+                {isShowResend && (
+                <ButtonResend
+                  className={styles.resender}
+                  onClick={onResendCodeClick}
+                />
+                )}
+              </>
+)} 
             classNameContainer={styles.otp_container}
             isError={error !== ''}
           />
-
           
         </div>
 
-        <div style={{width:'100%'}}>
-
+        <div style={{ width: '100%' }}>
          
-        {error !== '' && (
+          {error !== '' && (
           <div className={styles.error}>
             {error.includes('Verification code incorrect!') ? msgError : error}
           </div>
-        )}
+          )}
 
-        <Button
-          className={cx(styles.button, { [styles.button_margin]: error })}
-          type="submit"
-          disabled={!isNotError || otp.length < 6}
-        >
-          Confirm
-        </Button>
+          <Button
+            className={cx(styles.button, { [styles.button_margin]: error })}
+            type="submit"
+            disabled={!isNotError || otp.length < 6}
+          >
+            Confirm
+          </Button>
          
         </div>
       </form>

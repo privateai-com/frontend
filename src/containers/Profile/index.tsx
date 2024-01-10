@@ -17,13 +17,12 @@ import {
 } from 'store/metamask/actionCreators';
 import { ScreenWidth, routes } from 'appConstants';
 import { useScreenWidth, useVipUser } from 'hooks';
+import { PageHead } from 'components/PageHead';
 import { UpdateProfile } from './UpdateProfile';
 import { ProfileInfo } from './ProfileInfo';
 
 import styles from './styles.module.scss';
-import commonStyles from './common.module.scss'
-import { ButtonTransparent } from 'components/ButtonTransparent';
-import { PageHead } from 'components/PageHead';
+import commonStyles from './common.module.scss';
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -95,91 +94,40 @@ export const Profile = () => {
 
   return (
     <>
-    <PageHead props={{
-      title:"My profile",
-      headStyles : {
-        background: 'transparent'
+      <PageHead props={{
+        title: 'My profile',
+        headStyles: {
+          background: 'transparent',
         // also styles from scss
-      },
-      btnWrapStyles:{},
-      btnWrap:<>
-        {!isEditProfile && !isVipUser && (
+        },
+        btnWrapStyles: {},
+        // eslint-disable-next-line
+        btnWrap: <>
+          {!isEditProfile && !isVipUser && (
           <Button
-            theme='primary'
+            theme="primary"
             className={styles.profile__head_button}
             onClick={() => setIsEditProfile(true)}
           >
             Edit
           </Button>
-        )}
-        {
-          isEditProfile &&  <Button
-          className={styles.profile__head_button}
-          onClick={() => setIsEditProfile(false)}
-        >
-          Back
-        </Button>
-        }
-      {!isVipUser === undefined && (
-        <div className={styles.profile__head_auth}>
-          {walletAddress ? (
-            <>
-              {!isEditProfile &&
-              `Linked wallet: ${stringLongShortcut(walletAddress , 6, 3)}`}
-              <Button
-                className={styles.profile__head_button}
-                theme="secondary"
-                onClick={onDisconnectLinkWalletClick}
-                isLoading={isDeleteLoading}
-              >
-                Disconnect wallet
-              </Button>
-            </>
-          ) : (
-            <Button
-              className={styles.profile__head_button}
-              onClick={onLinkWalletClick}
-              isLoading={status === RequestStatus.REQUEST}
-              disabled={isMobile}
-            >
-              Link your wallet
-            </Button>
-          )}
-        </div>
-      )}
-      </>
-    }}> 
-      {/* <p>hello</p> */}
-    </PageHead>
-    <div className={styles.profile__container}>
-      {false && <div className={styles.profile__head}>
-        <div className={styles.profile__head_title}>
-
-          <Typography type="h1" className={commonStyles.h1_style}>My profile</Typography>
-          {!isEditProfile && !isVipUser && (
-            <Button
-              className={styles.profile__head_button}
-              onClick={() => setIsEditProfile(true)}
-            >
-              Edit
-            </Button>
           )}
           {
-            isEditProfile &&  <Button
+          isEditProfile && (
+          <Button
             className={styles.profile__head_button}
             onClick={() => setIsEditProfile(false)}
           >
             Back
           </Button>
-          }
-        </div>
-
-        {!isVipUser === undefined && (
+          )
+        }
+          {!isVipUser === undefined && (
           <div className={styles.profile__head_auth}>
             {walletAddress ? (
               <>
                 {!isEditProfile &&
-                `Linked wallet: ${stringLongShortcut(walletAddress , 6, 3)}`}
+              `Linked wallet: ${stringLongShortcut(walletAddress, 6, 3)}`}
                 <Button
                   className={styles.profile__head_button}
                   theme="secondary"
@@ -200,17 +148,77 @@ export const Profile = () => {
               </Button>
             )}
           </div>
+          )}
+          {/* eslint-disable-next-line */}
+        </>,
+      }}
+      > 
+        {/* <p>hello</p> */}
+      </PageHead>
+      <div className={styles.profile__container}>
+        {false && (
+        <div className={styles.profile__head}>
+          <div className={styles.profile__head_title}>
+
+            <Typography type="h1" className={commonStyles.h1_style}>My profile</Typography>
+            {!isEditProfile && !isVipUser && (
+            <Button
+              className={styles.profile__head_button}
+              onClick={() => setIsEditProfile(true)}
+            >
+              Edit
+            </Button>
+            )}
+            {
+            isEditProfile && (
+            <Button
+              className={styles.profile__head_button}
+              onClick={() => setIsEditProfile(false)}
+            >
+              Back
+            </Button>
+            )
+          }
+          </div>
+
+          {!isVipUser === undefined && (
+          <div className={styles.profile__head_auth}>
+            {walletAddress ? (
+              <>
+                {!isEditProfile &&
+                `Linked wallet: ${stringLongShortcut(walletAddress, 6, 3)}`}
+                <Button
+                  className={styles.profile__head_button}
+                  theme="secondary"
+                  onClick={onDisconnectLinkWalletClick}
+                  isLoading={isDeleteLoading}
+                >
+                  Disconnect wallet
+                </Button>
+              </>
+            ) : (
+              <Button
+                className={styles.profile__head_button}
+                onClick={onLinkWalletClick}
+                isLoading={status === RequestStatus.REQUEST}
+                disabled={isMobile}
+              >
+                Link your wallet
+              </Button>
+            )}
+          </div>
+          )}
+        </div>
         )}
-      </div>}
-      {isEditProfile ? (
-        <UpdateProfile
-          callbackLater={onClickBrowse}
-          callbackSuccess={handleShoModalSuccess}
-        />
-      ) : (
-        <ProfileInfo />
-      )}
-    </div>
+        {isEditProfile ? (
+          <UpdateProfile
+            callbackLater={onClickBrowse}
+            callbackSuccess={handleShoModalSuccess}
+          />
+        ) : (
+          <ProfileInfo />
+        )}
+      </div>
     </>
   );
 };

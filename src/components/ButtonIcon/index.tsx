@@ -1,4 +1,4 @@
-import { MouseEvent, forwardRef } from 'react';
+import React, { MouseEvent, forwardRef } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 import styles from './styles.module.scss';
@@ -11,7 +11,7 @@ interface ButtonIconProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   width?: number;
   height?:number;
   image: string;
-  children? : any;
+  children? : React.ReactNode;
 }
 
 export const ButtonIcon =
@@ -23,10 +23,8 @@ forwardRef<HTMLButtonElement, ButtonIconProps>(({
   image,
   width,
   height,
-  children
+  children,
 }, ref) => (
-  <>
-  
   <button
     className={cx(
       styles.button_icon__container,
@@ -50,6 +48,4 @@ forwardRef<HTMLButtonElement, ButtonIconProps>(({
     />
     {children}
   </button>
-    
-  </>
 ));

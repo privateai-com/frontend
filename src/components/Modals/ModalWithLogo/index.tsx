@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import { logoIcon } from 'assets';
 import { ReactNode } from 'react';
 import styles from './styles.module.scss';
 import { ModalBase } from '../ModalBase';
