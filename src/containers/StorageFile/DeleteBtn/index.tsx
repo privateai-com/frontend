@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from 'react-modal-hook';
 import { RequestStatus } from 'types';
@@ -12,9 +12,10 @@ import { routes } from 'appConstants';
 interface DeleteBtnProps {
   className?: string;
   articleId: number;
+  children? : ReactNode
 }
 
-export const DeleteBtn: FC<DeleteBtnProps> = ({ articleId, className }) => {
+export const DeleteBtn: FC<DeleteBtnProps> = ({ articleId, className, children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -40,6 +41,15 @@ export const DeleteBtn: FC<DeleteBtnProps> = ({ articleId, className }) => {
     ),
     [statusDelete, articleId, router],
   );
+
+  if(children) {
+    // eslint-disable-next-line
+    return (<div onClick={showModal}>
+      {children}
+      {/* eslint-disable-next-line */}
+    </div>
+    );
+  }
 
   return (
     <Button

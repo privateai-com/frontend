@@ -1,27 +1,22 @@
 import {
   FC, FormEvent, useCallback, useEffect, useState, 
 } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import cx from 'classnames';
 
 import {
   AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
-import { walletIcon } from 'assets';
-import { ScreenWidth, errorsNotification, routes } from 'appConstants';
+import { errorsNotification, routes } from 'appConstants';
 import { AuthErrorTransformResult, RequestStatus } from 'types';
 import { emailValidator, passwordValidator } from 'utils';
-import { useScreenWidth } from 'hooks';
 
 import { authLogin, authLoginWallet } from 'store/auth/actionCreators';
 import { authSelectors } from 'store/auth/selectors';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 
 import styles from './styles.module.scss';
-import { ButtonTransparent } from 'components/ButtonTransparent';
 
 interface SignProps {
   onRestore: () => void;
@@ -40,7 +35,7 @@ export const Sign: FC<SignProps> = ({
   setEmail,
 }) => {
   const dispatch = useDispatch();
-  const isMobile = useScreenWidth(ScreenWidth.notebook1024); 
+  // const isMobile = useScreenWidth(ScreenWidth.notebook1024); 
   
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -193,14 +188,14 @@ export const Sign: FC<SignProps> = ({
             className={styles.button_connect}
             onClick={onConnectWallet}
             type="button"
-            theme='secondary'
+            theme="secondary"
             isLoading={statusConnect === RequestStatus.REQUEST && walletError === ''}
             // disabled={isMobile || walletError !== ''}
           >
             Sign in with your wallet
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 8C3 7.06812 3 6.60218 3.15224 6.23463C3.35523 5.74458 3.74458 5.35523 4.23463 5.15224C4.60218 5 5.06812 5 6 5V5H18V5C18.9319 5 19.3978 5 19.7654 5.15224C20.2554 5.35523 20.6448 5.74458 20.8478 6.23463C21 6.60218 21 7.06812 21 8V16C21 16.9319 21 17.3978 20.8478 17.7654C20.6448 18.2554 20.2554 18.6448 19.7654 18.8478C19.3978 19 18.9319 19 18 19V19H6V19C5.06812 19 4.60218 19 4.23463 18.8478C3.74458 18.6448 3.35523 18.2554 3.15224 17.7654C3 17.3978 3 16.9319 3 16V8Z" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
-              <path d="M14 13H21M3 9V6.8427C3 6.03059 3.49108 5.2991 4.24273 4.99161L12.6781 1.54078C13.4689 1.21727 14.3779 1.43185 14.9405 2.07487L17.5 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3 8C3 7.06812 3 6.60218 3.15224 6.23463C3.35523 5.74458 3.74458 5.35523 4.23463 5.15224C4.60218 5 5.06812 5 6 5V5H18V5C18.9319 5 19.3978 5 19.7654 5.15224C20.2554 5.35523 20.6448 5.74458 20.8478 6.23463C21 6.60218 21 7.06812 21 8V16C21 16.9319 21 17.3978 20.8478 17.7654C20.6448 18.2554 20.2554 18.6448 19.7654 18.8478C19.3978 19 18.9319 19 18 19V19H6V19C5.06812 19 4.60218 19 4.23463 18.8478C3.74458 18.6448 3.35523 18.2554 3.15224 17.7654C3 17.3978 3 16.9319 3 16V8Z" stroke="white" strokeWidth="2" strokeLinejoin="round" />
+              <path d="M14 13H21M3 9V6.8427C3 6.03059 3.49108 5.2991 4.24273 4.99161L12.6781 1.54078C13.4689 1.21727 14.3779 1.43185 14.9405 2.07487L17.5 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
 
             {/* <Image
@@ -220,8 +215,11 @@ export const Sign: FC<SignProps> = ({
             type="p"
             className={styles.forgot_password}
           >
-            Do not have an account yet? <Link href={routes.registration.root}>Sign up</Link>.&nbsp;
-          {/* </Typography>
+            Do not have an account yet? 
+            {' '}
+            <Link href={routes.registration.root}>Sign up</Link>
+            .&nbsp;
+            {/* </Typography>
           <Typography
             type="p"
             className={cx(styles.forgot_password, {
@@ -229,7 +227,8 @@ export const Sign: FC<SignProps> = ({
             })}
           > */}
             Forgot your password?
-            <button onClick={onRestore} type="button">Restore</button>.
+            <button onClick={onRestore} type="button">Restore</button>
+            .
           </Typography>
              
         </div>

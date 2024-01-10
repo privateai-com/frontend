@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo } from 'react';
 import cx from 'classnames';
 
 import { useScreenWidth } from 'hooks';
@@ -12,13 +12,13 @@ interface NavigationProps {
   setActive : () => void;
 }
 
-export const Navigation: React.FC<NavigationProps> = memo(({isActive,setActive}) => {
+export const Navigation: React.FC<NavigationProps> = memo(({ isActive, setActive }) => {
   const isAdaptive = useScreenWidth(ScreenWidth.notebook1024);
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = useCallback(() => {
-    setIsOpen((state) => !state);
-  }, []);
+  // const toggleMenu = useCallback(() => {
+  //   setIsOpen(() => !isOpen);
+  // }, []);
   
   if (!isAdaptive) return <Sidebar />;
   
@@ -36,7 +36,7 @@ export const Navigation: React.FC<NavigationProps> = memo(({isActive,setActive})
         className={cx({ [styles.showSidebar]: isActive })} 
       />
       <button 
-      onClick={()=>setActive()}
+        onClick={() => setActive()}
         className={cx(styles.overlay, { [styles.show]: isActive })} 
       />
       

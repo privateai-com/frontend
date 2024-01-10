@@ -1,11 +1,10 @@
-import { filesize } from 'filesize';
 import {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 
-import { Button, Typography } from 'components';
+import { Button } from 'components';
 import {
   useLocalStorage,
   usePagination,
@@ -27,13 +26,12 @@ import { articlesSelectors } from 'store/articles/selectors';
 import { profileSelectors } from 'store/profile/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { notification } from 'utils';
+import { PageHead } from 'components/PageHead';
+import { ButtonTransparent } from 'components/ButtonTransparent';
 import { DragNDrop } from './DragNDrop';
-import { Item } from './Item';
 import { defaultArticle } from './constants';
 
 import styles from './styles.module.scss';
-import { PageHead } from 'components/PageHead';
-import { ButtonTransparent } from 'components/ButtonTransparent';
 import { NewItem } from './NewItem';
 
 export const Upload = () => {
@@ -77,8 +75,8 @@ export const Upload = () => {
     isHidden: false,
   }), [offset]);
 
-  const onConfirmClick = (arg: File) => {
-    if(!arg) return
+  const onConfirmClick = (arg: File | null) => {
+    if(!arg) return;
 
     // if (!doc) return;
     const fileName = arg.name;
@@ -101,10 +99,10 @@ export const Upload = () => {
     setDoc(null);
   };
 
-  // const timeToUploaded = Math.ceil(Object.values(upload)
-  //   .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
+  const timeToUploaded = Math.ceil(Object.values(upload)
+    .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
 
-  const timeToUploaded = (size: number) => size / 1_000_000 / 20;
+  // const timeToUploaded = (size: number) => size / 1_000_000 / 20;
 
   const {
     dataStorage,
@@ -248,42 +246,37 @@ export const Upload = () => {
       <PageHead 
         props={{
           title: 'Upload activity',
-          btnWrap:<>
-            <Button
-              theme='primary'
-            >
-              <label htmlFor="upload">
-                Upload file
-              </label>
-              
-            </Button>
-          </>
+          btnWrap: <Button
+            theme="primary"
+          >
+            <label htmlFor="upload">
+              Upload file
+            </label>
+            {/* eslint-disable-next-line */}
+          </Button>,
         }}
-        
-      >
-      </PageHead>
+      />
       {/* </PageHead> */}
       {/* <div className={styles.upload_wrapper}> */}
-        <div className="">
-
-
+      <div className="">
         
-          <div className={styles.upload_dnd_block}>
-            <DragNDrop
-              doc={doc}
-              setDoc={setDoc}
-              onConfirmClick={onConfirmClick}
-              isDisabled={isDisabledUploadFile}
-            >
-            {/* {doc ? (
+        <div className={styles.upload_dnd_block}>
+          <DragNDrop
+            doc={doc}
+            setDoc={setDoc}
+            onConfirmClick={onConfirmClick}
+            isDisabled={isDisabledUploadFile}
+          >
+            
+            {doc ? (
               <div className={styles.upload_btn_block}>
-                <ButtonTransparent
-                  className={cx(styles.upload_btns,styles.upload_btns_filled)}
+                {/* <ButtonTransparent
+                  className={cx(styles.upload_btns, styles.upload_btns_filled)}
                   onClick={onConfirmClick}
                   isLoading={isLoading}
                 >
                   Confirm
-                </ButtonTransparent>
+                </ButtonTransparent> */}
                 <ButtonTransparent
                   className={styles.upload_btns}
                   // theme="secondary"
@@ -313,11 +306,11 @@ export const Upload = () => {
                   </label>
                 )}
               </>
-            )} */}
-            </DragNDrop>
-            </div>
+            )}
+          </DragNDrop>
         </div>
-        {/* <div className={styles.statuses}>
+      </div>
+      {/* <div className={styles.statuses}>
           <Typography
             className={styles.statuses_title}
             type="h4"
@@ -349,35 +342,47 @@ export const Upload = () => {
           </div>
         </div> */}
 
-        <div className={styles.uploadTable}>
-          <div className={cx(styles.uploadHead,styles.uploadTableRow)}>
-            <div className={styles.uploadTable_col}>
-              File name
-            </div>
-            <div className={styles.uploadTable_col}>
-              Size
-            </div>
-            <div className={styles.uploadTable_col}>
-              Upload on
-            </div>
-            <div className={styles.uploadTable_col}>
-              Status
-            </div>
+      <div className={styles.uploadTable}>
+        <div className={cx(styles.uploadHead, styles.uploadTableRow)}>
+          <div className={styles.uploadTable_col}>
+            File name
           </div>
-          <div className={cx(styles.uploadBody)} ref={rootRef}>
-
-              {currentArticles.map((
-                {id, title, uploadProgress, fileSize, uploadStatus, updatedAt}
-              )=>{
-                return <NewItem key={`title-${id}`} props={{title, uploadProgress, fileSize, 
-                  status: 
-                  // 'processing',
-                  uploadStatus,
-                   updatedAt,  timeToUploaded:Math.round(timeToUploaded(fileSize || 0))}} />
-              })}
-              {endElementForScroll}
+          <div className={styles.uploadTable_col}>
+            Size
+          </div>
+          <div className={styles.uploadTable_col}>
+            Upload on
+          </div>
+          <div className={styles.uploadTable_col}>
+            Status
           </div>
         </div>
+        <div className={cx(styles.uploadBody)} ref={rootRef}>
+
+          {currentArticles.map((
+            {
+              id, title, uploadProgress, fileSize, uploadStatus, updatedAt, 
+            },
+          ) => (
+            <NewItem
+              key={`title-${id}`}
+              props={{
+                title,
+                uploadProgress,
+                fileSize, 
+                onCancel: () => getCancelFunction(uploadStatus, id),
+                status: 
+                  // 'processing',
+                  uploadStatus,
+                updatedAt,  
+                timeToUploaded: timeToUploaded || 0,
+                // Math.round(timeToUploaded(fileSize || 0))
+              }}
+            />
+          ))}
+          {endElementForScroll}
+        </div>
+      </div>
 
       {/* </div> */}
     </div>

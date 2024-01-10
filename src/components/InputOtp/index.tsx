@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 type InputOtpProps = {
   value: string;
   numInputs?: number;
-  label?: any;
+  label?: React.ReactNode | string | null;
   classNameContainer?: string;
   classNameLabel?: string;
   classNameInput?: string;

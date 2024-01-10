@@ -12,13 +12,13 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { profileSelectors } from 'store/profile/selectors';
 import { errorsNotification, routes } from 'appConstants';
 import { notification } from 'utils';
+import { PageHead } from 'components/PageHead';
 import { ButtonBack } from './ButtonBack';
 import { FileInfo } from './FileInfo';
 import { FileInfoEdit } from './FileInfoEdit';
 import { Graph } from './Graph';
 
 import styles from './styles.module.scss';
-import { PageHead } from 'components/PageHead';
 
 export const StorageFile = memo(() => {
   const dispatch = useDispatch();
@@ -127,15 +127,14 @@ export const StorageFile = memo(() => {
 
   return (
     <>
- <div className="">
-        <PageHead props={{title:<ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} />}}> </PageHead>
+      <div className="">
+        <PageHead props={{ title: <ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} /> }}> </PageHead>
         
-        </div>
+      </div>
       <div className={cx(styles.storageFile__container, {
         [styles.fullScreenGraph]: isFullscreen,
       })}
       >
-       
       
         {isEdit ? (
           <FileInfoEdit

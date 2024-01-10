@@ -59,7 +59,7 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
           <Typography
             type="h4"
           >
-           Change password
+            Change password
           </Typography>
           <Typography
             type="p"

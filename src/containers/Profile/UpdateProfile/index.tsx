@@ -27,12 +27,11 @@ import {
 } from 'store/profile/actionTypes';
 import { profileSelectors } from 'store/profile/selectors';
 import { normalizeUserInfo, notification, stringLongShortcut } from 'utils';
+import { metamaskConnect } from 'store/metamask/actionCreators';
 import { Footer } from '../Footer';
 import styles from './styles.module.scss';
-import commonStyles from '../common.module.scss'
+import commonStyles from '../common.module.scss';
 import { UserSchema } from './schema';
-import { ButtonTransparent } from 'components/ButtonTransparent';
-import { metamaskConnect } from 'store/metamask/actionCreators';
 
 type UpdateProfileProps = {
   callbackLater: () => void;
@@ -64,7 +63,8 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
   const isSmallDesktop = useScreenWidth(ScreenWidth.notebook1024);
 
   const [avatar, setAvatar] = useState<File | null>();
-  const [avatarURI, setAvatarURI] = useState(avatarUrl)
+  // eslint-disable-next-line
+  const [avatarURI, setAvatarURI] = useState(avatarUrl);
   const [realName, setRealName] = useState(fullName || '');
   const [username, setUsername] = useState(usernameOld ?? '');
   const [location, setLocation] = useState(normalizeUserInfo(city, country) || '');
@@ -201,124 +201,122 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
 
   const walletAddress = useSelector(profileSelectors.getPropAccountInfo('walletAddress'));
 
-
   const statusDeleteWallet = useSelector(
     profileSelectors.getStatus(ProfileActionTypes.DeleteWallet),
   );
 
-
   const isDeleteLoading = statusDeleteWallet === RequestStatus.REQUEST;
 
-
-
   return (
-    <>
-       <div className={styles.itemWrap}>
-        <div className={styles.short_col}>
-          <div className={cx(styles.wrapper, styles.info)}>
+    <div className={styles.itemWrap}>
+      <div className={styles.short_col}>
+        <div className={cx(styles.wrapper, styles.info)}>
             
-            <div className={styles.containerAvatar}>
-              {avatarURI && avatarURI !== '' && !avatar && <>
-                <label htmlFor="upload" className={styles.info_avatar}>
-                  <Image
-                    src={avatarURI}
-                    alt=""
-                    className={styles.info_avatar}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                </label>
-              </>}
-              {!avatar && !avatarURI && avatarURI === '' && <label htmlFor="upload">
-                <div  className={styles.no_avatar} />
+          <div className={styles.containerAvatar}>
+            {avatarURI && avatarURI !== '' && !avatar && (
+              <label htmlFor="upload" className={styles.info_avatar}>
+                <Image
+                  src={avatarURI}
+                  alt=""
+                  className={styles.info_avatar}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
               </label>
-              }
+            )}
+            {!avatar && !avatarURI && avatarURI === '' && (
+              <label htmlFor="upload">
+                <div className={styles.no_avatar} />
+              </label>
+            )}
                 
-              {avatar && 
-                <label htmlFor="upload">
-                  <Image
-                      src={URL.createObjectURL(avatar)}
-                      alt="icon"
-                      width={350}
-                      height={350}
-                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+            {avatar && (
+            <label htmlFor="upload">
+              <Image
+                src={URL.createObjectURL(avatar)}
+                alt="icon"
+                width={350}
+                height={350}
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
                       // fill
-                      className={styles.info_avatar}
-                    />
-                </label>
-              }
-            </div>
-            <div className={styles.info_uploadBtns}>
-              <label htmlFor="upload" className={styles.uploadBtn}>
-              
+                className={styles.info_avatar}
+              />
+            </label>
+            )}
+          </div>
+          <div className={styles.info_uploadBtns}>
+            <label htmlFor="upload" className={styles.uploadBtn}>
               
               {/* <Button theme='secondary'> */}
-                Upload new picture
-                <input
-                  style={{
-                    position: 'absolute', 
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    zIndex: -1
-                  }}
-                  type="file"
-                  id="upload"
-                  onChange={onUploadClick}
-                  className={styles.info_upload_input}
-                  accept="image/png, image/jpg, image/jpeg"
-                />
+              Upload new picture
+              <input
+                style={{
+                  position: 'absolute', 
+                  opacity: 0,
+                  pointerEvents: 'none',
+                  zIndex: -1,
+                }}
+                type="file"
+                id="upload"
+                onChange={onUploadClick}
+                className={styles.info_upload_input}
+                accept="image/png, image/jpg, image/jpeg"
+              />
               {/* </Button> */}
-              </label>
-              {/* <Button onClick={()=>{setAvatar(null); setAvatarURI('')}} className={styles.uploadBtn} theme='secondary'>
+            </label>
+            {/* <Button onClick={()=>{setAvatar(null); setAvatarURI('')}} 
+              className={styles.uploadBtn} theme='secondary'>
                 Delete
               </Button> */}
-            </div>
+          </div>
 
-            <div className={styles.info_wrapper}>
-              <div className={styles.info_item}>
-                <Typography type="h4">
-                  Real name/User name
-                  <span>*</span>
-                </Typography>
-                <TextInput
-                  value={username}
-                  onChangeValue={setUsername}
-                  classNameContainer={styles.input__container}
-                  classNameLabel={commonStyles.h3_style_gray}
-                  placeholder={username || `Archonaut#${id}`}
-                  isError={validation?.error ? !!validation?.error['username'] : false}
-                />
-                <Typography type="h4">
-                  Location (Country and/or City)
-                  <span>*</span>
-                </Typography>
-                <TextInput
-                  value={location}
-                  onChangeValue={setLocation}
-                  classNameContainer={styles.input__container}
-                  classNameLabel={commonStyles.h3_style_gray}
-                  placeholder="e.g., London, UK"
-                  isError={validation?.error ? !!validation?.error['country'] : false}
-                />
-              </div>
+          <div className={styles.info_wrapper}>
+            <div className={styles.info_item}>
+              <Typography type="h4">
+                Real name/User name
+                <span>*</span>
+              </Typography>
+              <TextInput
+                value={username}
+                onChangeValue={setUsername}
+                classNameContainer={styles.input__container}
+                classNameLabel={commonStyles.h3_style_gray}
+                placeholder={username || `Archonaut#${id}`}
+                isError={validation?.error ? !!validation?.error['username'] : false}
+              />
+              <Typography type="h4">
+                Location (Country and/or City)
+                <span>*</span>
+              </Typography>
+              <TextInput
+                value={location}
+                onChangeValue={setLocation}
+                classNameContainer={styles.input__container}
+                classNameLabel={commonStyles.h3_style_gray}
+                placeholder="e.g., London, UK"
+                isError={validation?.error ? !!validation?.error['country'] : false}
+              />
             </div>
           </div>
-          {!isMobile && 
-          <Footer isEditProfile={false} className={styles.footer} />}
         </div>
-        <div className={styles.long_col}>
-          <div className={cx(styles.wrapper, styles.walletWrap)}>
-            <div className={styles.walletInner}>
-              <div className={cx(styles.walletInfoCol,styles.info_item)}>
-                <h4 className={commonStyles.h4_style} >
-                  Linked Wallet
-                </h4>
-                {walletAddress && <p className={commonStyles.p_text} >
-                  {stringLongShortcut(walletAddress , 7, 5)}
-                </p>}
-              </div>
+        {!isMobile && 
+          <Footer isEditProfile={false} className={styles.footer} />}
+      </div>
+      <div className={styles.long_col}>
+        <div className={cx(styles.wrapper, styles.walletWrap)}>
+          <div className={styles.walletInner}>
+            <div className={cx(styles.walletInfoCol, styles.info_item)}>
+              <h4 className={commonStyles.h4_style}>
+                Linked Wallet
+              </h4>
+              {walletAddress && (
+                <p className={commonStyles.p_text}>
+                  {stringLongShortcut(walletAddress, 7, 5)}
+                </p>
+              )}
+            </div>
               
-              {/* <Button
+            {/* <Button
                   theme='secondary'
                   className={styles.profile__head_button}
                   isLoading={false}
@@ -327,127 +325,123 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
                   Link your wallet
               </Button> */}
 
-                {walletAddress ? (
-                  <>
-                    <Button
-                      className={styles.profile__head_button}
-                      theme="secondary"
-                      onClick={onDisconnectLinkWalletClick}
-                      isLoading={isDeleteLoading}
-                    >
-                      Disconnect wallet
-                    </Button>
-                  </>
-                ) : (
-                  <Button
-                    className={styles.profile__head_button}
-                    onClick={onLinkWalletClick}
-                    isLoading={status === RequestStatus.REQUEST}
-                    disabled={isMobile}
-                  >
-                    Link your wallet
-                  </Button>
-                )}
-            </div>
-            
-            {/* Connect wallet */}
-          </div>
-          <div className={cx(styles.wrapper, styles.info2)}>
-            <h2 className={commonStyles.h2_style}>
-              Contact information
-            </h2>
-            <div className={styles.info_item}>
-              <h3 className={commonStyles.h3_style_gray}>
-                Email address *
-              </h3>
-              <div className={commonStyles.p_text}>
-                {email}
-              </div>
-            
-            </div>
-            <div className={styles.info_item}>
-              <h3 className={commonStyles.h3_style_gray}>
-                Social media *
-              </h3>            
-            </div>
-            <TextInput
-                value={socialMediaLink}
-                onChangeValue={setSocialMediaLink}
-                classNameContainer={styles.input__container}
-                classNameLabel={commonStyles.h3_style_gray}
-                isError={validation?.error ? !!validation?.error['socialLink'] : false}
-                placeholder="https://"
-              />
-          </div>
-          <div className={cx(styles.wrapper, styles.info3)}>
-            <h2 className={commonStyles.h2_style}>
-              Field of activity
-            </h2>
-            <div className={styles.info_item}>
-              <h3 className={commonStyles.h3_style_gray}>
-                Organisation/Institute *
-              </h3>
-              
-            </div>
-            <TextInput
-              placeholder="e.g., London Institute of Medical Sciences"
-              value={organization}
-              onChangeValue={setOrganization}
-              classNameContainer={styles.input__container}
-              classNameLabel={commonStyles.h3_style_gray}
-              isRequired
-              isError={validation?.error ? !!validation?.error['organization'] : false}
-            />
-            <div className={styles.info_item}>
-              <h3 className={commonStyles.h3_style_gray}>
-                Position *
-              </h3>
-            </div>
-            <TextInput
-              value={position}
-              onChangeValue={setPosition}
-              classNameContainer={styles.input__container}
-              classNameLabel={commonStyles.h3_style_gray}
-              isRequired
-              isError={validation?.error ? !!validation?.error['position'] : false}
-            />
-            <div className={styles.info_item}>
-              <h3 className={commonStyles.h3_style_gray}>
-                Research fields *
-              </h3>
-            </div>
-            <TextInput
-              value={researchFields}
-              onChangeValue={setResearchFields}
-              classNameContainer={styles.input__container}
-              classNameLabel={commonStyles.h3_style_gray}
-              isRequired
-              isError={validation?.error ? !!validation?.error['researchFields'] : false}
-            />
-            <div className={styles.btnWrap}>
-
-         
+            {walletAddress ? (
               <Button
-                theme='secondary'
-                onClick={callbackLater}
+                className={styles.profile__head_button}
+                theme="secondary"
+                onClick={onDisconnectLinkWalletClick}
+                isLoading={isDeleteLoading}
               >
-                Fill in later
+                Disconnect wallet
               </Button>
+            ) : (
               <Button
-                className={styles.filledBtn}
-                onClick={onSaveClick}
+                className={styles.profile__head_button}
+                onClick={onLinkWalletClick}
                 isLoading={statusUpdate === RequestStatus.REQUEST}
+                disabled={isMobile}
               >
-                Save
+                Link your wallet
               </Button>
-            </div>
+            )}
           </div>
-          {isMobile && 
-          <Footer isEditProfile={false} className={styles.footer} />}
+            
+          {/* Connect wallet */}
         </div>
+        <div className={cx(styles.wrapper, styles.info2)}>
+          <h2 className={commonStyles.h2_style}>
+            Contact information
+          </h2>
+          <div className={styles.info_item}>
+            <h3 className={commonStyles.h3_style_gray}>
+              Email address *
+            </h3>
+            <div className={commonStyles.p_text}>
+              {email}
+            </div>
+            
+          </div>
+          <div className={styles.info_item}>
+            <h3 className={commonStyles.h3_style_gray}>
+              Social media *
+            </h3>            
+          </div>
+          <TextInput
+            value={socialMediaLink}
+            onChangeValue={setSocialMediaLink}
+            classNameContainer={styles.input__container}
+            classNameLabel={commonStyles.h3_style_gray}
+            isError={validation?.error ? !!validation?.error['socialLink'] : false}
+            placeholder="https://"
+          />
+        </div>
+        <div className={cx(styles.wrapper, styles.info3)}>
+          <h2 className={commonStyles.h2_style}>
+            Field of activity
+          </h2>
+          <div className={styles.info_item}>
+            <h3 className={commonStyles.h3_style_gray}>
+              Organisation/Institute *
+            </h3>
+              
+          </div>
+          <TextInput
+            placeholder="e.g., London Institute of Medical Sciences"
+            value={organization}
+            onChangeValue={setOrganization}
+            classNameContainer={styles.input__container}
+            classNameLabel={commonStyles.h3_style_gray}
+            isRequired
+            isError={validation?.error ? !!validation?.error['organization'] : false}
+          />
+          <div className={styles.info_item}>
+            <h3 className={commonStyles.h3_style_gray}>
+              Position *
+            </h3>
+          </div>
+          <TextInput
+            value={position}
+            onChangeValue={setPosition}
+            classNameContainer={styles.input__container}
+            classNameLabel={commonStyles.h3_style_gray}
+            isRequired
+            isError={validation?.error ? !!validation?.error['position'] : false}
+          />
+          <div className={styles.info_item}>
+            <h3 className={commonStyles.h3_style_gray}>
+              Research fields *
+            </h3>
+          </div>
+          <TextInput
+            value={researchFields}
+            onChangeValue={setResearchFields}
+            classNameContainer={styles.input__container}
+            classNameLabel={commonStyles.h3_style_gray}
+            isRequired
+            isError={validation?.error ? !!validation?.error['researchFields'] : false}
+          />
+          <div className={styles.btnWrap}>
+         
+            <Button
+              theme="secondary"
+              onClick={callbackLater}
+            >
+              Fill in later
+            </Button>
+            <Button
+              className={styles.filledBtn}
+              onClick={onSaveClick}
+              isLoading={statusUpdate === RequestStatus.REQUEST}
+            >
+              Save
+            </Button>
+          </div>
+        </div>
+        {isMobile && 
+          <Footer isEditProfile={false} className={styles.footer} />}
       </div>
-    </>
-  )
+    </div>
+  );
 
   return (
     <>
@@ -533,7 +527,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
         </div>
         <div className={styles.long_col}>
           <div className={cx(styles.wrapper, styles.info2)}>
-            <h2 className={commonStyles.h2_style }>Contact information</h2>
+            <h2 className={commonStyles.h2_style}>Contact information</h2>
             {/* <Typography type="h2">Contact information</Typography> */}
             
             <div className={styles.info__email_block}>
@@ -558,7 +552,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           </div>
           <div className={cx(styles.wrapper, styles.info3)}>
             {/* <Typography type="h2">Field of activity</Typography> */}
-            <h2 className={commonStyles.h2_style }>Field of activity</h2>
+            <h2 className={commonStyles.h2_style}>Field of activity</h2>
             <TextInput
               label="Organisation/Institute"
               placeholder="e.g., London Institute of Medical Sciences"
@@ -604,7 +598,6 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
           </Button> */}
 
           <div className={styles.btnWrap}>
-
          
             <Button
               onClick={callbackLater}

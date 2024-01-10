@@ -6,7 +6,6 @@ import cx from 'classnames';
 
 import {
   Button,
-  RadioButtons,
   TextInput,
   Typography,
 } from 'components';
@@ -15,6 +14,8 @@ import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { Article, GraphResponseType, RequestStatus } from 'types';
 import { notification } from 'utils';
+import { MultiDrop } from 'components/MultiDrop';
+import { ChangeAvailability } from 'containers/Storage/ArticlesTab/ChangeAvailability';
 import { EditItem } from './EditItem';
 import {
   arraysDeepEqual,
@@ -25,8 +26,6 @@ import {
 
 import styles from './styles.module.scss';
 import { DeleteBtn } from '../DeleteBtn';
-import { MultiDrop } from 'components/MultiDrop';
-import { ChangeAvailability } from 'containers/Storage/ArticlesTab/ChangeAvailability';
 
 interface FileInfoProps {
   graphData: GraphResponseType[];
@@ -75,12 +74,12 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
     !arraysDeepEqual(article?.graphDraft, graphData)
   ), [article, fieldFile, graphData, isOpen, nameFile]);
 
-  const isDisabledRevertToLastSave = useMemo(() => (
-    !article || arraysDeepEqual(article?.graphDraft, graphData)
-  ), [article, graphData]);
-  const isDisabledRevertToLastPublished = useMemo(() => (
-    !article || arraysDeepEqual(article?.graph, graphData)
-  ), [article, graphData]);
+  // const isDisabledRevertToLastSave = useMemo(() => (
+  //   !article || arraysDeepEqual(article?.graphDraft, graphData)
+  // ), [article, graphData]);
+  // const isDisabledRevertToLastPublished = useMemo(() => (
+  //   !article || arraysDeepEqual(article?.graph, graphData)
+  // ), [article, graphData]);
 
   const onChangeAvailabilityClick = useCallback((e: 'open' | 'closed') => {
     setArticleAccess(e);
@@ -165,10 +164,18 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           {/* Title */}
           <div className={styles.row}>
             {!isEditingTitle && <Typography type="h2">{nameFile}</Typography>}
-            {!isEditingTitle && <button className={styles.titleEditBtn} onClick={()=>{
-              setEditingTitle(prev=>!prev)
-            }} ><span>Edit file name</span></button>}
-            {isEditingTitle && <div>
+            {!isEditingTitle && (
+            <button
+              className={styles.titleEditBtn}
+              onClick={() => {
+                setEditingTitle((prev) => !prev);
+              }}
+            >
+              <span>Edit file name</span>
+            </button>
+            )}
+            {isEditingTitle && (
+            <div>
               <Typography 
                 type="h4"
               >
@@ -181,13 +188,16 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
                 classNameInputBox={styles.storageFile__item_input_box}
                 isError={nameFileError !== ''}
               />
-            </div>}
+            </div>
+            )}
           </div>
           {/* Delete */}
           {/* {(isOwner && article?.id) && (
-            <div className={cx(styles.row,styles.deleteRow)}><DeleteBtn className={styles.storageFile__data_btn} articleId={article?.id} /></div>
+            <div className={cx(styles.row,styles.deleteRow)}>
+            <DeleteBtn className={styles.storageFile__data_btn} 
+              articleId={article?.id} />
+            </div>
           )} */}
-
           
           {/* Topic */}
           <div className={styles.row}>
@@ -207,7 +217,6 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           </div>
           {/* Graph edges */}
           <div className={styles.row}>
-
               
             <div className={styles.storageFile__item}>
             
@@ -218,9 +227,14 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
               </Typography>
 
               {
-                article && 
-                <ChangeAvailability id={article.id} isPublic={article.isPublic} />
-              }
+                article && (
+                <ChangeAvailability 
+                  id={article.id} 
+                  isPublic={article.isPublic} 
+                  callBack={onChangeAvailabilityClick} 
+                />
+                )
+}
               {/* <select name="" defaultValue={articleAccess} id="">
                 <option value="open">Open-sourced</option>
                 <option value="closed">Permission-based</option>
@@ -254,7 +268,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
         </div>
         
         <div className={styles.storageFile__wrapper}>
-            {/* <div className={styles.storageFile__item}>
+          {/* <div className={styles.storageFile__item}>
               File name:
               <TextInput
                 onChangeValue={onNameFileChange}
@@ -264,7 +278,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
                 isError={nameFileError !== ''}
               />
             </div> */}
-            {/* <div className={styles.storageFile__item}>
+          {/* <div className={styles.storageFile__item}>
               Field: 
               <TextInput
                 onChangeValue={onFieldFileChange}
@@ -274,7 +288,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
                 isError={fieldFileError !== ''}
               />
             </div> */}
-            {/* <div className={styles.storageFile__item}>
+          {/* <div className={styles.storageFile__item}>
               Graph edges: 
               <Button
                 onClick={addNewEdgeClick}
@@ -317,21 +331,31 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           Save changes
         </Button>
 
-
+        {article && (
         <MultiDrop
           props={{
-            btnContent:'•••',
-            btnList:[
+            btnContent: '•••',
+            btnList: [
+              // eslint-disable-next-line
               <div onClick={onRevertToLastSaved}>
                 Revert to last saved
               </div>,
+              // eslint-disable-next-line
               <div onClick={onRevertToLastPublished}>
                 Revert to last published
-              </div>
+              </div>,
+              isOwner && (
+              <DeleteBtn articleId={article?.id}>
+                Delete
+              </DeleteBtn>
+              ),
+              // eslint-disable-next-line
+              <div onClick={onDownloadXlsxClick}>Download</div>,
             ],
-            top: true
+            top: true,
           }}
         />
+        )}
 
         {/* <Button
           theme="secondary"

@@ -136,7 +136,7 @@ export const Item: React.FC<ItemProps> = ({
             </div>
           ) : (
             <div className={styles.item_indication_block}>
-              <button className={styles.item_circle} onClick={onCancel} />
+              <button className={styles.item_circle} />
               <button
                 className={styles.item_disabled_btn}
                 disabled

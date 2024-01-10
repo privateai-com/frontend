@@ -1,8 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import cx from 'classnames';
-import Image from 'next/image';
 
-import { arrowIcon, privateAILogo } from 'assets';
+import { arrowIcon } from 'assets';
 import { ButtonIcon } from 'components';
 
 import styles from './styles.module.scss';
@@ -17,8 +16,6 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
   className = '', children, onClickBack,
 }) => (
   // <div className="" style={{paddingTop: 100, paddingBottom:100}}>
-
-
   
   <div className={cx(styles.authWrapper_container, className)}>
     {onClickBack && (

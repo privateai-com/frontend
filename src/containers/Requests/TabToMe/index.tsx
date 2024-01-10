@@ -9,13 +9,13 @@ import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { RequestCell } from 'containers/RequestCell';
 import { RequestedDataType } from 'containers/Storage/MyRequests/types';
 import { requestSelectors } from 'store/request/selectors';
-import { requestAnswer, requestSetState, requestToMe } from 'store/request/actionCreators';
+import { requestAnswer, requestToMe } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { useScreenWidth } from 'hooks';
 import { RequestStatus, SortingDirection } from 'types';
 import { convertTitleFile, formatDate, getName } from 'utils';
+import cx from 'classnames';
 import { useColumns } from './columns';
-import cx from 'classnames'
 
 import styles from './styles.module.scss';
 
@@ -162,7 +162,7 @@ export const TabToMe = () => {
             columns={columns}
             content={[]}
             itemsMobile={itemsMobile}
-            classNameTableContainer={cx(styles.table,styles.emptyTable)}
+            classNameTableContainer={cx(styles.table, styles.emptyTable)}
             pagination={pagination}
             isMobile={isMobile}
           />

@@ -423,21 +423,24 @@
 
 
 .openSourcedStatus{
-	color:#3AB393 !important;
+	color:#3AB393;
+	span {
+		
+	}
 }
 
 .otherStatus{
-	color:#7C859E !important;
+	color:#7C859E;
 }
 
 .accessGrantedStatus{
-	color:#3AB393 !important;
+	color:#3AB393;
 }
 
 .permissionNeededStatus{
-	color:#E0A32C !important;
+	color:#E0A32C;
 }
 
 .accessRequestPendingStatus{
-	color:#7C859E !important;
+	color:#7C859E;
 }

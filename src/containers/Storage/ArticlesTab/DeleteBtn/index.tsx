@@ -6,9 +6,10 @@ import { ButtonIcon, DeletePublication } from 'components';
 import { articlesDelete } from 'store/articles/actionCreators';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
+import { ReactNode } from 'react';
 import styles from './styles.module.scss';
 
-export const DeleteBtn = ({ id , children}: { id: number , children? : any }) => {
+export const DeleteBtn = ({ id, children }: { id: number, children? : ReactNode | string }) => {
   const dispatch = useDispatch();
 
   const statusDelete = useSelector(
@@ -33,17 +34,17 @@ export const DeleteBtn = ({ id , children}: { id: number , children? : any }) =>
     [statusDelete, id],
   );
   
-  if(children){
-    return <>
+  if(children) {
+    return (
+      // eslint-disable-next-line
       <div onClick={showModal}>
         {children}
       </div>
-    </>
+    );
   }
- 
-
 
   return (
+    // eslint-disable-next-line
     <ButtonIcon
       image={trashIcon}
       onClick={showModal}

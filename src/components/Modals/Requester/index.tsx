@@ -62,7 +62,6 @@ const Requester: React.FC<RequesterProps> = ({
     >
       <div className={styles.requester_wrapper}>
         <div className={styles.requester_info}>
-
         
           <Typography
             type="h3"
@@ -113,7 +112,7 @@ const Requester: React.FC<RequesterProps> = ({
                   >
                     {socialMedia}
                   </a>
-                ) : <></>}
+                ) : ''}
               </div>
             </div>
           </div>
