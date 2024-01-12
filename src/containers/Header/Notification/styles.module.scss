@@ -209,7 +209,7 @@ $svg_width : 19px;
   &_time {
     // color: $color-grey;
     color:#7C859E;
-    font-size: 16px;
+    font-size: 14px;
     // margin-bottom: 15px;
   }
 
@@ -227,12 +227,12 @@ $svg_width : 19px;
     margin-top: 2px;
     line-height: normal;
 
-    @include media-breakpoint-up(xxl) {
-      font-size: 16px;
-    }
+    // @include media-breakpoint-up(xxl) {
+    //   font-size: 16px;
+    // }
 
-    @include media-breakpoint-up(xxxl) {
-      font-size: 20px;
-    }
+    // @include media-breakpoint-up(xxxl) {
+    //   font-size: 20px;
+    // }
   }
 }

@@ -367,6 +367,7 @@ export const Upload = () => {
             <NewItem
               key={`title-${id}`}
               props={{
+                id,
                 title,
                 uploadProgress,
                 fileSize, 

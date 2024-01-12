@@ -31,14 +31,15 @@ const DeletePublication: React.FC<DeletePublicationProps> = ({
         <div className={styles.delete_pub_btn_block}>
           <Button
             className={styles.delete_pub_btn}
-            theme="secondary"
+            theme="primary"
             onClick={onClose}
             disabled={isLoading}
           >
             Don&apos;t delete
           </Button>
           <Button
-            className={cx(styles.delete_pub_btn, styles.delete_pub_black_btn)}
+            className={cx(styles.delete_pub_btn)}
+              // , styles.delete_pub_black_btn)}
             theme="secondary"
             onClick={onDelete}
             isLoading={isLoading}

@@ -2,14 +2,19 @@
 @import "assets/styles/_mixins.scss";
 
 @mixin icon($url, $size : 24px) {
-  line-height: normal;;
+  // line-height: normal;;
   &:before {
     content: "";
-    position: absolute;
+    float: left;
+    // padding-right: 5px;
+    // display: inline-flex;
+    // display: inline-block;
+    // position: absolute;
     // bottom: -2px
-    left: 0px;
-    top: 50%;
-    transform: translateY(-50%);
+    // left: 0px;
+    // top: -1px;
+    // top: 50%;
+    // transform: translateY(-50%);
     height: $size;
     width: $size;
     background: url($url) no-repeat;
@@ -223,6 +228,7 @@
   position: relative;
   align-self: end;
   margin-bottom: 40px;
+  line-height: 24px;
   cursor: default;
   @include desktop1440 {
     margin-bottom: 28px;
@@ -241,32 +247,32 @@
 .open {
   position: relative;
   color: $color-green;
-  padding: 2px;
-  padding-left: 32px;
+  // padding: 2px;
+  // padding-left: 32px;
   margin-bottom: 0;
   @include icon("../../../assets/img/icons/check1.svg");
 }
 
 .granted {
   color: $color-green;
-  padding: 2px;
-  padding-left: 32px;
+  // padding: 2px;
+  // padding-left: 32px;
   margin-bottom: 0;
   @include icon("../../../assets/img/icons/accessGranted.svg", 20px);
 }
 
 
 .pending {
-  padding: 2px;
-  padding-left: 32px;
-  margin-bottom: 0;
+  // padding: 2px;
+  // padding-left: 32px;
+    margin-bottom: 0;
   @include icon("../../../assets/img/icons/clock.svg");
 }
 
 .permission_needed {
-  padding: 2px;
-  padding-left: 32px;
-  margin-bottom: 0;
+  // padding: 2px;
+  // padding-left: 32px;
+    margin-bottom: 0;
   color: #E0A32C;
   // text-decoration: underline;
   @include icon("../../../assets/img/icons/alertSquare1.svg");
@@ -379,6 +385,9 @@
     overflow: visible;
     padding-right: 20px;
     text-align: left;
+    span {
+      padding-left: 2px;
+    }
     *{
       text-align: left;
     }

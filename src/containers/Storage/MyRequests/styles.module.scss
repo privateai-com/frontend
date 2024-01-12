@@ -19,16 +19,31 @@
   color: $color-red;
 }
 .granted {
-  color: $color-blue;
+  color: $color-green;
 }
 .permission_needed {
 
 }
 .pending {
-
+	color: $color-blue;
 }
 .denied {
 
+}
+
+.statusWrap{
+	display: flex;
+	align-items: center;
+	svg{
+		height: 18px;
+		margin-right: 5px;
+	}
+}
+
+.granted{
+	svg{
+		margin-top: -2px;
+	}
 }
 
 .containerStatus {
@@ -46,6 +61,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center; 
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 
@@ -231,7 +248,7 @@
 
 
 			td:nth-child(4),th:nth-child(4){
-				flex-basis: 240px;
+				flex-basis: 250px;
 			}
 
 		}

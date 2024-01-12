@@ -68,7 +68,7 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
     // eslint-disable-next-line
     const containsPartOfWord = (element: Element | null, part: string): boolean => {
       while (element) {
-        const classNames = element.className.split(' ');
+        const classNames = element.className.length > 0 ? element.className.split(' ') : [];
         if (classNames.length > 0 && classNames.some((className) => className.includes(part))) {
           return true;
         }
