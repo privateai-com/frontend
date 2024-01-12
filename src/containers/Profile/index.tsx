@@ -185,8 +185,10 @@ export const Profile = () => {
           <div className={styles.profile__head_auth}>
             {walletAddress ? (
               <>
-                {!isEditProfile &&
-                `Linked wallet: ${stringLongShortcut(walletAddress, 6, 3)}`}
+                {
+                  !isEditProfile && walletAddress &&
+                  `Linked wallet: ${stringLongShortcut(walletAddress || '', 6, 3)}`
+}
                 <Button
                   className={styles.profile__head_button}
                   theme="secondary"

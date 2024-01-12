@@ -6,7 +6,7 @@ import cx from 'classnames';
 
 import { closeNotifyIcon } from 'assets';
 import { queryTab, routes } from 'appConstants';
-import { Button, ButtonIcon, Typography } from 'components';
+import { ButtonIcon, Typography } from 'components';
 import { NotificationInfo } from 'types';
 import { generateNotificationText, timeAgo } from './utils';
 

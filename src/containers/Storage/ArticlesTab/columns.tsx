@@ -77,7 +77,7 @@ export const useColumns = ({
               }
               style={{ display: 'flex', alignItems: 'center', gap: 5 }}
             >
-              {(uploadStatus.toLowerCase() === 'published' || uploadStatus.toLowerCase() === 'uploaded') &&(
+              {(uploadStatus.toLowerCase() === 'published' || uploadStatus.toLowerCase() === 'uploaded') && (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="System" clipPath="url(#clip0_192_111)">
                   <path id="Vector" d="M9 12L11 14L15 10" stroke="#3AB393" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

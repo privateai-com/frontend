@@ -1,9 +1,10 @@
 import { Typography } from 'components/Typography';
+import { ReactNode } from 'react';
 import styles from '../../containers/Profile/styles.module.scss';
 import commonStyles from '../../containers/Profile/common.module.scss';
 
 interface PageHeadProps {
-  title: string;
+  title?: string | ReactNode;
   btnWrap?: React.ReactNode;
   headStyles?: React.CSSProperties;
   btnWrapStyles?: React.CSSProperties;

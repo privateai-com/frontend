@@ -45,7 +45,7 @@ import logoPrivateAI from '../../assets/img/icons/logoPrivateAI.svg';
 //   'Antibiotic resistance',
 // ];
 
-export const Header = ({ children }:{ children:ReactNode }) => {
+export const Header = ({ children }:{ children?:ReactNode }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
