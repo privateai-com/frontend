@@ -182,7 +182,7 @@ export const NewItem = ({ props }) => {
                         <path d="M4 8L4.73464 18.285C4.86047 20.0466 4.92339 20.9275 5.49933 21.4637C6.07528 22 6.95835 22 8.72448 22H10L14 22L15.2755 22C17.0417 22 17.9247 22 18.5007 21.4637C19.0766 20.9275 19.1395 20.0466 19.2654 18.285L20 8" stroke="#BDC2CF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                       <span>Delete</span>
-                  </DeleteBtn>,
+                    </DeleteBtn>,
                     // <div>Delete</div>,
                   ],
                 }}

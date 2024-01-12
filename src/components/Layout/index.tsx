@@ -2,8 +2,8 @@ import React, { FC, ReactNode, useState } from 'react';
 import Head from 'next/head';
 import cx from 'classnames';
 
-import { CookieAccept } from 'components/CookieAccept';
 import { MenuBtn } from 'components/MenuBtn';
+import { CookieAccept } from 'components/CookieAccept';
 import { Navigation } from './Navigation';
 
 import styles from './styles.module.scss';
