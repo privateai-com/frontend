@@ -86,14 +86,14 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>((
                     className={styles.item_next}
                   /> */}
                 </Link>
-                <div className={styles.item_btn_wrap}>
+                {/* <div className={styles.item_btn_wrap}>
                   <Button className={cx(styles.item_btn, styles.item_btn_grant)}>
                     Grant access
                   </Button>
                   <Button className={cx(styles.item_btn, styles.item_btn_decline)}>
                     Decline
                   </Button>
-                </div>
+                </div> */}
                 
               </div>
             </div>

@@ -40,11 +40,11 @@
     padding: 12px 24px;
   }
 
-  @include mobile {
-    font-size: 14px;
-    line-height: 14px;
-    padding: 9px 10px;
-  }
+  // @include mobile {
+  //   font-size: 14px;
+  //   line-height: 14px;
+  //   padding: 9px 10px;
+  // }
 
   .children_while_loading {
     opacity: 0;

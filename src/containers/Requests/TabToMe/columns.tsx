@@ -159,7 +159,10 @@ export const useColumns = ({
              
             </div>
           ) : 
-            (approve === true ? 'Provided' : 'Declined')
+            <div className={styles.td5_status}>
+              {approve === true ? 'Provided' : 'Declined'}
+            </div>
+            
           ),
       },
     ],

@@ -7,10 +7,11 @@ import { useScreenWidth } from 'hooks';
 import { MultiDrop } from 'components/MultiDrop';
 import prevStyles from '../Item/styles.module.scss';
 import styles from '../styles.module.scss';
+import { DeleteBtn } from '../DeleteBtn';
 
 export const NewItem = ({ props }) => {
   const {
-    title, fileSize, uploadProgress, updatedAt, status, timeToUploaded, onCancel, 
+    id, title, fileSize, uploadProgress, updatedAt, status, timeToUploaded, onCancel, 
   } = props;
 
   const isMobile = useScreenWidth(ScreenWidth.mobile);
@@ -173,8 +174,16 @@ export const NewItem = ({ props }) => {
                 props={{
                   btnContent: '•••',
                   btnList: [
-                    <div>Retry</div>,
-                    <div>Delete</div>,
+                    // <div>Retry</div>,
+                    <DeleteBtn id={Number(id)}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 13H15" stroke="#BDC2CF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M3 6C3 4.89543 3.89543 4 5 4H12H19C20.1046 4 21 4.89543 21 6V6V6C21 7.10457 20.1046 8 19 8H12H5C3.89543 8 3 7.10457 3 6V6V6Z" stroke="#BDC2CF" strokeWidth="2" strokeLinejoin="round" />
+                        <path d="M4 8L4.73464 18.285C4.86047 20.0466 4.92339 20.9275 5.49933 21.4637C6.07528 22 6.95835 22 8.72448 22H10L14 22L15.2755 22C17.0417 22 17.9247 22 18.5007 21.4637C19.0766 20.9275 19.1395 20.0466 19.2654 18.285L20 8" stroke="#BDC2CF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span>Delete</span>
+                  </DeleteBtn>,
+                    // <div>Delete</div>,
                   ],
                 }}
               />
