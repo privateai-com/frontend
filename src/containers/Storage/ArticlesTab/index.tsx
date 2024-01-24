@@ -9,7 +9,7 @@ import { convertTitleFile, getStatusArticle } from 'utils';
 import { RequestStatus, SortingDirection } from 'types';
 
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { articlesGetMy } from 'store/articles/actionCreators';
+import { articleSetFetchingStatus, articlesGetMy, articlesPublish } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 
 import cx from 'classnames';
@@ -56,16 +56,31 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
     setOffset(0);
     setSelectSortingField(field);
   }, []);
-
-  const columns = useColumns({
-    onChangeSortingField: handleChangeSortField,
-    onToggleDirection: handleToggleDirection,
-  });
   
   const total = useSelector(articlesSelectors.getProp('total'));
   const articles = useSelector(articlesSelectors.getProp('myArticles'));
   const statusGetMyArticles = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.GetMyArticles),
+  );
+
+  const handlePublishClick = 
+  useCallback(
+    (articleID:number) => {
+      articles.forEach((article) => {
+        const { id } = article;
+        if (id && id === articleID) {
+          dispatch(articleSetFetchingStatus({ status: true }));
+          dispatch(articlesPublish({
+            articleId: id,
+            isPublished: true,
+            callback: () => {
+              setOffset(() => Number(0));
+            }, 
+          }));
+        }
+      });
+    },
+    [articles, dispatch],
   );
 
   const isLoading = statusGetMyArticles === RequestStatus.REQUEST;
@@ -96,19 +111,27 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
     offset,
   }), [increaseOffset, offset, statusGetMyArticles, total]);
 
+  const columns = useColumns({
+    onChangeSortingField: handleChangeSortField,
+    onToggleDirection: handleToggleDirection,
+    onPublishClick: handlePublishClick,
+  });
+
   return (
     <>
-      {isHideRequests && (
-        <AdaptivePaginationTable
-          columns={columns}
-          content={content}
-          classNameTableContainer={styles.table}
-          pagination={pagination}
-          itemsMobile={itemsMobile}
-          isMobile={isMobile}
-          classNameMobile={styles.tableMobile}
-        />
-      )}
+      <div className="" style={{ position: 'relative' }}>
+        {isHideRequests && (
+          <AdaptivePaginationTable
+            columns={columns}
+            content={content}
+            classNameTableContainer={styles.table}
+            pagination={pagination}
+            itemsMobile={itemsMobile}
+            isMobile={isMobile}
+            classNameMobile={styles.tableMobile}
+          />
+        )} 
+      </div>
       {isLoading && (
         <>
           <AdaptivePaginationTable
@@ -120,6 +143,7 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
             isMobile={isMobile}
             classNameMobile={styles.tableMobile}
           />
+          
           <div className={styles.containerLoader}>
             <Loader size={64} />
           </div>

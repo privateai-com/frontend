@@ -11,7 +11,7 @@ import { DeleteBtn } from '../DeleteBtn';
 
 export const NewItem = ({ props }) => {
   const {
-    id, title, fileSize, uploadProgress, updatedAt, status, timeToUploaded, onCancel, 
+    id, title, fileSize, uploadProgress, updatedAt, status, onCancel, 
   } = props;
 
   const isMobile = useScreenWidth(ScreenWidth.mobile);
@@ -35,7 +35,10 @@ export const NewItem = ({ props }) => {
         <div className={styles.uploadTable_progress_description}>
           {uploadProgress !== -1 && fileSize && 
           // eslint-disable-next-line
-          `${filesize(fileSize * uploadProgress / 100 || 0, { standard: 'jedec' })} of ${filesize(fileSize || 0, { standard: 'jedec' })}  (${uploadProgress}%) • ${timeToUploaded ? `${timeToUploaded}min` : '0 min'}`}
+          `${filesize(fileSize * uploadProgress / 100 || 0, { standard: 'jedec' })} of ${filesize(fileSize || 0, { standard: 'jedec' })}  (${uploadProgress}%)`}
+          {/* // eslint-disable-next-line */}
+          {/* // • ${timeToUploaded ? `${timeToUploaded}min` : '0 min'} */}
+          
         </div>
       </div>
       <div className={styles.uploadTable_col}>

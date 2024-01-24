@@ -28,11 +28,12 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { notification } from 'utils';
 import { PageHead } from 'components/PageHead';
 import { ButtonTransparent } from 'components/ButtonTransparent';
-import { DragNDrop } from './DragNDrop';
+import Link from 'next/link';
 import { defaultArticle } from './constants';
 
 import styles from './styles.module.scss';
 import { NewItem } from './NewItem';
+import { DragNDropFullPage } from './DragNDropFullPage';
 
 export const Upload = () => {
   const dispatch = useDispatch();
@@ -248,8 +249,10 @@ export const Upload = () => {
           title: 'Upload activity',
           btnWrap: <Button
             theme="primary"
+            className={styles.customBtn}
+            // style={{padding:0}}
           >
-            <label htmlFor="upload">
+            <label htmlFor="upload" className={styles.labelCustomBtn}>
               Upload file
             </label>
             {/* eslint-disable-next-line */}
@@ -261,53 +264,12 @@ export const Upload = () => {
       <div className="">
         
         <div className={styles.upload_dnd_block}>
-          <DragNDrop
+          <DragNDropFullPage
             doc={doc}
             setDoc={setDoc}
             onConfirmClick={onConfirmClick}
             isDisabled={isDisabledUploadFile}
-          >
-            
-            {doc ? (
-              <div className={styles.upload_btn_block}>
-                {/* <ButtonTransparent
-                  className={cx(styles.upload_btns, styles.upload_btns_filled)}
-                  onClick={onConfirmClick}
-                  isLoading={isLoading}
-                >
-                  Confirm
-                </ButtonTransparent> */}
-                <ButtonTransparent
-                  className={styles.upload_btns}
-                  // theme="secondary"
-                  onClick={onClearClick}
-                  disabled={isLoading}
-                >
-                  Cancel
-                </ButtonTransparent>
-              </div>
-            ) : (
-              // eslint-disable-next-line
-              <>
-                {!isMobile && (
-                  <label
-                    htmlFor="upload"
-                    className={cx(styles.upload_btn, {
-                      [styles.disabled]: isDisabledUploadFile,
-                    })}
-                  >
-                    Select a file from local directory
-                    <input
-                      type="file"
-                      id="upload"
-                      className={styles.upload_input}
-                      disabled={isDisabledUploadFile}
-                    />
-                  </label>
-                )}
-              </>
-            )}
-          </DragNDrop>
+          />
         </div>
       </div>
       {/* <div className={styles.statuses}>
@@ -357,7 +319,11 @@ export const Upload = () => {
             Status
           </div>
         </div>
-        <div className={cx(styles.uploadBody)} ref={rootRef}>
+        <div
+          className={cx([styles.uploadBody, 
+            (!currentArticles || currentArticles.length === 0) && styles.uploadBody_empty])} 
+          ref={rootRef}
+        >
 
           {currentArticles.map((
             {
@@ -381,6 +347,34 @@ export const Upload = () => {
               }}
             />
           ))}
+
+          { 
+              (!currentArticles || currentArticles.length === 0) && !isLoading && (
+                <div className={styles.noData}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="142" height="142" viewBox="0 0 142 142" fill="none">
+                    <circle cx="71" cy="71" r="71" fill="#4659FE" fillOpacity="0.08" />
+                    <path d="M40 42.5H57L63 47.5H98.5C102.918 47.5 106.5 51.0817 106.5 55.5V56.5V65.5H56L43 100H40C36.6863 100 34 97.3137 34 94V48.5C34 45.1863 36.6863 42.5 40 42.5Z" fill="white" />
+                    <path d="M106.632 65.2V53.4588C106.632 50.1451 103.946 47.4588 100.632 47.4588H62.6437L59.5311 44.3446C58.0307 42.8434 55.9953 42 53.8728 42H40C36.6863 42 34 44.6863 34 48V93C34 96.866 37.134 100 41 100H42.8659M106.632 65.2H121.6C122.286 65.2 122.768 65.8753 122.546 66.5244L111.992 97.2976C111.438 98.9142 109.917 100 108.208 100H42.8659M106.632 65.2H58.6026C56.9319 65.2 55.4371 66.2385 54.8541 67.8042L42.8659 100" stroke="#7C859E" strokeWidth="3" />
+                  </svg>
+                  <h3>
+                    Nothing here yet...
+                  </h3>
+                  <p>
+                    This list is currently empty. 
+                    Check out the 
+                    {' '}
+                    <Link href="/knowledge">Knowledge base</Link>
+                    {' '}
+                    and feel free to upload your research data in the 
+                    "
+                    <Link href="/storage">My storage</Link>
+                    " section to discover more features.
+                  </p>
+            
+                </div>
+              )
+}
+
           {endElementForScroll}
         </div>
       </div>

@@ -26,4 +26,4 @@ HTMLButtonElement
   isHrefBlank?: boolean;
 }>;
 
-export type ButtonTheme = 'primary' | 'secondary' | 'grey' | 'white';
+export type ButtonTheme = 'primary' | 'secondary' | 'grey' | 'white' | 'decline';

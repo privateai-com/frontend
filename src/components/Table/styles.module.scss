@@ -179,3 +179,44 @@
     }
   }
 }
+
+.noData{
+	// position: absolute;
+	// top: 50%;
+	// left: 50%;
+	// transform: translate(-50%,-50%);
+	margin: 0 auto;
+	// margin-top: -36%;
+	text-align: center;
+	width: 420px;
+	padding: 20px 20px;
+	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+
+  *{
+    white-space:initial
+  }
+
+	h3{
+		font-size: 18px;
+		font-weight: 700;
+		color: #0F0F0F;
+		margin-top: 18px;
+	}
+	p{
+		margin-top: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		color: #747474;
+    >a{
+      color: $color-blue!important;
+      text-decoration: underline!important;
+      &:hover{
+        color:rgba(70, 89, 254, 0.7019607843)!important;
+      }
+    }
+	}
+}

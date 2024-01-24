@@ -368,6 +368,11 @@ $btn-height1024: 130px;
     // height: calc(100vh - 160px - 61px - 30px - 33px) ;
     overflow-y: scroll;
 
+    &_empty{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     @media screen and (max-width:1024px){
       height: calc(100vh - 210px);
@@ -407,7 +412,7 @@ $btn-height1024: 130px;
       // font-family: Satoshi;
       font-size: 16px;
       font-style: normal;
-      font-weight: 400;
+      font-weight: 500;
       &_col:nth-child(1){
         // &_col_row{
         //   display: flex;
@@ -570,4 +575,60 @@ $btn-height1024: 130px;
       }
     }
   }
+}
+
+.customBtn{
+  padding: 0;
+}
+
+.labelCustomBtn{
+  padding: 15px 24px;
+  display: block;
+  @include desktop1440 {
+    // font-size: 16px;
+    // line-height: 16px;
+    padding: 12px 24px;
+  }
+}
+
+.noData{
+  position: relative;
+	// position: absolute;
+	// top: 50%;
+	// left: 50%;
+	// transform: translate(-50%,-50%);
+  // min-height: auto;
+  // display: flex;
+	// margin:25% auto;
+  // transform: translateY(-20%);
+	// margin-top: -36%;
+	text-align: center;
+	width: 420px;
+	padding: 20px 20px;
+	max-width: 100%;
+	// display: flex;
+	// flex-direction: column;
+	// align-items: center;
+  // justify-content: center;
+
+  svg{
+    width: auto;
+    max-width: 100%;
+  }
+  *{
+    white-space:initial
+  }
+
+	h3{
+		font-size: 18px;
+		font-weight: 700;
+		color: #0F0F0F;
+		margin-top: 18px;
+	}
+	p{
+		margin-top: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		color: #747474;
+	}
 }

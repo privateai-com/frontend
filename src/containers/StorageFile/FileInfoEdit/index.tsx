@@ -230,6 +230,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
                 article && (
                 <ChangeAvailability 
                   id={article.id} 
+                  hasFullValue
                   isPublic={article.isPublic} 
                   callBack={onChangeAvailabilityClick} 
                 />

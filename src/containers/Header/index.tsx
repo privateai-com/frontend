@@ -32,6 +32,7 @@ import { useOnClickOutside, useScreenWidth } from 'hooks';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MultiDrop } from 'components/MultiDrop';
+import { ExperienceWrapper } from 'components/ExperienceWrapper';
 import styles from './styles.module.scss';
 import { Notification } from './Notification';
 
@@ -164,7 +165,7 @@ export const Header = ({ children }:{ children?:ReactNode }) => {
         />
       </form>
      
-      {/* <ExperienceWrapper /> */}
+      <ExperienceWrapper />
       <div className={styles.header_right_col}>
         <ButtonIcon
           className={cx(styles.button, { [styles.active]: !!notifications.length })}
@@ -245,7 +246,6 @@ export const Header = ({ children }:{ children?:ReactNode }) => {
                   Logout
                 </div>,
               ],
-
             }}
           />
         </div>

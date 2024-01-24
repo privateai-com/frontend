@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  ReactNode, useEffect, useRef, useState, 
+} from 'react';
 import cx from 'classnames';
 import styles from './styles.module.scss';
 
@@ -10,6 +12,7 @@ interface MultiDropProps {
     isCustom?: boolean;
     isSelect?: boolean;
     selectValue?: string | null;
+    fullValue? : boolean;
     // eslint-disable-next-line 
     selectOptions?: Array<any>; 
     // eslint-disable-next-line 
@@ -26,6 +29,7 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
     isCustom = false,
     isSelect = false,
     selectValue = null,
+    fullValue = false,
     selectOptions = [],
     callBack = null,
     showArrow = false,
@@ -133,13 +137,30 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
         <div className={cx(styles.multiDrop, isOpen && styles.active)} onClick={toggleFunction}>
           <span>
             {
-                            selectOptions.length > 0 && (selectOptions.find(
-                              (selectOption:{ value:'string', label:'string' }) => 
-                                selectOption?.value && selectOption?.value === selectValue,
-                            )?.label 
-                                    ||
-                                    selectValue)
-                        }
+                // fullValue ? 
+              !fullValue && selectOptions.length > 0 && (
+                selectOptions.find(
+                  (
+                    selectOption:{ value:'string', label:'string', currentLabel:'string' | ReactNode },
+                  ) => 
+                    selectOption?.value && selectOption?.value === selectValue,
+                )?.currentLabel 
+                // || selectValue 
+              )
+            }
+            {
+
+                //   :(
+                  fullValue && selectOptions.length > 0 && 
+                    selectOptions.find(
+                      (
+                        selectOption:{ value:'string', label:'string', currentLabel:'string' | ReactNode },
+                      ) => 
+                        selectOption?.value && selectOption?.value === selectValue,
+                    )?.label 
+                      // || selectValue
+                
+            }
           </span>
           <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
             <path d="M5.31706 5.84212C4.91865 6.40671 4.08135 6.40671 3.68294 5.84212L0.849358 1.82656C0.381916 1.16413 0.855666 0.250001 1.66641 0.250001L7.33358 0.25C8.14433 0.25 8.61808 1.16413 8.15064 1.82656L5.31706 5.84212Z" fill="#7C859E" />
