@@ -227,7 +227,7 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
                 />
               </label>
             )}
-            {!avatar && !avatarURI && avatarURI === '' && (
+            {!avatar && (!avatarURI || avatarURI === '') && (
               <label htmlFor="upload">
                 <div className={styles.no_avatar} />
               </label>

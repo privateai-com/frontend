@@ -135,6 +135,7 @@ export const useColumns = ({
           (approve === null ? (
             <div className={styles.table_block_btn}>
               <Button
+                className={styles.tableBtn}
                 theme="primary"
                 onClick={handleProvide(id)}
                 isLoading={
@@ -146,7 +147,8 @@ export const useColumns = ({
                 Grant access
               </Button>
               <Button
-                theme="secondary"
+                className={styles.tableBtn}
+                theme="decline"
                 onClick={handleDecline(id)}
                 isLoading={
                   statusAnswer === RequestStatus.REQUEST 

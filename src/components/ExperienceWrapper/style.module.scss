@@ -1,7 +1,8 @@
 .headerIcon{
     max-width: 100%;
     display: block;
-    width: 25px;
+    width: 19px;
+    min-width: 19px;
     height: auto;
 }
 .experienceWrapper{
@@ -11,9 +12,18 @@
     column-gap: 20px;
     margin-left: 20px;
     align-items: flex-end;
+    flex-direction: column;
     
-
-   
+    @media screen and (max-width:600px) {
+        margin-left: auto;
+    }
+    @media screen and (max-width:576px) {
+        margin-right: 10px;
+    }
+    
+    @media screen and (max-width:380px) {
+        display: none;
+    }
 }
 
 .experienceRow{
@@ -77,9 +87,9 @@
     
 }
 @media screen and (max-width: 768px){
-    .experienceWrapper{
-        flex-direction: row;
-    }
+    // .experienceWrapper{
+    //     flex-direction: row;
+    // }
     .experienceRow{
     .toolTipMessage{
             right: auto;

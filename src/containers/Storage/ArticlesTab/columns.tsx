@@ -11,10 +11,11 @@ import { ChangeAvailability } from './ChangeAvailability';
 import styles from './styles.module.scss';
 
 export const useColumns = ({
-  onChangeSortingField, onToggleDirection, 
+  onChangeSortingField, onToggleDirection,
 }: {
   onChangeSortingField: (field: string) => void,
   onToggleDirection: () => void,
+  onPublishClick: (_id:number) => void
 }) =>
   useMemo(
     () => [
@@ -129,7 +130,24 @@ export const useColumns = ({
           },
         }: ItemRowProps<Article>) =>
           (
+            
             <div className={styles.availability} key={`div-${id}-${isPublic}`}>
+
+              {/* {
+                (
+                  uploadStatus.toLowerCase() === 'uploaded'
+                )
+                &&
+                <Button 
+                  className={styles.publishBtn}
+                  onClick={()=>{
+                    onPublishClick(id)
+                  }}
+                >
+                  Publish
+                </Button>
+              } */}
+
               {uploadStatus.toLowerCase() !== 'error' && (
                 <ChangeAvailability
                   key={`ChangeAvailability-${id}-${isPublic}`}

@@ -138,6 +138,7 @@
 .containerLoader{
   display: flex;
   justify-content: center;
+  @include containerLoader();
 }
 
 .tableMobile {

@@ -23,7 +23,7 @@
         &_wrap{
             position: absolute;
             top: calc(100% + 8px);
-            width: 200px;
+            width: 225px;
             right:0;
             // height: 250px;
             background:#fff;
@@ -96,11 +96,21 @@
 
     &_select_wrap{
 
+        .multiDrop{
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
         .multiDrop span{
-            padding-right: 20px;
+            padding-right: 15px;
         }
 
-        .multiDrop svg{
+        .multiDrop>span{
+            // display: inline;
+            // height: 0;
+        }
+
+        .multiDrop>svg{
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -108,7 +118,7 @@
             transition: all 0.2s ease-out;
         }
 
-        .multiDrop.active svg{
+        .multiDrop.active>svg{
             // top: 0;
             // rotate: 180deg;
             transform: translateY(-50%) rotate(180deg);

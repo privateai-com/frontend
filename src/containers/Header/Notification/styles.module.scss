@@ -76,7 +76,8 @@ $margin-horizontal-mobile: 15px;
       border-bottom: 1px solid #DCDDE7;
       &_close{
         padding: 8px;
-        padding-right: 0;
+        margin-right: -8px;
+        // padding-right: 0;
       }
       &_h3{
         font-size: 18px;
@@ -166,8 +167,8 @@ $svg_width : 19px;
     display: flex;
     align-items: flex-start;
     gap: 17px;
-    border-bottom: 1px solid $color-grey;
-    padding: 12px 12px;
+    border-bottom: 1px solid #F3F5FF;
+    padding: 24px 12px;
 
     &:first-of-type {
       // padding-top: 7px;
@@ -196,7 +197,7 @@ $svg_width : 19px;
     right: 12px;
     padding: 8px;
     box-shadow: none;
-    top: 0;
+    top:10px;
     &:hover{
       background-color: unset!important;
       box-shadow: none;

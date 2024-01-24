@@ -21,7 +21,8 @@
   box-sizing: border-box;
   position: relative;
   font-family: $montserrat;
-  font-weight: 600;
+  font-weight: 500;
+  // font-weight: 600;
   line-height: 1;
   // font-size: 20px;
   // line-height: 20px;
@@ -57,8 +58,14 @@
   &.primary {
     background-color: $color-blue;
     transition: background-color 0.3s;
-
+    box-shadow: 0px 3px 14px 0px rgba(70, 89, 254, 0.28);
     @include state($color-blue);
+  }
+
+  &.decline{
+    background-color: #F3F5FF;
+    color: #7C859E;
+    
   }
 
   &.secondary {

@@ -50,7 +50,7 @@
 .sidebar_list {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
   width: 100%;
   border-top: 1px solid #BDC5DC;
   // border-top: 1px solid $color-grey3;
@@ -77,6 +77,7 @@
   text-decoration: none;
   color: $color-black;
   width: fit-content;
+  padding: 10px 0;
 
   font-size: 16px;
   font-weight: 500;
