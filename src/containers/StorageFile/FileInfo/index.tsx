@@ -9,6 +9,7 @@ import { Tooltip } from 'react-tooltip';
 import {
   AccessConfirm,
   Button,
+  CommunityButton,
   Requester,
 } from 'components';
 import { Article, RequestStatus } from 'types';
@@ -415,6 +416,25 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               />
             </>
             )}
+            <InfoTableRow
+              props={{
+                title: 'Article community review',
+                info: (
+                  <div className={styles.storageFile_like_wrapper}>
+                    <CommunityButton
+                      isLiked={undefined}
+                      onClick={() => {}}
+                      count={100}
+                    />
+                    <CommunityButton
+                      isDisliked={undefined}
+                      onClick={() => {}}
+                      count={300}
+                      isDislikeButton
+                    />
+                  </div>),
+              }}
+            />
           </div>
         </div> 
       </div>

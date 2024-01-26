@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Tooltip } from 'react-tooltip';
 import Link from 'next/link';
 
-import { SelectedText, Typography } from 'components';
+import { CommunityButton, SelectedText, Typography } from 'components';
 import { formatDate } from 'utils';
 import { routes } from 'appConstants';
 import { StatusAccessArticle } from 'types';
@@ -90,7 +90,20 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
             )}
           </div>
         )}
-               
+
+        <div className={styles.community_wrapper}>
+          <CommunityButton
+            isLiked={undefined}
+            onClick={() => {}}
+            count={100}
+          />
+          <CommunityButton
+            isDisliked={undefined}
+            onClick={() => {}}
+            count={300}
+            isDislikeButton
+          />
+        </div>
       </div>
     </div>
     <div className={styles.item_inner_col}>
@@ -126,6 +139,19 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
       </button>
     </div>
     <div className={styles.item_inner_col}>
+      <div className={styles.community_wrapper}>
+        <CommunityButton
+          isLiked={undefined}
+          onClick={() => {}}
+          count={100}
+        />
+        <CommunityButton
+          isDisliked={undefined}
+          onClick={() => {}}
+          count={300}
+          isDislikeButton
+        />
+      </div>
       <div className={styles.requester_row}>
         {requester} 
         {/* Topic */}
@@ -154,7 +180,6 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
             )}
           </div>
         )}
-               
       </div>
     </div>
   </div>

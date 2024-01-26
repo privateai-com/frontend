@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
+import cx from 'classnames';
 import Link from 'next/link';
 import { useModal } from 'react-modal-hook';
 import { useDispatch } from 'react-redux';
-import cx from 'classnames';
 
 import { ItemRowProps } from 'types';
 import {
@@ -13,6 +13,9 @@ import { RequestCell } from 'containers';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { queryTab, routes } from 'appConstants';
 import { requestDelete, requestDownload } from 'store/request/actionCreators';
+// import { RequestActionTypes } from 'store/request/actionsTypes';
+// import { requestSelectors } from 'store/request/selectors';
+
 import { MultiDrop } from 'components/MultiDrop';
 import { RequestedDataType } from './types';
 import { getStatusStyle } from './utils';

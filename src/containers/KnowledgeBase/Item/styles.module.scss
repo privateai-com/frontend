@@ -314,12 +314,17 @@
   // padding-right: 20px;
   position: relative;
 
-  *:not(button *){
+  // &*:not(button *) {
+  & > *:not(button *) {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+
+    .community_wrapper {
+      display: flex;
+    }
   }
 
   &_title{
@@ -507,5 +512,15 @@
         }
       }
     }
+  }
+}
+
+.community_wrapper {
+  display: flex;
+	gap: 10px;
+  width: 100%;
+
+  @include tablet1024 {
+    margin-bottom: 15px;
   }
 }
