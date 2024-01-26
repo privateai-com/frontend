@@ -8,10 +8,9 @@ import { Button } from 'components';
 import {
   useLocalStorage,
   usePagination,
-  useScreenWidth,
   useVipUser,
 } from 'hooks';
-import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
+import { itemsOnPageQuantity } from 'appConstants';
 import { Article, RequestStatus, UploadFileStatus } from 'types';
 
 import { 
@@ -27,7 +26,6 @@ import { profileSelectors } from 'store/profile/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { notification } from 'utils';
 import { PageHead } from 'components/PageHead';
-import { ButtonTransparent } from 'components/ButtonTransparent';
 import Link from 'next/link';
 import { defaultArticle } from './constants';
 
@@ -38,7 +36,7 @@ import { DragNDropFullPage } from './DragNDropFullPage';
 export const Upload = () => {
   const dispatch = useDispatch();
   const isVipUser = useVipUser();
-  const isMobile = useScreenWidth(ScreenWidth.mobile);
+  // const isMobile = useScreenWidth(ScreenWidth.mobile);
 
   const [doc, setDoc] = useState<File | null>(null);
   const [offset, setOffset] = useState(0);
@@ -96,9 +94,9 @@ export const Upload = () => {
     setDoc(null);
   };
 
-  const onClearClick = () => {
-    setDoc(null);
-  };
+  // const onClearClick = () => {
+  //   setDoc(null);
+  // };
 
   const timeToUploaded = Math.ceil(Object.values(upload)
     .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
@@ -366,9 +364,9 @@ export const Upload = () => {
                     <Link href="/knowledge">Knowledge base</Link>
                     {' '}
                     and feel free to upload your research data in the 
-                    "
+                    &quot;
                     <Link href="/storage">My storage</Link>
-                    " section to discover more features.
+                    &quot; section to discover more features.
                   </p>
             
                 </div>

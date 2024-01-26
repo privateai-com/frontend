@@ -203,9 +203,9 @@ export const Table: FC<TableProps> = memo(
                     <Link href="/knowledge">Knowledge base</Link>
                     {' '}
                     and feel free to upload your research data in the 
-                    "
+                    &quot;
                     <Link href="/storage">My storage</Link>
-                    " section to discover more features.
+                    &quot; section to discover more features.
                   </p>
                 
                 </div>

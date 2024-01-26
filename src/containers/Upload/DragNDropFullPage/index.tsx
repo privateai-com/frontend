@@ -46,7 +46,7 @@ export const DragNDropFullPage: FC<DragNDropProps> = ({
         onConfirmClick(file ? file[0] : null);
       }
     },
-    [userFilledAllInfo, setDoc],
+    [userFilledAllInfo, setDoc, onConfirmClick],
   );
 
   const onUploadClick = useCallback(

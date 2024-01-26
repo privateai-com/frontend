@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useModal } from 'react-modal-hook';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import cx from 'classnames';
 
 import { ItemRowProps } from 'types';
 import {
@@ -12,9 +13,6 @@ import { RequestCell } from 'containers';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { queryTab, routes } from 'appConstants';
 import { requestDelete, requestDownload } from 'store/request/actionCreators';
-import { RequestActionTypes } from 'store/request/actionsTypes';
-import { requestSelectors } from 'store/request/selectors';
-import cx from 'classnames';
 import { MultiDrop } from 'components/MultiDrop';
 import { RequestedDataType } from './types';
 import { getStatusStyle } from './utils';
@@ -28,21 +26,21 @@ export const useColumns = ({
   onToggleDirection: () => void,
 }) => {
   const dispatch = useDispatch();
-  const [selectedId, setSelectedId] = useState(0);
-  const [selectedArticleId, setSelectedArticleId] = useState(0);
+  // const [selectedId, setSelectedId] = useState(0);
+  // const [selectedArticleId, setSelectedArticleId] = useState(0);
 
-  const statusDelete = useSelector(requestSelectors.getStatus(RequestActionTypes.Delete));
-  const statusDownload = useSelector(requestSelectors.getStatus(RequestActionTypes.Download));
+  // const statusDelete = useSelector(requestSelectors.getStatus(RequestActionTypes.Delete));
+  // const statusDownload = useSelector(requestSelectors.getStatus(RequestActionTypes.Download));
 
   const handleDeleteRequest = useCallback((requestId: number) => () => {
-    setSelectedId(requestId);
+    // setSelectedId(requestId);
     dispatch(requestDelete({
       requestId,
     }));
   }, [dispatch]);
 
   const handleDownloadRequest = useCallback((articleId: number) => () => {
-    setSelectedArticleId(articleId);
+    // setSelectedArticleId(articleId);
     dispatch(requestDownload({
       articleId,
     }));
@@ -213,7 +211,6 @@ export const useColumns = ({
           )),
       },
     ],
-    [handleDeleteRequest, handleDownloadRequest, onChangeSortingField, 
-      onToggleDirection, selectedArticleId, selectedId, statusDelete, statusDownload],
+    [handleDeleteRequest, handleDownloadRequest, onChangeSortingField, onToggleDirection],
   );
 };

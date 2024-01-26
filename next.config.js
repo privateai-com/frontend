@@ -39,6 +39,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'archon-backend-beta.sfxdx.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }
