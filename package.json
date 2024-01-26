@@ -6,6 +6,7 @@
     "dev": "env-cmd -f .env.develop next dev",
     "build:develop": "env-cmd -f .env.develop next build",
     "build:stage": "env-cmd -f .env.stage next build",
+    "build:prod": "env-cmd -f .env.prod next build",
     "start": "next start",
     "lint": "next lint",
     "lint-es": "eslint . --cache --fix --ext js,jsx,ts,tsx",
