@@ -22,7 +22,6 @@ import {
   articlesSetState,
 } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
-import { profileSelectors } from 'store/profile/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { notification } from 'utils';
 import { PageHead } from 'components/PageHead';
@@ -58,9 +57,6 @@ export const Upload = () => {
     shallowEqual,
   );
   
-  const userFilledAllInfo = useSelector(
-    profileSelectors.getPropAccountInfo('userFilledAllInfo'),
-  );
   const statusCreateArticle = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.CreateArticle),
   );
@@ -216,7 +212,7 @@ export const Upload = () => {
     }));
   }, [dispatch, queryParams, removeItemByIdStorage, upload]);
 
-  const isDisabledUploadFile = isVipUser || !userFilledAllInfo;
+  const isDisabledUploadFile = isVipUser;
 
   const getCancelFunction = useCallback((uploadStatus: UploadFileStatus, id: number) => {
     switch (uploadStatus) {
