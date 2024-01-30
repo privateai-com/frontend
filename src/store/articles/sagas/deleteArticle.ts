@@ -4,7 +4,12 @@ import { sagaExceptionHandler } from 'utils';
 import { Pagination, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { articlesDelete, articlesSetStatus, articlesGetMy } from 'store/articles/actionCreators';
+import {
+  articlesDelete,
+  articlesSetStatus,
+  articlesGetMy,
+  articlesGetBonusPoints,
+} from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 
 export function* articlesDeleteArticleSaga({
@@ -30,6 +35,12 @@ export function* articlesDeleteArticleSaga({
     }
 
     if (payload.callback) payload.callback();
+
+    // TEMP: This code should be removed after refactoring
+    if (payload.isPublished) {
+      yield put(articlesGetBonusPoints());
+    }
+    // ---
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

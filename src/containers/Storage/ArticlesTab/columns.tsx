@@ -126,7 +126,9 @@ export const useColumns = ({
         // minWidth: '130px',
         Cell: ({
           row: {
-            original: { isPublic, id, uploadStatus },
+            original: {
+              isPublic, id, uploadStatus, isPublished,
+            },
           },
         }: ItemRowProps<Article>) =>
           (
@@ -178,7 +180,7 @@ export const useColumns = ({
                   //   <span>Download</span>
                   // </div>
                   // , 
-                  <DeleteBtn id={Number(id)}>
+                  <DeleteBtn id={Number(id)} isPublished={isPublished}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                       <path d="M9 13H15" stroke="#BDC2CF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M3 6C3 4.89543 3.89543 4 5 4H12H19C20.1046 4 21 4.89543 21 6V6V6C21 7.10457 20.1046 8 19 8H12H5C3.89543 8 3 7.10457 3 6V6V6Z" stroke="#BDC2CF" strokeWidth="2" strokeLinejoin="round" />

@@ -9,7 +9,7 @@ import { convertTitleFile, getStatusArticle } from 'utils';
 import { RequestStatus, SortingDirection } from 'types';
 
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { articleSetFetchingStatus, articlesGetMy, articlesPublish } from 'store/articles/actionCreators';
+import { articlesGetMy, articlesPublish } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 
 import cx from 'classnames';
@@ -69,7 +69,7 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
       articles.forEach((article) => {
         const { id } = article;
         if (id && id === articleID) {
-          dispatch(articleSetFetchingStatus({ status: true }));
+          // dispatch(articleSetFetchingStatus({ status: true }));
           dispatch(articlesPublish({
             articleId: id,
             isPublished: true,

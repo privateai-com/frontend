@@ -24,8 +24,16 @@ export const articlesSetStatusUpload = (payload: {
   status?: RequestStatus;
   idArticle?: number,
   uploadStatus?: UploadFileStatus,
+  createdAt?: string,
 }) => ({
   type: ArticlesActionTypes.SetStatusUpload,
+  payload,
+});
+
+export const articlesDeleteStatusUpload = (payload: {
+  id: number;
+}) => ({
+  type: ArticlesActionTypes.DeleteStatusUpload,
   payload,
 });
 
@@ -75,6 +83,7 @@ export const articlesChangeAccess = (payload: {
 
 export const articlesDelete = (payload: { 
   articleId: number,
+  isPublished: boolean,
   callback?: () => void,
 }) => ({
   type: ArticlesActionTypes.DeleteArticle,
@@ -116,7 +125,6 @@ export const articlesGetMy = (
     sortingField: string;
     sortingDirection: SortingDirection;
     doneStatus?: boolean;
-    isHidden?: boolean;
   },
 ) => ({
   type: ArticlesActionTypes.GetMyArticles,
@@ -147,11 +155,6 @@ export const articlesCancelUploadFetch = (
   payload,
 });
 
-export const articleSetFetchingStatus = (
-  payload: {
-    status: boolean
-  },
-) => ({
-  type: ArticlesActionTypes.SetFetchingStatus,
-  payload,
+export const articlesGetBonusPoints = () => ({
+  type: ArticlesActionTypes.GetBonusPoints,
 });

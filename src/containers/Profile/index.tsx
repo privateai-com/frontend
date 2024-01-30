@@ -94,25 +94,23 @@ export const Profile = () => {
 
   return (
     <>
-      <PageHead props={{
-        title: 'My profile',
-        headStyles: {
+      <PageHead
+        title="My profile"
+        headStyles={{
           background: 'transparent',
-        // also styles from scss
-        },
-        btnWrapStyles: {},
-        // eslint-disable-next-line
-        btnWrap: <>
-          {!isEditProfile && !isVipUser && (
-          <Button
-            theme="primary"
-            className={styles.profile__head_button}
-            onClick={() => setIsEditProfile(true)}
-          >
-            Edit
-          </Button>
-          )}
-          {
+        }}
+        btnWrap={(
+          <>
+            {!isEditProfile && !isVipUser && (
+            <Button
+              theme="primary"
+              className={styles.profile__head_button}
+              onClick={() => setIsEditProfile(true)}
+            >
+              Edit
+            </Button>
+            )}
+            {
           isEditProfile && (
           <Button
             className={styles.profile__head_button}
@@ -122,39 +120,37 @@ export const Profile = () => {
           </Button>
           )
         }
-          {!isVipUser === undefined && (
-          <div className={styles.profile__head_auth}>
-            {walletAddress ? (
-              <>
-                {!isEditProfile &&
+            {!isVipUser === undefined && (
+            <div className={styles.profile__head_auth}>
+              {walletAddress ? (
+                <>
+                  {!isEditProfile &&
               `Linked wallet: ${stringLongShortcut(walletAddress, 6, 3)}`}
+                  <Button
+                    className={styles.profile__head_button}
+                    theme="secondary"
+                    onClick={onDisconnectLinkWalletClick}
+                    isLoading={isDeleteLoading}
+                  >
+                    Disconnect wallet
+                  </Button>
+                </>
+              ) : (
                 <Button
                   className={styles.profile__head_button}
-                  theme="secondary"
-                  onClick={onDisconnectLinkWalletClick}
-                  isLoading={isDeleteLoading}
+                  onClick={onLinkWalletClick}
+                  isLoading={status === RequestStatus.REQUEST}
+                  disabled={isMobile}
                 >
-                  Disconnect wallet
+                  Link your wallet
                 </Button>
-              </>
-            ) : (
-              <Button
-                className={styles.profile__head_button}
-                onClick={onLinkWalletClick}
-                isLoading={status === RequestStatus.REQUEST}
-                disabled={isMobile}
-              >
-                Link your wallet
-              </Button>
+              )}
+            </div>
             )}
-          </div>
-          )}
-          {/* eslint-disable-next-line */}
-        </>,
-      }}
-      > 
-        {/* <p>hello</p> */}
-      </PageHead>
+            {/* eslint-disable-next-line */}
+        </>
+        )}
+      />
       <div className={styles.profile__container}>
         {false && (
         <div className={styles.profile__head}>

@@ -1,8 +1,7 @@
 import { ButtonIcon, DeletePublication } from 'components';
 import { ReactNode } from 'react';
 import { useModal } from 'react-modal-hook';
-import { useSelector, useDispatch } from 'react-redux';
-import { articlesDelete } from 'store/articles/actionCreators';
+import { useSelector } from 'react-redux';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import { RequestStatus } from 'types';
@@ -10,9 +9,10 @@ import { trashIcon } from 'assets';
 
 import styles from './styles.module.scss';
 
-export const DeleteBtn = ({ id, children }: { id: number, children? : ReactNode | string }) => {
-  const dispatch = useDispatch();
-  
+export const DeleteBtn = ({ onDelete, children }: {
+  onDelete: () => void,
+  children? : ReactNode | string
+}) => {
   const statusDelete = useSelector(
     articlesSelectors.getStatus(ArticlesActionTypes.DeleteArticle),
   );
@@ -22,17 +22,10 @@ export const DeleteBtn = ({ id, children }: { id: number, children? : ReactNode 
       <DeletePublication
         onClose={hideModal}
         isLoading={statusDelete === RequestStatus.REQUEST}
-        onDelete={() => {
-          dispatch(articlesDelete({ 
-            articleId: id,
-            callback: () => {
-              hideModal();
-            }, 
-          }));
-        }}
+        onDelete={() => { onDelete(); hideModal(); }}
       />
     ),
-    [statusDelete, id],
+    [statusDelete, onDelete],
   );
     
   if(children) {
@@ -45,11 +38,10 @@ export const DeleteBtn = ({ id, children }: { id: number, children? : ReactNode 
   }
   
   return (
-      // eslint-disable-next-line
-      <ButtonIcon
-        image={trashIcon}
-        onClick={showModal}
-        className={styles.delete_btn}
-      />
+    <ButtonIcon
+      image={trashIcon}
+      onClick={showModal}
+      className={styles.delete_btn}
+    />
   );
 };

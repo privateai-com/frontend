@@ -2,7 +2,7 @@ export enum ArticlesActionTypes {
   SetState = 'ARTICLES.SET_STATE',
   SetStatus = 'ARTICLES.SET_STATUS',
   SetStatusUpload = 'ARTICLES.SET_STATUS_UPLOAD',
-  SetFetchingStatus = 'ARTICLES.SET_FETCHING',
+  DeleteStatusUpload = 'ARTICLES.DELETE_STATUS_UPLOAD',
 
   GetOneArticle = 'ARTICLES.GET_ONE_ARTICLE',
   GetArticles = 'ARTICLES.GET_ARTICLES',
@@ -23,4 +23,5 @@ export enum ArticlesActionTypes {
   SaveGraph = 'ARTICLES.SAVE_GRAPH',
 
   GetArticleUploadStatus = 'ARTICLES.GET_ARTICLE_UPLOAD_STATUS',
+  GetBonusPoints = 'ARTICLES.GET_BONUS_POINTS',
 }

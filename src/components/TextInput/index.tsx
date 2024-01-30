@@ -53,6 +53,7 @@ type TextInputProps = {
   isSearch?: boolean;
   onClick?: () => void;
   ref?: RefObject<HTMLInputElement>;
+  autoComplete?: boolean;
 };
 
 export const TextInput = memo<TextInputProps>(({
@@ -84,6 +85,7 @@ export const TextInput = memo<TextInputProps>(({
   onClick,
   isSearch,
   ref,
+  autoComplete = false,
 }) => {
   const { ref: refRaw, setFocus } = useSetFocus();
 
@@ -182,6 +184,7 @@ export const TextInput = memo<TextInputProps>(({
           onBlur={onBlur}
           onFocus={onFocus}
           onClick={onClick}
+          autoComplete={autoComplete ? 'on' : 'off'}
         />
         {isPassword && (
           <ButtonIcon

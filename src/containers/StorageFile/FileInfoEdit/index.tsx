@@ -346,7 +346,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
                 Revert to last published
               </div>,
               isOwner && (
-              <DeleteBtn articleId={article?.id}>
+              <DeleteBtn articleId={article?.id} isPublished={article.isPublished}>
                 Delete
               </DeleteBtn>
               ),
