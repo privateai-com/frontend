@@ -18,6 +18,9 @@ export const articlesInitialState: Readonly<ArticlesState> = {
     [ArticlesActionTypes.CreateArticle]: RequestStatus.INIT,
   },
   upload: {},
+
+  ratingPoints: 0,
+  docsCount: 0,
 };
 
 export default createReducer(articlesInitialState, articlesHandlers);

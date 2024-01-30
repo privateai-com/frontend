@@ -29,7 +29,9 @@ export interface ArticlesState {
   pagination?: Pagination;
   ui: PartialRecord<ArticlesActionTypes, RequestStatus>;
   upload: ArticleUpload;
-  isFetching?:false | boolean;
+
+  ratingPoints: number;
+  docsCount: number;
 }
 
 export type ArticleOwner = {

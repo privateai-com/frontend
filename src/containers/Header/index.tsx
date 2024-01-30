@@ -6,15 +6,17 @@ import React, {
 import cx from 'classnames';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useRouter } from 'next/router';
-// import Link from 'next/link';
+import Link from 'next/link';
+import Image from 'next/image';
 import { useModal } from 'react-modal-hook';
 
 import {
-  ButtonIcon, TextInput, 
-  // SelectedText, 
+  ButtonIcon, 
+  TextInput,
   LogOut, 
 } from 'components';
 import {
+  logoPrivateAI,
   logoutIcon, ringIcon, userIcon, 
 } from 'assets';
 import { ScreenWidth, routes } from 'appConstants';
@@ -25,18 +27,13 @@ import {
   profileNotificationMarkAsView,
   profileNotificationSubscribe,
 } from 'store/profile/actionCreators';
-
 import { getName } from 'utils';
 import { useOnClickOutside, useScreenWidth } from 'hooks';
-
-import Link from 'next/link';
-import Image from 'next/image';
 import { MultiDrop } from 'components/MultiDrop';
-import { ExperienceWrapper } from 'components/ExperienceWrapper';
-import styles from './styles.module.scss';
 import { Notification } from './Notification';
+import { BonusPointsManager } from './BonusPointsManager';
 
-import logoPrivateAI from '../../assets/img/icons/logoPrivateAI.svg';
+import styles from './styles.module.scss';
 
 // const results = [
 //   'A brief history of the antibiotics era',
@@ -165,7 +162,8 @@ export const Header = ({ children }:{ children?:ReactNode }) => {
         />
       </form>
      
-      <ExperienceWrapper />
+      <BonusPointsManager />
+
       <div className={styles.header_right_col}>
         <ButtonIcon
           className={cx(styles.button, { [styles.active]: !!notifications.length })}

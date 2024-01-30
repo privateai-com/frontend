@@ -155,3 +155,7 @@ export const articleSetFetchingStatus = (
   type: ArticlesActionTypes.SetFetchingStatus,
   payload,
 });
+
+export const articlesGetBonusPoints = () => ({
+  type: ArticlesActionTypes.GetBonusPoints,
+});

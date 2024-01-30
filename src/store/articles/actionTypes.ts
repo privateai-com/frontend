@@ -23,4 +23,5 @@ export enum ArticlesActionTypes {
   SaveGraph = 'ARTICLES.SAVE_GRAPH',
 
   GetArticleUploadStatus = 'ARTICLES.GET_ARTICLE_UPLOAD_STATUS',
+  GetBonusPoints = 'ARTICLES.GET_BONUS_POINTS',
 }
