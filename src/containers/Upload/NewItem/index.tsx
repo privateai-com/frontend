@@ -9,13 +9,21 @@ import prevStyles from '../Item/styles.module.scss';
 import styles from '../styles.module.scss';
 import { DeleteBtn } from '../DeleteBtn';
 
-export const NewItem = ({ props }) => {
-  const {
-    id, title, fileSize, uploadProgress, updatedAt, status, onCancel, 
-  } = props;
+type NewItemProps = {
+  title: string;
+  onCancel: () => void;
+  fileSize: number | undefined;
+  uploadProgress: number;
+  updatedAt: string;
+  // timeToUploaded: number;
+  status: UploadFileStatus;
+};
 
+export const NewItem = ({
+  title, fileSize, uploadProgress,
+  updatedAt, status, onCancel, 
+}: NewItemProps) => {
   const isMobile = useScreenWidth(ScreenWidth.mobile);
-  // console.log(timeToUploaded)
 
   return (
     <div className={cx(styles.uploadTableRow)}>
@@ -178,7 +186,7 @@ export const NewItem = ({ props }) => {
                   btnContent: '•••',
                   btnList: [
                     // <div>Retry</div>,
-                    <DeleteBtn id={Number(id)}>
+                    <DeleteBtn onDelete={onCancel}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M9 13H15" stroke="#BDC2CF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M3 6C3 4.89543 3.89543 4 5 4H12H19C20.1046 4 21 4.89543 21 6V6V6C21 7.10457 20.1046 8 19 8H12H5C3.89543 8 3 7.10457 3 6V6V6Z" stroke="#BDC2CF" strokeWidth="2" strokeLinejoin="round" />

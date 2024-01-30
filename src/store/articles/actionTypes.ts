@@ -2,7 +2,7 @@ export enum ArticlesActionTypes {
   SetState = 'ARTICLES.SET_STATE',
   SetStatus = 'ARTICLES.SET_STATUS',
   SetStatusUpload = 'ARTICLES.SET_STATUS_UPLOAD',
-  SetFetchingStatus = 'ARTICLES.SET_FETCHING',
+  DeleteStatusUpload = 'ARTICLES.DELETE_STATUS_UPLOAD',
 
   GetOneArticle = 'ARTICLES.GET_ONE_ARTICLE',
   GetArticles = 'ARTICLES.GET_ARTICLES',

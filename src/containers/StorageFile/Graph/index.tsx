@@ -26,13 +26,14 @@ interface GraphProps {
   isLoading: boolean;
   articleId: number;
   isOwner: boolean;
+  isPublished?: boolean;
   topCoreEntities: string;
 }
 
 export const Graph: FC<GraphProps> = memo(({
   graphData, setGraphData, isEdit,
   isLoading, onFullScreen, articleId, isOwner, topCoreEntities,
-  setNodesLabelWithoutEdges,
+  setNodesLabelWithoutEdges, isPublished,
 }) => {
   const { nodes, edges } = transformDataToNodesAndEdges(graphData);
   const edgesCurrent = edges.get().filter(({ to }: Edge) => to !== 0);
@@ -47,7 +48,11 @@ export const Graph: FC<GraphProps> = memo(({
       >
         <Typography className={styles.dataCoreTitle} type="h2">Data core structure</Typography>
         {(isOwner && articleId) && (
-          <DeleteBtn className={styles.storageFile__data_btn} articleId={articleId} />
+          <DeleteBtn
+            className={styles.storageFile__data_btn}
+            articleId={articleId}
+            isPublished={isPublished}
+          />
         )}
       </div>
       <div className={styles.storageFile__wrapper}>

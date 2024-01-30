@@ -41,7 +41,7 @@ const Security = () => {
 
   return (
     <div className={styles.security}>
-      <PageHead props={{ title: 'Security page' }} />
+      <PageHead title="Security page" />
       <div className={styles.main}>
         <div className={styles.main_wrapper}>
           <div className={styles.main_content}>

@@ -128,8 +128,7 @@ export const StorageFile = memo(() => {
   return (
     <>
       <div className="">
-        <PageHead props={{ title: <ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} /> }}> </PageHead>
-        
+        <PageHead title={<ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} />} />
       </div>
       <div className={cx(styles.storageFile__container, {
         [styles.fullScreenGraph]: isFullscreen,
@@ -170,6 +169,7 @@ export const StorageFile = memo(() => {
           isOwner={isOwner}
           topCoreEntities={article?.topCoreEntities || '-'}
           setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
+          isPublished={article?.isPublished}
         />
       </div>
     </>

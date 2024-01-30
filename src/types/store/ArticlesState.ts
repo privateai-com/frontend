@@ -17,6 +17,7 @@ export interface ArticleUpload {
     percentUpload: number;
     idArticle?: number;
     uploadStatus: UploadFileStatus;
+    createdAt: string;
   };
 }
 
