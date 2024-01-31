@@ -3,7 +3,7 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AdaptivePaginationTable, Loader } from 'components';
+import { AdaptivePaginationTable } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
 import { convertTitleFile, getStatusArticle } from 'utils';
 import { RequestStatus, SortingDirection } from 'types';
@@ -11,8 +11,6 @@ import { RequestStatus, SortingDirection } from 'types';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesGetMy, articlesPublish } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
-
-import cx from 'classnames';
 
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
@@ -129,25 +127,16 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
             itemsMobile={itemsMobile}
             isMobile={isMobile}
             classNameMobile={styles.tableMobile}
+            isLoading={isLoading}
           />
         )} 
       </div>
-      {content?.length === 0 && (
-        <AdaptivePaginationTable
-          columns={columns}
-          content={[]}
-          classNameTableContainer={cx(styles.table, styles.emptyTable)}
-          pagination={pagination}
-          itemsMobile={itemsMobile}
-          isMobile={isMobile}
-          classNameMobile={styles.tableMobile}
-        />
-      )}
-      {isLoading && (
+    
+      {/* {isLoading && (
         <div className={styles.containerLoader}>
           <Loader size={64} />
         </div>
-      )}
+      )} */}
     </>
   );
 };

@@ -15,6 +15,7 @@ import { usePagination } from 'hooks';
 import { PaginationForHook } from 'types';
 
 import Link from 'next/link';
+import { Loader } from 'components';
 import styles from './styles.module.scss';
 
 interface SelectedRowIdsProps {
@@ -36,7 +37,8 @@ interface TableProps {
   getActiveExpandedRows?: (args0: { selectedIndexRow: number | null }) => void;
   expandedChildren?: (row?: object) => ReactNode;
   expandedChildrenTop?: (row?: object) => ReactNode;
-  pagination?: PaginationForHook
+  pagination?: PaginationForHook;
+  isLoading?: boolean;
 }
 
 export const Table: FC<TableProps> = memo(
@@ -53,6 +55,7 @@ export const Table: FC<TableProps> = memo(
     tdOpenExpandedClassName,
     getActiveExpandedRows,
     pagination,
+    isLoading = false,
   }) => {
     const {
       getTableProps,
@@ -208,6 +211,14 @@ export const Table: FC<TableProps> = memo(
                   </p>
                 
                 </div>
+              </td>  
+            </tr>
+          )}
+          
+          {isLoading && (
+            <tr style={{ minHeight: '100%' }}>
+              <td style={{ width: '100%', flexBasis: '100%' }}>
+                <Loader size={64} />
               </td>  
             </tr>
           )}

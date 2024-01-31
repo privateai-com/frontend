@@ -4,7 +4,7 @@ import {
   useCallback, useEffect, useMemo, useState, 
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AdaptivePaginationTable, Loader } from 'components';
+import { AdaptivePaginationTable } from 'components';
 import { ScreenWidth, itemsOnPageQuantity } from 'appConstants';
 import { RequestCell } from 'containers/RequestCell';
 import { RequestedDataType } from 'containers/Storage/MyRequests/types';
@@ -14,7 +14,6 @@ import { RequestActionTypes } from 'store/request/actionsTypes';
 import { useScreenWidth } from 'hooks';
 import { RequestStatus, SortingDirection } from 'types';
 import { convertTitleFile, formatDate, getName } from 'utils';
-import cx from 'classnames';
 import { useColumns } from './columns';
 
 import styles from './styles.module.scss';
@@ -154,9 +153,11 @@ export const TabToMe = () => {
           classNameTableContainer={styles.table}
           pagination={pagination}
           isMobile={isMobile}
+          isLoading={isLoading}
         />
       )}
-      {isLoading && (
+
+      {/* {isLoading && (
         <>
           <AdaptivePaginationTable
             columns={columns}
@@ -170,7 +171,7 @@ export const TabToMe = () => {
             <Loader size={64} />
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 };
