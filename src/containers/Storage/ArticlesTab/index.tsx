@@ -132,23 +132,21 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
           />
         )} 
       </div>
+      {content?.length === 0 && (
+        <AdaptivePaginationTable
+          columns={columns}
+          content={[]}
+          classNameTableContainer={cx(styles.table, styles.emptyTable)}
+          pagination={pagination}
+          itemsMobile={itemsMobile}
+          isMobile={isMobile}
+          classNameMobile={styles.tableMobile}
+        />
+      )}
       {isLoading && (
-        <>
-          <AdaptivePaginationTable
-            columns={columns}
-            content={[]}
-            classNameTableContainer={cx(styles.table, styles.emptyTable)}
-            pagination={pagination}
-            itemsMobile={itemsMobile}
-            isMobile={isMobile}
-            classNameMobile={styles.tableMobile}
-          />
-          
-          <div className={styles.containerLoader}>
-            <Loader size={64} />
-          </div>
-        </>
-       
+        <div className={styles.containerLoader}>
+          <Loader size={64} />
+        </div>
       )}
     </>
   );
