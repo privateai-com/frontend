@@ -71,11 +71,9 @@ export const Upload = () => {
     isHidden: false,
   }), [offset]);
 
-  const onConfirmClick = (arg: File | null) => {
-    if(!arg) return;
-
-    // if (!doc) return;
-    const fileName = arg.name;
+  const onConfirmClick = useCallback((userDoc: File | null) => {
+    if (!userDoc) return;
+    const fileName = userDoc.name;
 
     if (fileName.length > 100) {
       notification.error({ message: 'File name cannot exceed 100 characters' });
@@ -83,20 +81,20 @@ export const Upload = () => {
     }
 
     dispatch(articlesCreate({
-      file: arg,
+      file: userDoc,
       callback: () => {
         dispatch(articlesGetMy(queryParams));
       },
     }));
     setDoc(null);
-  };
+  }, [dispatch, queryParams]);
 
   // const onClearClick = () => {
   //   setDoc(null);
   // };
 
-  const timeToUploaded = Math.ceil(Object.values(upload)
-    .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
+  // const timeToUploaded = Math.ceil(Object.values(upload)
+  //   .reduce((sum, item) => sum + item.size, 0) / 1_000_000 / 60);
 
   // const timeToUploaded = (size: number) => size / 1_000_000 / 20;
 
@@ -109,12 +107,12 @@ export const Upload = () => {
   
   const [currentArticles, setCurrentArticles] = useState<Article[]>([]);
   const [uploadArticles, setUploadArticles] = useState<Article[]>([]);
-  // console.log({ uploadArticles })
+
   useEffect(() => {
     if (upload) {
-      setUploadArticles(() => (Object.values(upload).reverse()
-        // .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
-        // .filter((uploadArticle) => uploadArticle.status !== RequestStatus.ERROR)
+      const uploadArticlesCurrent = Object.values(upload).reverse()
+      // .filter((uploadArticle) => uploadArticle.status === RequestStatus.REQUEST)
+      // .filter((uploadArticle) => uploadArticle.status !== RequestStatus.ERROR)
         .map((uploadData) => ({
           ...defaultArticle,
           id: uploadData.idArticle || Number(uploadData.id),
@@ -123,7 +121,10 @@ export const Upload = () => {
           fileSize: uploadData.size,
           status: uploadData.status,
           uploadStatus: uploadData.uploadStatus,
-        }))));
+          createdAt: uploadData.createdAt,
+        }));
+
+      setUploadArticles(uploadArticlesCurrent);
     }
   }, [upload]);
 
@@ -131,30 +132,37 @@ export const Upload = () => {
     const newUploadArticles = uploadArticles.filter((uploadArticle) =>
       !articles.some((article) => article.id === uploadArticle.id));
 
-    setCurrentArticles(
-      [...newUploadArticles, ...articles].map((article: Article) => {
-        if (!dataStorage) return article;
-        const storageItem =
-          dataStorage.find((storage: { id: number }) => storage.id === article.id);
-        if (storageItem && (!article.fileSize || !article.title)) {
-          return {
-            ...article,
-            fileSize: storageItem.fileSize,
-            title: storageItem.title,
-          };
-        }
-      
+    const filteringArticles = articles.filter((article) => (
+      !newUploadArticles.some((uploadArticle) => uploadArticle.id === article.id)
+    ));
+
+    const uniqueArticles = [...newUploadArticles, ...filteringArticles].map((article: Article) => {
+      if (!dataStorage) return article;
+      const storageItem =
+        dataStorage.find((storage: { id: number }) => storage.id === article.id);
+      if (storageItem && (!article.fileSize || !article.title)) {
         return {
           ...article,
-          fileSize: (article.fileSize ?? 0),
+          fileSize: storageItem.fileSize,
+          title: storageItem.title,
+          createdAt: storageItem.createdAt,
         };
-      }),
-    );
+      }
+    
+      return {
+        ...article,
+        fileSize: (article.fileSize ?? 0),
+      };
+    }).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+    setCurrentArticles(uniqueArticles);
   }, [articles, dataStorage, uploadArticles]);
 
   useEffect(() => {
     if (upload && Object.values(upload).length > 0) {
-      const { idArticle, size, fileName } = Object.values(upload)[0];
+      const {
+        idArticle, size, fileName, createdAt,
+      } = Object.values(upload)[0];
       if (upload && idArticle) {
         const isArticleStorage = !getItemByIdStorage(idArticle);
         
@@ -163,6 +171,7 @@ export const Upload = () => {
             id: idArticle,
             fileSize: size,
             title: fileName,
+            createdAt,
           });
         }
       }
@@ -207,11 +216,25 @@ export const Upload = () => {
               fileSize: uploadData.size,
               status: uploadData.status,
             }))));
-        dispatch(articlesGetMy(queryParams));
+        dispatch(articlesGetMy({
+          ...queryParams,
+          limit: +queryParams.offset + +queryParams.limit,
+          offset: 0,
+        }));
         dispatch(articlesSetState({ upload: {} }));
       },
     }));
   }, [dispatch, queryParams, removeItemByIdStorage, upload]);
+
+  const handleCancelUploadLocal = useCallback((articleId: number) => {
+    const uploadCurrent = { ...upload };
+    if (uploadCurrent[articleId]) {
+      delete uploadCurrent[articleId];
+      dispatch(articlesSetState({ upload: uploadCurrent }));
+    } else {
+      handleCancelUpload(articleId);
+    }
+  }, [dispatch, handleCancelUpload, upload]);
 
   const isDisabledUploadFile = isVipUser;
 
@@ -224,12 +247,13 @@ export const Upload = () => {
       case UploadFileStatus.UPLOADED:
       case UploadFileStatus.QUEUE:
       case UploadFileStatus.PROCESSING:
-      case UploadFileStatus.ERROR:
         return handleCancelUpload(id);
+      case UploadFileStatus.ERROR:
+        return handleCancelUploadLocal(id);
       default:
         return undefined;
     }
-  }, [handleCancelUpload, handleCancelUploadFetch]);
+  }, [handleCancelUpload, handleCancelUploadFetch, handleCancelUploadLocal]);
 
   return (
     <div className={styles.upload}>
@@ -240,19 +264,19 @@ export const Upload = () => {
         Upload activity
       </Typography> */}
       <PageHead 
-        props={{
-          title: 'Upload activity',
-          btnWrap: <Button
+        title="Upload activity"
+        btnWrap={(
+          <Button
             theme="primary"
             className={styles.customBtn}
-            // style={{padding:0}}
+          // style={{padding:0}}
           >
             <label htmlFor="upload" className={styles.labelCustomBtn}>
               Upload file
             </label>
             {/* eslint-disable-next-line */}
-          </Button>,
-        }}
+        </Button>
+        )}
       />
       {/* </PageHead> */}
       {/* <div className={styles.upload_wrapper}> */}
@@ -326,20 +350,14 @@ export const Upload = () => {
             },
           ) => (
             <NewItem
-              key={`title-${id}`}
-              props={{
-                id,
-                title,
-                uploadProgress,
-                fileSize, 
-                onCancel: () => getCancelFunction(uploadStatus, id),
-                status: 
-                  // 'processing',
-                  uploadStatus,
-                updatedAt,  
-                timeToUploaded: timeToUploaded || 0,
-                // Math.round(timeToUploaded(fileSize || 0))
-              }}
+              key={id}
+              title={title}
+              uploadProgress={uploadProgress}
+              fileSize={fileSize}
+              onCancel={() => getCancelFunction(uploadStatus, id)}
+              status={uploadStatus}
+              updatedAt={updatedAt}
+              // timeToUploaded={timeToUploaded || 0}
             />
           ))}
 

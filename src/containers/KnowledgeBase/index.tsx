@@ -89,10 +89,7 @@ export const KnowledgeBase: React.FC = () => {
 
   return (
     <div className={styles.knowledge}>
-      <PageHead props={{
-        title: 'Knowledge base',
-      }}
-      />
+      <PageHead title="Knowledge base" />
       <div className={styles.items}>
         <div className={styles.items_wrapper}>
           <TableHead 

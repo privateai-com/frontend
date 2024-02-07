@@ -1,20 +1,26 @@
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
 import { sagaExceptionHandler } from 'utils';
 import { Article, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi, getApiQueries } from 'api';  
 import {
-  articlesGetMy,
+  articlesGetBonusPoints,
   articlesSetState,
   articlesSetStatus,
 } from '../actionCreators';
-import { articlesSelectors } from '../selectors';
 
-export function* articlesGetMySaga({
+const payload = {
+  limit: 100,
+  offset: 0,
+  sortingDirection: 'DESC' as const,
+  sortingField: 'isPublished',
+  doneStatus: true,
+};
+
+export function* articlesGetBonusPointsSaga({
   type,
-  payload,
-}: ReturnType<typeof articlesGetMy>) {
+}: ReturnType<typeof articlesGetBonusPoints>) {
   try {
     yield put(articlesSetStatus({ type, status: RequestStatus.REQUEST }));
 
@@ -23,20 +29,21 @@ export function* articlesGetMySaga({
       endpoint: ApiEndpoint.ArticlesGetMyArticles + getApiQueries(payload),
     });
 
-    const storeName = payload.doneStatus ? 'myArticles' : 'uploadArticles';
-    
-    const articles: Article[] = payload.offset !== 0 ? yield select(
-      articlesSelectors.getProp(storeName),
-    ) : [];
-    
-    yield put(articlesSetState({ 
-      [storeName]: [...articles, ...data[0].map((item) => ({
-        ...item,
-        fileSize: (item.fileSize ?? 0) * 1_048_576,
-      }))],
-      total: data[1], 
-      pagination: payload,
-    }));
+    if (data[0]?.length > 0) {
+      let ratingPoints = 0;
+      let docsCount = 0;
+      data[0].forEach(({ isPublished }) => {
+        if(isPublished) { 
+          ratingPoints += 100; 
+          docsCount += 1; 
+        }
+      });
+
+      yield put(articlesSetState({
+        ratingPoints,
+        docsCount,
+      }));
+    }
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

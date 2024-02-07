@@ -15,6 +15,7 @@ import { usePagination } from 'hooks';
 import { PaginationForHook } from 'types';
 
 import Link from 'next/link';
+import { Loader } from 'components';
 import styles from './styles.module.scss';
 
 interface SelectedRowIdsProps {
@@ -36,7 +37,8 @@ interface TableProps {
   getActiveExpandedRows?: (args0: { selectedIndexRow: number | null }) => void;
   expandedChildren?: (row?: object) => ReactNode;
   expandedChildrenTop?: (row?: object) => ReactNode;
-  pagination?: PaginationForHook
+  pagination?: PaginationForHook;
+  isLoading?: boolean;
 }
 
 export const Table: FC<TableProps> = memo(
@@ -53,6 +55,7 @@ export const Table: FC<TableProps> = memo(
     tdOpenExpandedClassName,
     getActiveExpandedRows,
     pagination,
+    isLoading = false,
   }) => {
     const {
       getTableProps,
@@ -117,54 +120,53 @@ export const Table: FC<TableProps> = memo(
     });
 
     return (
-      <>
-        <table
-          {...getTableProps()}
-          className={cx(styles.table, className)}
-        >
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th 
-                    {...column.getHeaderProps({
-                      style: { minWidth: column.minWidth, width: column.width },
-                    })}
-                  >
-                    {column.render('Header') as ReactNode}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
+      <table
+        {...getTableProps()}
+        className={cx(styles.table, className)}
+      >
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th 
+                  {...column.getHeaderProps({
+                    style: { minWidth: column.minWidth, width: column.width },
+                  })}
+                >
+                  {column.render('Header') as ReactNode}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
 
-          <tbody {...getTableBodyProps()} ref={rootRef}>
-            {rows.map((row: Row<object> & { isExpanded?: boolean }) => {
-              const rowData = row.original as {
-                data: object[];
-              };
-              prepareRow(row);
+        <tbody {...getTableBodyProps()} ref={rootRef}>
+          {rows.map((row: Row<object> & { isExpanded?: boolean }) => {
+            const rowData = row.original as {
+              data: object[];
+            };
+            prepareRow(row);
            
-              return (
-                <React.Fragment key={row.getRowProps().key}>
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                      <td
-                        {...cell.getCellProps({
-                          style: {
-                            minWidth: cell.column.minWidth,
-                            width: cell.column.width,
-                          },
-                        })}
-                        className={cx(tdOpenClassName, {
-                          [styles.td_open]: row.isExpanded,
-                        })}
-                      >
-                        {cell.render('Cell') as ReactNode}
-                      </td>
-                    ))}
-                  </tr>
-                  {row.isExpanded && columnsExpanded && rowData?.data && (
+            return (
+              <React.Fragment key={row.getRowProps().key}>
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td
+                      {...cell.getCellProps({
+                        style: {
+                          minWidth: cell.column.minWidth,
+                          width: cell.column.width,
+                        },
+                      })}
+                      className={cx(tdOpenClassName, {
+                        [styles.td_open]: row.isExpanded,
+                      })}
+                    >
+                      {cell.render('Cell') as ReactNode}
+                    </td>
+                  ))}
+                </tr>
+                {row.isExpanded && columnsExpanded && rowData?.data && (
                   <tr>
                     <td
                       colSpan={row.cells.length}
@@ -180,11 +182,11 @@ export const Table: FC<TableProps> = memo(
                       {expandedChildren && expandedChildren(rowData)}
                     </td>
                   </tr>
-                  )}
-                </React.Fragment>
-              );
-            })}
-            {rows.length === 0 && (
+                )}
+              </React.Fragment>
+            );
+          })}
+          {rows.length === 0 && (
             <tr style={{ minHeight: '100%' }}>
               <td style={{ width: '100%', flexBasis: '100%' }}>
                 <div className={styles.noData}>
@@ -211,11 +213,18 @@ export const Table: FC<TableProps> = memo(
                 </div>
               </td>  
             </tr>
-            )}
-          </tbody>
-        </table>
-        {endElementForScroll}
-      </>
+          )}
+          
+          {isLoading && (
+            <tr style={{ minHeight: '100%' }}>
+              <td style={{ width: '100%', flexBasis: '100%' }}>
+                <Loader size={64} />
+              </td>  
+            </tr>
+          )}
+          {endElementForScroll}
+        </tbody>
+      </table>
     );
   },
 );

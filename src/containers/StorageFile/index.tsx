@@ -43,7 +43,10 @@ export const StorageFile = memo(() => {
 
   const initialGraphData = useMemo(
     () => {
-      const graphArr = isPublishGraph ? article?.graph : article?.graphDraft;
+      // eslint-disable-next-line no-nested-ternary
+      const graphArr = isPublishGraph ? 
+        article?.graph : 
+        article?.graphDraft.length ? article?.graphDraft : article?.graph;
       return (article && graphArr) ? graphArr : [];
     },
     [article, isPublishGraph],
@@ -128,8 +131,7 @@ export const StorageFile = memo(() => {
   return (
     <>
       <div className="">
-        <PageHead props={{ title: <ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} /> }}> </PageHead>
-        
+        <PageHead title={<ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} />} />
       </div>
       <div className={cx(styles.storageFile__container, {
         [styles.fullScreenGraph]: isFullscreen,
@@ -170,6 +172,7 @@ export const StorageFile = memo(() => {
           isOwner={isOwner}
           topCoreEntities={article?.topCoreEntities || '-'}
           setNodesLabelWithoutEdges={setNodesLabelWithoutEdges}
+          isPublished={article?.isPublished}
         />
       </div>
     </>

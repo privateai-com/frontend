@@ -100,27 +100,26 @@ export const Storage = () => {
         )}
       </div>
       )}
-      <PageHead props={{
-        title: 'My storage',
-        btnWrap: !isMobile && (
-        <Link
-          className={styles.buttonUpload}
-          href={routes.uploadActivity.root}
-          type="button"
-        >
-          {/* <Image 
-                src={plusIcon} 
-                alt="icon plus" 
-                width={20} 
-                height={20} 
-                className={styles.icon} 
-              />  */}
-          <span className={styles.buttonTitle}>
-            Upload new file
-          </span>
-        </Link>
-        ),
-      }}
+      <PageHead
+        title="My storage"
+        btnWrap={!isMobile && (
+          <Link
+            className={styles.buttonUpload}
+            href={routes.uploadActivity.root}
+            type="button"
+          >
+            {/* <Image 
+                  src={plusIcon} 
+                  alt="icon plus" 
+                  width={20} 
+                  height={20} 
+                  className={styles.icon} 
+                />  */}
+            <span className={styles.buttonTitle}>
+              Upload new file
+            </span>
+          </Link>
+        )}
       >
         <div className={cx(styles.storage__head_buttons)}>
           <button

@@ -13,7 +13,7 @@ import {
   Requester,
 } from 'components';
 import { Article, RequestStatus } from 'types';
-import { articleSetFetchingStatus, articlesPublish, articlesSetState } from 'store/articles/actionCreators';
+import { articlesPublish, articlesSetState } from 'store/articles/actionCreators';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestCreate } from 'store/request/actionCreators';
@@ -179,7 +179,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
     if (article) {
       const { id } = article;
       if (id) {
-        dispatch(articleSetFetchingStatus({ status: true }));
+        // dispatch(articleSetFetchingStatus({ status: true }));
         dispatch(articlesPublish({ articleId: id, isPublished: true, callback: () => {} }));
       }
     }

@@ -106,6 +106,23 @@ variables:
     - git merge $CI_COMMIT_REF_NAME
     - git push origin stage
 
+.merge_to_prod:
+  stage: post_actions
+  image: $IMAGE_MERGER
+  script:
+    - export PUSH_REPO=$(echo "$CI_REPOSITORY_URL" | sed -e "s|.*@\(.*\)|git@\1|" -e "s|/|:/|" )
+    - git remote set-url origin $PUSH_REPO
+    - git clone $PUSH_REPO
+    - cd $CI_PROJECT_NAME
+    - git checkout $CI_COMMIT_REF_NAME
+    - git pull
+    - git checkout prod
+    - git fetch --all
+    - git pull
+    - git reset --hard origin/prod
+    - git merge $CI_COMMIT_REF_NAME
+    - git push origin prod
+
 # build
 Build and publish:
   extends:
@@ -123,6 +140,10 @@ Build and publish:
     - if: '$CI_COMMIT_REF_NAME == "stage"'
       variables:
         SERVER_VARIABLE: $STAGE_SERVER_IP
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "prod"'
+      variables:
+        SERVER_VARIABLE: $PROD_SERVER_IP
       when: on_success
 
 # deploy
@@ -142,6 +163,10 @@ Deploy:
     - if: '$CI_COMMIT_REF_NAME == "stage"'
       variables:
         SERVER_VARIABLE: $STAGE_SERVER_IP
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME == "prod"'
+      variables:
+        SERVER_VARIABLE: $PROD_SERVER_IP
       when: manual
   needs:
     - job: Build and publish
@@ -166,6 +191,10 @@ Get logs:
       variables:
         SERVER_VARIABLE: $STAGE_SERVER_IP
       when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "prod"'
+      variables:
+        SERVER_VARIABLE: $PROD_SERVER_IP
+      when: on_success
   allow_failure: true
   needs:
     - job: Deploy
@@ -187,5 +216,15 @@ Deploy to stage:
     - .merge_to_stage
   rules:
     - if: '$CI_COMMIT_REF_NAME == "develop"'
+      when: manual
+  needs: []
+
+Deploy to prod:
+  extends:
+    - .deploy_prepare
+    - .before_merge
+    - .merge_to_prod
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "stage"'
       when: manual
   needs: []
