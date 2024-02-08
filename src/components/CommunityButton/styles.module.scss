@@ -33,6 +33,10 @@
 		}
 	}
 
+	&.dislikedPopular {
+		background-color: rgba($color-red, .15);
+	}
+
   &.dislike {
 		svg {
 			transform: scaleX(-1) rotate(180deg);
@@ -48,7 +52,6 @@
 
 		&.disliked {
 			border: 1px solid $color-red;
-			background-color: rgba($color-red, .15);
 
 			svg {
 				fill: $color-red;
@@ -62,10 +65,13 @@
 
 	&.liked {
     border: 1px solid $color-green;
-		background-color: rgba($color-green, .15);
 
 		svg {
 			fill: $color-green;
 		}
+	}
+
+	&.likedPopular {
+		background-color: rgba($color-green, .15);
 	}
 }

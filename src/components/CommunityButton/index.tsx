@@ -13,6 +13,7 @@ interface CommunityButtonProps {
   onClick: () => void;
   count?: number;
   isDislikeButton?: boolean;
+  isPopular?: boolean;
 }
 
 export const CommunityButton = memo<CommunityButtonProps>(({
@@ -23,6 +24,7 @@ export const CommunityButton = memo<CommunityButtonProps>(({
   onClick,
   count,
   isDislikeButton,
+  isPopular,
 }) => (
   <button
     className={cx(
@@ -32,6 +34,8 @@ export const CommunityButton = memo<CommunityButtonProps>(({
         [styles.liked]: isLiked,
         [styles.disliked]: isDisliked,
         [styles.dislike]: isDislikeButton,
+        [styles.likedPopular]: !isDislikeButton && isPopular,
+        [styles.dislikedPopular]: isDislikeButton && isPopular,
       },
     )}
     onClick={onClick}

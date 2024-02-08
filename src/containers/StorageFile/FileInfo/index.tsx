@@ -12,7 +12,7 @@ import {
   CommunityButton,
   Requester,
 } from 'components';
-import { Article, RequestStatus, StatusAccessArticle } from 'types';
+import { Article, RequestStatus } from 'types';
 import { articlesLike, articlesPublish, articlesSetState } from 'store/articles/actionCreators';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
@@ -23,8 +23,7 @@ import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import {
   getName,
-  getStatusAccessArticle,
-  // getStatusAccessArticle,
+  isArticlePopular,
   normalizeUserInfo,
   notification,
 } from 'utils';
@@ -62,7 +61,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
   );
   const isVipUser = useVipUser();
   const [isDisabledRequest, setIsDisabledRequest] = useState(false);
-  const status = article ? getStatusAccessArticle(article) : '';
+  // const status = article ? getStatusAccessArticle(article) : '';
 
   const [showRequester, hideRequester] = useModal(
     () => {
@@ -436,22 +435,24 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                       isLiked={article?.liked}
                       onClick={() => onCommunityClick(false)}
                       count={article?.likesCount}
-                      isDisabled={
-                        ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                          .includes(status as StatusAccessArticle) ||
-                        isVipUser
-                      }
+                      // isDisabled={
+                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                      //     .includes(status as StatusAccessArticle) ||
+                      //   isVipUser
+                      // }
+                      isPopular={isArticlePopular(article?.likesCount, article?.dislikesCount)}
                     />
                     <CommunityButton
                       isDisliked={article?.disliked}
                       onClick={() => onCommunityClick(true)}
                       count={article?.dislikesCount}
                       isDislikeButton
-                      isDisabled={
-                        ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                          .includes(status as StatusAccessArticle) ||
-                        isVipUser
-                      }
+                      // isDisabled={
+                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                      //     .includes(status as StatusAccessArticle) ||
+                      //   isVipUser
+                      // }
+                      isPopular={isArticlePopular(article?.dislikesCount, article?.likesCount)}
                     />
                   </div>),
               }}
