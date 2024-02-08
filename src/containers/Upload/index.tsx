@@ -25,6 +25,7 @@ import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { notification } from 'utils';
 import { PageHead } from 'components/PageHead';
+// import { ButtonTransparent } from 'components/ButtonTransparent';
 import Link from 'next/link';
 import { defaultArticle } from './constants';
 

@@ -33,7 +33,6 @@ export const DragNDropFullPage: FC<DragNDropProps> = ({
         toast.error('Only TXT, DOCX and PDF.');
         return setDoc(null);
       }
-
       setDoc(file ? file[0] : null);
       if(onConfirmClick) {
         onConfirmClick(file ? file[0] : null);

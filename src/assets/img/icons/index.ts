@@ -38,6 +38,8 @@ export { default as logoIcon } from './logo.svg';
 export { default as helpCircleIcon } from './helpCircle.svg';
 export { default as xSquareIcon } from './xSquare.svg';
 export { default as fullscreenIcon } from './fullscreenIcon.svg';
+export { default as LikeIcon } from './likeIcon';
+export { default as LikeFilledIcon } from './likeFilledIcon';
 export { default as docs } from './docs.svg';
 export { default as star } from './star.svg';
 

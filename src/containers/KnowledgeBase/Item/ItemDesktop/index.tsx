@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Tooltip } from 'react-tooltip';
 import Link from 'next/link';
 
-import { SelectedText, Typography } from 'components';
+import { CommunityButton, SelectedText, Typography } from 'components';
 import { formatDate } from 'utils';
 import { routes } from 'appConstants';
 import { StatusAccessArticle } from 'types';
@@ -23,6 +23,12 @@ type ItemMobileProps = {
   topCoreEntities?: string;
   isDisabled?: boolean;
   showAccessConfirm: () => void;
+  likesCount?: number;
+  dislikesCount?: number;
+  liked?: boolean;
+  disliked?: boolean;
+  onLike: () => void;
+  onDislike: () => void;
 };
 
 export const ItemDesktop: React.FC<ItemMobileProps> = ({
@@ -39,6 +45,12 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
   topCoreEntities,
   isDisabled,
   showAccessConfirm,
+  likesCount,
+  dislikesCount,
+  liked,
+  disliked,
+  onLike,
+  onDislike,
 }) => (
   <div className={styles.item}>
     <div className={styles.item_inner_col}>
@@ -90,7 +102,30 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
             )}
           </div>
         )}
-               
+
+        <div className={styles.community_wrapper}>
+          <CommunityButton
+            isLiked={liked}
+            onClick={onLike}
+            count={likesCount}
+            isDisabled={
+              ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                .includes(status as StatusAccessArticle) ||
+              isDisabled
+            }
+          />
+          <CommunityButton
+            isDisliked={disliked}
+            onClick={onDislike}
+            count={dislikesCount}
+            isDislikeButton
+            isDisabled={
+              ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                .includes(status as StatusAccessArticle) ||
+              isDisabled
+            }
+          />
+        </div>
       </div>
     </div>
     <div className={styles.item_inner_col}>
@@ -126,6 +161,29 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
       </button>
     </div>
     <div className={styles.item_inner_col}>
+      <div className={styles.community_wrapper}>
+        <CommunityButton
+          isLiked={liked}
+          onClick={onLike}
+          count={likesCount}
+          isDisabled={
+            ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+              .includes(status as StatusAccessArticle) ||
+            isDisabled
+          }
+        />
+        <CommunityButton
+          isDisliked={disliked}
+          onClick={onDislike}
+          count={dislikesCount}
+          isDislikeButton
+          isDisabled={
+            ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+              .includes(status as StatusAccessArticle) ||
+            isDisabled
+          }
+        />
+      </div>
       <div className={styles.requester_row}>
         {requester} 
         {/* Topic */}
@@ -154,7 +212,6 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
             )}
           </div>
         )}
-               
       </div>
     </div>
   </div>

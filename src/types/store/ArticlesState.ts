@@ -50,6 +50,16 @@ export type ArticleAccess = {
   isRequesterViewed?: boolean;
 };
 
+export type ArticleCommunityResponse = {
+  articleId: number;
+  likesCount: number;
+  dislikesCount: number;
+  liked: boolean;
+  disliked: boolean;
+  likedByUsers: number[];
+  dislikedByUsers: number[];
+};
+
 export type Article = {
   id: number;
   createdAt: string;
@@ -76,6 +86,12 @@ export type Article = {
   fileSize?: number;
   isPublished?: boolean;
   isHidden?: boolean;
+  likesCount?: number;
+  dislikesCount?: number;
+  liked?: boolean;
+  disliked?: boolean;
+  likedByUsers?: number[];
+  dislikedByUsers?: number[];
 };
 
 export enum SocketUploadArticleEvent {

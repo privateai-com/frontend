@@ -9,10 +9,11 @@ import { Tooltip } from 'react-tooltip';
 import {
   AccessConfirm,
   Button,
+  CommunityButton,
   Requester,
 } from 'components';
-import { Article, RequestStatus } from 'types';
-import { articlesPublish, articlesSetState } from 'store/articles/actionCreators';
+import { Article, RequestStatus, StatusAccessArticle } from 'types';
+import { articlesLike, articlesPublish, articlesSetState } from 'store/articles/actionCreators';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestCreate } from 'store/request/actionCreators';
@@ -22,6 +23,7 @@ import { profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import {
   getName,
+  getStatusAccessArticle,
   // getStatusAccessArticle,
   normalizeUserInfo,
   notification,
@@ -60,6 +62,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
   );
   const isVipUser = useVipUser();
   const [isDisabledRequest, setIsDisabledRequest] = useState(false);
+  const status = article ? getStatusAccessArticle(article) : '';
 
   const [showRequester, hideRequester] = useModal(
     () => {
@@ -183,6 +186,15 @@ export const FileInfo: FC<FileInfoProps> = memo(({
       }
     }
   }, [article, dispatch, isUserRequiredFieldsFilled]);
+
+  const onCommunityClick = useCallback((isDislike: boolean) => {
+    if (article) {
+      const { id } = article;
+      if (id) {
+        dispatch(articlesLike({ id, isDislike }));
+      }
+    }
+  }, [article, dispatch]);
 
   return (
     <>
@@ -415,6 +427,35 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               />
             </>
             )}
+            <InfoTableRow
+              props={{
+                title: 'Article community review',
+                info: (
+                  <div className={styles.storageFile_like_wrapper}>
+                    <CommunityButton
+                      isLiked={article?.liked}
+                      onClick={() => onCommunityClick(false)}
+                      count={article?.likesCount}
+                      isDisabled={
+                        ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                          .includes(status as StatusAccessArticle) ||
+                        isVipUser
+                      }
+                    />
+                    <CommunityButton
+                      isDisliked={article?.disliked}
+                      onClick={() => onCommunityClick(true)}
+                      count={article?.dislikesCount}
+                      isDislikeButton
+                      isDisabled={
+                        ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                          .includes(status as StatusAccessArticle) ||
+                        isVipUser
+                      }
+                    />
+                  </div>),
+              }}
+            />
           </div>
         </div> 
       </div>
