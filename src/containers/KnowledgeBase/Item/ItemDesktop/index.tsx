@@ -3,7 +3,7 @@ import { Tooltip } from 'react-tooltip';
 import Link from 'next/link';
 
 import { CommunityButton, SelectedText, Typography } from 'components';
-import { formatDate } from 'utils';
+import { formatDate, isArticlePopular } from 'utils';
 import { routes } from 'appConstants';
 import { StatusAccessArticle } from 'types';
 
@@ -108,22 +108,24 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
             isLiked={liked}
             onClick={onLike}
             count={likesCount}
-            isDisabled={
-              ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                .includes(status as StatusAccessArticle) ||
-              isDisabled
-            }
+            // isDisabled={
+            //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+            //     .includes(status as StatusAccessArticle) ||
+            //   isDisabled
+            // }
+            isPopular={isArticlePopular(likesCount, dislikesCount)}
           />
           <CommunityButton
             isDisliked={disliked}
             onClick={onDislike}
             count={dislikesCount}
             isDislikeButton
-            isDisabled={
-              ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                .includes(status as StatusAccessArticle) ||
-              isDisabled
-            }
+            // isDisabled={
+            //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+            //     .includes(status as StatusAccessArticle) ||
+            //   isDisabled
+            // }
+            isPopular={isArticlePopular(dislikesCount, likesCount)}
           />
         </div>
       </div>
@@ -166,22 +168,24 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
           isLiked={liked}
           onClick={onLike}
           count={likesCount}
-          isDisabled={
-            ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-              .includes(status as StatusAccessArticle) ||
-            isDisabled
-          }
+            // isDisabled={
+            //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+            //     .includes(status as StatusAccessArticle) ||
+            //   isDisabled
+            // }
+          isPopular={isArticlePopular(likesCount, dislikesCount)}
         />
         <CommunityButton
           isDisliked={disliked}
           onClick={onDislike}
           count={dislikesCount}
           isDislikeButton
-          isDisabled={
-            ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-              .includes(status as StatusAccessArticle) ||
-            isDisabled
-          }
+            // isDisabled={
+            //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+            //     .includes(status as StatusAccessArticle) ||
+            //   isDisabled
+            // }
+          isPopular={isArticlePopular(dislikesCount, likesCount)}
         />
       </div>
       <div className={styles.requester_row}>
