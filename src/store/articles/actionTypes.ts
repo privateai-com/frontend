@@ -24,4 +24,7 @@ export enum ArticlesActionTypes {
 
   GetArticleUploadStatus = 'ARTICLES.GET_ARTICLE_UPLOAD_STATUS',
   GetBonusPoints = 'ARTICLES.GET_BONUS_POINTS',
+
+  Like = 'ARTICLES.LIKE',
+  Dislike = 'ARTICLES.DISLIKE',
 }

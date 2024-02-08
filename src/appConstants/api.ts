@@ -31,6 +31,8 @@ export enum ApiEndpoint {
   ArticlesCancelUpload = '/articles/hide-article-from-upload',
   ArticlesPublishArticle = '/articles/publish',
   ArticlesUploadStatus = '/uploadStatusUpdate',
+  ArticlesLike = '/articles/like',
+  ArticlesDislike = '/articles/dislike',
   
   GraphSave = '/graph/save',
 

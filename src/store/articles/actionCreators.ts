@@ -158,3 +158,14 @@ export const articlesCancelUploadFetch = (
 export const articlesGetBonusPoints = () => ({
   type: ArticlesActionTypes.GetBonusPoints,
 });
+
+export const articlesLike = (
+  payload: {
+    id: number;
+    isKnowledgeBase?: boolean;
+    isDislike?: boolean;
+  },
+) => ({
+  type: ArticlesActionTypes.Like,
+  payload,
+});

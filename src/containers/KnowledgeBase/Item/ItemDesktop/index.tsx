@@ -23,6 +23,12 @@ type ItemMobileProps = {
   topCoreEntities?: string;
   isDisabled?: boolean;
   showAccessConfirm: () => void;
+  likesCount?: number;
+  dislikesCount?: number;
+  liked?: boolean;
+  disliked?: boolean;
+  onLike: () => void;
+  onDislike: () => void;
 };
 
 export const ItemDesktop: React.FC<ItemMobileProps> = ({
@@ -39,6 +45,12 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
   topCoreEntities,
   isDisabled,
   showAccessConfirm,
+  likesCount,
+  dislikesCount,
+  liked,
+  disliked,
+  onLike,
+  onDislike,
 }) => (
   <div className={styles.item}>
     <div className={styles.item_inner_col}>
@@ -93,15 +105,25 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
 
         <div className={styles.community_wrapper}>
           <CommunityButton
-            isLiked={undefined}
-            onClick={() => {}}
-            count={100}
+            isLiked={liked}
+            onClick={onLike}
+            count={likesCount}
+            isDisabled={
+              ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                .includes(status as StatusAccessArticle) ||
+              isDisabled
+            }
           />
           <CommunityButton
-            isDisliked={undefined}
-            onClick={() => {}}
-            count={300}
+            isDisliked={disliked}
+            onClick={onDislike}
+            count={dislikesCount}
             isDislikeButton
+            isDisabled={
+              ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                .includes(status as StatusAccessArticle) ||
+              isDisabled
+            }
           />
         </div>
       </div>
@@ -141,15 +163,25 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
     <div className={styles.item_inner_col}>
       <div className={styles.community_wrapper}>
         <CommunityButton
-          isLiked={undefined}
-          onClick={() => {}}
-          count={100}
+          isLiked={liked}
+          onClick={onLike}
+          count={likesCount}
+          isDisabled={
+            ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+              .includes(status as StatusAccessArticle) ||
+            isDisabled
+          }
         />
         <CommunityButton
-          isDisliked={undefined}
-          onClick={() => {}}
-          count={300}
+          isDisliked={disliked}
+          onClick={onDislike}
+          count={dislikesCount}
           isDislikeButton
+          isDisabled={
+            ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+              .includes(status as StatusAccessArticle) ||
+            isDisabled
+          }
         />
       </div>
       <div className={styles.requester_row}>

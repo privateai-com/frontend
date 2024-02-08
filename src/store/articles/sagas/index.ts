@@ -13,6 +13,7 @@ import { articlesSocketUploadStatusSaga } from './uploadStatusArticle';
 import { articlesSearchSaga } from './search';
 import { articlesCancelUploadSaga } from './cancelUpload';
 import { articlesGetBonusPointsSaga } from './getBonusPoints';
+import { articlesLikeSaga } from './like';
 
 export default function* articlesSaga() {
   yield takeEvery(ArticlesActionTypes.CreateArticle, articlesCreateSaga);
@@ -34,4 +35,5 @@ export default function* articlesSaga() {
   yield takeEvery(ArticlesActionTypes.SearchArticles, articlesSearchSaga);
   yield takeEvery(ArticlesActionTypes.CancelUpload, articlesCancelUploadSaga);
   yield takeEvery(ArticlesActionTypes.GetBonusPoints, articlesGetBonusPointsSaga);
+  yield takeEvery(ArticlesActionTypes.Like, articlesLikeSaga);
 }
