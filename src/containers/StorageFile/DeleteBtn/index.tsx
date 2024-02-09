@@ -8,6 +8,7 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import { useRouter } from 'next/router';
 import { routes } from 'appConstants';
+import { profileGetProfile } from 'store/profile/actionCreators';
 
 interface DeleteBtnProps {
   className?: string;
@@ -36,6 +37,7 @@ export const DeleteBtn: FC<DeleteBtnProps> = ({
             articleId,
             isPublished: !!isPublished,
             callback: () => {
+              dispatch(profileGetProfile());
               hideModal();
               router.push(routes.storage.root);
             }, 

@@ -33,6 +33,7 @@ export interface AccountInfo {
   avatarUrl?: string,
   userFilledAllInfo?: boolean,
   bonusCount?: number,
+  articlesCount?: number,
 }
 
 export enum NotificationType {

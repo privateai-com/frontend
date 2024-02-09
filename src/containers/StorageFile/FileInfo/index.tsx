@@ -19,7 +19,7 @@ import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestCreate } from 'store/request/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { profileGetProfileUser } from 'store/profile/actionCreators';
+import { profileGetProfile, profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import {
   getName,
@@ -181,7 +181,11 @@ export const FileInfo: FC<FileInfoProps> = memo(({
       const { id } = article;
       if (id) {
         // dispatch(articleSetFetchingStatus({ status: true }));
-        dispatch(articlesPublish({ articleId: id, isPublished: true, callback: () => {} }));
+        dispatch(articlesPublish({
+          articleId: id,
+          isPublished: true,
+          callback: () => dispatch(profileGetProfile()),
+        }));
       }
     }
   }, [article, dispatch, isUserRequiredFieldsFilled]);

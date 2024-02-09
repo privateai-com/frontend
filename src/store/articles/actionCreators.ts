@@ -155,10 +155,6 @@ export const articlesCancelUploadFetch = (
   payload,
 });
 
-export const articlesGetBonusPoints = () => ({
-  type: ArticlesActionTypes.GetBonusPoints,
-});
-
 export const articlesLike = (
   payload: {
     id: number;

@@ -1,29 +1,21 @@
-import React, { useEffect, memo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 import Image from 'next/image';
 
 import { docs, star } from 'assets';
-
-import { articlesSelectors } from 'store/articles/selectors';
-import { articlesGetBonusPoints } from 'store/articles/actionCreators';
-import { State } from 'types';
+import { profileSelectors } from 'store/profile/selectors';
 
 import styles from './styles.module.scss';
 
 export const BonusPointsManager = memo(() => {
-  const dispatch = useDispatch();
-  const ratingPoints = useSelector(({ articles }: State) => articles.ratingPoints);
-  const docsCount = useSelector(articlesSelectors.getProp('docsCount'));
-
-  useEffect(() => {
-    dispatch(articlesGetBonusPoints());
-  }, [dispatch]);
+  const bonusCount = useSelector(profileSelectors.getPropAccountInfo('bonusCount'));
+  const articlesCount = useSelector(profileSelectors.getPropAccountInfo('articlesCount'));
 
   return (
     <div className={styles.experienceWrapper}>
       <div className={styles.experienceRow}>
         <span className={styles.experineceSpan}>
-          {ratingPoints}
+          {bonusCount}
         </span>
         <div className={styles.experienceRowImgWrap}>
           <Image width={20} height={20} className={`${styles.headerIcon} ${styles.iconStar}`} src={star.src} alt="rating star" />
@@ -36,7 +28,7 @@ export const BonusPointsManager = memo(() => {
 
       <div className={styles.experienceRow}>
         <span className={styles.experineceSpan}>
-          {docsCount === 0 ? '-' : docsCount}
+          {articlesCount === 0 ? '-' : articlesCount}
         </span>
         <div className={styles.experienceRowImgWrap}>
           <Image width={20} height={20} className={`${styles.headerIcon} ${styles.iconDoc}`} src={docs.src} alt="rating doc" />

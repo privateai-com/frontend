@@ -5,7 +5,7 @@ import { RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
 import { 
-  articlesPublish, articlesSetStatus, articlesGetOneArticle, articlesGetBonusPoints,
+  articlesPublish, articlesSetStatus, articlesGetOneArticle,
 } from 'store/articles/actionCreators';
 
 export function* articlesPublishSaga({
@@ -29,10 +29,6 @@ export function* articlesPublishSaga({
     }));
     
     if(payload.callback) payload.callback();
-
-    // TEMP: This code should be removed after refactoring
-    yield put(articlesGetBonusPoints());
-    // ---
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

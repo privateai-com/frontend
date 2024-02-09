@@ -7,6 +7,8 @@ import { articlesDelete } from 'store/articles/actionCreators';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ReactNode } from 'react';
+import { profileGetProfile } from 'store/profile/actionCreators';
+
 import styles from './styles.module.scss';
 
 interface DeleteBtnProps {
@@ -32,6 +34,7 @@ export const DeleteBtn = ({ id, isPublished, children }: DeleteBtnProps) => {
             articleId: id,
             isPublished: !!isPublished,
             callback: () => {
+              dispatch(profileGetProfile());
               hideModal();
             }, 
           }));

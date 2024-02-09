@@ -11,8 +11,9 @@ import { RequestStatus, SortingDirection } from 'types';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesGetMy, articlesPublish } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
-
+import { profileGetProfile } from 'store/profile/actionCreators';
 import { useColumns } from './columns';
+
 import styles from './styles.module.scss';
 
 const itemsMobile = [
@@ -73,6 +74,7 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
             isPublished: true,
             callback: () => {
               setOffset(() => Number(0));
+              dispatch(profileGetProfile());
             }, 
           }));
         }
