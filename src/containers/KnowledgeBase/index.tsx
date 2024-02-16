@@ -89,10 +89,7 @@ export const KnowledgeBase: React.FC = () => {
 
   return (
     <div className={styles.knowledge}>
-      <PageHead props={{
-        title: 'Knowledge base',
-      }}
-      />
+      <PageHead title="Knowledge base" />
       <div className={styles.items}>
         <div className={styles.items_wrapper}>
           <TableHead 
@@ -108,10 +105,8 @@ export const KnowledgeBase: React.FC = () => {
                   isDisabled={isVipUser}
                   search={search as string}
                   isMobile={false}
-                  // isMobile={isMobile}
                 />
               ))}
-              
               { 
               (!articles || articles.length === 0) && !isLoading && (
                 <div className={styles.noData}>
@@ -130,9 +125,9 @@ export const KnowledgeBase: React.FC = () => {
                     <Link href="/knowledge">Knowledge base</Link>
                     {' '}
                     and feel free to upload your research data in the 
-                    "
+                    &quot;
                     <Link href="/storage">My storage</Link>
-                    " section to discover more features.
+                    &quot; section to discover more features.
                   </p>
             
                 </div>

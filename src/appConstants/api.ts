@@ -10,6 +10,7 @@ export enum ApiEndpoint {
   AuthConfirmEmail = '/verification/confirm-register',
   AuthResendCodeRegister = '/verification/resend-code-register',
   AuthSendCodeResetPassword = '/verification/send-code-reset-password',
+  AuthRequestResetPassword = '/verification/request-reset-password',
   AuthConfirmResetPassword = '/verification/confirm-reset-password',
 
   ProfileAddWallet = '/profile/add-wallet',
@@ -30,6 +31,8 @@ export enum ApiEndpoint {
   ArticlesCancelUpload = '/articles/hide-article-from-upload',
   ArticlesPublishArticle = '/articles/publish',
   ArticlesUploadStatus = '/uploadStatusUpdate',
+  ArticlesLike = '/articles/like',
+  ArticlesDislike = '/articles/dislike',
   
   GraphSave = '/graph/save',
 

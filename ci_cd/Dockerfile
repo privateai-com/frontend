@@ -9,7 +9,7 @@ RUN yarn install
 
 COPY . .
 
-RUN if [ "$CI_COMMIT_REF_NAME" == "develop" ] || [ "$CI_COMMIT_REF_NAME" == "stage" ]; then yarn build:$CI_COMMIT_REF_NAME; else yarn build:develop; fi
+RUN if [ "$CI_COMMIT_REF_NAME" == "develop" ] || [ "$CI_COMMIT_REF_NAME" == "stage" ] || [ "$CI_COMMIT_REF_NAME" == "prod" ]; then yarn build:$CI_COMMIT_REF_NAME; else yarn build:develop; fi
 
                                     
 FROM $IMAGE_DOCKER as executor

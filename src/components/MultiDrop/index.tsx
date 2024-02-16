@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 interface MultiDropProps {
   props: {
     // eslint-disable-next-line 
-    btnList?: Array<any>;
+    btnList?: any[];
     btnContent?: string | React.ReactNode;
     isCustom?: boolean;
     isSelect?: boolean;
@@ -48,6 +48,8 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
   //     top = false,
   //   } = props;
 
+  const [list, setList] = useState<ReactNode[] >([]);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // const [selectName , setSelectName] = useState('Not mentioned')
@@ -58,6 +60,18 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
   const toggleFunction = () => {
     setOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    if(list !== btnList && btnList.length !== 0) {
+      const arrInner:Array<ReactNode> = []
+      btnList.forEach((btn) => {
+        if(btn) {
+          arrInner.push(btn);
+        }
+      });
+      setList(arrInner);
+    }
+  }, [btnList]);
 
   // useEffect(()=>{
   //     if(isSelect){
@@ -117,11 +131,11 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
         <div className={styles.multiDrop_dropdown_wrap}>
           <ul className={styles.multiDrop_dropdown_list}>
             {/* eslint-disable-next-line */}
-            {btnList.map((btn: any) => (
+            {btnList.map((btn: any) => btn ? (
               <li key={`btn-${btn}`} className={styles.multiDrop_dropdown_list_item}>
                 {btn}
               </li>
-            ))}
+            ) : null)}
           </ul>
         </div>
         )}
@@ -206,8 +220,8 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
       <div className={cx(styles.multiDrop_dropdown_wrap, top && styles.top)}>
         <ul className={styles.multiDrop_dropdown_list}>
           {/* eslint-disable-next-line */}
-          {btnList.map((btn: any) => (
-            <li key={`btn-${btn}`} className={styles.multiDrop_dropdown_list_item}>
+          {list.map((btn,i: any) => (
+            <li key={`btn-${i}`} className={styles.multiDrop_dropdown_list_item}>
               {btn}
             </li>
           ))}

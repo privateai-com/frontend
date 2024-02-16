@@ -38,6 +38,10 @@ export { default as logoIcon } from './logo.svg';
 export { default as helpCircleIcon } from './helpCircle.svg';
 export { default as xSquareIcon } from './xSquare.svg';
 export { default as fullscreenIcon } from './fullscreenIcon.svg';
+export { default as LikeIcon } from './likeIcon';
+export { default as LikeFilledIcon } from './likeFilledIcon';
+export { default as docs } from './docs.svg';
+export { default as star } from './star.svg';
 
 export { default as bg1 } from './bg1.svg';
 export { default as bg2 } from './bg2.svg';
@@ -53,3 +57,4 @@ export { default as chevronArrowIcons } from './chevronArrowsIcon.svg';
 export { default as plusIcon } from './plus.svg';
 export { default as closeNotifyIcon } from './closeNotify.svg';
 export { default as arrowNotifyIcon } from './arrowNotify.svg';
+export { default as logoPrivateAI } from './logoPrivateAI.svg';

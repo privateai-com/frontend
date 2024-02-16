@@ -4,6 +4,7 @@ import cx from 'classnames';
 
 import { MenuBtn } from 'components/MenuBtn';
 import { CookieAccept } from 'components/CookieAccept';
+import { useRouter } from 'next/router';
 import { Navigation } from './Navigation';
 
 import styles from './styles.module.scss';
@@ -52,40 +53,44 @@ export const Layout: FC<Props> = ({
   className = '',
   mainClassName = '',
   header,
-}) => (
-  <>
-    <Head>
-      {title &&
+}) => {
+  const path = useRouter().asPath;
+  return (
+    <>
+      <Head>
+        {title &&
         (<title>{title}</title>)}
-      {meta &&
+        {meta &&
         (<meta name={meta.name} content={meta.content} />)}
-      {link &&
+        {link &&
         (<link rel={link.rel} href={link.href} />)}
-    </Head>
-    <div 
-      className={cx(
-        styles.page_container, 
-        className, 
-      )}
-    >
-     
-      {header && (
-      <IntermediateComponent>
-        {header}
-      </IntermediateComponent>
-      )}
-      {/* <Navigation isActive={true} setActive={()=>{}} /> */}
-
-      {/* {header} */}
-      <main 
+      </Head>
+      <div 
         className={cx(
-          styles.page__main, 
-          mainClassName, 
+          styles.page_container, 
+          className, 
         )}
       >
-        {children}
-      </main>
-      <CookieAccept />
-    </div>
-  </>
-);
+     
+        {header && (
+        <IntermediateComponent>
+          {header}
+        </IntermediateComponent>
+        )}
+        {/* <Navigation isActive={true} setActive={()=>{}} /> */}
+
+        {/* {header} */}
+        <main 
+          className={cx(
+            styles.page__main, 
+            mainClassName,
+            path && path === '/profile' && styles.page__profile,
+          )}
+        >
+          {children}
+        </main>
+        <CookieAccept />
+      </div>
+    </>
+  );
+};

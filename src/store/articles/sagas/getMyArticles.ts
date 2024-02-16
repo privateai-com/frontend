@@ -5,7 +5,6 @@ import { Article, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi, getApiQueries } from 'api';  
 import {
-  articleSetFetchingStatus,
   articlesGetMy,
   articlesSetState,
   articlesSetStatus,
@@ -40,11 +39,8 @@ export function* articlesGetMySaga({
     }));
 
     yield put(articlesSetStatus({ type, status: RequestStatus.SUCCESS }));
-    yield put(articleSetFetchingStatus({ status: false }));
   } catch (e) {
     sagaExceptionHandler(e);
-    
     yield put(articlesSetStatus({ type, status: RequestStatus.ERROR }));
-    yield put(articleSetFetchingStatus({ status: false }));
   }
 }

@@ -20,6 +20,7 @@ type AdaptivePaginationTableProps = {
   itemsMobile: ItemMobile[];
   pagination?: PaginationForHook;
   classNameMobile?: string;
+  isLoading: boolean;
 };
 
 export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = ({
@@ -27,6 +28,7 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
   columns,
   classNameTableContainer,
   pagination,
+  isLoading,
 }) => 
 // if (isMobile) {
 //   return(
@@ -46,5 +48,6 @@ export const AdaptivePaginationTable: React.FC<AdaptivePaginationTableProps> = (
       data={content}
       className={cx(styles.table, classNameTableContainer)}
       pagination={pagination}
+      isLoading={isLoading}
     />
   );

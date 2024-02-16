@@ -153,6 +153,12 @@
   .link{
     display: flex;
     column-gap: 15px;
+	color: #0F0F0F;
+	font-weight: 500;
+	text-decoration:none;
+		&:hover{
+			color: rgba(70, 89, 254, 0.7019607843)
+		}
 		span{
 			// display: -webkit-box;
 			text-overflow: ellipsis;

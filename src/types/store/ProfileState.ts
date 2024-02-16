@@ -32,6 +32,8 @@ export interface AccountInfo {
   researchFields?: string,
   avatarUrl?: string,
   userFilledAllInfo?: boolean,
+  bonusCount?: number,
+  articlesCount?: number,
 }
 
 export enum NotificationType {

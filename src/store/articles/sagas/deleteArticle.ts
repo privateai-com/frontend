@@ -4,7 +4,11 @@ import { sagaExceptionHandler } from 'utils';
 import { Pagination, RequestStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
-import { articlesDelete, articlesSetStatus, articlesGetMy } from 'store/articles/actionCreators';
+import {
+  articlesDelete,
+  articlesSetStatus,
+  articlesGetMy,
+} from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 
 export function* articlesDeleteArticleSaga({

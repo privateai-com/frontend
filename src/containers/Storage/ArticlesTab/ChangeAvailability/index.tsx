@@ -1,8 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { RadioButtons } from 'components';
 import { articlesChangeAccess } from 'store/articles/actionCreators';
 import { MultiDrop } from 'components/MultiDrop';
+import { useScreenWidth } from 'hooks';
+import { ScreenWidth } from 'appConstants';
 // import styles from './styles.module.scss';
 
 export const ChangeAvailability = ({
@@ -17,10 +19,15 @@ export const ChangeAvailability = ({
   callBack?: Function;
 }) => {
   const dispatch = useDispatch();
+  const isMobile = useScreenWidth(ScreenWidth.mobile);
 
   const [value, setValue] = useState(
     isPublic ? 'open' : ('closed' as 'open' | 'closed'),
   );
+
+  useEffect(() => {
+    setValue(isPublic ? 'open' : ('closed' as 'open' | 'closed'));
+  }, [isPublic]);
 
   const onChangeAvailabilityClick = (e: 'open' | 'closed') => {
     const isOpen = e === 'open';
@@ -64,7 +71,7 @@ export const ChangeAvailability = ({
 
     <MultiDrop props={{ 
       isSelect: true,
-      fullValue: hasFullValue,
+      fullValue: !isMobile ? hasFullValue : false,
       selectValue: value,
       selectOptions: [
         {

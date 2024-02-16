@@ -1,21 +1,33 @@
-import { FC, useCallback, useState } from 'react';
+import {
+  FC, FormEvent, useCallback, useState, 
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   AuthWrapper, Button, TextInput, Typography, 
 } from 'components';
 import { passwordConfirmValidator, passwordValidator } from 'utils';
+import { AuthErrorTransformResult, RequestStatus } from 'types';
+import { authRequestResetPassword } from 'store/auth/actionCreators';
+import { authSelectors } from 'store/auth/selectors';
+import { AuthActionTypes } from 'store/auth/actionTypes';
 
 import styles from './styles.module.scss';
 
 interface NewPasswordProps {
-  isLoading: boolean;
-  onConfirm: (password: string) => void;
+  onSuccess: () => void;
+  onBack: () => void;
 }
 
-export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
+export const NewPassword: FC<NewPasswordProps> = ({
+  onSuccess,
+  onBack,
+}) => {
+  const dispatch = useDispatch();
+  const statusChangePassword =
+    useSelector(authSelectors.getStatus(AuthActionTypes.ChangePassword));
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  
   const [passwordError, setPasswordError] = useState('');
 
   const isNotError =
@@ -23,7 +35,12 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
     password &&
     passwordConfirm;
 
-  const onConfirmClick = useCallback(() => {
+  const errorCallback = useCallback((error: AuthErrorTransformResult) => {
+    if (error.fields.password) setPasswordError(error.fields.password);
+  }, [setPasswordError]);
+
+  const onConfirmClick = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const currentPasswordError = passwordValidator(password);
     setPasswordError(currentPasswordError);
     const passwordConfirmError = passwordConfirmValidator(
@@ -38,23 +55,27 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
       || passwordConfirmError;
 
     if (!isError) {
-      onConfirm(password);
+      dispatch(authRequestResetPassword({
+        password,
+        successCallback: onSuccess,
+        errorCallback,
+      }));
     }
-  }, [password, passwordError, passwordConfirm, onConfirm]);
+  }, [dispatch, errorCallback, onSuccess, password, passwordConfirm, passwordError]);
 
   const onPasswordChange = useCallback((value: string) => {
     setPasswordError('');
     setPassword(value.trim());
-  }, []);
+  }, [setPasswordError]);
 
   const onConfirmPasswordChange = useCallback((value: string) => {
     setPasswordError('');
-    setPasswordConfirm(value);
-  }, []);
+    setPasswordConfirm(value.trim());
+  }, [setPasswordError]);
 
   return (
-    <AuthWrapper>
-      <form className={styles.new_password__container}>
+    <AuthWrapper onClickBack={onBack}>
+      <form className={styles.new_password__container} onSubmit={onConfirmClick}>
         <div className={styles.new_password__head}>
           <Typography
             type="h4"
@@ -91,11 +112,10 @@ export const NewPassword: FC<NewPasswordProps> = ({ onConfirm, isLoading }) => {
           </div>
         )}
         <Button
-          onClick={onConfirmClick}
           className={styles.button}
           disabled={!isNotError}
           type="submit"
-          isLoading={isLoading}
+          isLoading={statusChangePassword === RequestStatus.REQUEST}
         >
           Confirm
         </Button>

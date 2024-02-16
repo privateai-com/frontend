@@ -9,16 +9,13 @@ import { authSelectors } from '../selectors';
 
 export function* authChangePasswordSaga({
   type,
-  payload: { password, successCallback, errorCallback },
+  payload: { verificationCode, successCallback, errorCallback },
 }: ReturnType<typeof authChangePassword>) {
   try {
     yield put(authSetStatus({ type, status: RequestStatus.REQUEST }));
 
     const email: AuthState['email'] = yield select(
       authSelectors.getProp('email'),
-    );
-    const verificationCode: AuthState['verificationCode'] = yield select(
-      authSelectors.getProp('verificationCode'),
     );
 
     yield call(callApi, {
@@ -27,7 +24,6 @@ export function* authChangePasswordSaga({
       payload: {
         email,
         verificationCode,
-        password,
       },
     });
 

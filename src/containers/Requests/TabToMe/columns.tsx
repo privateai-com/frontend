@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { Button } from 'components';
 import { RequestCell } from 'containers';
 import { ItemRowProps, RequestStatus } from 'types';
-import { ScreenWidth, routes } from 'appConstants';
-import { useScreenWidth } from 'hooks';
+import { routes } from 'appConstants';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { requestAnswer } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
@@ -21,7 +20,7 @@ export const useColumns = ({
   onToggleDirection: () => void,
 }) => {
   const dispatch = useDispatch();
-  const isNotebook1280 = useScreenWidth(ScreenWidth.notebook1280); 
+  // const isNotebook1280 = useScreenWidth(ScreenWidth.notebook1280); 
 
   const [activeRequestId, setActiveRequestId] = useState(0);
   const [isProvided, setIsProvided] = useState(false);
@@ -169,7 +168,8 @@ export const useColumns = ({
           ),
       },
     ],
-    [activeRequestId, handleDecline, handleProvide, isNotebook1280, 
-      isProvided, onChangeSortingField, onToggleDirection, statusAnswer],
+    [
+      activeRequestId, handleDecline, handleProvide, isProvided,
+      onChangeSortingField, onToggleDirection, statusAnswer],
   );
 };

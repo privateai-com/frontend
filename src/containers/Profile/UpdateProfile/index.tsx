@@ -103,8 +103,8 @@ export const UpdateProfile: React.FC<UpdateProfileProps> = ({
       }),
     );
   }, [
-    callbackSuccess, dispatch, location, organization, position,
-    realName, researchFields, socialMediaLink, username,
+    callbackSuccess, dispatch, location, organization,
+    position, researchFields, socialMediaLink, username,
   ]);
 
   const isMobile = useScreenWidth(ScreenWidth.bigMobile); 
