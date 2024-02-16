@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  AdaptivePaginationTable, ButtonIcon, Loader, 
+  AdaptivePaginationTable, ButtonIcon, 
 } from 'components';
 import { RequestCell } from 'containers';
 import { itemsOnPageQuantity, queryTab, routes } from 'appConstants';
@@ -13,7 +13,7 @@ import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestGetMyRequests } from 'store/request/actionCreators';
 import { RequestStatus, SortingDirection } from 'types';
 import { convertTitleFile, getName } from 'utils';
-import cx from 'classnames';
+
 import { getStatusImg, getStatusStyle } from './utils';
 import { useColumns } from './columns';
 import styles from './styles.module.scss';
@@ -180,9 +180,11 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
           pagination={pagination}
           isMobile={isMobile}
           classNameMobile={styles.tableMobile}
+          isLoading={isLoading}
         />
       )}
-      {isLoading && (
+
+      {/* {isLoading && (
         <>
           <AdaptivePaginationTable
             columns={columns}
@@ -198,7 +200,7 @@ export const MyRequests = ({ isMobile }: { isMobile: boolean }) => {
             <Loader size={64} />
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 };

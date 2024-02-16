@@ -4,7 +4,7 @@ import { RefreshAccessTokensData, UpdatePayload } from 'types';
 
 import { SagaIterator } from 'redux-saga';
 import {
-  call, select, spawn, put, take, 
+  call, select, spawn, put, take,
 } from 'redux-saga/effects';
 
 import {
@@ -166,10 +166,10 @@ export function* callApi(options: {
       const res = yield call(
         axios.request,
         {
-          method: requestOptions.method, 
-          url, 
+          method: requestOptions.method,
+          url,
           data: requestOptions.body,
-          headers: requestOptions.headers, 
+          headers: requestOptions.headers,
           onUploadProgress: (p) => {
             if (callbackUploadStatus) {
               callbackUploadStatus(Math.ceil(100 * (p.loaded / p.total)));
@@ -181,10 +181,13 @@ export function* callApi(options: {
       if (callbackUploadStatus) callbackUploadStatus(100);
 
       return res;
-    } catch {
-      throw new ApiError('Error upload file', 500, 'error');
+    } catch (e: any) {
+      if (e?.response?.data?.statusCode === 410) {
+        throw new ApiError(e?.response?.data?.message, 410, 'error');
+      }
+      throw new ApiError('Upload file', 500, 'error');
     }
-  } 
+  }
 
   const response: Response = yield call(fetch, url, requestOptions);
 

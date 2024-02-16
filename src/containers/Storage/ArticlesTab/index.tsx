@@ -3,18 +3,17 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AdaptivePaginationTable, Loader } from 'components';
+import { AdaptivePaginationTable } from 'components';
 import { itemsOnPageQuantity } from 'appConstants';
 import { convertTitleFile, getStatusArticle } from 'utils';
 import { RequestStatus, SortingDirection } from 'types';
 
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { articleSetFetchingStatus, articlesGetMy, articlesPublish } from 'store/articles/actionCreators';
+import { articlesGetMy, articlesPublish } from 'store/articles/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
-
-import cx from 'classnames';
-
+import { profileGetProfile } from 'store/profile/actionCreators';
 import { useColumns } from './columns';
+
 import styles from './styles.module.scss';
 
 const itemsMobile = [
@@ -69,12 +68,22 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
       articles.forEach((article) => {
         const { id } = article;
         if (id && id === articleID) {
-          dispatch(articleSetFetchingStatus({ status: true }));
+          // dispatch(articleSetFetchingStatus({ status: true }));
           dispatch(articlesPublish({
             articleId: id,
             isPublished: true,
             callback: () => {
               setOffset(() => Number(0));
+              dispatch(profileGetProfile());
+              const payload = {
+                limit: itemsOnPageQuantityCurrent,
+                offset: offset * itemsOnPageQuantityCurrent,
+                sortingDirection: selectSortingDirection,
+                sortingField: selectSortingField,
+                doneStatus: true,
+                isHidden: false,
+              };
+              dispatch(articlesGetMy(payload));
             }, 
           }));
         }
@@ -129,27 +138,16 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
             itemsMobile={itemsMobile}
             isMobile={isMobile}
             classNameMobile={styles.tableMobile}
+            isLoading={isLoading}
           />
         )} 
       </div>
-      {isLoading && (
-        <>
-          <AdaptivePaginationTable
-            columns={columns}
-            content={[]}
-            classNameTableContainer={cx(styles.table, styles.emptyTable)}
-            pagination={pagination}
-            itemsMobile={itemsMobile}
-            isMobile={isMobile}
-            classNameMobile={styles.tableMobile}
-          />
-          
-          <div className={styles.containerLoader}>
-            <Loader size={64} />
-          </div>
-        </>
-       
-      )}
+    
+      {/* {isLoading && (
+        <div className={styles.containerLoader}>
+          <Loader size={64} />
+        </div>
+      )} */}
     </>
   );
 };

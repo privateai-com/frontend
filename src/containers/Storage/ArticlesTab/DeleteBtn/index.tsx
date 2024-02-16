@@ -7,9 +7,17 @@ import { articlesDelete } from 'store/articles/actionCreators';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ReactNode } from 'react';
+import { profileGetProfile } from 'store/profile/actionCreators';
+
 import styles from './styles.module.scss';
 
-export const DeleteBtn = ({ id, children }: { id: number, children? : ReactNode | string }) => {
+interface DeleteBtnProps {
+  id: number;
+  isPublished?: boolean;
+  children? : ReactNode | string;
+}
+
+export const DeleteBtn = ({ id, isPublished, children }: DeleteBtnProps) => {
   const dispatch = useDispatch();
 
   const statusDelete = useSelector(
@@ -24,7 +32,9 @@ export const DeleteBtn = ({ id, children }: { id: number, children? : ReactNode 
         onDelete={() => {
           dispatch(articlesDelete({ 
             articleId: id,
+            isPublished: !!isPublished,
             callback: () => {
+              dispatch(profileGetProfile());
               hideModal();
             }, 
           }));

@@ -1,6 +1,6 @@
 import {
   ActionPattern,
-  call, put, race, take, 
+  call, put, race, take,
 } from 'redux-saga/effects';
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ import { Action, RequestStatus, UploadFileStatus } from 'types';
 import { ApiEndpoint } from 'appConstants';
 import { callApi } from 'api';
 import { store } from 'store/configureStore';
-import { articlesCreate, articlesSetStatusUpload } from '../actionCreators';
+import { articlesCreate, articlesDeleteStatusUpload, articlesSetStatusUpload } from '../actionCreators';
 import { ArticlesActionTypes } from '../actionTypes';
 
 function generateNumericId(): number {
@@ -22,15 +22,16 @@ function generateNumericId(): number {
 export function* articlesCreateSaga({
   payload,
 }: ReturnType<typeof articlesCreate>) {
-  const idFile = generateNumericId(); 
+  const idFile = generateNumericId();
   try {
-    yield put(articlesSetStatusUpload({ 
-      id: idFile, 
+    yield put(articlesSetStatusUpload({
+      id: idFile,
       status: RequestStatus.REQUEST,
       percentUpload: 0,
       fileName: payload.file.name,
       size: payload.file.size,
       uploadStatus: UploadFileStatus.CREATED,
+      createdAt: new Date().toString(),
     }));
 
     const formData = new FormData();
@@ -49,22 +50,22 @@ export function* articlesCreateSaga({
 
     const handleSetStatusUpload = (percentUpload: number) => {
       if (percentUpload >= 100) {
-        if(payload.callback) payload.callback();
+        if (payload.callback) payload.callback();
         store.dispatch(
-          articlesSetStatusUpload({ 
-            id: idFile, 
-            percentUpload,
+          articlesSetStatusUpload({
+            id: idFile,
+            // percentUpload,
             status: RequestStatus.SUCCESS,
-            // percentUpload: 100,
-            uploadStatus: UploadFileStatus.PROCESSING, 
-          }), 
+            percentUpload: 0,
+            uploadStatus: UploadFileStatus.UPLOADED,
+          }),
         );
       }
       store.dispatch(
-        articlesSetStatusUpload({ 
-          id: idFile, 
+        articlesSetStatusUpload({
+          id: idFile,
           percentUpload,
-        }), 
+        }),
       );
     };
 
@@ -114,8 +115,8 @@ export function* articlesCreateSaga({
 
     if (cancel) {
       cancelTokenSource.cancel();
-      yield put(articlesSetStatusUpload({ 
-        id: idFile, 
+      yield put(articlesSetStatusUpload({
+        id: idFile,
         status: RequestStatus.ERROR,
         percentUpload: 0,
         fileName: payload.file.name,
@@ -132,20 +133,28 @@ export function* articlesCreateSaga({
     //     graph: graphData,
     //   },
     // });
-    
-    if(payload.callback) payload.callback();
 
-    yield put(articlesSetStatusUpload({ 
-      id: idFile, 
+    if (payload.callback) payload.callback();
+
+    yield put(articlesSetStatusUpload({
+      id: idFile,
       status: RequestStatus.SUCCESS,
       // percentUpload: 100,
       idArticle: res.data.data.id,
-      uploadStatus: UploadFileStatus.PROCESSING,
-    }));  
-  } catch (e) {
+      uploadStatus: UploadFileStatus.UPLOADED,
+    }));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     sagaExceptionHandler(e);
-    yield put(articlesSetStatusUpload({ 
-      id: idFile, 
+
+    if (e?.status === 410) {
+      yield put(articlesDeleteStatusUpload({ id: idFile }));
+      if (payload.callback) payload.callback();
+      return;
+    }
+
+    yield put(articlesSetStatusUpload({
+      id: idFile,
       status: RequestStatus.ERROR,
       uploadStatus: UploadFileStatus.ERROR,
     }));

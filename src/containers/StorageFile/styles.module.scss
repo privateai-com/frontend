@@ -1,6 +1,10 @@
 @import 'assets/styles/variables.scss';
 @import 'assets/styles/_mixins.scss';
 
+.btnNormalize{
+  height:40px
+}
+
 .storageFile__container {
   margin-top: -30px;
   padding-top: 0;

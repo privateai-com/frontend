@@ -17,6 +17,7 @@ export interface ArticleUpload {
     percentUpload: number;
     idArticle?: number;
     uploadStatus: UploadFileStatus;
+    createdAt: string;
   };
 }
 
@@ -29,7 +30,9 @@ export interface ArticlesState {
   pagination?: Pagination;
   ui: PartialRecord<ArticlesActionTypes, RequestStatus>;
   upload: ArticleUpload;
-  isFetching?:false | boolean;
+
+  ratingPoints: number;
+  docsCount: number;
 }
 
 export type ArticleOwner = {
@@ -45,6 +48,16 @@ export type ArticleAccess = {
   approve: boolean;
   isOwnerViewed?: boolean;
   isRequesterViewed?: boolean;
+};
+
+export type ArticleCommunityResponse = {
+  articleId: number;
+  likesCount: number;
+  dislikesCount: number;
+  liked: boolean;
+  disliked: boolean;
+  likedByUsers: number[];
+  dislikedByUsers: number[];
 };
 
 export type Article = {
@@ -73,6 +86,12 @@ export type Article = {
   fileSize?: number;
   isPublished?: boolean;
   isHidden?: boolean;
+  likesCount?: number;
+  dislikesCount?: number;
+  liked?: boolean;
+  disliked?: boolean;
+  likedByUsers?: number[];
+  dislikedByUsers?: number[];
 };
 
 export enum SocketUploadArticleEvent {

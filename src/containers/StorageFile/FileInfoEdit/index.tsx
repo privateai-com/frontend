@@ -37,6 +37,7 @@ interface FileInfoProps {
   classNameButtons?: string;
   isOwner: boolean;
   nodesLabelWithoutEdges: string[];
+  updateCallback : () => void;
 }
 
 export const FileInfoEdit: FC<FileInfoProps> = memo(({
@@ -218,7 +219,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           {/* Graph edges */}
           <div className={styles.row}>
               
-            <div className={styles.storageFile__item}>
+            <div className={styles.storageFile__item} style={{ justifyContent: 'space-between' }}>
             
               <Typography 
                 type="h4"
@@ -230,7 +231,6 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
                 article && (
                 <ChangeAvailability 
                   id={article.id} 
-                  hasFullValue
                   isPublic={article.isPublic} 
                   callBack={onChangeAvailabilityClick} 
                 />
@@ -346,7 +346,7 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
                 Revert to last published
               </div>,
               isOwner && (
-              <DeleteBtn articleId={article?.id}>
+              <DeleteBtn articleId={article?.id} isPublished={article.isPublished}>
                 Delete
               </DeleteBtn>
               ),

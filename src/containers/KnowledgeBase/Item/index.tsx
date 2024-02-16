@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,10 +9,12 @@ import { getName, getStatusAccessArticle } from 'utils';
 import { requestCreate } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
-
-import styles from './styles.module.scss';
+import { articlesLike } from 'store/articles/actionCreators';
+import { profileSelectors } from 'store/profile/selectors';
 import { ItemMobile } from './ItemMobile';
 import { ItemDesktop } from './ItemDesktop';
+
+import styles from './styles.module.scss';
 
 const textStatus = {
   [StatusAccessArticle.OpenSource]: 'Open sourced', 
@@ -38,6 +40,12 @@ export const Item: React.FC<ItemProps> = ({
   const dispatch = useDispatch();
   const statusCreate = useSelector(requestSelectors.getStatus(RequestActionTypes.Create));
 
+  const accountInfo = useSelector(profileSelectors.getProp('accountInfo'));
+  const isOwner = useMemo(
+    () => accountInfo?.id === article?.owner.id,
+    [accountInfo?.id, article?.owner.id],
+  );
+
   const {
     id,
     title,
@@ -50,6 +58,10 @@ export const Item: React.FC<ItemProps> = ({
     createdAt,
     updatedAt,
     topCoreEntities,
+    likesCount,
+    dislikesCount,
+    liked,
+    disliked,
   } = article;
 
   const status = getStatusAccessArticle(article);
@@ -95,6 +107,12 @@ export const Item: React.FC<ItemProps> = ({
     ),
     [statusCreate],
   );
+
+  const onCommunityClick = useCallback((isDislike: boolean) => {
+    if (id) {
+      dispatch(articlesLike({ id, isDislike, isKnowledgeBase: true }));
+    }
+  }, [dispatch, id]);
 
   const requester = useMemo(() => (
     <RequestCell
@@ -143,6 +161,13 @@ export const Item: React.FC<ItemProps> = ({
       topCoreEntities={topCoreEntities}
       isDisabled={isDisabled}
       showAccessConfirm={showAccessConfirm}
+      likesCount={likesCount}
+      dislikesCount={dislikesCount}
+      liked={liked}
+      isOwner={isOwner}
+      disliked={disliked}
+      onLike={() => onCommunityClick(false)}
+      onDislike={() => onCommunityClick(true)}
     />
   );
 };

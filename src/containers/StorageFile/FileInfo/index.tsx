@@ -12,22 +12,22 @@ import {
   Requester,
 } from 'components';
 import { Article, RequestStatus } from 'types';
-import { articleSetFetchingStatus, articlesPublish, articlesSetState } from 'store/articles/actionCreators';
+import { articlesLike, articlesPublish, articlesSetState } from 'store/articles/actionCreators';
 import { requestSelectors } from 'store/request/selectors';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestCreate } from 'store/request/actionCreators';
 import { articlesSelectors } from 'store/articles/selectors';
 import { ArticlesActionTypes } from 'store/articles/actionTypes';
-import { profileGetProfileUser } from 'store/profile/actionCreators';
+import { profileGetProfile, profileGetProfileUser } from 'store/profile/actionCreators';
 import { profileSelectors } from 'store/profile/selectors';
 import {
   getName,
-  // getStatusAccessArticle,
   normalizeUserInfo,
   notification,
 } from 'utils';
 import { useVipUser } from 'hooks';
 import { errorsNotification } from 'appConstants';
+import { LikeBtnWrapper } from 'components/LikeBtnWrapper';
 import { convertToBytesString, formatDate } from './utils';
 import { FileInformationLoader } from '../Loader';
 
@@ -43,6 +43,7 @@ type FileInfoProps = {
   article?: Article;
   classNameFile?: string;
   classNameButtons?: string;
+  updateCallback : () => void;
 };
 
 export const FileInfo: FC<FileInfoProps> = memo(({
@@ -60,6 +61,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
   );
   const isVipUser = useVipUser();
   const [isDisabledRequest, setIsDisabledRequest] = useState(false);
+  // const status = article ? getStatusAccessArticle(article) : '';
 
   const [showRequester, hideRequester] = useModal(
     () => {
@@ -178,11 +180,24 @@ export const FileInfo: FC<FileInfoProps> = memo(({
     if (article) {
       const { id } = article;
       if (id) {
-        dispatch(articleSetFetchingStatus({ status: true }));
-        dispatch(articlesPublish({ articleId: id, isPublished: true, callback: () => {} }));
+        // dispatch(articleSetFetchingStatus({ status: true }));
+        dispatch(articlesPublish({
+          articleId: id,
+          isPublished: true,
+          callback: () => dispatch(profileGetProfile()),
+        }));
       }
     }
   }, [article, dispatch, isUserRequiredFieldsFilled]);
+
+  const onCommunityClick = useCallback((isDislike: boolean) => {
+    if (article) {
+      const { id } = article;
+      if (id) {
+        dispatch(articlesLike({ id, isDislike }));
+      }
+    }
+  }, [article, dispatch]);
 
   return (
     <>
@@ -415,6 +430,47 @@ export const FileInfo: FC<FileInfoProps> = memo(({
               />
             </>
             )}
+            <InfoTableRow
+              props={{
+                title: 'Article community review',
+                info: (
+                  <div className={styles.storageFile_like_wrapper}>
+                    <LikeBtnWrapper props={{
+                      liked: article?.liked || false, 
+                      onLike: () => onCommunityClick(false), 
+                      likesCount: article?.likesCount, 
+                      dislikesCount: article?.dislikesCount, 
+                      disliked: article?.disliked || false, 
+                      isDisabled: !!isOwner,
+                      onDislike: () => onCommunityClick(true),
+                    }}
+                    />
+                    {/* <CommunityButton
+                      isLiked={article?.liked}
+                      onClick={() => onCommunityClick(false)}
+                      count={article?.likesCount}
+                      // isDisabled={
+                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                      //     .includes(status as StatusAccessArticle) ||
+                      //   isVipUser
+                      // }
+                      isPopular={isArticlePopular(article?.likesCount, article?.dislikesCount)}
+                    />
+                    <CommunityButton
+                      isDisliked={article?.disliked}
+                      onClick={() => onCommunityClick(true)}
+                      count={article?.dislikesCount}
+                      isDislikeButton
+                      // isDisabled={
+                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
+                      //     .includes(status as StatusAccessArticle) ||
+                      //   isVipUser
+                      // }
+                      isPopular={isArticlePopular(article?.dislikesCount, article?.likesCount)}
+                    /> */}
+                  </div>),
+              }}
+            />
           </div>
         </div> 
       </div>

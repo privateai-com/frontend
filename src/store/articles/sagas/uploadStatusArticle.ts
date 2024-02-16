@@ -22,6 +22,17 @@ import { articlesSetState } from '../actionCreators';
 let socket: Socket;
 let uploadChannel: EventChannel<EmitedSocketUploadEvent>;
 
+const getStatusUpload = (uploadProgress: number) => {
+  switch (uploadProgress) {
+    case 99:
+      return UploadFileStatus.COMPLETE;
+    case -1:
+      return UploadFileStatus.ERROR;
+    default:
+      return UploadFileStatus.PROCESSING;
+  }
+};
+
 function* handleSocketEvents(eventData: { articleId: number; uploadProgress: number; }) {
   try {
     const { articleId, uploadProgress } = eventData;
@@ -37,8 +48,7 @@ function* handleSocketEvents(eventData: { articleId: number; uploadProgress: num
           return {
             ...article,
             uploadProgress: uploadProgress === 99 ? 100 : uploadProgress,
-            uploadStatus: uploadProgress === 99 ?
-              UploadFileStatus.COMPLETE : UploadFileStatus.PROCESSING,
+            uploadStatus: getStatusUpload(uploadProgress),
           };
         }
         return article;

@@ -8,14 +8,18 @@ import { ArticlesActionTypes } from 'store/articles/actionTypes';
 import { articlesSelectors } from 'store/articles/selectors';
 import { useRouter } from 'next/router';
 import { routes } from 'appConstants';
+import { profileGetProfile } from 'store/profile/actionCreators';
 
 interface DeleteBtnProps {
   className?: string;
   articleId: number;
-  children? : ReactNode
+  children? : ReactNode;
+  isPublished?: boolean;
 }
 
-export const DeleteBtn: FC<DeleteBtnProps> = ({ articleId, className, children }) => {
+export const DeleteBtn: FC<DeleteBtnProps> = ({
+  articleId, isPublished, className, children,
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -31,7 +35,9 @@ export const DeleteBtn: FC<DeleteBtnProps> = ({ articleId, className, children }
         onDelete={() => {
           dispatch(articlesDelete({ 
             articleId,
+            isPublished: !!isPublished,
             callback: () => {
+              dispatch(profileGetProfile());
               hideModal();
               router.push(routes.storage.root);
             }, 

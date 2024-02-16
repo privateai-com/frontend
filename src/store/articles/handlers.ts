@@ -1,7 +1,7 @@
 import { ArticlesState, ActionFn } from 'types';
 import { ArticlesActionTypes } from './actionTypes';
 import {
-  articleSetFetchingStatus,
+  articlesDeleteStatusUpload,
   articlesSetState,
   articlesSetStatus,
   articlesSetStatusUpload,
@@ -44,17 +44,29 @@ const setStatusUpload: ArticlesStateActionFn<typeof articlesSetStatusUpload> = (
   },
 });
 
-const setFetchingStatus: ArticlesStateActionFn<typeof articleSetFetchingStatus> = (
+const deleteStatusUpload: ArticlesStateActionFn<typeof articlesDeleteStatusUpload> = (
   state,
   { payload },
-) => ({
-  ...state,
-  isFetching: payload.status,
-});
+) => {
+  const { id } = payload;
+
+  if (!state.upload || !state.upload[id]) {
+    return state;
+  }
+
+  const { [id]: removedStatus, ...updatedUpload } = state.upload;
+
+  return {
+    ...state,
+    upload: {
+      ...updatedUpload,
+    },
+  };
+};
 
 export const articlesHandlers = {
   [ArticlesActionTypes.SetState]: setState,
   [ArticlesActionTypes.SetStatus]: setStatus,
   [ArticlesActionTypes.SetStatusUpload]: setStatusUpload,
-  [ArticlesActionTypes.SetFetchingStatus]: setFetchingStatus,
+  [ArticlesActionTypes.DeleteStatusUpload]: deleteStatusUpload,
 };

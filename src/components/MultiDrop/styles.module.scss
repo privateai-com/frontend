@@ -12,8 +12,15 @@
 		background: #efe9e97b!important;
 	}
 	span {
-		line-height:0; margin-top: -4.5; letter-spacing: 1; color: #7C859E
+		line-height:0; margin-top: -4.5; letter-spacing: 1; color: #7C859E;
+        white-space: nowrap;
 	}
+
+    @media screen and (max-width: 768px) {
+        span{
+            // display: none;
+        }
+    }
 
     &_wrap{
         position: relative;

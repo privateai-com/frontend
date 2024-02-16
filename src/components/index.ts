@@ -20,6 +20,7 @@ export * from './AdaptivePaginationTable';
 export * from './Help';
 export * from './SelectedText';
 export * from './Loader';
+export * from './CommunityButton';
 
 export { Layout } from './Layout';
 export { default as LayoutAuth } from './LayoutAuth';
