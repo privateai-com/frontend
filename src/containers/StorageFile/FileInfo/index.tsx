@@ -9,7 +9,6 @@ import { Tooltip } from 'react-tooltip';
 import {
   AccessConfirm,
   Button,
-  CommunityButton,
   Requester,
 } from 'components';
 import { Article, RequestStatus } from 'types';
@@ -23,12 +22,12 @@ import { profileGetProfile, profileGetProfileUser } from 'store/profile/actionCr
 import { profileSelectors } from 'store/profile/selectors';
 import {
   getName,
-  isArticlePopular,
   normalizeUserInfo,
   notification,
 } from 'utils';
 import { useVipUser } from 'hooks';
 import { errorsNotification } from 'appConstants';
+import { LikeBtnWrapper } from 'components/LikeBtnWrapper';
 import { convertToBytesString, formatDate } from './utils';
 import { FileInformationLoader } from '../Loader';
 
@@ -44,6 +43,7 @@ type FileInfoProps = {
   article?: Article;
   classNameFile?: string;
   classNameButtons?: string;
+  updateCallback : () => void;
 };
 
 export const FileInfo: FC<FileInfoProps> = memo(({
@@ -435,28 +435,15 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                 title: 'Article community review',
                 info: (
                   <div className={styles.storageFile_like_wrapper}>
-                    <CommunityButton
-                      isLiked={article?.liked}
-                      onClick={() => onCommunityClick(false)}
-                      count={article?.likesCount}
-                      // isDisabled={
-                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                      //     .includes(status as StatusAccessArticle) ||
-                      //   isVipUser
-                      // }
-                      isPopular={isArticlePopular(article?.likesCount, article?.dislikesCount)}
-                    />
-                    <CommunityButton
-                      isDisliked={article?.disliked}
-                      onClick={() => onCommunityClick(true)}
-                      count={article?.dislikesCount}
-                      isDislikeButton
-                      // isDisabled={
-                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                      //     .includes(status as StatusAccessArticle) ||
-                      //   isVipUser
-                      // }
-                      isPopular={isArticlePopular(article?.dislikesCount, article?.likesCount)}
+                    <LikeBtnWrapper props={{
+                      liked: article?.liked || false, 
+                      onLike: () => onCommunityClick(false), 
+                      likesCount: article?.likesCount, 
+                      dislikesCount: article?.dislikesCount, 
+                      disliked: article?.disliked || false, 
+                      isDisabled: !!isOwner,
+                      onDislike: () => onCommunityClick(true),
+                    }}
                     />
                   </div>),
               }}

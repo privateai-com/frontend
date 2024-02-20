@@ -5,13 +5,14 @@ import { routes } from 'appConstants';
 import { Article, ItemRowProps } from 'types';
 import { TitleWithArrows } from 'components/AdaptivePaginationTable/TitleWithArrows';
 import { MultiDrop } from 'components/MultiDrop';
+import { Button } from 'components';
 import { DeleteBtn } from './DeleteBtn';
 import { ChangeAvailability } from './ChangeAvailability';
 
 import styles from './styles.module.scss';
 
 export const useColumns = ({
-  onChangeSortingField, onToggleDirection,
+  onChangeSortingField, onToggleDirection, onPublishClick,
 }: {
   onChangeSortingField: (field: string) => void,
   onToggleDirection: () => void,
@@ -135,20 +136,21 @@ export const useColumns = ({
             
             <div className={styles.availability} key={`div-${id}-${isPublic}`}>
 
-              {/* {
+              {
                 (
                   uploadStatus.toLowerCase() === 'uploaded'
                 )
-                &&
+                && (
                 <Button 
                   className={styles.publishBtn}
-                  onClick={()=>{
-                    onPublishClick(id)
+                  onClick={() => {
+                    onPublishClick(id);
                   }}
                 >
                   Publish
                 </Button>
-              } */}
+                )
+}
 
               {uploadStatus.toLowerCase() !== 'error' && (
                 <ChangeAvailability
@@ -198,5 +200,5 @@ export const useColumns = ({
           ),
       },
     ],
-    [onChangeSortingField, onToggleDirection],
+    [onChangeSortingField, onToggleDirection, onPublishClick],
   );

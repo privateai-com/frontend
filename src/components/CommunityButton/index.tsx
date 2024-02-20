@@ -14,6 +14,8 @@ interface CommunityButtonProps {
   count?: number;
   isDislikeButton?: boolean;
   isPopular?: boolean;
+  _custom ? :boolean;
+  _defaultIcon?: React.ReactNode;
 }
 
 export const CommunityButton = memo<CommunityButtonProps>(({
@@ -25,6 +27,8 @@ export const CommunityButton = memo<CommunityButtonProps>(({
   count,
   isDislikeButton,
   isPopular,
+  _custom = false,
+  _defaultIcon = <>unactive</>,
 }) => (
   <button
     className={cx(
@@ -41,7 +45,10 @@ export const CommunityButton = memo<CommunityButtonProps>(({
     onClick={onClick}
     disabled={isDisabled}
   >
-    {(isLiked || isDisliked) ? <LikeFilledIcon /> : <LikeIcon />}
-    {count || 0}
+    {(isLiked || isDisliked) && !_custom ? <LikeFilledIcon /> : !_custom && <LikeIcon />}
+    { _custom && _defaultIcon }
+    <span className={styles.countSpan}> 
+      {count || 0}
+    </span>
   </button>
 ));

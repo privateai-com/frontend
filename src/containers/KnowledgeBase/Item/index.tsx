@@ -10,6 +10,7 @@ import { requestCreate } from 'store/request/actionCreators';
 import { RequestActionTypes } from 'store/request/actionsTypes';
 import { requestSelectors } from 'store/request/selectors';
 import { articlesLike } from 'store/articles/actionCreators';
+import { profileSelectors } from 'store/profile/selectors';
 import { ItemMobile } from './ItemMobile';
 import { ItemDesktop } from './ItemDesktop';
 
@@ -38,6 +39,12 @@ export const Item: React.FC<ItemProps> = ({
 }) => {
   const dispatch = useDispatch();
   const statusCreate = useSelector(requestSelectors.getStatus(RequestActionTypes.Create));
+
+  const accountInfo = useSelector(profileSelectors.getProp('accountInfo'));
+  const isOwner = useMemo(
+    () => accountInfo?.id === article?.owner.id,
+    [accountInfo?.id, article?.owner.id],
+  );
 
   const {
     id,
@@ -157,6 +164,7 @@ export const Item: React.FC<ItemProps> = ({
       likesCount={likesCount}
       dislikesCount={dislikesCount}
       liked={liked}
+      isOwner={isOwner}
       disliked={disliked}
       onLike={() => onCommunityClick(false)}
       onDislike={() => onCommunityClick(true)}

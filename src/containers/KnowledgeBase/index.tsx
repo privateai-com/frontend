@@ -105,10 +105,8 @@ export const KnowledgeBase: React.FC = () => {
                   isDisabled={isVipUser}
                   search={search as string}
                   isMobile={false}
-                  // isMobile={isMobile}
                 />
               ))}
-              
               { 
               (!articles || articles.length === 0) && !isLoading && (
                 <div className={styles.noData}>

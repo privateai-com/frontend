@@ -1,0 +1,116 @@
+
+.btnWrap{
+    display: flex;
+    background-color: #F3F5FF;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.btn{
+    overflow: hidden;
+    border-radius: 0px;
+    border: none!important;
+    padding: 9px 15px;
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &:disabled{
+        background-color: #F7F4F4!important;
+    }
+    span{
+        display: inline-block;
+        // display: inline-flex;
+        // align-items: center;
+    }
+    // background-color: red;
+}
+
+.divider{
+    border-right: 1px solid #747474;
+    margin: 9.5px 0;
+}
+
+// .likeBtn.active{
+//     background-color: red;
+// }
+
+// .dislikeBtn.active{
+//     background-color: red;
+// }
+
+.likeBtn, .dislikeBtn{
+    
+    &.active{
+        // background-color: rgba(239, 233, 233, 0.484)!important;
+        background-color: transparent !important;;
+        // background-color: rgba(70, 89, 254, 0.2)!important;
+    }
+    &:hover{
+        background-color: rgba(239, 233, 233, 0.484)!important;
+    }
+}
+
+.dislikeBtn{ 
+    svg{
+        transform: scale(-1)!important;
+        order: 0;
+    }
+    &.active{
+        
+    }
+}
+
+
+.disabled{
+    background-color: #F7F4F4
+    // rgba(239, 233, 233, .484)!important;
+}
+
+.iconWrap{
+    display: flex;
+    align-items: center;
+}
+
+.iconWrap.active.play::before{
+    content: "";
+    position: absolute;
+    width: 30px;
+        height: 30px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // background-color: red;
+    border-radius: 50%;
+    // border: 1px solid #4659FE;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0) 60%, #4659FE 100%);
+    animation: growUp 1.2s ease forwards; 
+    pointer-events: none;
+}
+
+
+@keyframes growUp {
+    0%{
+        width: 30px;
+        height: 30px;
+        opacity: 0;
+    }
+    10%{
+        opacity: 1;
+    }
+
+    // 50%{
+        // opacity: 1;
+    // }
+
+    30%{
+        opacity: 0;
+    }
+
+    100%{
+        width: 250px;
+        height: 250px;
+        opacity: 0;
+    }
+}

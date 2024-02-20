@@ -104,7 +104,7 @@ export const NewItem = ({
                       style={{
                         minWidth: 20,
                         height: 20,
-                        marginRight: 10,
+                        // marginRight: 10,
                       }}
                       xmlns="http://www.w3.org/2000/svg" 
                       width="20" 
@@ -160,7 +160,7 @@ export const NewItem = ({
             <div className={prevStyles.item_indication_block}>
               <div className={cx(styles.status_wrap, styles.error_status)}>
                 <svg 
-                  style={{ minWidth: 22, marginRight: 10 }}
+                  style={{ minWidth: 22 }}
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
                   height="22"

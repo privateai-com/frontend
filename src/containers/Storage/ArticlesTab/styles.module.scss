@@ -230,7 +230,9 @@
 	display: flex;
 	align-items: center;
 	column-gap: 15px;
-
+	&:hover{
+		color: rgba(70, 89, 254, 0.7019607843)
+	}
 	@include media-breakpoint-up(xxxl) {
 		font-size: 16px;	
 	}

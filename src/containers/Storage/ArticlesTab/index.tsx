@@ -75,12 +75,24 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
             callback: () => {
               setOffset(() => Number(0));
               dispatch(profileGetProfile());
+              const payload = {
+                limit: itemsOnPageQuantityCurrent,
+                offset: offset * itemsOnPageQuantityCurrent,
+                sortingDirection: selectSortingDirection,
+                sortingField: selectSortingField,
+                doneStatus: true,
+                isHidden: false,
+              };
+              dispatch(articlesGetMy(payload));
             }, 
           }));
         }
       });
     },
-    [articles, dispatch],
+    [
+      articles, dispatch, itemsOnPageQuantityCurrent,
+      offset, selectSortingDirection, selectSortingField,
+    ],
   );
 
   const isLoading = statusGetMyArticles === RequestStatus.REQUEST;

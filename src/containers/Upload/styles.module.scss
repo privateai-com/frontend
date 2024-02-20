@@ -553,6 +553,7 @@ $btn-height1024: 130px;
 .status_wrap{
   display: flex;
   align-items: center;
+  gap: 8px;
   margin-right: auto;
   &_complete{
     color: #3AB393

@@ -16,6 +16,7 @@ export const ButtonBack: FC<ButtonBackProps> = memo(({
   className = '',
 }) => {
   const router = useRouter();
+
   const onBackNavigate = useCallback(() => {
     router.back();
   }, [router]);

@@ -2,6 +2,8 @@
 @import "assets/styles/_mixins.scss";
 @import "assets/styles/function.scss";
 
+
+
 .profile__container {
 	position: relative;
 
@@ -17,6 +19,9 @@
 	// margin-bottom: 30px;
 	justify-content: space-between;
 	column-gap: 20px;
+
+
+	
 
 	@include media-breakpoint-up(lg) {
 		grid-template-areas:
@@ -91,6 +96,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		gap: 10px;
 		@media screen and (max-width: 800px) {
 			padding: 10px 0;
 		}

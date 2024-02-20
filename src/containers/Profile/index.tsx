@@ -216,6 +216,7 @@ export const Profile = () => {
         ) : (
           <ProfileInfo />
         )}
+       
       </div>
     </>
   );
