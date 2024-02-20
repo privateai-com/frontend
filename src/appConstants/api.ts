@@ -9,8 +9,8 @@ export enum ApiEndpoint {
   AuthWalletLogin = '/authentication/wallet-login',
   AuthConfirmEmail = '/verification/confirm-register',
   AuthResendCodeRegister = '/verification/resend-code-register',
-  AuthSendCodeResetPassword = '/verification/send-code-reset-password',
   AuthRequestResetPassword = '/verification/request-reset-password',
+  AuthSendCodeResetPassword = '/verification/send-code-reset-password',
   AuthConfirmResetPassword = '/verification/confirm-reset-password',
 
   ProfileAddWallet = '/profile/add-wallet',

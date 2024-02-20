@@ -81,6 +81,11 @@ export const ConfirmEmail: FC<ConfirmEmailProps> = ({
             Please enter the verification code we sent to
             {/* <br /> */}
             <strong>{` ${email}`}</strong>
+
+            <br />
+            <br />
+            If your email address was correct,
+            you will receive an email with a link to reset your password
           </Typography>
 
         </div>
