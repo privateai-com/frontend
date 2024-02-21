@@ -3,7 +3,7 @@
     display: flex;
     background-color: #F3F5FF;
     border-radius: 8px;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .btn{
@@ -30,6 +30,8 @@
 .divider{
     border-right: 1px solid #747474;
     margin: 9.5px 0;
+    transform: translateX(-0.5px);
+    // position: absolute;
 }
 
 // .likeBtn.active{
@@ -43,8 +45,8 @@
 .likeBtn, .dislikeBtn{
     
     &.active{
-        // background-color: rgba(239, 233, 233, 0.484)!important;
-        background-color: transparent !important;;
+        background-color: rgba(239, 233, 233, 0.484)!important;
+        // background-color: transparent !important;;
         // background-color: rgba(70, 89, 254, 0.2)!important;
     }
     &:hover{
@@ -52,7 +54,14 @@
     }
 }
 
+.likeBtn{
+    border-radius: 8px 0 0px 8px ;
+    transform: translateX(0.5px);
+}
+
 .dislikeBtn{ 
+    transform: translateX(-0.5px);
+    border-radius: 0 8px 8px 0;
     svg{
         transform: scale(-1)!important;
         order: 0;
@@ -113,4 +122,42 @@
         height: 250px;
         opacity: 0;
     }
+}
+
+.btnWrapOuter{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    position: relative;
+}
+.tooltip{
+    position: absolute;
+    width: 100%;
+    max-width: 360px;
+    background-color: aliceblue;
+    padding: 8px;
+    right: 0;
+    top: 110%;
+    z-index: 1;
+    font-size: 11px;
+    --size : 5px;
+    line-height: 1.2;
+    border-radius: 5px;
+    &::after{
+        
+        content: "";
+        position: absolute;
+        top: calc(-1 * 2 * var(--size));
+        right: 9px;
+        border: var(--size) solid transparent; border-bottom: var(--size) solid aliceblue; 
+    }
+}
+
+.tooltip_btn{
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
 }

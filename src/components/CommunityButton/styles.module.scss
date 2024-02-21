@@ -2,13 +2,13 @@
 @import "assets/styles/_mixins.scss";
 
 .community_button {
-  display: flex;
+  	display: flex;
 	align-items: center;
 	gap: 10px;
 	padding: 4px 14px;
 	font-weight: 500;
 	color: $color-grey;
-  	border-radius: 8px;
+  	
 	border: 1px solid $color-grey;
 	transition: background-color .3s;
 
@@ -34,17 +34,18 @@
 	}
 
 	&.dislikedPopular {
-		background-color: rgba($color-red, .15);
+		background-color: rgba(239, 233, 233, 0.484)!important;
+		// rgba($color-red, .15);
 	}
 
-  &.dislike {
+	&.dislike {
 		svg {
 			transform: scaleX(-1) rotate(180deg);
 		}
 
-    &:hover {
-      background-color: rgba($color-red, .35);
-    }
+		&:hover {
+		background-color: rgba($color-red, .35);
+		}
 
 		&:disabled {
 			background-color: rgba($color-grey, .15);
@@ -74,4 +75,44 @@
 	&.likedPopular {
 		background-color: rgba($color-green, .15);
 	}
+}
+
+
+.tooltipWrap{
+	position: absolute;
+	top: 0;
+	right: -3px;
+	transform: translate(0% ,-15%);
+	display: inline-flex;
+	z-index: 1;
+	// left: 18px;
+}
+.mark{
+	display: inline-flex;
+	padding-right: 5px;
+}
+
+.tooltip{
+	display: none;
+	position: absolute;
+	left: calc(100% + 0px);
+	top: 50%;
+	max-width: 300px;
+	transform: translateY(-50%);
+	background-color: aliceblue;
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 11px;
+	&:hover{
+		display: block;
+	}
+}
+
+.mark:hover ~ .tooltip{
+	display: block;
+}
+
+
+.btnWrap{
+	position: relative;
 }

@@ -315,18 +315,20 @@
   position: relative;
 
   // &*:not(button *) {
-  & > *:not(button *) {
+    // :not:first-child
+  & >  *:not(button *) {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 
-    .community_wrapper {
-      display: flex;
-    }
+   
   }
 
+  .community_wrapper {
+    display: flex;
+  }
   &_title{
     display: flex;
     align-items: center;
@@ -344,6 +346,7 @@
     // min-width: ;
   }
   &_inner_col:nth-child(1){
+    overflow: visible;
     width: 40%;
     min-width: 200px;
     display: flex;
