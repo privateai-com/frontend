@@ -108,7 +108,8 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
 
         <div className={styles.community_wrapper}>
           <LikeBtnWrapper props={{
-            liked, onLike, likesCount, dislikesCount, disliked, onDislike, isDisabled: isOwner,
+            liked, onLike, likesCount, dislikesCount, disliked, onDislike, 
+            // isDisabled: isOwner,
           }}
           />
         </div>
@@ -175,7 +176,8 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
 
       <div className={styles.community_wrapper}>
         <LikeBtnWrapper props={{
-          liked, onLike, likesCount, dislikesCount, disliked, onDislike, isDisabled: isOwner,
+          liked, onLike, likesCount, dislikesCount, disliked, onDislike,
+          //  isDisabled: isOwner,
         }}
         />
       </div>

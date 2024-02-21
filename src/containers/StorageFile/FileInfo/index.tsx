@@ -441,7 +441,7 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                       likesCount: article?.likesCount, 
                       dislikesCount: article?.dislikesCount, 
                       disliked: article?.disliked || false, 
-                      isDisabled: !!isOwner,
+                      // isDisabled: !!isOwner,
                       onDislike: () => onCommunityClick(true),
                     }}
                     />
