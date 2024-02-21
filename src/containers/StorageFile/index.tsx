@@ -420,48 +420,44 @@ export const StorageFile = memo(() => {
                     btnContent: '•••',
                     btnList: [
                       !isEdit && isOwner && (
-                      // eslint-disable-next-line max-len
-                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                      <div 
-                        onClick={isEditToggle}
-                      >
-                        Edit
-                      </div>
+                        <button 
+                          onClick={isEditToggle}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Edit
+                        </button>
                       ),
                       isEdit && isOwner && (
-                      // eslint-disable-next-line max-len
-                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                      <div 
-                        onClick={onRevertToLastSavedClick}
-                      >
-                        Revert to last saved
-                      </div>
+                        <button 
+                          onClick={onRevertToLastSavedClick}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Revert to last saved
+                        </button>
                       ),
                       isEdit && isOwner && (
-                      // eslint-disable-next-line max-len
-                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                      <div 
-                        onClick={onRevertToLastPublishedClick}
-                      >
-                        Revert to last published
-                      </div>
+                        <button 
+                          onClick={onRevertToLastPublishedClick}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Revert to last published
+                        </button>
                       ),
                       isOwner && (
-                      <DeleteBtn
-                        articleId={article?.id} 
-                        isPublished={article.isPublished}
-                      >
-                        Delete
-                      </DeleteBtn>
+                        <DeleteBtn
+                          articleId={article?.id} 
+                          isPublished={article.isPublished}
+                        >
+                          Delete
+                        </DeleteBtn>
                       ),
                       !isMobile && (
-                      // eslint-disable-next-line max-len
-                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                      <div 
-                        onClick={onDownloadXlsxClick}
-                      >
-                        Download
-                      </div>
+                        <button 
+                          onClick={onDownloadXlsxClick}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Download
+                        </button>
                       ),
                     ],
                     top: false,
