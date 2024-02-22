@@ -50,13 +50,13 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
     setClicked(!liked);
   };
 
-  const dropdownRef = useRef(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   
 
   useEffect(()=>{
-   document.addEventListener("click", ()=>{
+   document.addEventListener("click", (event)=>{
     // setTooltipFlag(false)
-    if (dropdownRef && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    if (event.target instanceof Node && dropdownRef && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setTooltipFlag(false);
     }
    }) 
@@ -85,16 +85,7 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
                 borderColor={liked ? '#4659FE' : '#747474'}
               />
             </div>
-  )}
-          // _activeIcon={<>
-          //     <LikeIcon2 handColor='green' strokeColor='#747474' />
-          //     {/* <LikeFilledIcon className={styles.filledLike} /> */}
-          // </>}
-          // isDisabled={
-          //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-          //     .includes(status as StatusAccessArticle) ||
-          //   isDisabled
-          // }
+          )}  
           isPopular={isArticlePopular(likesCount, dislikesCount)}
         />
         <span className={cx([styles.divider, isDisabled && styles.disabled])} />
@@ -113,11 +104,6 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
             />
   )}
           isDislikeButton
-          // isDisabled={
-          //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-          //     .includes(status as StatusAccessArticle) ||
-          //   isDisabled
-          // }
           isPopular={isArticlePopular(dislikesCount, likesCount)}
         />
         
@@ -129,15 +115,6 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
             onClick={()=>{
               setTooltipFlag(prev => !prev)
             }} 
-            // onMouseOver={()=>{
-            //   setTooltipFlag(true)
-            // }} 
-            // onMouseLeave={()=>{
-            //   setTooltipFlag(false)
-            // }}
-            // onMouseOut={()=>{
-            //   setTooltipFlag(false)
-            // }}
           >
            <Mark2 />
           </div>

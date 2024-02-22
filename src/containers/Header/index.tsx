@@ -35,14 +35,6 @@ import { BonusPointsManager } from './BonusPointsManager';
 
 import styles from './styles.module.scss';
 
-// const results = [
-//   'A brief history of the antibiotics era',
-//   'Antibiotic resistance',
-//   'The effectiveness of frequent antibiotic use',
-//   'A brief history of the antibiotics era',
-//   'Antibiotic resistance',
-// ];
-
 export const Header = ({ children }:{ children?:ReactNode }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -179,61 +171,50 @@ export const Header = ({ children }:{ children?:ReactNode }) => {
             props={{
               isCustom: true,
               showArrow: true,
-              btnContent: <div className={styles.profileButton} style={{ display: 'flex', alignItems: 'center' }}>
-                <div
-                  className=""
-                  style={{
-                    display: 'flex', flexDirection: 'column', marginLeft: 35, marginRight: 15, 
-                  }}
-                >
-                  <span
-                    className={styles.username}
+              btnContent: (
+                <div className={styles.profileButton} style={{ display: 'flex', alignItems: 'center' }}>
+                  <div
                     style={{
-                      textAlign: 'right',
-                      fontSize: 16,
-                      fontStyle: 'normal',
-                      fontWeight: 700,
-                      color: '#7C859E',
+                      display: 'flex', flexDirection: 'column', marginLeft: 35, marginRight: 15, 
                     }}
                   >
-                    {getName(fullName, username, userId) ?? ''}
-                  </span>
-                  <span
-                    style={{
-                      textAlign: 'right',
-                      fontSize: 14,
-                      fontStyle: 'normal',
-                      fontWeight: 400,
-                      color: '#BBC0CE',
-                    }}
-                  >
-                    Profile menu
-                  </span>
+                    <span
+                      className={styles.username}
+                      style={{
+                        textAlign: 'right',
+                        fontSize: 16,
+                        fontStyle: 'normal',
+                        fontWeight: 700,
+                        color: '#7C859E',
+                      }}
+                    >
+                      {getName(fullName, username, userId) ?? ''}
+                    </span>
+                    <span
+                      style={{
+                        textAlign: 'right',
+                        fontSize: 14,
+                        fontStyle: 'normal',
+                        fontWeight: 400,
+                        color: '#BBC0CE',
+                      }}
+                    >
+                      Profile menu
+                    </span>
 
+                  </div>
+                  <Image
+                    style={{ borderRadius: '100%', overflow: 'hidden' }}
+                    src={avatarUrl || userIcon}
+                    width={41}
+                    height={41}
+                    alt=""
+                  />
                 </div>
-                {avatarUrl ? (
-                  <Image
-                    style={{ borderRadius: '100%', overflow: 'hidden' }}
-                    src={avatarUrl}
-                    width={41}
-                    height={41}
-                    alt=""
-                  />
-                ) : (
-                  <Image
-                    style={{ borderRadius: '100%', overflow: 'hidden' }}
-                    src={userIcon}
-                    width={41}
-                    height={41}
-                    alt=""
-                  />
-                )}
-                {/* eslint-disable-next-line */}
-              </div>,
+              ),
               btnList: [
                 <Link href="/profile">Settings</Link>,
-                // eslint-disable-next-line
-                <div onClick={showLogout}>
+                <button onClick={showLogout} style={{ width: '100%', textAlign: 'left' }}>
                   <Image
                     src={logoutIcon}
                     alt="button icon"
@@ -242,12 +223,12 @@ export const Header = ({ children }:{ children?:ReactNode }) => {
                     height={18}
                   />
                   Logout
-                </div>,
+                </button>,
               ],
             }}
           />
         </div>
-        <div className="" style={{ marginLeft: 20 }}>
+        <div style={{ marginLeft: 20 }}>
           {children}
         </div>
       </div>

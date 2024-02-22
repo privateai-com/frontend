@@ -441,33 +441,10 @@ export const FileInfo: FC<FileInfoProps> = memo(({
                       likesCount: article?.likesCount, 
                       dislikesCount: article?.dislikesCount, 
                       disliked: article?.disliked || false, 
-                      // isDisabled: !!isOwner,
+                      isDisabled: !!isOwner,
                       onDislike: () => onCommunityClick(true),
                     }}
                     />
-                    {/* <CommunityButton
-                      isLiked={article?.liked}
-                      onClick={() => onCommunityClick(false)}
-                      count={article?.likesCount}
-                      // isDisabled={
-                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                      //     .includes(status as StatusAccessArticle) ||
-                      //   isVipUser
-                      // }
-                      isPopular={isArticlePopular(article?.likesCount, article?.dislikesCount)}
-                    />
-                    <CommunityButton
-                      isDisliked={article?.disliked}
-                      onClick={() => onCommunityClick(true)}
-                      count={article?.dislikesCount}
-                      isDislikeButton
-                      // isDisabled={
-                      //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-                      //     .includes(status as StatusAccessArticle) ||
-                      //   isVipUser
-                      // }
-                      isPopular={isArticlePopular(article?.dislikesCount, article?.likesCount)}
-                    /> */}
                   </div>),
               }}
             />

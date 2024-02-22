@@ -4,19 +4,22 @@ import React, {
 import cx from 'classnames';
 import styles from './styles.module.scss';
 
+type SelectOptionType = {
+  value: string;
+  label: string | ReactNode;
+  currentLabel: string | ReactNode;
+};
+
 interface MultiDropProps {
   props: {
-    // eslint-disable-next-line 
-    btnList?: any[];
-    btnContent?: string | React.ReactNode;
+    btnList?: ReactNode[];
+    btnContent?: string | ReactNode;
     isCustom?: boolean;
     isSelect?: boolean;
     selectValue?: string | null;
     fullValue? : boolean;
-    // eslint-disable-next-line 
-    selectOptions?: Array<any>; 
-    // eslint-disable-next-line 
-    callBack?: ((value: any) => void) | null; 
+    selectOptions?: Array<SelectOptionType>; 
+    callBack?: ((value: string) => void) | null; 
     showArrow?: boolean;
     top?: boolean;
   };
@@ -35,20 +38,8 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
     showArrow = false,
     top = false,
   } = props;
-  // export const MultiDrop = ({ props }:any) => {
-  //   const {
-  //     btnList = [], 
-  //     btnContent = '', 
-  //     isCustom = false,
-  //     isSelect = false,
-  //     selectValue = null, 
-  //     selectOptions = [],
-  //     callBack = null,
-  //     showArrow = false,
-  //     top = false,
-  //   } = props;
 
-  const [list, setList] = useState<ReactNode[] >([]);
+  // const [list, setList] = useState<ReactNode[] >([]);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -61,17 +52,12 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
     setOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    if(list !== btnList && btnList.length !== 0) {
-      const arrInner:Array<ReactNode> = []
-      btnList.forEach((btn) => {
-        if(btn) {
-          arrInner.push(btn);
-        }
-      });
-      setList(arrInner);
-    }
-  }, [btnList]);
+  // useEffect(() => {
+  //   if(list !== btnList && btnList.length !== 0) {
+  //     setList(btnList.filter(Boolean));
+  //   }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [btnList]);
 
   // useEffect(()=>{
   //     if(isSelect){
@@ -79,21 +65,16 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
   //     }
   // },[props])
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleClickOutside = (event: { target: any }) => {
     let checkerFlag = false;
 
-    // eslint-disable-next-line
     const containsPartOfWord = (element: Element | null, part: string): boolean => {
-      while (element) {
-        const classNames = element.className.length > 0 ? element.className.split(' ') : [];
-        if (classNames.length > 0 && classNames.some((className) => className.includes(part))) {
-          return true;
-        }
-        // eslint-disable-next-line
-        element = element.parentElement ? element.parentElement : null;
-      }
-      return false;
+      if (!element) return false;
+
+      const classNames = element.className.length > 0 ? element.className.split(' ') : [];
+      return classNames.some((className) =>
+        className.includes(part)) || containsPartOfWord(element.parentElement, part);
     };
         
     if(!checkerFlag && event.target) {
@@ -155,7 +136,7 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
               !fullValue && selectOptions.length > 0 && (
                 selectOptions.find(
                   (
-                    selectOption:{ value:'string', label:'string', currentLabel:'string' | ReactNode },
+                    selectOption: SelectOptionType,
                   ) => 
                     selectOption?.value && selectOption?.value === selectValue,
                 )?.currentLabel 
@@ -168,7 +149,7 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
                   fullValue && selectOptions.length > 0 && 
                     selectOptions.find(
                       (
-                        selectOption:{ value:'string', label:'string', currentLabel:'string' | ReactNode },
+                        selectOption: SelectOptionType,
                       ) => 
                         selectOption?.value && selectOption?.value === selectValue,
                     )?.label 
@@ -209,18 +190,16 @@ export const MultiDrop: React.FC<MultiDropProps> = ({ props }) => {
 
   return (
     <div className={styles.multiDrop_wrap} ref={dropdownRef}>
-      {/* eslint-disable-next-line */}
-      <div className={styles.multiDrop} onClick={toggleFunction}>
+      <button className={styles.multiDrop} onClick={toggleFunction}>
         <span>
           {btnContent}
         </span>
-           
-      </div>
+      </button>
       {isOpen && (
       <div className={cx(styles.multiDrop_dropdown_wrap, top && styles.top)}>
         <ul className={styles.multiDrop_dropdown_list}>
-          {/* eslint-disable-next-line */}
-          {list.map((btn,i: any) => (
+          {btnList.filter(Boolean).map((btn, i: number) => (
+            // eslint-disable-next-line react/no-array-index-key
             <li key={`btn-${i}`} className={styles.multiDrop_dropdown_list_item}>
               {btn}
             </li>
