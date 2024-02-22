@@ -337,21 +337,32 @@ export const FileInfoEdit: FC<FileInfoProps> = memo(({
           props={{
             btnContent: '•••',
             btnList: [
-              // eslint-disable-next-line
-              <div onClick={onRevertToLastSaved}>
+              <button
+                onClick={onRevertToLastSaved}
+                style={{ width: '100%', textAlign: 'left' }}
+              >
                 Revert to last saved
-              </div>,
-              // eslint-disable-next-line
-              <div onClick={onRevertToLastPublished}>
+              </button>,
+              <button
+                onClick={onRevertToLastPublished}
+                style={{ width: '100%', textAlign: 'left' }}
+              >
                 Revert to last published
-              </div>,
+              </button>,
               isOwner && (
-              <DeleteBtn articleId={article?.id} isPublished={article.isPublished}>
+              <DeleteBtn
+                articleId={article?.id}
+                isPublished={article.isPublished}
+              >
                 Delete
               </DeleteBtn>
               ),
-              // eslint-disable-next-line
-              <div onClick={onDownloadXlsxClick}>Download</div>,
+              <button
+                onClick={onDownloadXlsxClick}
+                style={{ width: '100%', textAlign: 'left' }}
+              >
+                Download
+              </button>,
             ],
             top: true,
           }}

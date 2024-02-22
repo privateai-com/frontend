@@ -130,8 +130,12 @@ export const NewItem = ({
                   props={{
                     btnContent: '•••',
                     btnList: [
-                      // eslint-disable-next-line
-                      <div onClick={onCancel}>Cancel</div>,
+                      <button
+                        onClick={onCancel}
+                        style={{ width: '100%', textAlign: 'left' }}
+                      >
+                        Cancel
+                      </button>,
                     ],
                   }}
                 />
@@ -185,7 +189,6 @@ export const NewItem = ({
                 props={{
                   btnContent: '•••',
                   btnList: [
-                    // <div>Retry</div>,
                     <DeleteBtn onDelete={onCancel}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M9 13H15" stroke="#BDC2CF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -194,7 +197,6 @@ export const NewItem = ({
                       </svg>
                       <span>Delete</span>
                     </DeleteBtn>,
-                    // <div>Delete</div>,
                   ],
                 }}
               />
