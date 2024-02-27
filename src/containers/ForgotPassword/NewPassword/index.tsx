@@ -8,14 +8,14 @@ import {
 } from 'components';
 import { passwordConfirmValidator, passwordValidator } from 'utils';
 import { AuthErrorTransformResult, RequestStatus } from 'types';
-import { authRequestResetPassword } from 'store/auth/actionCreators';
+import { authConfirmCode } from 'store/auth/actionCreators';
 import { authSelectors } from 'store/auth/selectors';
 import { AuthActionTypes } from 'store/auth/actionTypes';
 
 import styles from './styles.module.scss';
 
 interface NewPasswordProps {
-  onSuccess: () => void;
+  onSuccess: (password: string) => void;
   onBack: () => void;
 }
 
@@ -55,9 +55,9 @@ export const NewPassword: FC<NewPasswordProps> = ({
       || passwordConfirmError;
 
     if (!isError) {
-      dispatch(authRequestResetPassword({
+      dispatch(authConfirmCode({
         password,
-        successCallback: onSuccess,
+        successCallback: () => onSuccess(password),
         errorCallback,
       }));
     }
@@ -87,6 +87,11 @@ export const NewPassword: FC<NewPasswordProps> = ({
             className={styles.description}
           >
             Set a new password for your account
+
+            <br />
+            <br />
+            If your email address was correct,
+            you will receive an email with a link to reset your password
           </Typography>
         </div>
        

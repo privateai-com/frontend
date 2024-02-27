@@ -67,7 +67,7 @@ export const authLogout = (
 });
 
 export const authConfirmCode = (payload: {
-  email: string;
+  password: string;
   successCallback: () => void;
   errorCallback: (error: AuthErrorTransformResult) => void;
 }) => ({
@@ -95,7 +95,7 @@ export const authResendConfCode = (payload: { email: string }) => ({
 });
 
 export const authRequestResetPassword = (payload: {
-  password: string,
+  email: string,
   successCallback: () => void;
   errorCallback: (error: AuthErrorTransformResult) => void;
 }) => ({

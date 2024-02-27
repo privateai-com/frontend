@@ -121,7 +121,7 @@ export const NewItem = ({
                   )}
                     
                   <span>
-                    {status === 'processing' ? 'Uploading...' : status}
+                    {status === 'processing' ? 'Uploaded, processing...' : status}
                   </span>
                     
                 </div>

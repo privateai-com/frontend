@@ -558,6 +558,9 @@ $btn-height1024: 130px;
   &_complete{
     color: #3AB393
   }
+  span {
+    text-transform: capitalize;
+  }
 }
 
 .processing_status{

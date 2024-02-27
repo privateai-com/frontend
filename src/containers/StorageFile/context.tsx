@@ -1,5 +1,5 @@
 import React, {
-  createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, 
+  createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, useMemo, 
 } from 'react';
 
 interface FileContextProps {
@@ -24,7 +24,7 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
   const [articleAccess, setArticleAccess] = useState<'open' | 'closed'>('closed');
   const isOpen = articleAccess === 'open';
 
-  const value: FileContextProps = {
+  const value: FileContextProps = useMemo(() => ({
     nameFile,
     setNameFile,
     fieldFile,
@@ -32,7 +32,7 @@ const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
     articleAccess,
     setArticleAccess,
     isOpen,
-  };
+  }), [articleAccess, fieldFile, isOpen, nameFile]);
 
   return (
     <FileContext.Provider value={value}>

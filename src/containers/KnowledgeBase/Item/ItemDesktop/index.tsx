@@ -53,7 +53,7 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
   disliked,
   onLike,
   onDislike,
-  isOwner,
+  // isOwner,
 }) => (
   <div className={styles.item}>
     <div className={styles.item_inner_col}>
@@ -113,31 +113,6 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
           }}
           />
         </div>
-        {/* <div className={styles.community_wrapper}>
-          <CommunityButton
-            isLiked={liked}
-            onClick={onLike}
-            count={likesCount}
-            // isDisabled={
-            //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-            //     .includes(status as StatusAccessArticle) ||
-            //   isDisabled
-            // }
-            isPopular={isArticlePopular(likesCount, dislikesCount)}
-          />
-          <CommunityButton
-            isDisliked={disliked}
-            onClick={onDislike}
-            count={dislikesCount}
-            isDislikeButton
-            // isDisabled={
-            //   ![StatusAccessArticle.OpenSource, StatusAccessArticle.AccessGranted]
-            //     .includes(status as StatusAccessArticle) ||
-            //   isDisabled
-            // }
-            isPopular={isArticlePopular(dislikesCount, likesCount)}
-          />
-        </div> */}
       </div>
     </div>
     <div className={styles.item_inner_col}>
@@ -173,7 +148,6 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
       </button>
     </div>
     <div className={styles.item_inner_col}>
-
       <div className={styles.community_wrapper}>
         <LikeBtnWrapper props={{
           liked, onLike, likesCount, dislikesCount, disliked, onDislike,
@@ -207,6 +181,7 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
           isPopular={isArticlePopular(dislikesCount, likesCount)}
         />
       </div> */}
+
       <div className={styles.requester_row}>
         {requester} 
         {/* Topic */}
