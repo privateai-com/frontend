@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { CommunityButton } from 'components/CommunityButton';
 import { isArticlePopular } from 'utils';
-// import { LikeFilledIcon, LikeIcon } from 'assets';
-import LikeIcon2 from 'assets/img/icons/LikeIcon2';
-import styles from './styles.module.scss';
+import { LikeIcon } from 'assets';
 import { Mark2 } from 'assets/img/icons/mark2';
+import styles from './styles.module.scss';
 
 interface CommunityButtonPropsWrap {
   props: {
@@ -18,17 +17,6 @@ interface CommunityButtonPropsWrap {
     onDislike: () => void
   } 
 }
-
-// interface CommunityButtonProps {
-//   className?: string;
-//   isLiked?: boolean;
-//   isDisliked?: boolean;
-//   isDisabled?: boolean;
-//   onClick: () => void;
-//   count?: number;
-//   isDislikeButton?: boolean;
-//   isPopular?: boolean;
-// }
 
 export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
   { props }: CommunityButtonPropsWrap,
@@ -43,25 +31,24 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
 
   const handleOnClick = () => {
     onLike();
-    // if(!liked){
-    //     return
-    // }
 
     setClicked(!liked);
   };
 
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(()=>{
-   document.addEventListener("click", (event)=>{
+  useEffect(() => {
+    document.addEventListener('click', (event) => {
     // setTooltipFlag(false)
-    if (event.target instanceof Node && dropdownRef && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setTooltipFlag(false);
-    }
-   }) 
-  })
-
+      if (event.target instanceof Node
+        && dropdownRef 
+        && dropdownRef.current 
+        && !dropdownRef.current.contains(event.target)
+      ) {
+        setTooltipFlag(false);
+      }
+    }); 
+  });
 
   return (
     <div className={styles.btnWrapOuter}>
@@ -70,7 +57,7 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
           className={
             cx(
               [styles.likeBtn, styles.btn, liked && 
-              styles.active, isDisabled && styles.disabled]
+              styles.active, isDisabled && styles.disabled],
             )
           }
           isLiked={liked}
@@ -80,7 +67,7 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
           _custom
           _defaultIcon={(
             <div className={cx([styles.iconWrap, liked && styles.active, clicked && styles.play])}>
-              <LikeIcon2 
+              <LikeIcon 
                 handColor={liked ? '#4659FE' : 'transparent'} 
                 borderColor={liked ? '#4659FE' : '#747474'}
               />
@@ -97,7 +84,7 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
           isDisabled={isDisabled}
           _custom
           _defaultIcon={(
-            <LikeIcon2 
+            <LikeIcon 
               handColor={disliked ? '#747474' : 'transparent'} 
               borderColor="#747474"
               strokeColor={!disliked ? '#747474' : '#F3F5FF'}
@@ -109,25 +96,30 @@ export const LikeBtnWrapper: React.FC<CommunityButtonPropsWrap> = (
         
       </div>
       {
-        isArticlePopular(dislikesCount, likesCount) && 
+        isArticlePopular(dislikesCount, likesCount) && (
         <div className="" ref={dropdownRef}>
-          <div className={styles.tooltip_btn} 
-            onClick={()=>{
-              setTooltipFlag(prev => !prev)
+          <button
+            className={styles.tooltip_btn} 
+            onClick={() => {
+              setTooltipFlag((prev) => !prev);
             }} 
           >
-           <Mark2 />
-          </div>
-          {isTooltipOpen &&
-          <div className={styles.tooltip} onMouseOver={()=>{
-            setTooltipFlag(true)
-          }} onMouseOut={()=>{
-            setTooltipFlag(false)
-          }}>
-          This article was rated very low by the community. Please proceed with caution.
-          </div>}
+            <Mark2 />
+          </button>
+          {isTooltipOpen && (
+            <button
+              className={styles.tooltip}
+              onMouseOver={() => setTooltipFlag(true)}
+              onFocus={() => setTooltipFlag(true)}
+              onMouseOut={() => setTooltipFlag(false)}
+              onBlur={() => setTooltipFlag(false)}
+            >
+              This article was rated very low by the community. Please proceed with caution.
+            </button>
+          )}
         </div>
-      }
+        )
+}
     </div>
   );
 };

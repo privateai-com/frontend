@@ -16,7 +16,6 @@ interface CommunityButtonProps {
   isDislikeButton?: boolean;
   isPopular?: boolean;
   _custom ? :boolean;
-  _activeIcon? : React.ReactNode;
   _defaultIcon?: React.ReactNode;
 }
 
@@ -30,7 +29,6 @@ export const CommunityButton = memo<CommunityButtonProps>(({
   isDislikeButton,
   isPopular,
   _custom = false,
-  // _activeIcon = <>active</>,
   _defaultIcon = <>unactive</>,
 }) => (
   <div className={styles.btnWrap}>
@@ -53,14 +51,12 @@ export const CommunityButton = memo<CommunityButtonProps>(({
       { _custom && _defaultIcon }
       <span className={styles.countSpan}> 
         {count || 0}
-
-        
         
       </span>
       
     </button>
 
-  {/* { isPopular  ? (<div className={styles.tooltipWrap}>
+    {/* { isPopular  ? (<div className={styles.tooltipWrap}>
     {!isDislikeButton  ? 
       <span className={styles.mark}>
         <ExclamationMark
@@ -76,7 +72,6 @@ export const CommunityButton = memo<CommunityButtonProps>(({
           color: '#E0A32C',
           size: 16
         }} />
-
         
       </span>}
       <div className={styles.tooltip}>
@@ -93,5 +88,5 @@ export const CommunityButton = memo<CommunityButtonProps>(({
           }
         </div>
     </div>) : <></>} */}
- </div>
+  </div>
 ));

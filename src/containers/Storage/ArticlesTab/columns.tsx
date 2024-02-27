@@ -192,10 +192,7 @@ export const useColumns = ({
                   </DeleteBtn>,
                 ],
               }}
-              /> 
-             
-              {/* <DeleteBtn id={Number(id)} /> */}
-              
+              />
             </div>
           ),
       },

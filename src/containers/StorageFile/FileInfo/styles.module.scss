@@ -134,9 +134,14 @@
 	grid-area: buttons;
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 	padding-top: 20px;
 	gap: 30px;
 	margin-top: auto;
+	
+	*{
+		flex: 1;
+	}
 
 	// @include media-breakpoint-up(md) {
 	// 	gap: 20px;
@@ -376,15 +381,17 @@
 
 
 		&_col{
-		
+			
 		}
 
 		&_titleCol{
-		
+			overflow-wrap: anywhere;
 		}
 
 		&_infoCol{
-
+			text-align: right;
+			// max-width: 70%;
+			overflow-wrap: anywhere;
 		}
 	}
 

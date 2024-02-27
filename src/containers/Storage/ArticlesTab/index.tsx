@@ -89,7 +89,10 @@ export const ArticlesTab = ({ isMobile }: { isMobile: boolean }) => {
         }
       });
     },
-    [articles, dispatch],
+    [
+      articles, dispatch, itemsOnPageQuantityCurrent,
+      offset, selectSortingDirection, selectSortingField,
+    ],
   );
 
   const isLoading = statusGetMyArticles === RequestStatus.REQUEST;

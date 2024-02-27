@@ -12,7 +12,7 @@ import { profileLinkWallet, profileSetStatus, profileSetState } from 'store/prof
 import { metamaskSelectors } from 'store/metamask/selectors';
 import { profileSelectors } from '../selectors';
 
-const message = 'Connect Archon!';
+const message = 'Your wallet will be connected to private AI';
 
 export function* profileLinkWalletSaga({
   type,

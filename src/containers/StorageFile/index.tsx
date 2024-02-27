@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
 
   memo, useCallback, useEffect, useMemo, useRef, useState, 
@@ -200,7 +201,7 @@ export const StorageFile = memo(() => {
         }));
       }
     }
-  }, [article, dispatch, accountInfo?.userFilledAllInfo, updateFlag]);
+  }, [article, dispatch, accountInfo?.userFilledAllInfo]);
 
   const onRevertToLastPublishedClick = useCallback(() => {
     if (article?.graph && article?.graph.length) {
@@ -304,8 +305,6 @@ export const StorageFile = memo(() => {
   // <MyProvider>
     <>
       <div className="">
-        {/* <PageHead title={<ButtonBack title="Back" onEdit={() 
-          => setIsEdit((state) => !state)} isEdit={isEdit} />} /> */}
         <PageHead 
           title={
             <ButtonBack title="Back" onEdit={() => setIsEdit((state) => !state)} isEdit={isEdit} />
@@ -356,12 +355,16 @@ export const StorageFile = memo(() => {
                   disabled={!article?.isGraphDifferent}
                   onClick={onPublishClick}
                 >
-                  { article?.isPublished ? (!isMobile ? 'Published' : (
-                    <svg width="16" height="16" viewBox="0 0 42 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M0 4.5C0 3.30653 0.474106 2.16193 1.31802 1.31802C2.16193 0.474106 3.30653 0 4.5 0H25.137C26.3301 0.00105031 27.4739 0.475845 28.317 1.32L40.683 13.68C41.1012 14.0984 41.4327 14.5952 41.6587 15.1419C41.8847 15.6886 42.0007 16.2744 42 16.866V43.5C42 44.6935 41.5259 45.8381 40.682 46.682C39.8381 47.5259 38.6935 48 37.5 48H4.5C3.30653 48 2.16193 47.5259 1.31802 46.682C0.474106 45.8381 0 44.6935 0 43.5V4.5ZM32.571 21.573C32.9219 21.09 33.0665 20.4875 32.9731 19.8979C32.8798 19.3082 32.556 18.7799 32.073 18.429C31.59 18.0781 30.9875 17.9335 30.3979 18.0269C29.8082 18.1202 29.2799 18.444 28.929 18.927L18.48 33.297L12.84 27.657C12.4155 27.2473 11.847 27.0208 11.257 27.0262C10.6671 27.0316 10.1029 27.2685 9.68591 27.6859C9.26894 28.1033 9.03257 28.6677 9.02773 29.2576C9.02288 29.8476 9.24994 30.4158 9.66 30.84L17.16 38.34C17.3899 38.57 17.6669 38.7475 17.9719 38.8601C18.277 38.9728 18.6028 39.018 18.927 38.9926C19.2512 38.9672 19.5661 38.8719 19.8499 38.7131C20.1337 38.5544 20.3797 38.336 20.571 38.073L32.571 21.573Z" fill="#FFFFFF" />
-                    </svg>
-                  ))
-                    :( !isMobile ? 'Publish' : (
+                  
+                  { article?.isPublished ?
+                    (!isMobile
+                      ? 'Published'
+                      : (
+                        <svg width="16" height="16" viewBox="0 0 42 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fillRule="evenodd" clipRule="evenodd" d="M0 4.5C0 3.30653 0.474106 2.16193 1.31802 1.31802C2.16193 0.474106 3.30653 0 4.5 0H25.137C26.3301 0.00105031 27.4739 0.475845 28.317 1.32L40.683 13.68C41.1012 14.0984 41.4327 14.5952 41.6587 15.1419C41.8847 15.6886 42.0007 16.2744 42 16.866V43.5C42 44.6935 41.5259 45.8381 40.682 46.682C39.8381 47.5259 38.6935 48 37.5 48H4.5C3.30653 48 2.16193 47.5259 1.31802 46.682C0.474106 45.8381 0 44.6935 0 43.5V4.5ZM32.571 21.573C32.9219 21.09 33.0665 20.4875 32.9731 19.8979C32.8798 19.3082 32.556 18.7799 32.073 18.429C31.59 18.0781 30.9875 17.9335 30.3979 18.0269C29.8082 18.1202 29.2799 18.444 28.929 18.927L18.48 33.297L12.84 27.657C12.4155 27.2473 11.847 27.0208 11.257 27.0262C10.6671 27.0316 10.1029 27.2685 9.68591 27.6859C9.26894 28.1033 9.03257 28.6677 9.02773 29.2576C9.02288 29.8476 9.24994 30.4158 9.66 30.84L17.16 38.34C17.3899 38.57 17.6669 38.7475 17.9719 38.8601C18.277 38.9728 18.6028 39.018 18.927 38.9926C19.2512 38.9672 19.5661 38.8719 19.8499 38.7131C20.1337 38.5544 20.3797 38.336 20.571 38.073L32.571 21.573Z" fill="#FFFFFF" />
+                        </svg>
+                      ))
+                    : (!isMobile ? 'Publish' : (
                       <svg width="16" height="16" viewBox="0 0 48 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M43.5 28H26C24.4087 28 22.8826 27.3679 21.7574 26.2426C20.6321 25.1174 20 23.5913 20 22V4.5C20 4.36739 19.9473 4.24021 19.8536 4.14645C19.7598 4.05268 19.6326 4 19.5 4H8C5.87827 4 3.84344 4.84285 2.34315 6.34315C0.842854 7.84344 0 9.87827 0 12V52C0 54.1217 0.842854 56.1566 2.34315 57.6569C3.84344 59.1571 5.87827 60 8 60H36C38.1217 60 40.1566 59.1571 41.6569 57.6569C43.1571 56.1566 44 54.1217 44 52V28.5C44 28.3674 43.9473 28.2402 43.8536 28.1464C43.7598 28.0527 43.6326 28 43.5 28Z" fill="white" />
                         <path d="M42.4025 23.5739L24.4263 5.5976C24.3913 5.56285 24.3468 5.53921 24.2985 5.52965C24.2501 5.52009 24.2 5.52504 24.1545 5.54387C24.1089 5.56271 24.0699 5.59459 24.0425 5.63551C24.015 5.67643 24.0002 5.72456 24 5.77385V22.0001C24 22.5305 24.2107 23.0392 24.5858 23.4143C24.9609 23.7894 25.4696 24.0001 26 24.0001H42.2262C42.2755 23.9999 42.3237 23.9851 42.3646 23.9576C42.4055 23.9302 42.4374 23.8912 42.4562 23.8456C42.4751 23.8001 42.48 23.75 42.4705 23.7016C42.4609 23.6533 42.4373 23.6088 42.4025 23.5739Z" fill="white" />
@@ -384,7 +387,7 @@ export const StorageFile = memo(() => {
                   hasFullValue={!isMobile}
                   isPublic={article.isPublic || false} 
                   // eslint-disable-next
-                  callBack={(value:string) => {
+                  callBack={() => {
                     setUpdateFlag((prev) => !prev);
                   // dispatch(profileGetProfile())
                   // dispatch(articlesChangeAccess({ 
@@ -416,39 +419,55 @@ export const StorageFile = memo(() => {
                   props={{
                     btnContent: '•••',
                     btnList: [
-                      !isEdit && isOwner && <div 
-                        onClick={isEditToggle}>
-                        Edit
-                      </div>,
-                      // eslint-disable-next-line
-                      isEdit && isOwner && <div 
-                        onClick={onRevertToLastSavedClick}>
-                        Revert to last saved
-                      </div>,
-                      // eslint-disable-next-line
-                      isEdit && isOwner && <div 
-                        onClick={onRevertToLastPublishedClick}>
-                        Revert to last published
-                      </div>,
-                      isOwner && (
-                      <DeleteBtn articleId={article?.id} 
-                        isPublished={article.isPublished}>
-                        Delete
-                      </DeleteBtn>
+                      !isEdit && isOwner && (
+                        <button 
+                          onClick={isEditToggle}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Edit
+                        </button>
                       ),
-                      // eslint-disable-next-line
-                      !isMobile && <div 
-                        onClick={onDownloadXlsxClick}>
-                        Download
-                      </div>,
+                      isEdit && isOwner && (
+                        <button 
+                          onClick={onRevertToLastSavedClick}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Revert to last saved
+                        </button>
+                      ),
+                      isEdit && isOwner && (
+                        <button 
+                          onClick={onRevertToLastPublishedClick}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Revert to last published
+                        </button>
+                      ),
+                      isOwner && (
+                        <DeleteBtn
+                          articleId={article?.id} 
+                          isPublished={article.isPublished}
+                        >
+                          Delete
+                        </DeleteBtn>
+                      ),
+                      !isMobile && (
+                        <button 
+                          onClick={onDownloadXlsxClick}
+                          style={{ width: '100%', textAlign: 'left' }}
+                        >
+                          Download
+                        </button>
+                      ),
                     ],
                     top: false,
                   }}
                 />
               )}
             </>
-)}
+          )}
         />
+
       </div>
       <div className={cx(styles.storageFile__container, {
         [styles.fullScreenGraph]: isFullscreen,

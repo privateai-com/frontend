@@ -21,6 +21,7 @@ export * from './Help';
 export * from './SelectedText';
 export * from './Loader';
 export * from './CommunityButton';
+export * from './LikeBtnWrapper';
 
 export { Layout } from './Layout';
 export { default as LayoutAuth } from './LayoutAuth';

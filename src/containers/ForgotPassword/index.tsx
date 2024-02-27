@@ -7,6 +7,7 @@ import { AuthErrorTransformResult } from 'types';
 import {
   authChangePassword,
   authConfirmCode,
+  authRequestResetPassword,
 } from 'store/auth/actionCreators';
 
 import { Success } from './Success';
@@ -38,6 +39,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [otpError, setOpError] = useState('');
+  const [password, setPassword] = useState('');
 
   const emailResetSuccessCallback = () => {
     setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
@@ -52,11 +54,11 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
   }, []);
 
   const resetPasswordHandler = useCallback(
-    (value: string, reset = false) => {
+    (value: string) => {
       dispatch(
-        authConfirmCode({
+        authRequestResetPassword({
           email: value,
-          successCallback: reset ? emailResetSuccessCallback : emailSuccessCallback,
+          successCallback: emailSuccessCallback,
           errorCallback: emailErrorCallback,
         }),
       );
@@ -65,12 +67,26 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
     [dispatch, emailErrorCallback],
   );
 
+  const resendVerifyCode = useCallback(
+    () => {
+      dispatch(
+        authConfirmCode({
+          password,
+          successCallback: emailResetSuccessCallback,
+          errorCallback: emailErrorCallback,
+        }),
+      );
+    },
+    [dispatch, emailErrorCallback, password],
+  );
+
   const resetPasswordBackHandler = useCallback(() => {
     setCurrentStep(ForgotPasswordStep.ResetPasswordStep);
     onBack();
   }, [onBack]);
 
-  const passwordSuccessCallback = useCallback(() => {
+  const passwordSuccessCallback = useCallback((pass: string) => {
+    setPassword(pass);
     setCurrentStep(ForgotPasswordStep.ConfirmEmailStep);
   }, []);
 
@@ -110,10 +126,10 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
       )}
 
       {currentStep === ForgotPasswordStep.NewPasswordStep && (
-      <NewPassword
-        onBack={() => setCurrentStep(ForgotPasswordStep.ResetPasswordStep)}
-        onSuccess={passwordSuccessCallback}
-      />
+        <NewPassword
+          onBack={() => setCurrentStep(ForgotPasswordStep.ResetPasswordStep)}
+          onSuccess={passwordSuccessCallback}
+        />
       )}
 
       {currentStep === ForgotPasswordStep.ConfirmEmailStep && (
@@ -121,7 +137,7 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({
           email={email}
           onBack={() => setCurrentStep(ForgotPasswordStep.NewPasswordStep)}
           onConfirm={confirmVerificationCodeHandler}
-          onResend={() => resetPasswordHandler(email, true)}
+          onResend={resendVerifyCode}
           error={otpError}
           setError={setOpError}
         />
