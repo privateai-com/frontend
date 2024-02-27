@@ -53,7 +53,7 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
   disliked,
   onLike,
   onDislike,
-  isOwner,
+  // isOwner,
 }) => (
   <div className={styles.item}>
     <div className={styles.item_inner_col}>
@@ -108,7 +108,8 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
 
         <div className={styles.community_wrapper}>
           <LikeBtnWrapper props={{
-            liked, onLike, likesCount, dislikesCount, disliked, onDislike, isDisabled: isOwner,
+            liked, onLike, likesCount, dislikesCount, disliked, onDislike, 
+            // isDisabled: isOwner,
           }}
           />
         </div>
@@ -149,7 +150,8 @@ export const ItemDesktop: React.FC<ItemMobileProps> = ({
     <div className={styles.item_inner_col}>
       <div className={styles.community_wrapper}>
         <LikeBtnWrapper props={{
-          liked, onLike, likesCount, dislikesCount, disliked, onDislike, isDisabled: isOwner,
+          liked, onLike, likesCount, dislikesCount, disliked, onDislike,
+          //  isDisabled: isOwner,
         }}
         />
       </div>
