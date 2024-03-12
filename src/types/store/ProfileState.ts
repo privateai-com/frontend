@@ -73,6 +73,7 @@ export interface ProfileState {
   requester: Record<number, AccountInfo>;
   ui: PartialRecord<ProfileActionTypes, RequestStatus>;
   statusRequester: Record<number, RequestStatus>;
+  apiKey: string;
 }
 
 export enum SocketNotificationEvent {

@@ -21,6 +21,7 @@ export const profileInitialState: Readonly<ProfileState> = {
   statusRequester: {
 
   },
+  apiKey: '',
 };
 
 export default createReducer(profileInitialState, profileHandlers);
