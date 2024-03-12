@@ -1,0 +1,46 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+@import "assets/styles/function.scss";
+
+
+
+.profile__container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.profile__head {
+	&_button {
+		height: fit-content;
+		border: 1px solid $color-blue;
+		// width: 100%;
+		// background-color: #4659FE;
+		// color: #ffffff!important;
+		// font-weight: 500 !important; 
+		// max-width: 300px;
+
+		&:hover{
+			background-color: #ffffff!important;
+			color: #4659FE!important;
+		}
+
+		@include desktop1440 {
+			max-width: 190px;
+		}
+
+		@include desktop1024 {
+			max-width: 220px;
+		}
+
+		@include mobile {
+			max-width: 150px;
+		}
+	}
+}
+
+.profile__buttons_wrap {
+	display: flex;
+	gap: 16px;
+}

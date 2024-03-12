@@ -15,6 +15,10 @@ export const routes = {
     root: '/profile',
     title: 'Profile',
   },
+  profileApiKey: {
+    root: '/profile/api-key',
+    title: 'Profile',
+  },
   knowledge: {
     root: '/knowledge',
     title: 'Knowledge base',
