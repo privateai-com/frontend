@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { RequestStatus } from 'types';
-import { sagaExceptionHandler } from 'utils';
+// import { sagaExceptionHandler } from 'utils';
 import { profileGetApiKey, profileSetState, profileSetStatus } from 'store/profile/actionCreators';
 import { callApi } from 'api';
 import { ApiEndpoint } from 'appConstants';
@@ -24,7 +24,7 @@ export function* profileGetApiKeySaga({
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
-    sagaExceptionHandler(e);
+    // sagaExceptionHandler(e);
     yield put(profileSetStatus({ type, status: RequestStatus.ERROR }));
   }
 }
