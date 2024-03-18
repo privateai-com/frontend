@@ -1,6 +1,7 @@
+import { NextPage } from 'next';
+
 import { Layout, ProtectedRoute } from 'components';
 import { Header, StorageFile } from 'containers';
-import { NextPage } from 'next';
 
 const StorageFilePage: NextPage = () => (
   <ProtectedRoute>
