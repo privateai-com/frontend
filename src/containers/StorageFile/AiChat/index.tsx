@@ -9,6 +9,7 @@ import {
   MessageList,
   Message,
   MessageInput,
+  TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 
@@ -16,6 +17,8 @@ import { Button } from 'components';
 import { chatGetMessages, chatSendMessage } from 'store/chat/actionCreators';
 import { chatSelectors } from 'store/chat/selectors';
 
+import { ChatActionTypes } from 'store/chat/actionTypes';
+import { RequestStatus } from 'types';
 import styles from './styles.module.scss';
 import { QuestionMessage } from './QuestionMessage';
 
@@ -28,6 +31,7 @@ export const AiChat = memo<AiChatProps>(({ articleId, articleName }) => {
   const dispatch = useDispatch();
   const [showChat, setShowChat] = useState(false);
   const messages = useSelector(chatSelectors.getProp('messages'));
+  const statusSendMessage = useSelector(chatSelectors.getStatus(ChatActionTypes.SendMessage));
 
   const toggleShowChat = useCallback(() => {
     setShowChat((state) => !state);
@@ -48,7 +52,11 @@ export const AiChat = memo<AiChatProps>(({ articleId, articleName }) => {
       <div className={cx(styles.chat, { [styles.show]: showChat })}>
         <MainContainer>
           <ChatContainer>       
-            <MessageList>
+            <MessageList
+              typingIndicator={
+                statusSendMessage === RequestStatus.REQUEST && <TypingIndicator content="AI assistant is typing" />
+              }
+            >
               {messages.map((msg) => (
                 msg.message === 'questions'
                   ? <QuestionMessage isDisabled={messages.length > 2} />

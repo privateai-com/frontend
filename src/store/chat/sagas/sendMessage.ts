@@ -26,7 +26,7 @@ export function* chatSendMessageSaga({
       ], 
     }));
 
-    yield put(chatSetStatus({ type, status: RequestStatus.SUCCESS }));
+    // yield put(chatSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
     sagaExceptionHandler(e);
     yield put(chatSetStatus({ type, status: RequestStatus.ERROR }));

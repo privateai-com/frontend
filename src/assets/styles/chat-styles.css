@@ -1,3 +1,8 @@
 div .cs-message--incoming .cs-message__content {
   color: rgb(0, 20, 14);
 }
+
+.cs-button--send svg {
+  width: 20px;
+  height: 20px;
+}
