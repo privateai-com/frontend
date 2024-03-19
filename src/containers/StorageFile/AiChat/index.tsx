@@ -14,7 +14,7 @@ import {
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 
 import { Button } from 'components';
-import { chatGetMessages, chatSendMessage } from 'store/chat/actionCreators';
+import { chatLoadPage, chatSendMessage, chatStart } from 'store/chat/actionCreators';
 import { chatSelectors } from 'store/chat/selectors';
 
 import { ChatActionTypes } from 'store/chat/actionTypes';
@@ -38,11 +38,14 @@ export const AiChat = memo<AiChatProps>(({ articleId, articleName }) => {
   }, []);
 
   const onSendMessage = useCallback((text: string) => {
-    dispatch(chatSendMessage({ message: text }));
-  }, [dispatch]);
+    dispatch(chatSendMessage({ articleId, message: text }));
+  }, [articleId, dispatch]);
     
   useEffect(() => {
-    dispatch(chatGetMessages({
+    dispatch(chatStart({
+      articleId,
+    }));
+    dispatch(chatLoadPage({
       articleId, articleName,
     }));
   }, [articleId, articleName, dispatch]);
@@ -57,10 +60,16 @@ export const AiChat = memo<AiChatProps>(({ articleId, articleName }) => {
                 statusSendMessage === RequestStatus.REQUEST && <TypingIndicator content="AI assistant is typing" />
               }
             >
-              {messages.map((msg) => (
+              {messages.map((m, i) => ({ ...m, id: `message_${i}` })).map((msg) => (
                 msg.message === 'questions'
-                  ? <QuestionMessage isDisabled={messages.length > 2} />
-                  : <Message model={{ ...msg }} style={{ color: 'red' }} />
+                  ? (
+                    <QuestionMessage
+                      key={msg.id}
+                      isDisabled={messages.length > 2}
+                      onSend={onSendMessage}
+                    />
+                  )
+                  : <Message key={msg.id} model={{ ...msg }} />
               ))}
             </MessageList>
             <MessageInput onSend={onSendMessage} placeholder="Type message here" attachButton={false} autoFocus />        

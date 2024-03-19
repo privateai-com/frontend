@@ -1,3 +1,9 @@
+div .cs-main-container,
+div .cs-message-input__content-editor,
+div .cs-message__content {
+  font-family: Montserrat;
+}
+
 div .cs-message--incoming .cs-message__content {
   color: rgb(0, 20, 14);
 }

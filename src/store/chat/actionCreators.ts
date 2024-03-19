@@ -16,17 +16,32 @@ export const chatSetStatus = (payload: {
   payload,
 });
 
+export const chatStart = (payload: {
+  articleId: string
+}) => ({
+  type: ChatActionTypes.Start,
+  payload,
+});
+
 export const chatSendMessage = (payload: {
+  articleId: string
   message: string
 }) => ({
   type: ChatActionTypes.SendMessage,
   payload,
 });
 
-export const chatGetMessages = (payload: {
+export const chatLoadPage = (payload: {
   articleId: string
   articleName: string
 }) => ({
-  type: ChatActionTypes.GetMessages,
+  type: ChatActionTypes.LoadPage,
+  payload,
+});
+
+export const chatExit = (payload: {
+  articleId: string
+}) => ({
+  type: ChatActionTypes.Exit,
   payload,
 });

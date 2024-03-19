@@ -7,7 +7,9 @@ export const chatInitialState: Readonly<ChatState> = {
   messages: [],
   ui: {
     [ChatActionTypes.SendMessage]: RequestStatus.INIT,
-    [ChatActionTypes.GetMessages]: RequestStatus.INIT,
+    [ChatActionTypes.LoadPage]: RequestStatus.INIT,
+    [ChatActionTypes.Start]: RequestStatus.INIT,
+    [ChatActionTypes.Exit]: RequestStatus.INIT,
   },
 };
 

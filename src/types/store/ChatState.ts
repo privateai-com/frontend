@@ -11,6 +11,7 @@ export interface ChatState {
 }
 
 export interface MessageChat {
+  id: string,
   message: string,
   sender: string,
   position: 'single' | 'first' | 'normal' | 'last' | 0 | 1 | 2 | 3;
@@ -23,8 +24,11 @@ export interface ChatInfo {
 }
 
 export enum SocketChatEvent {
-  NEW_CHAT = 'newChat',
-  SERVER_ERROR = 'ServerError',
+  Start = 'chat:start',
+  NewMessage = 'chat:new-message',
+  MessageWriting = 'chat:message-writing',
+  LoadPage = 'chat:load-page',
+  Exit = 'chat:exit',
 }
 
 export type EmitedSocketChatEvent = {
