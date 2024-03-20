@@ -1,20 +1,22 @@
-import { LayoutAuth } from 'components';
+import { LayoutAuth, ProtectedRoute } from 'components';
 import { Login } from 'containers';
 import { NextPage } from 'next';
 
 const LoginPage: NextPage = () => (
-  <LayoutAuth
-    meta={{
-      name: 'description',
-      content: 'description',
-    }}
-    link={{
-      rel: 'icon',
-      href: '/favicon.ico',
-    }}
-  >
-    <Login />
-  </LayoutAuth>
+  <ProtectedRoute>
+    <LayoutAuth
+      meta={{
+        name: 'description',
+        content: 'description',
+      }}
+      link={{
+        rel: 'icon',
+        href: '/favicon.ico',
+      }}
+    >
+      <Login />
+    </LayoutAuth>
+  </ProtectedRoute>
 );
 
 export default LoginPage;

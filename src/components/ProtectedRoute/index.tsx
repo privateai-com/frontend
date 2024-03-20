@@ -2,6 +2,7 @@ import React, { FC, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from 'hooks';
 import { Loader } from 'components';
+import { routes } from 'appConstants';
 
 import styles from './styles.module.css';
 
@@ -16,7 +17,11 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
   useEffect(() => {
     // Check if the user is authenticated, redirect to login if not.
     if (!isAuth) {
-      router.push('/login'); // Redirect to the login page.
+      router.push(routes.login.root); // Redirect to the login page.
+      return;
+    }
+    if (isAuth && router.asPath === routes.home.root) {
+      router.push(routes.knowledge.root);
     }
   }, [isAuth, router]);
 
