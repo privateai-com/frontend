@@ -171,7 +171,7 @@ export const ProfileApiKey = () => {
               <div className={styles.table_head}>
                 <div className={styles.table_head_row}>
                   <div className={styles.table_col}>
-                    Keys
+                    Active API Key
                   </div>
                   <div className={styles.table_col_auto}>
                     Actions
