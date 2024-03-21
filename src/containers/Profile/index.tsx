@@ -102,13 +102,22 @@ export const Profile = () => {
         btnWrap={(
           <>
             {!isEditProfile && !isVipUser && (
-            <Button
-              theme="primary"
-              className={styles.profile__head_button}
-              onClick={() => setIsEditProfile(true)}
-            >
-              Edit
-            </Button>
+              <div className={styles.profile__head_button_wrap}>
+                <Button
+                  theme="primary"
+                  className={styles.profile__head_button}
+                  onClick={() => setIsEditProfile(true)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  theme="primary"
+                  className={styles.profile__head_button}
+                  href={routes.profileApiKey.root}
+                >
+                  API settings
+                </Button>
+              </div>
             )}
             {
           isEditProfile && (

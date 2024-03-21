@@ -13,4 +13,7 @@ export enum ProfileActionTypes {
   Notification = 'PROFILE.NOTIFICATION',
   NotificationSubscribe = 'PROFILE.NOTIFICATION_SUBSCRIBE',
   NotificationMarkAsView = 'PROFILE.NOTIFICATION_MARK_AS_VIEW',
+  CreateApiKey = 'PROFILE.CREATE_API_KEY',
+  GetApiKey = 'PROFILE.GET_API_KEY',
+  DeleteApiKey = 'PROFILE.DELETE_API_KEY',
 }

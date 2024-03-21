@@ -83,3 +83,18 @@ export const profileNotificationMarkAsView = (payload: {
   type: ProfileActionTypes.NotificationMarkAsView,
   payload,
 });
+
+export const profileCreateApiKey = () => ({
+  type: ProfileActionTypes.CreateApiKey,
+});
+
+export const profileGetApiKey = () => ({
+  type: ProfileActionTypes.GetApiKey,
+});
+
+export const profileDeleteApiKey = (payload: {
+  callback: () => void,
+}) => ({
+  type: ProfileActionTypes.DeleteApiKey,
+  payload,
+});

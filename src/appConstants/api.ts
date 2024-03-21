@@ -18,6 +18,9 @@ export enum ApiEndpoint {
   ProfileGetUser = '/profile/get-profile',
   ProfileGetAvatar = '/profile/images/avatars',
   ProfileDeleteWallet = '/profile/delete-wallet',
+  ProfileCreateApiKey = '/profile/create-apikey',
+  ProfileGetApiKey = '/profile/get-apikey',
+  ProfileDeleteApiKey = '/profile/delete-apikey',
 
   ArticlesGetArticles = '/articles',
   ArticlesSearch = '/articles/search-articles',
@@ -33,7 +36,7 @@ export enum ApiEndpoint {
   ArticlesUploadStatus = '/uploadStatusUpdate',
   ArticlesLike = '/articles/like',
   ArticlesDislike = '/articles/dislike',
-  
+
   GraphSave = '/graph/save',
 
   RequestsCreate = '/requests/create',
@@ -48,5 +51,5 @@ export enum ApiEndpoint {
   Notification = '/notifications',
   NotificationSubscribe = '/notifications/subscribe-sse',
   NotificationMarkAsView = '/notifications/mark-as-view',
-  
+
 }
