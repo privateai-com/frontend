@@ -44,3 +44,117 @@
 	display: flex;
 	gap: 16px;
 }
+
+.table{
+	&_head{
+		padding: 20px 30px;
+		background-color: rgba(243, 245, 255, 0.6);
+		border-radius: 16px;
+		color: #7C859E;
+		font-size: 16px;
+		font-weight: 500;
+		&_row{
+			display: flex;
+			gap: 20px;
+			justify-content: space-between;
+			align-items: flex-end;
+		}
+		
+	}
+
+	&_row{
+		display: flex;
+		gap: 20px;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 16px;
+		font-weight: 500;
+	}
+
+	&_body{
+		padding: 20px 30px 20px 30px;
+		display: grid;
+		gap: 20px
+	}
+
+	&_col{
+		flex: 1;
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		&_auto{
+			flex: 0;
+		}
+	}
+}
+
+.ellipse{
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	overflow-wrap: anywhere;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.tableActionButton{
+	padding: 5px;
+	min-width: 35px;
+	display: inline-flex;
+	background-color: transparent !important;
+	box-shadow: none!important;
+	
+	&:hover{
+		img, svg{
+			scale: 1.12;
+		}
+	}
+}
+
+.tableActionButton:disabled{
+	background-color: transparent !important;
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+
+.api__container{
+	display:grid; 
+	grid-template-columns:repeat(2,1fr); 
+	gap: 40px;
+
+	@media screen and (max-width:768px){
+		grid-template-columns:1fr; 
+
+		&_col{
+			order: 1;
+		}
+		&_col:nth-child(2){
+			order: -1;
+		}
+	}
+	&_col{
+		display:grid; 
+		gap: 40px;
+	}
+	&_colored_box{
+		background:#F3F5FF; padding: 40px; border-radius:16px; display:grid; gap: 40px;
+		&_h3{
+			color:#0F0F0F; font-weight: 700; font-size: 22px; line-height: 1
+		}
+
+		p{
+			font-weight: 400;
+		}
+	}
+	&_add_content{
+		display: grid;
+		gap:11px;
+		p{
+			color:rgba(124, 133, 158, 0.5); font-size:12px; font-weight:400
+		}
+	}
+}
+

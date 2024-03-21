@@ -16,6 +16,9 @@ export function* profileGetApiKeySaga({
       endpoint: ApiEndpoint.ProfileGetApiKey,
     });
 
+
+    console.log("API DATA: ", data)
+
     if (data && data?.apiKey) {
       yield put(profileSetState({
         apiKey: data.apiKey, 
@@ -24,6 +27,7 @@ export function* profileGetApiKeySaga({
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {
+    console.log("API DATA: 2", e)
     // sagaExceptionHandler(e);
     yield put(profileSetStatus({ type, status: RequestStatus.ERROR }));
   }
