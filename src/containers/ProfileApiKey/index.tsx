@@ -132,7 +132,7 @@ export const ProfileApiKey = () => {
               <p>
                 To access the PrivateAI Public API, you must first create your personal API key. This key is essential and will need to be provided every time you manage your data or configure your profile using the API.
               </p>
-              {!apiKey && <div className={styles.profile__buttons_wrap}>
+              {(data.length === 0 && !apiKey ) && <div className={styles.profile__buttons_wrap}>
                 {/* <Button onClick={onClickCopy} disabled={!apiKey}>Copy</Button> */}
 
                 {/* in this case when we can generate only one api key */}
@@ -235,15 +235,45 @@ export const ProfileApiKey = () => {
                 )}
                 {(( apiKey.length === 0) && ( data.length === 0)) && !isLoading && <div className={styles.table_row}>
                   <div className={cx(styles.table_col)}>
-                    Keys not found yet
+                    {/* Keys not found yet */}
+                    <div className={styles.nothing}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="142" height="142" viewBox="0 0 142 142" fill="none">
+                        <circle cx="71" cy="71" r="71" fill="#4659FE" fillOpacity="0.08" />
+                        <path d="M40 42.5H57L63 47.5H98.5C102.918 47.5 106.5 51.0817 106.5 55.5V56.5V65.5H56L43 100H40C36.6863 100 34 97.3137 34 94V48.5C34 45.1863 36.6863 42.5 40 42.5Z" fill="white" />
+                        <path d="M106.632 65.2V53.4588C106.632 50.1451 103.946 47.4588 100.632 47.4588H62.6437L59.5311 44.3446C58.0307 42.8434 55.9953 42 53.8728 42H40C36.6863 42 34 44.6863 34 48V93C34 96.866 37.134 100 41 100H42.8659M106.632 65.2H121.6C122.286 65.2 122.768 65.8753 122.546 66.5244L111.992 97.2976C111.438 98.9142 109.917 100 108.208 100H42.8659M106.632 65.2H58.6026C56.9319 65.2 55.4371 66.2385 54.8541 67.8042L42.8659 100" stroke="#7C859E" strokeWidth="3" />
+                      </svg>
+                      <h3 style={{fontWeight:700, marginTop:14, fontSize:'16px'}}>
+                        Nothing here yet...
+                      </h3>
+                    </div>
                   </div>
+                    
                 </div>}
 
-                {(!data || isLoading) && (!!!apiKey || isLoading) && <div className={styles.table_row}>
+                {(!data || isLoading) && (!!!apiKey || isLoading) && 
+                <div className={styles.table_row}>
                   <div className={cx(styles.table_col)}>
-                    Searching for your API keys...
+                    <div className={styles.nothing}>
+                      {/* <svg version="1.1" width="142" height="142"  id="L3" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enableBackground="new 0 0 0 0" xmlSpace="preserve">
+                        <circle fill="none" stroke="rgba(70, 89, 254, 0.7)" strokeWidth="4" cx="50" cy="50" r="44" ></circle>
+                        <circle fill="rgba(70, 89, 254, 1)" stroke="#ffffff" strokeWidth="3" cx="8" cy="54" r="6">
+                          <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
+                        </circle>
+                      </svg> */}
+
+                      <svg version="1.1" id="L9" width="142" height="142" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enableBackground="new 0 0 0 0" xmlSpace="preserve">
+                          <path fill="rgba(70, 89, 254, 1)" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                            <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform>
+                        </path>
+                      </svg>
+
+                      <h3 style={{fontWeight:700, marginTop:14, fontSize:'16px'}}>
+                        Searching for your API keys...
+                      </h3>
+                    </div>
                   </div>
-                </div>}
+                </div>
+                 } 
 
               </div>
             </div>
