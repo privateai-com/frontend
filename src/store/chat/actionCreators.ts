@@ -18,6 +18,7 @@ export const chatSetStatus = (payload: {
 
 export const chatStart = (payload: {
   articleId: string
+  articleName: string
 }) => ({
   type: ChatActionTypes.Start,
   payload,
@@ -31,12 +32,8 @@ export const chatSendMessage = (payload: {
   payload,
 });
 
-export const chatLoadPage = (payload: {
-  articleId: string
-  articleName: string
-}) => ({
+export const chatLoadPage = () => ({
   type: ChatActionTypes.LoadPage,
-  payload,
 });
 
 export const chatExit = (payload: {

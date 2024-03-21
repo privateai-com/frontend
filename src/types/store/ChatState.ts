@@ -11,16 +11,31 @@ export interface ChatState {
 }
 
 export interface MessageChat {
-  id: string,
+  id: number;
   message: string,
   sender: string,
   position: 'single' | 'first' | 'normal' | 'last' | 0 | 1 | 2 | 3;
   direction: MessageDirection,
 }
 
+export interface UserChatInfo {
+  id: number;
+  fullName: string;
+  username: string;
+}
+
 export interface ChatInfo {
+  createdAt: string;
   message: string;
   id: number;
+  status: 'delivered';
+  writer?: UserChatInfo;
+}
+
+export interface ChatInfoMessage {
+  id: number;
+  chatId: number;
+  messages: ChatInfo[];
 }
 
 export enum SocketChatEvent {
@@ -33,5 +48,7 @@ export enum SocketChatEvent {
 
 export type EmitedSocketChatEvent = {
   event: SocketChatEvent;
-  data: [ChatInfo[], number];
+  data: {
+    data: ChatInfo[] | ChatInfoMessage;
+  }
 };

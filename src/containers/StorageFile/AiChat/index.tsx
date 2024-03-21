@@ -14,7 +14,11 @@ import {
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 
 import { Button } from 'components';
-import { chatLoadPage, chatSendMessage, chatStart } from 'store/chat/actionCreators';
+import {
+  chatExit,
+  chatSendMessage,
+  chatStart,
+} from 'store/chat/actionCreators';
 import { chatSelectors } from 'store/chat/selectors';
 
 import { ChatActionTypes } from 'store/chat/actionTypes';
@@ -35,20 +39,24 @@ export const AiChat = memo<AiChatProps>(({ articleId, articleName }) => {
 
   const toggleShowChat = useCallback(() => {
     setShowChat((state) => !state);
-  }, []);
+    if (!showChat) {
+      dispatch(chatStart({
+        articleId, articleName,
+      }));
+    }
+  }, [articleId, articleName, dispatch, showChat]);
 
   const onSendMessage = useCallback((text: string) => {
     dispatch(chatSendMessage({ articleId, message: text }));
   }, [articleId, dispatch]);
     
-  useEffect(() => {
-    dispatch(chatStart({
-      articleId,
-    }));
-    dispatch(chatLoadPage({
-      articleId, articleName,
-    }));
-  }, [articleId, articleName, dispatch]);
+  useEffect(() => () => {
+    if (showChat) {
+      dispatch(chatExit({
+        articleId,
+      }));
+    }
+  }, [articleId, dispatch, showChat]);
 
   return (
     <div className={styles.chat_container}>
