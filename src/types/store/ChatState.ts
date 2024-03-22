@@ -37,18 +37,3 @@ export interface ChatInfoMessage {
   chatId: number;
   messages: ChatInfo[];
 }
-
-export enum SocketChatEvent {
-  Start = 'chat:start',
-  NewMessage = 'chat:new-message',
-  MessageWriting = 'chat:message-writing',
-  LoadPage = 'chat:load-page',
-  Exit = 'chat:exit',
-}
-
-export type EmitedSocketChatEvent = {
-  event: SocketChatEvent;
-  data: {
-    data: ChatInfo[] | ChatInfoMessage;
-  }
-};
