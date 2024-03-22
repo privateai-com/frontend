@@ -6,6 +6,7 @@
     "dev": "env-cmd -f .env.develop next dev",
     "build:develop": "env-cmd -f .env.develop next build",
     "build:stage": "env-cmd -f .env.stage next build",
+    "build:prod": "env-cmd -f .env.prod next build",
     "start": "next start",
     "lint": "next lint",
     "lint-es": "eslint . --cache --fix --ext js,jsx,ts,tsx",
@@ -17,6 +18,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "2.0.3",
+    "@chatscope/chat-ui-kit-styles": "1.4.0",
     "@metamask/detect-provider": "1.2.0",
     "@reduxjs/toolkit": "1.9.5",
     "autosize": "6.0.1",

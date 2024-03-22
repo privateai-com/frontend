@@ -1,0 +1,173 @@
+:root{
+  --chat-border-radius:17px;
+  --color-1:#FFFFFF;
+  --color-2:#F2F2F2;
+  --color-3:#283544;
+  --wrap-border: 1px solid #E2E7E7 ;
+  --wrap-box-shadow: 0 0 0 10px #000000;
+  --incoming-text-color:#94979C;
+  --outcommin-text-color:var(--color-2);
+  --logo-container-width: 90px
+
+}
+
+div .cs-message--incoming .cs-message__content{
+  background-color: var(--color-2);
+  color: var(--incoming-text-color)!important;
+}
+
+.cs-message.cs-message--incoming:has(.cs-message__custom-content){
+  margin-top: 20px!important; 
+  margin-right: 0px!important;
+  max-width: 100%!important;
+}
+
+
+.cs-message__content{
+  border-radius: var(--chat-border-radius)!important;
+  background-color: var(--color-2);
+  padding: 12px!important;
+  line-height: 1.5;
+}
+
+.cs-message.cs-message--incoming .cs-message__content-wrapper:has(.cs-message__custom-content),
+.cs-message.cs-message--incoming .cs-message__content-wrapper:has(.cs-message__custom-content) *:is(div){
+  width: 100%;
+}
+
+.cs-message__custom-content{
+  display: flex!important;
+  flex-direction: row!important;
+  flex-wrap: wrap;
+}
+
+.cs-message.cs-message--incoming .cs-message__content:has(.cs-message__custom-content){
+  background-color: var(--color-3);
+  display: flex;
+  width: 100%;
+}
+
+
+
+div .cs-main-container,
+div .cs-message-input__content-editor,
+div .cs-message__content {
+  font-family: Montserrat;
+}
+
+div .cs-main-container{
+  overflow: visible!important;
+  border-radius: 100%;
+}
+
+.ps__thumb-y{
+  background-color: var(--color-3)!important;
+  opacity: 1;
+}
+
+.ps__rail-y{
+  opacity: 1;
+}
+
+.cs-chat-container{
+  overflow: hidden;
+  border-radius: 17px;
+  padding-top: calc(var(--logo-container-width) / 2 + 10px);
+}
+
+div .cs-main-container::before{
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: var(--logo-container-width);
+  width: var(--logo-container-width);
+  background-color: var(--color-1);
+  background-image: url('../img/icons/logoOnlyEye.svg');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: var(--wrap-border);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.19);
+  border-radius: 100%;
+  z-index: 2;
+}
+
+div .cs-message--incoming .cs-message__content {
+  /* color: rgb(0, 20, 14); */
+}
+
+.cs-button--send svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+
+div .cs-message-list__scroll-wrapper{
+  padding: 0px 20px 40px;
+}
+
+.cs-message--outgoing:not(:first-child){
+  margin-top: 20px!important;
+  max-width: 100%!important;
+}
+
+.cs-message--outgoing div>.cs-message__content{
+  background-color: var(--color-3)!important;
+  color: var(--outcommin-text-color)!important;
+  overflow-wrap: anywhere;
+}
+
+.cs-message-input__content-editor-wrapper{
+  display: flex;
+  align-items: center;
+  min-height: 70px;
+  margin-right: 60px!important;
+}
+
+.cs-message-input__content-editor{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-right: 0px!important;
+  line-height: 1.3!important;
+  width: 100%;
+}
+
+.cs-message-input__content-editor-container{
+  width: 100%;
+}
+
+.cs-message-input__content-editor-wrapper,
+.cs-message-input__content-editor-wrapper *{
+  margin-left: 0px!important;
+  background-color: var(--color-1)!important;
+}
+.cs-message-input__tools{
+  position: absolute;
+  height: 100%;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+}
+
+.cs-message-input__tools svg {
+  display: block;
+   margin-top: 2px;
+}
+
+.cs-message-input__tools .cs-button--send{
+  align-self: center!important;
+}
+
+.cs-message-input{
+  padding: 0!important;
+  margin: -2px!important;
+}
+
+.cs-button--send{
+  color: var(--color-3)!important   ;
+}

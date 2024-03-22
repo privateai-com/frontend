@@ -1,0 +1,19 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.customContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button {
+	white-space: wrap;
+  font-size: 14px;
+  border-radius: 17px;
+  padding: 10px; 
+  // max-width: calc(50% - 5px);
+  white-space: unset;
+  line-height: 1.3;
+}
+
