@@ -6,7 +6,7 @@ import { callApi } from 'api';
 import { ApiEndpoint } from 'appConstants';
 
 export function* profileDeleteApiKeySaga({
-  type,
+  type, payload,
 }: ReturnType<typeof profileDeleteApiKey>) {
   try {
     yield put(profileSetStatus({ type, status: RequestStatus.REQUEST }));
@@ -19,6 +19,8 @@ export function* profileDeleteApiKeySaga({
     yield put(profileSetState({
       apiKey: '', 
     }));
+
+    if (payload?.callback) payload.callback();
 
     yield put(profileSetStatus({ type, status: RequestStatus.SUCCESS }));
   } catch (e) {

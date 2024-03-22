@@ -407,8 +407,12 @@ export const StorageFile = memo(() => {
                     // isLoading ||
                     isRequester ||
                     isVipUser ||
-                    isDisabledRequest
+                    isDisabledRequest ||
                     // statusCreate === RequestStatus.SUCCESS
+                    [
+                      'Access granted',
+                      'Open sourced',
+                    ].includes(article?.status as string)
                   }
                   isLoading={statusCreate === RequestStatus.REQUEST}
                 >

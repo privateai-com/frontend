@@ -2,15 +2,16 @@ import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
+import { useModal } from 'react-modal-hook';
 
-import { Button } from 'components';
+import { Button, RevokeAPIKey } from 'components';
 import { PageHead } from 'components/PageHead';
-
 import { apiBaseUrl, routes } from 'appConstants';
 import { profileSelectors } from 'store/profile/selectors';
 import { profileCreateApiKey, profileDeleteApiKey, profileGetApiKey } from 'store/profile/actionCreators';
 import { ProfileActionTypes } from 'store/profile/actionTypes';
 import { RequestStatus } from 'types';
+
 import styles from './styles.module.scss';
 
 export const ProfileApiKey = () => {
@@ -20,10 +21,30 @@ export const ProfileApiKey = () => {
   const statusGetKey = useSelector(
     profileSelectors.getStatus(ProfileActionTypes.GetApiKey),
   );
+  const statusRevokeKey = useSelector(
+    profileSelectors.getStatus(ProfileActionTypes.DeleteApiKey),
+  );
 
   const onClickBack = useCallback(() => {
     router.push(routes.profile.root);
   }, [router]);
+
+  const [showRevokeAPIKey, hideRevokeAPIKey] = useModal(
+    () => (
+      <RevokeAPIKey
+        isLoading={statusRevokeKey === RequestStatus.REQUEST}
+        onCloseModal={() => {
+          hideRevokeAPIKey();
+        }}
+        onConfirm={() => {
+          dispatch(profileDeleteApiKey({
+            callback: hideRevokeAPIKey,
+          }));
+        }}
+      />
+    ),
+    [statusRevokeKey],
+  );
 
   const onClickGenerate = useCallback(() => {
     dispatch(profileCreateApiKey());
@@ -32,10 +53,6 @@ export const ProfileApiKey = () => {
   const onClickCopy = useCallback(() => {
     navigator.clipboard.writeText(apiKey);
   }, [apiKey]);
-
-  const onClickRevoke = useCallback(() => {
-    dispatch(profileDeleteApiKey());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(profileGetApiKey());
@@ -74,7 +91,7 @@ export const ProfileApiKey = () => {
           >
             Generate
           </Button>
-          <Button onClick={onClickRevoke} disabled={!apiKey}>Revoke</Button>
+          <Button onClick={showRevokeAPIKey} disabled={!apiKey}>Revoke</Button>
         </div>
 
         <p>

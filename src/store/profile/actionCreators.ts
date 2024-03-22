@@ -92,6 +92,9 @@ export const profileGetApiKey = () => ({
   type: ProfileActionTypes.GetApiKey,
 });
 
-export const profileDeleteApiKey = () => ({
+export const profileDeleteApiKey = (payload: {
+  callback: () => void,
+}) => ({
   type: ProfileActionTypes.DeleteApiKey,
+  payload,
 });

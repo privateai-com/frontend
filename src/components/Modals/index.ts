@@ -8,3 +8,4 @@ export * from './KeyPassword';
 export * from './LogOut';
 export * from './AccessConfirm';
 export * from './EditProfileConfirm';
+export * from './RevokeAPIKey';

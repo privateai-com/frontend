@@ -1,0 +1,35 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  text-align: center;
+
+  .title{
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .description {
+    color:#747474;
+    margin-top: 5px;
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+
+  .buttons {
+    display: flex;
+    width: 100%;
+    gap: 21px; 
+
+    .confirm {
+      width: 100%;
+    }
+
+    .cancel {
+      width: 100%;
+    }
+  }
+}
