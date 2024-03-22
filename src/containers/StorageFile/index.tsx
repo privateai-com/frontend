@@ -37,6 +37,7 @@ import { Graph } from './Graph';
 import { FileInfoEdit } from './FileInfoEdit';
 import { FileInfo } from './FileInfo';
 import { ButtonBack } from './ButtonBack';
+import { AiChat } from './AiChat';
 // import { FileContext, MyProvider, useFileContext } from './context';
 
 export const StorageFile = memo(() => {
@@ -526,6 +527,10 @@ export const StorageFile = memo(() => {
           isPublished={article?.isPublished}
         />
       </div>
+
+      {(articleId && article?.title) && (
+        <AiChat articleId={articleId as string} articleName={article.title} />
+      )}
     </>
   // {/* </MyProvider> */}
   );

@@ -1,0 +1,13 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.customContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button {
+	white-space: wrap;
+  font-size: 14px;
+}

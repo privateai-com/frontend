@@ -1,0 +1,77 @@
+@import "assets/styles/variables.scss";
+@import "assets/styles/_mixins.scss";
+
+.chat_container {
+	position: fixed;
+  bottom: 6px;
+  right: 6px;
+  z-index: 10;
+}
+
+.chat {
+	max-height: 800px;
+	width: 400px;
+	height: 0;
+	border-radius: 6px;
+	padding: 1px;
+	background-color: $color-white;
+	margin-bottom: 10px;
+	transform: translateY(-10px);
+	opacity: 0;
+	transition: transform .3s, height 1s, opacity .3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+	&.show {
+		height: 700px;
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.message {
+  color: red;
+}
+
+.chat_button {
+  border-radius: 50%;
+  padding: 28px;
+	margin-left: auto;
+
+  width: 60px;
+  height: 60px;
+
+  font-size: 10px;
+
+  box-shadow: 0 0 20px rgba(70, 89, 254, 0.28) !important;
+
+  background-image: linear-gradient(to right, #4a90e2, #8e44ad, #f39c12);
+  background-size: 200% 100%;
+  animation: wave-animation 5s infinite;
+  animation-timing-function: ease-in-out;
+
+  transition: transform .3s, background-color .3s !important;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @include desktop1440 {
+    font-size: 8px;
+    padding: 24px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@keyframes wave-animation {
+  0% {
+      background-position: 0 0;
+  }
+  50% {
+      background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+}
+}
+
