@@ -127,16 +127,23 @@ export const ProfileApiKey = () => {
           <div className={styles.api__container_col}>
             <div className={styles.api__container_colored_box}>
               <h3 className={styles.api__container_colored_box_h3} >
-                Generate Your API Key
+                Your API Key
               </h3>
               <p>
                 To access the PrivateAI Public API, you must first create your personal API key. This key is essential and will need to be provided every time you manage your data or configure your profile using the API.
               </p>
-              {(data.length === 0 && !apiKey ) && <div className={styles.profile__buttons_wrap}>
-                {/* <Button onClick={onClickCopy} disabled={!apiKey}>Copy</Button> */}
 
+              {/* {(data.length === 0 && !apiKey ) &&  */}
+              <div className={styles.profile__buttons_wrap}>
+                {/* <Button onClick={onClickCopy} disabled={!apiKey}>Copy</Button> */}
+                <Button
+                  href='https://archon-backend.sfxdx.com/swagger/api/'
+                >
+                  API Docs
+                </Button>
                 {/* in this case when we can generate only one api key */}
                 {/* {!apiKey && */}
+                {(data.length === 0 && !apiKey ) && 
                 <Button
                   onClick={onClickGenerate}
                   isLoading={isLoading || statusGetKey === RequestStatus.REQUEST}
@@ -144,10 +151,11 @@ export const ProfileApiKey = () => {
                 >
                   Generate
                 </Button> 
-                {/* } */}
+                
+                } 
 
                 {/* <Button onClick={showRevokeAPIKey} disabled={!apiKey}>Revoke</Button> */}
-              </div>}
+              </div>
             </div>
             <div className={styles.api__container_add_content}>
               <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
